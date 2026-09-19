@@ -117,8 +117,10 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
     private void loadCurrentLevel() {
         isGameOverOrWon = false;
         wasBackgrounded = false;
+        binding.bubbleGameView.setBiomeLevel(currentLevelNumber);
+        BubbleGameView.BiomeTheme theme = binding.bubbleGameView.getCurrentBiome();
+        binding.tvLevelTitle.setText("LVL " + currentLevelNumber + " • " + (theme != null ? theme.title : ""));
         Level level = levelManager.getLevel(currentLevelNumber);
-        binding.tvLevelTitle.setText("LEVEL " + currentLevelNumber);
         gameEngine.loadLevel(level);
     }
 
