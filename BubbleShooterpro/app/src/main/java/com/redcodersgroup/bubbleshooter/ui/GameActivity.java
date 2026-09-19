@@ -28,6 +28,9 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
     private LevelManager levelManager;
 
     private int currentLevelNumber = 1;
+    private int currentStarsCount = 0;
+    private int[] currentStarThresholds = new int[]{1000, 2000, 3000};
+    private android.animation.ValueAnimator progressAnimator;
     private PauseDialog activePauseDialog;
     private VictoryDialog activeVictoryDialog;
     private GameOverDialog activeGameOverDialog;
@@ -58,6 +61,12 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
 
     private void initViews() {
         binding.btnPause.setOnClickListener(v -> showPauseDialog());
+
+        binding.layoutStarProgressTrack.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if ((right - left) != (oldRight - oldLeft)) {
+                positionStarNodes();
+            }
+        });
 
         binding.btnBoosterRainbow.setOnClickListener(v -> {
             playBoosterTapFeedback(binding.layoutBoosterRainbow);
@@ -121,7 +130,54 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         BubbleGameView.BiomeTheme theme = binding.bubbleGameView.getCurrentBiome();
         binding.tvLevelTitle.setText("LVL " + currentLevelNumber + " • " + (theme != null ? theme.title : ""));
         Level level = levelManager.getLevel(currentLevelNumber);
+        currentStarsCount = 0;
+        resetStarProgressNodes(level);
         gameEngine.loadLevel(level);
+    }
+
+    private void resetStarProgressNodes(Level level) {
+        if (progressAnimator != null) {
+            progressAnimator.cancel();
+        }
+        binding.pbStarProgress.setProgress(0);
+        binding.tvScore.setText("SCORE: 0");
+
+        binding.hudStarNode1.setBackgroundResource(R.drawable.bg_hud_star_node);
+        binding.hudStarNode2.setBackgroundResource(R.drawable.bg_hud_star_node);
+        binding.hudStarNode3.setBackgroundResource(R.drawable.bg_hud_star_node);
+
+        binding.hudStar1.setImageResource(R.drawable.ic_star_empty);
+        binding.hudStar2.setImageResource(R.drawable.ic_star_empty);
+        binding.hudStar3.setImageResource(R.drawable.ic_star_empty);
+
+        binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_green);
+
+        if (level != null && level.getStarThresholds() != null && level.getStarThresholds().length >= 3) {
+            currentStarThresholds = level.getStarThresholds();
+        }
+
+        binding.layoutStarProgressTrack.post(this::positionStarNodes);
+    }
+
+    private void positionStarNodes() {
+        int width = binding.layoutStarProgressTrack.getWidth();
+        if (width <= 0) return;
+
+        int maxThreshold = Math.max(1, currentStarThresholds[2]);
+        float ratio1 = Math.max(0.1f, Math.min(0.85f, (float) currentStarThresholds[0] / maxThreshold));
+        float ratio2 = Math.max(ratio1 + 0.1f, Math.min(0.92f, (float) currentStarThresholds[1] / maxThreshold));
+
+        int node1W = binding.hudStarNode1.getWidth();
+        int node2W = binding.hudStarNode2.getWidth();
+        int node3W = binding.hudStarNode3.getWidth();
+
+        float x1 = Math.max(0, ratio1 * width - node1W / 2f);
+        float x2 = Math.max(0, ratio2 * width - node2W / 2f);
+        float x3 = Math.max(0, width - node3W);
+
+        binding.hudStarNode1.setTranslationX(x1);
+        binding.hudStarNode2.setTranslationX(x2);
+        binding.hudStarNode3.setTranslationX(x3);
     }
 
     private void showPauseDialog() {
@@ -166,10 +222,59 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
             binding.tvScore.setText("SCORE: " + String.format("%,d", score));
-            binding.hudStar1.setImageResource(stars >= 1 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
-            binding.hudStar2.setImageResource(stars >= 2 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
-            binding.hudStar3.setImageResource(stars >= 3 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
+
+            int targetProgress = Math.min(1000, (int) (starProgress * 1000f));
+            if (progressAnimator != null && progressAnimator.isRunning()) {
+                progressAnimator.cancel();
+            }
+            progressAnimator = android.animation.ObjectAnimator.ofInt(binding.pbStarProgress, "progress", binding.pbStarProgress.getProgress(), targetProgress);
+            progressAnimator.setDuration(280);
+            progressAnimator.setInterpolator(new android.view.animation.DecelerateInterpolator());
+            progressAnimator.start();
+
+            if (stars > currentStarsCount) {
+                for (int s = currentStarsCount + 1; s <= stars; s++) {
+                    activateStarNode(s);
+                }
+                currentStarsCount = stars;
+            }
         });
+    }
+
+    private void activateStarNode(int starIndex) {
+        View nodeView;
+        android.widget.ImageView starImg;
+        if (starIndex == 1) {
+            nodeView = binding.hudStarNode1;
+            starImg = binding.hudStar1;
+        } else if (starIndex == 2) {
+            nodeView = binding.hudStarNode2;
+            starImg = binding.hudStar2;
+        } else if (starIndex == 3) {
+            nodeView = binding.hudStarNode3;
+            starImg = binding.hudStar3;
+        } else {
+            return;
+        }
+
+        nodeView.setBackgroundResource(R.drawable.bg_hud_star_node_active);
+        starImg.setImageResource(R.drawable.ic_star_filled);
+
+        nodeView.setScaleX(0.4f);
+        nodeView.setScaleY(0.4f);
+        nodeView.animate()
+                .scaleX(1.35f)
+                .scaleY(1.35f)
+                .setDuration(220)
+                .setInterpolator(new android.view.animation.OvershootInterpolator(2.5f))
+                .withEndAction(() -> {
+                    nodeView.animate()
+                            .scaleX(1.0f)
+                            .scaleY(1.0f)
+                            .setDuration(120)
+                            .start();
+                })
+                .start();
     }
 
     @Override
@@ -177,6 +282,19 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
             binding.tvShotsCount.setText(String.valueOf(shotsRemaining));
+            if (shotsRemaining <= 5) {
+                binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_red);
+                binding.layoutShots.animate().cancel();
+                binding.layoutShots.setScaleX(1.15f);
+                binding.layoutShots.setScaleY(1.15f);
+                binding.layoutShots.animate()
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(200)
+                        .start();
+            } else {
+                binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_green);
+            }
         });
     }
 
@@ -299,6 +417,10 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (progressAnimator != null) {
+            progressAnimator.cancel();
+            progressAnimator = null;
+        }
         if (activePauseDialog != null && activePauseDialog.isShowing()) {
             activePauseDialog.dismiss();
             activePauseDialog = null;

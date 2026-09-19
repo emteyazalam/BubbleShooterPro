@@ -32,67 +32,124 @@
             android:src="@drawable/btn_pause_yellow"
             android:contentDescription="Pause" />
 
-        <!-- Level and Score Info -->
+        <!-- Star Stage Progress and Level/Score Info -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/btnPause"
             android:layout_toStartOf="@+id/layoutShots"
             android:layout_centerVertical="true"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
 
-            <TextView
-                android:id="@+id/tvLevelTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LEVEL 1"
-                android:textColor="#FFFFFF"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:shadowColor="#80000000"
-                android:shadowDx="1"
-                android:shadowDy="2"
-                android:shadowRadius="4" />
-
-            <TextView
-                android:id="@+id/tvScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SCORE: 0"
-                android:textColor="@color/accent_yellow"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <!-- 3 Mini Stars in HUD -->
+            <!-- Top Row: Level Badge Pill + Score -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="2dp">
+                android:gravity="center_vertical">
 
-                <ImageView
-                    android:id="@+id/hudStar1"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@drawable/ic_star_empty" />
+                <TextView
+                    android:id="@+id/tvLevelTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_level_pill"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="LVL 1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05" />
 
-                <ImageView
-                    android:id="@+id/hudStar2"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_marginStart="2dp"
-                    android:src="@drawable/ic_star_empty" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
-                <ImageView
-                    android:id="@+id/hudStar3"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_marginStart="2dp"
-                    android:src="@drawable/ic_star_empty" />
+                <TextView
+                    android:id="@+id/tvScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SCORE: 0"
+                    android:textColor="@color/accent_yellow"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
             </LinearLayout>
+
+            <!-- Bottom Row: Star Stage Progress Bar Track + 3 Milestone Nodes -->
+            <FrameLayout
+                android:id="@+id/layoutStarProgressTrack"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginTop="3dp">
+
+                <ProgressBar
+                    android:id="@+id/pbStarProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:max="1000"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/progress_star_stage_track" />
+
+                <!-- Milestone Node 1 -->
+                <FrameLayout
+                    android:id="@+id/hudStarNode1"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:background="@drawable/bg_hud_star_node">
+
+                    <ImageView
+                        android:id="@+id/hudStar1"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_star_empty" />
+                </FrameLayout>
+
+                <!-- Milestone Node 2 -->
+                <FrameLayout
+                    android:id="@+id/hudStarNode2"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:background="@drawable/bg_hud_star_node">
+
+                    <ImageView
+                        android:id="@+id/hudStar2"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_star_empty" />
+                </FrameLayout>
+
+                <!-- Milestone Node 3 -->
+                <FrameLayout
+                    android:id="@+id/hudStarNode3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:background="@drawable/bg_hud_star_node">
+
+                    <ImageView
+                        android:id="@+id/hudStar3"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_star_empty" />
+                </FrameLayout>
+            </FrameLayout>
         </LinearLayout>
 
         <!-- Shots Remaining Badge -->
