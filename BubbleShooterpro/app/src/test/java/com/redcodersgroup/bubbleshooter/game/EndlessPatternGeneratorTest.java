@@ -56,4 +56,23 @@ public class EndlessPatternGeneratorTest {
         // 5 rows populated: (9 + 8 + 9 + 8 + 9) = 43 bubbles
         assertEquals(43, grid.getBubbleCount());
     }
+
+    @Test
+    public void testGenerateMultiRowChunk() {
+        Random random = new Random(99);
+        List<BubbleColor> colors = EndlessPatternGenerator.getActiveColors(1, null);
+        List<List<Bubble>> chunk = EndlessPatternGenerator.generateMultiRowChunk(1, 0, 3, colors, random);
+
+        assertEquals(3, chunk.size());
+        assertEquals(BubbleGrid.COLS_EVEN, chunk.get(0).size()); // row 0 has 9
+        assertEquals(BubbleGrid.COLS_ODD, chunk.get(1).size());  // row 1 has 8
+        assertEquals(BubbleGrid.COLS_EVEN, chunk.get(2).size()); // row 2 has 9
+
+        for (List<Bubble> row : chunk) {
+            for (Bubble b : row) {
+                assertNotNull(b);
+                assertNotNull(b.getColor());
+            }
+        }
+    }
 }

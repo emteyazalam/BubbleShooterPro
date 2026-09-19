@@ -135,6 +135,108 @@ public class EndlessPatternGenerator {
     }
 
     /**
+     * Pre-generates a coherent 2-3 row chunk with 2D vertical & diagonal pattern continuity.
+     */
+    public static List<List<Bubble>> generateMultiRowChunk(int waveCount, int startParity, int numRows, List<BubbleColor> activeColors, Random random) {
+        if (activeColors == null || activeColors.isEmpty()) {
+            activeColors = getActiveColors(waveCount, null);
+        }
+
+        List<List<Bubble>> chunk = new ArrayList<>(numRows);
+        int currentParity = startParity;
+        int motif = random.nextInt(4);
+
+        if (motif == 0) {
+            // Motif 1: 2D Vertical Connected Color Blobs (2-3 row color clusters)
+            BubbleColor col1 = activeColors.get(random.nextInt(activeColors.size()));
+            BubbleColor col2 = activeColors.get((activeColors.indexOf(col1) + 1) % activeColors.size());
+            BubbleColor col3 = (activeColors.size() > 2)
+                    ? activeColors.get((activeColors.indexOf(col2) + 1) % activeColors.size())
+                    : col1;
+
+            for (int r = 0; r < numRows; r++) {
+                int cols = (currentParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+                BubbleColor[] rowColors = new BubbleColor[cols];
+                int third = Math.max(1, cols / 3);
+                for (int c = 0; c < cols; c++) {
+                    if (c < third) {
+                        rowColors[c] = col1;
+                    } else if (c < third * 2) {
+                        rowColors[c] = col2;
+                    } else {
+                        rowColors[c] = col3;
+                    }
+                }
+
+                BubbleType[] rowTypes = new BubbleType[cols];
+                Arrays.fill(rowTypes, BubbleType.NORMAL);
+                if (r == numRows / 2 && random.nextInt(100) < 16) {
+                    int mid = cols / 2;
+                    rowTypes[mid] = random.nextBoolean() ? BubbleType.BOMB : BubbleType.RAINBOW;
+                    rowColors[mid] = (rowTypes[mid] == BubbleType.BOMB) ? BubbleColor.BOMB : BubbleColor.RAINBOW;
+                }
+
+                List<Bubble> row = new ArrayList<>(cols);
+                for (int c = 0; c < cols; c++) {
+                    row.add(new Bubble(rowColors[c], rowTypes[c], new GridPosition(0, c)));
+                }
+                chunk.add(row);
+                currentParity ^= 1;
+            }
+        } else if (motif == 1) {
+            // Motif 2: Diagonal Striped Ribbons across rows
+            BubbleColor colorA = activeColors.get(random.nextInt(activeColors.size()));
+            BubbleColor colorB = activeColors.get(random.nextInt(activeColors.size()));
+            if (colorB == colorA && activeColors.size() > 1) {
+                colorB = activeColors.get((activeColors.indexOf(colorA) + 1) % activeColors.size());
+            }
+
+            for (int r = 0; r < numRows; r++) {
+                int cols = (currentParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+                List<Bubble> row = new ArrayList<>(cols);
+                for (int c = 0; c < cols; c++) {
+                    BubbleColor col = (((c + r) / 2) % 2 == 0) ? colorA : colorB;
+                    row.add(new Bubble(col, BubbleType.NORMAL, new GridPosition(0, c)));
+                }
+                chunk.add(row);
+                currentParity ^= 1;
+            }
+        } else if (motif == 2) {
+            // Motif 3: Symmetrical Concentric Arcs across rows
+            BubbleColor outer = activeColors.get(random.nextInt(activeColors.size()));
+            BubbleColor inner = activeColors.get((activeColors.indexOf(outer) + 1) % activeColors.size());
+
+            for (int r = 0; r < numRows; r++) {
+                int cols = (currentParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+                List<Bubble> row = new ArrayList<>(cols);
+                int border = Math.max(1, 2 - r);
+                for (int c = 0; c < cols; c++) {
+                    boolean isOuter = (c < border || c >= (cols - border));
+                    BubbleColor col = isOuter ? outer : inner;
+                    BubbleType type = BubbleType.NORMAL;
+                    if (!isOuter && r == numRows - 1 && c == cols / 2 && random.nextInt(100) < 20) {
+                        type = BubbleType.BOMB;
+                        col = BubbleColor.BOMB;
+                    }
+                    row.add(new Bubble(col, type, new GridPosition(0, c)));
+                }
+                chunk.add(row);
+                currentParity ^= 1;
+            }
+        } else {
+            // Motif 4: Harmonious Cluster Runs
+            for (int r = 0; r < numRows; r++) {
+                int cols = (currentParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+                List<Bubble> row = generateRow(waveCount + r, cols, currentParity, activeColors, random);
+                chunk.add(row);
+                currentParity ^= 1;
+            }
+        }
+
+        return chunk;
+    }
+
+    /**
      * Populates the starting board with structured, satisfying puzzle rows.
      */
     public static void populateInitialBoard(BubbleGrid grid, int rowCount, List<BubbleColor> activeColors, Random random) {
@@ -143,10 +245,11 @@ public class EndlessPatternGenerator {
             activeColors = getActiveColors(1, null);
         }
 
-        for (int r = 0; r < rowCount; r++) {
+        List<List<Bubble>> initialChunk = generateMultiRowChunk(1, 0, rowCount, activeColors, random);
+        for (int r = 0; r < initialChunk.size() && r < rowCount; r++) {
+            List<Bubble> rowBubbles = initialChunk.get(r);
             int cols = grid.getCols(r);
-            List<Bubble> rowBubbles = generateRow(1, cols, grid.getRowParity(), activeColors, random);
-            for (int c = 0; c < cols; c++) {
+            for (int c = 0; c < rowBubbles.size() && c < cols; c++) {
                 Bubble b = rowBubbles.get(c);
                 b.setGridPosition(new GridPosition(r, c));
                 grid.setBubble(r, c, b);

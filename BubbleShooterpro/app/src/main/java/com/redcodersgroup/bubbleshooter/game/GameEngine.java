@@ -81,6 +81,7 @@ public class GameEngine {
     private int endlessWaveCount = 1;
     private int endlessHighScore = 0;
     private List<BubbleColor> endlessColorsPool = new ArrayList<>();
+    private final java.util.LinkedList<List<Bubble>> pregeneratedRowQueue = new java.util.LinkedList<>();
 
     private final List<Bubble> poppingBubbles = new ArrayList<>();
     private final List<Bubble> fallingBubbles = new ArrayList<>();
@@ -303,6 +304,18 @@ public class GameEngine {
         List<BubbleColor> activeColors = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
         EndlessPatternGenerator.populateInitialBoard(this.grid, 5, activeColors, random);
 
+        // Pre-generate the next 3 rows so they are immediately buffered for smooth streaming
+        this.pregeneratedRowQueue.clear();
+        int nextParity = grid.getRowParity() ^ 1;
+        List<List<Bubble>> initialUpcoming = EndlessPatternGenerator.generateMultiRowChunk(
+                endlessWaveCount + 1,
+                nextParity,
+                3,
+                activeColors,
+                random
+        );
+        this.pregeneratedRowQueue.addAll(initialUpcoming);
+
         // Initialize launcher bubbles
         this.currentBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
         this.currentBubble.setX(launcherX);
@@ -327,10 +340,23 @@ public class GameEngine {
     }
 
     private List<Bubble> generateEndlessRow() {
-        int nextParity = grid.getRowParity() ^ 1;
-        int cols = (nextParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
-        List<BubbleColor> activeColors = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
-        return EndlessPatternGenerator.generateRow(endlessWaveCount, cols, nextParity, activeColors, random);
+        if (pregeneratedRowQueue.size() < 2) {
+            int nextParity = grid.getRowParity() ^ 1;
+            if (!pregeneratedRowQueue.isEmpty()) {
+                nextParity ^= (pregeneratedRowQueue.size() % 2);
+            }
+            List<BubbleColor> activeColors = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
+            List<List<Bubble>> nextChunk = EndlessPatternGenerator.generateMultiRowChunk(
+                    endlessWaveCount + pregeneratedRowQueue.size() + 1,
+                    nextParity,
+                    3,
+                    activeColors,
+                    random
+            );
+            pregeneratedRowQueue.addAll(nextChunk);
+        }
+
+        return pregeneratedRowQueue.pollFirst();
     }
 
     private BubbleColor pickRandomColor() {
