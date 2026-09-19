@@ -82,6 +82,16 @@ public class GameEngine {
     private float reloadTimer = 0f;
     private static final float RELOAD_DURATION = 0.22f;
 
+    // Launcher swap jump animation
+    private boolean isSwapping = false;
+    private float swapTimer = 0f;
+    private static final float SWAP_DURATION = 0.20f;
+
+    // Booster mod equip pop & jump animation
+    private boolean isBoosterEquipping = false;
+    private float boosterEquipTimer = 0f;
+    private static final float BOOSTER_EQUIP_DURATION = 0.22f;
+
     public GameEngine(Context context) {
         this.context = context.getApplicationContext();
         this.soundManager = SoundManager.getInstance(context);
@@ -238,18 +248,11 @@ public class GameEngine {
         if (state != GameState.READY && state != GameState.AIMING) return;
         if (currentBubble == null || nextBubble == null) return;
 
-        if (isLauncherReloading) {
-            isLauncherReloading = false;
-            currentBubble.setX(launcherX);
-            currentBubble.setY(launcherY);
-            currentBubble.setScale(1.0f);
-            currentBubble.setAlpha(1.0f);
-            nextBubble.setX(previewX);
-            nextBubble.setY(previewY);
-            nextBubble.setScale(1.0f);
-            nextBubble.setAlpha(1.0f);
-        }
+        // Cancel other animations
+        isLauncherReloading = false;
+        isBoosterEquipping = false;
 
+        // Swap logical colors and types
         BubbleColor tempColor = currentBubble.getColor();
         BubbleType tempType = currentBubble.getType();
 
@@ -259,20 +262,21 @@ public class GameEngine {
         nextBubble.setColor(tempColor);
         nextBubble.setType(tempType);
 
+        // Start swap jump animation:
+        isSwapping = true;
+        swapTimer = 0f;
+
         soundManager.playClick();
+        updateTrajectory();
     }
 
     public void equipBooster(BubbleType type) {
         if (state != GameState.READY && state != GameState.AIMING) return;
         if (currentBubble == null) return;
 
-        if (isLauncherReloading) {
-            isLauncherReloading = false;
-            currentBubble.setX(launcherX);
-            currentBubble.setY(launcherY);
-            currentBubble.setScale(1.0f);
-            currentBubble.setAlpha(1.0f);
-        }
+        // Cancel other animations
+        isLauncherReloading = false;
+        isSwapping = false;
 
         currentBubble.setType(type);
         if (type == BubbleType.BOMB) {
@@ -284,7 +288,17 @@ public class GameEngine {
         } else if (type == BubbleType.FIREBALL) {
             currentBubble.setColor(BubbleColor.FIREBALL);
         }
+
+        // Start booster mod equip jump & pop animation
+        isBoosterEquipping = true;
+        boosterEquipTimer = 0f;
+
+        // Sparkle burst particles around launcher base
+        int particleColor = currentBubble.getColor().primaryColor;
+        confettiSystem.spawnPopParticles(launcherX, launcherY, particleColor, 12);
+
         soundManager.playClick();
+        updateTrajectory();
     }
 
     public void onTouchDown(float touchX, float touchY) {
@@ -379,6 +393,23 @@ public class GameEngine {
     private void shoot() {
         if (currentBubble == null || shotsRemaining <= 0) return;
 
+        // Finish any active swap or booster animation immediately
+        if (isSwapping) {
+            isSwapping = false;
+            currentBubble.setX(launcherX);
+            currentBubble.setY(launcherY);
+            currentBubble.setScale(1.0f);
+            nextBubble.setX(previewX);
+            nextBubble.setY(previewY);
+            nextBubble.setScale(1.0f);
+        }
+        if (isBoosterEquipping) {
+            isBoosterEquipping = false;
+            currentBubble.setX(launcherX);
+            currentBubble.setY(launcherY);
+            currentBubble.setScale(1.0f);
+        }
+
         state = GameState.SHOOTING;
         activeProjectile = new BubbleProjectile(currentBubble.getColor(), currentBubble.getType(), bubbleRadius);
         float dirX = (float) Math.cos(aimAngleRad);
@@ -458,6 +489,84 @@ public class GameEngine {
                     nextBubble.setY(previewY);
                     nextBubble.setScale(1.0f);
                     nextBubble.setAlpha(1.0f);
+                }
+            }
+        }
+
+        // 0.1 Update launcher swap jump animation
+        if (isSwapping) {
+            swapTimer += dt;
+            float t = Math.min(1.0f, swapTimer / SWAP_DURATION);
+
+            // currentBubble hops OVER top from preview to launcher
+            float hopUp = (float) Math.sin(t * Math.PI) * (bubbleRadius * 0.65f);
+            float curX = previewX + (launcherX - previewX) * t;
+            float curY = previewY + (launcherY - previewY) * t - hopUp;
+            float curScale = 0.75f + 0.25f * t;
+
+            if (currentBubble != null) {
+                currentBubble.setX(curX);
+                currentBubble.setY(curY);
+                currentBubble.setScale(curScale);
+                currentBubble.setAlpha(1.0f);
+            }
+
+            // nextBubble dips UNDER from launcher to preview
+            float dipDown = (float) Math.sin(t * Math.PI) * (bubbleRadius * 0.45f);
+            float nxtX = launcherX + (previewX - launcherX) * t;
+            float nxtY = launcherY + (previewY - launcherY) * t + dipDown;
+            float nxtScale = 1.333f - 0.333f * t;
+
+            if (nextBubble != null) {
+                nextBubble.setX(nxtX);
+                nextBubble.setY(nxtY);
+                nextBubble.setScale(nxtScale);
+                nextBubble.setAlpha(1.0f);
+            }
+
+            if (t >= 1.0f) {
+                isSwapping = false;
+                if (currentBubble != null) {
+                    currentBubble.setX(launcherX);
+                    currentBubble.setY(launcherY);
+                    currentBubble.setScale(1.0f);
+                    currentBubble.setAlpha(1.0f);
+                }
+                if (nextBubble != null) {
+                    nextBubble.setX(previewX);
+                    nextBubble.setY(previewY);
+                    nextBubble.setScale(1.0f);
+                    nextBubble.setAlpha(1.0f);
+                }
+            }
+        }
+
+        // 0.2 Update booster mod equip pop & jump animation
+        if (isBoosterEquipping) {
+            boosterEquipTimer += dt;
+            float t = Math.min(1.0f, boosterEquipTimer / BOOSTER_EQUIP_DURATION);
+
+            // Elastic pop scale: 0.3 -> 1.25 -> 1.0
+            float hop = (float) Math.sin(t * Math.PI) * (bubbleRadius * 0.45f);
+            float curY = launcherY - hop;
+            float p = t - 1.0f;
+            float scale = (p * p * (2.4f * p + 1.4f) + 1.0f);
+            scale = Math.max(0.3f, scale);
+
+            if (currentBubble != null) {
+                currentBubble.setX(launcherX);
+                currentBubble.setY(curY);
+                currentBubble.setScale(scale);
+                currentBubble.setAlpha(Math.min(1.0f, t * 3.0f));
+            }
+
+            if (t >= 1.0f) {
+                isBoosterEquipping = false;
+                if (currentBubble != null) {
+                    currentBubble.setX(launcherX);
+                    currentBubble.setY(launcherY);
+                    currentBubble.setScale(1.0f);
+                    currentBubble.setAlpha(1.0f);
                 }
             }
         }
