@@ -295,7 +295,7 @@ public class BubbleGameView extends View {
         }
 
         // 3. Draw Biome Ceiling & Gold Accent Rail (Cleanly positioned under top HUD)
-        float topY = (gameEngine != null) ? gameEngine.getBoardTop() : (68f * getResources().getDisplayMetrics().density);
+        float topY = (gameEngine != null) ? gameEngine.getBoardTop() : (92f * getResources().getDisplayMetrics().density);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(currentBiome.ceilingColor);
         canvas.drawRect(0, 0, getWidth(), topY, paint);
@@ -306,6 +306,26 @@ public class BubbleGameView extends View {
         paint.setStyle(Paint.Style.STROKE);
         canvas.drawLine(0, topY, getWidth(), topY, paint);
         paint.setStyle(Paint.Style.FILL);
+
+        // 3.5 Tablet & Wide Screen Boundaries (Elegant side rails and vignette framing)
+        if (gameEngine != null && gameEngine.getBoardLeft() > 0) {
+            float bLeft = gameEngine.getBoardLeft();
+            float bRight = gameEngine.getBoardRight();
+
+            // Side pillar subtle vignette shade
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(Color.argb(75, 0, 0, 0));
+            canvas.drawRect(0, topY, bLeft, getHeight(), paint);
+            canvas.drawRect(bRight, topY, getWidth(), getHeight(), paint);
+
+            // Left and Right boundary accent rails
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(4.5f);
+            paint.setColor(currentBiome.railColor);
+            canvas.drawLine(bLeft, topY, bLeft, getHeight(), paint);
+            canvas.drawLine(bRight, topY, bRight, getHeight(), paint);
+            paint.setStyle(Paint.Style.FILL);
+        }
 
         // 4. Update and Draw Game Engine
         if (gameEngine != null) {

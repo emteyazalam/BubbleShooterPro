@@ -4,7 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import com.redcodersgroup.bubbleshooter.R;
 import com.redcodersgroup.bubbleshooter.bubble.BubbleType;
 import com.redcodersgroup.bubbleshooter.data.PreferencesManager;
@@ -61,6 +65,28 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
 
     private void initViews() {
         binding.btnPause.setOnClickListener(v -> showPauseDialog());
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.topHud, (v, insets) -> {
+            Insets cutoutOrStatusInsets = insets.getInsets(
+                    WindowInsetsCompat.Type.displayCutout() | WindowInsetsCompat.Type.statusBars()
+            );
+            float density = getResources().getDisplayMetrics().density;
+            int defaultPadTop = (int) (32 * density);
+            int safeTop = Math.max(defaultPadTop, cutoutOrStatusInsets.top + (int) (6 * density));
+            int padBottom = (int) (8 * density);
+            int padStart = (int) (12 * density) + cutoutOrStatusInsets.left;
+            int padEnd = (int) (12 * density) + cutoutOrStatusInsets.right;
+
+            binding.topHud.setPadding(padStart, safeTop, padEnd, padBottom);
+            return insets;
+        });
+
+        binding.topHud.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            int hudHeight = bottom - top;
+            if (hudHeight > 0 && gameEngine != null) {
+                gameEngine.setTopMargin(hudHeight + (4 * getResources().getDisplayMetrics().density));
+            }
+        });
 
         binding.layoutStarProgressTrack.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
             if ((right - left) != (oldRight - oldLeft)) {

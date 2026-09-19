@@ -112,23 +112,45 @@ public class GameEngine {
         Bubble.initResources(this.context);
     }
 
+    private float customTopMargin = -1f;
+    private int lastViewWidth = 0;
+    private int lastViewHeight = 0;
+
     public void setEventListener(GameEventListener listener) {
         this.listener = listener;
     }
 
+    public void setTopMargin(float topMarginPx) {
+        this.customTopMargin = topMarginPx;
+        if (lastViewWidth > 0 && lastViewHeight > 0) {
+            setViewBounds(lastViewWidth, lastViewHeight);
+        }
+    }
+
     public void setViewBounds(int width, int height) {
+        this.lastViewWidth = width;
+        this.lastViewHeight = height;
+
         float density = context.getResources().getDisplayMetrics().density;
-        float topMargin = 68f * density; // Clear top HUD overlay cleanly
-        this.boardLeft = 0f;
-        this.boardRight = width;
+        float topMargin = (customTopMargin > 0) ? customTopMargin : (92f * density);
+
+        // Tablet & wide screen optimization:
+        // On phones (aspect ratio 9:16 to 9:21), board spans the full width.
+        // On tablets / wide screens (4:3, 16:10 or landscape), constrain playfield board width
+        // so bubbles maintain ideal crisp proportions and avoid taking over the entire screen.
+        float maxBoardWidth = Math.min(width, Math.min(height * 0.62f, 560f * density));
+        float boardWidth = Math.min(width, maxBoardWidth);
+
+        this.boardLeft = (width - boardWidth) / 2.0f;
+        this.boardRight = this.boardLeft + boardWidth;
         this.boardTop = topMargin;
         this.boardBottom = height;
 
-        // 8 bubbles across on even row: width = 8 * 2 * radius = 16 * radius
-        this.bubbleRadius = width / (BubbleGrid.COLS_EVEN * 2.0f);
+        // 9 bubbles across on even row: boardWidth = 9 * 2 * radius = 18 * radius
+        this.bubbleRadius = boardWidth / (BubbleGrid.COLS_EVEN * 2.0f);
         this.grid.setDimensions(boardLeft, boardTop, bubbleRadius);
 
-        this.launcherX = width * 0.5f;
+        this.launcherX = boardLeft + (boardWidth * 0.5f);
         this.launcherY = height - (130f * density); // Elevated ~50-60dp above bottom booster bar
         this.previewX = launcherX - (bubbleRadius * 2.85f);
         this.previewY = launcherY + (bubbleRadius * 0.15f);
@@ -156,6 +178,18 @@ public class GameEngine {
 
     public float getBoardTop() {
         return boardTop;
+    }
+
+    public float getBoardLeft() {
+        return boardLeft;
+    }
+
+    public float getBoardRight() {
+        return boardRight;
+    }
+
+    public float getBubbleRadius() {
+        return bubbleRadius;
     }
 
     public void loadLevel(Level level) {
@@ -915,14 +949,14 @@ public class GameEngine {
             paint.setColor(Color.parseColor("#FF1744"));
             paint.setAlpha((int) (pulse * 85));
             paint.setStrokeWidth(bubbleRadius * 0.38f);
-            canvas.drawLine(0, deadlineY, boardRight, deadlineY, paint);
+            canvas.drawLine(boardLeft, deadlineY, boardRight, deadlineY, paint);
 
             // Dashed Danger Line
             paint.setPathEffect(dangerDashEffect != null ? dangerDashEffect : new DashPathEffect(new float[]{18f, 8f}, 0));
             paint.setColor(Color.parseColor("#FF5252"));
             paint.setAlpha((int) (160 + pulse * 95));
             paint.setStrokeWidth(4.5f);
-            canvas.drawLine(0, deadlineY, boardRight, deadlineY, paint);
+            canvas.drawLine(boardLeft, deadlineY, boardRight, deadlineY, paint);
             paint.setPathEffect(null);
 
             // Small pulsing Danger Tag
@@ -931,14 +965,14 @@ public class GameEngine {
             paint.setAlpha((int) (180 + pulse * 75));
             paint.setTextSize(bubbleRadius * 0.34f);
             paint.setTextAlign(Paint.Align.CENTER);
-            canvas.drawText("⚠ DANGER LINE", boardRight * 0.5f, deadlineY - 8f, paint);
+            canvas.drawText("⚠ DANGER LINE", (boardLeft + boardRight) * 0.5f, deadlineY - 8f, paint);
         } else {
             // Calm subtle dashed guideline
             paint.setPathEffect(normalDashEffect != null ? normalDashEffect : new DashPathEffect(new float[]{16f, 12f}, 0));
             paint.setColor(Color.WHITE);
             paint.setAlpha(45);
             paint.setStrokeWidth(2.5f);
-            canvas.drawLine(0, deadlineY, boardRight, deadlineY, paint);
+            canvas.drawLine(boardLeft, deadlineY, boardRight, deadlineY, paint);
             paint.setPathEffect(null);
         }
 

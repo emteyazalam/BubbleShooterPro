@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:paddingStart="14dp"
         android:paddingEnd="14dp"
-        android:paddingTop="28dp"
+        android:paddingTop="38dp"
         android:paddingBottom="16dp">
 
         <!-- 1. Top Profile & Currencies Header -->

@@ -10,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Top HUD Overlay (Cleanly positioned above ceiling line) -->
+    <!-- Top HUD Overlay (Cleanly positioned above ceiling line with camera cutout safe padding) -->
     <RelativeLayout
         android:id="@+id/topHud"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp">
+        android:paddingTop="36dp"
+        android:paddingBottom="8dp">
 
         <!-- Pause Button -->
         <ImageButton

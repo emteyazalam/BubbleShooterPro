@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NeighborCalculator {
-    public static final int COLS_EVEN = 8;
-    public static final int COLS_ODD = 7;
+    public static final int COLS_EVEN = 9;
+    public static final int COLS_ODD = 8;
     public static final int MAX_ROWS = 24;
 
     public static boolean isValidPosition(int row, int col) {

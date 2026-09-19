@@ -95,10 +95,11 @@ public class LevelLoader {
     public static Level createFallbackLevel(int levelNumber) {
         List<BubbleColor> colors = Arrays.asList(BubbleColor.RED, BubbleColor.BLUE, BubbleColor.GREEN, BubbleColor.YELLOW);
         List<String> rows = new ArrayList<>();
+        rows.add("RRBBYYGGR");
         rows.add("RRBBYYGG");
-        rows.add("RRBBYYG");
+        rows.add("BBYYGGRRB");
         rows.add("BBYYGGRR");
-        rows.add("BBYYGGR");
+        rows.add("YYGGRRBBY");
         rows.add("YYGGRRBB");
 
         return new Level(
