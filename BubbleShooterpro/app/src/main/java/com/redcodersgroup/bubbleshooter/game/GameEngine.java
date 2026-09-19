@@ -788,7 +788,7 @@ public class GameEngine {
     }
 
     public void draw(Canvas canvas, Paint paint) {
-        // 1. Draw Shining Colored Laser Trajectory Line (ONLY when actively AIMING and not cancelled)
+        // 1. Draw Bold Shining Colored Laser Trajectory Line (ONLY when actively AIMING and not cancelled)
         if (state == GameState.AIMING && !isAimCancelled && trajectoryPoints != null && !trajectoryPoints.isEmpty()) {
             laserPath.rewind();
             laserPath.moveTo(launcherX, launcherY);
@@ -803,35 +803,25 @@ public class GameEngine {
             paint.setStrokeCap(Paint.Cap.ROUND);
             paint.setStrokeJoin(Paint.Join.ROUND);
 
-            // Layer 1: Soft Shining Outer Glow / Shadow
+            // Layer 1: Broad Shining Outer Glow / Shadow
             paint.setColor(glowColor);
-            paint.setAlpha(65);
-            paint.setStrokeWidth(bubbleRadius * 0.26f);
+            paint.setAlpha(70);
+            paint.setStrokeWidth(bubbleRadius * 0.48f);
             canvas.drawPath(laserPath, paint);
 
-            // Layer 2: Vibrant Colored Laser Line
+            // Layer 2: Bold Colored Laser Line
             paint.setColor(laserColor);
-            paint.setAlpha(220);
-            paint.setStrokeWidth(bubbleRadius * 0.11f);
+            paint.setAlpha(230);
+            paint.setStrokeWidth(bubbleRadius * 0.22f);
             canvas.drawPath(laserPath, paint);
 
-            // Layer 3: Shiny White Core Beam
+            // Layer 3: Intense White Core Beam
             paint.setColor(Color.WHITE);
-            paint.setAlpha(245);
-            paint.setStrokeWidth(bubbleRadius * 0.045f);
+            paint.setAlpha(255);
+            paint.setStrokeWidth(bubbleRadius * 0.09f);
             canvas.drawPath(laserPath, paint);
-
-            // Target Impact Endpoint Reticle
-            PointF endPt = trajectoryPoints.get(trajectoryPoints.size() - 1);
-            paint.setColor(laserColor);
-            paint.setAlpha(190);
-            paint.setStrokeWidth(bubbleRadius * 0.06f);
-            canvas.drawCircle(endPt.x, endPt.y, bubbleRadius * 0.40f, paint);
 
             paint.setStyle(Paint.Style.FILL);
-            paint.setColor(Color.WHITE);
-            paint.setAlpha(240);
-            canvas.drawCircle(endPt.x, endPt.y, bubbleRadius * 0.14f, paint);
         }
 
         // 2. Draw Board Bubbles
