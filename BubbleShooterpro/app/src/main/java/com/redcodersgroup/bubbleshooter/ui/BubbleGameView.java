@@ -345,7 +345,25 @@ public class BubbleGameView extends View {
             paint.reset();
             paint.setAntiAlias(true);
             paint.setDither(true);
+
+            // Clip drawing strictly to the playable area below the ceiling
+            canvas.save();
+            canvas.clipRect(0, topY, getWidth(), getHeight());
             gameEngine.draw(canvas, paint);
+            canvas.restore();
+
+            // Re-draw accent rails on top of clipped game area so top/side boundaries are crisp
+            railPaint.setColor(currentBiome.railColor);
+            railPaint.setStrokeWidth(6f);
+            canvas.drawLine(0, topY, getWidth(), topY, railPaint);
+
+            if (gameEngine.getBoardLeft() > 0) {
+                float bLeft = gameEngine.getBoardLeft();
+                float bRight = gameEngine.getBoardRight();
+                railPaint.setStrokeWidth(4.5f);
+                canvas.drawLine(bLeft, topY, bLeft, getHeight(), railPaint);
+                canvas.drawLine(bRight, topY, bRight, getHeight(), railPaint);
+            }
         }
 
         // 5. Continuously request redraw for 60 FPS smooth animations

@@ -821,7 +821,8 @@ public class GameEngine {
             }
         }
 
-        // 1. Update board bubbles (smooth sliding descent animation)
+        // 1. Update board grid (smooth 60 FPS unified descent animation) and bubbles
+        grid.update(dt);
         for (Bubble b : grid.getAllBubbles()) {
             if (b != null) {
                 b.update(dt);

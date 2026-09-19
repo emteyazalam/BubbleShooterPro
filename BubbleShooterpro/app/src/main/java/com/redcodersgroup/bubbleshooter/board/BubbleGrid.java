@@ -16,8 +16,66 @@ public class BubbleGrid {
     private float bubbleRadius = 40f;
     private int rowParity = 0; // 0: even row is 9 cols; 1: even row is 8 cols
 
+    // Unified 60 FPS descent animation
+    private boolean isDescending = false;
+    private float descentElapsed = 0f;
+    private float descentDuration = 0.28f;
+    private float currentDescentOffsetY = 0f;
+
     public BubbleGrid() {
         this.grid = new Bubble[MAX_ROWS][COLS_EVEN];
+    }
+
+    public boolean isDescending() {
+        return isDescending;
+    }
+
+    public float getCurrentDescentOffsetY() {
+        return currentDescentOffsetY;
+    }
+
+    public void update(float dt) {
+        if (isDescending) {
+            descentElapsed += dt;
+            float t = Math.min(1.0f, descentElapsed / descentDuration);
+            // Quartic Ease-Out curve for ultra-smooth gliding descent with zero velocity kink
+            float p = 1.0f - t;
+            float ease = 1.0f - (p * p * p * p);
+
+            currentDescentOffsetY = -(bubbleRadius * ROW_HEIGHT_RATIO) * (1.0f - ease);
+
+            for (int r = 0; r < MAX_ROWS; r++) {
+                int cols = getCols(r);
+                for (int c = 0; c < cols; c++) {
+                    Bubble b = grid[r][c];
+                    if (b != null && !b.isFalling() && !b.isPopping()) {
+                        b.setX(getCenterX(r, c));
+                        b.setY(getCenterY(r) + currentDescentOffsetY);
+                        if (r == 0) {
+                            b.setAlpha(Math.min(1.0f, ease * 1.5f));
+                        } else {
+                            b.setAlpha(1.0f);
+                        }
+                    }
+                }
+            }
+
+            if (t >= 1.0f) {
+                isDescending = false;
+                currentDescentOffsetY = 0f;
+                for (int r = 0; r < MAX_ROWS; r++) {
+                    int cols = getCols(r);
+                    for (int c = 0; c < cols; c++) {
+                        Bubble b = grid[r][c];
+                        if (b != null && !b.isFalling() && !b.isPopping()) {
+                            b.setX(getCenterX(r, c));
+                            b.setY(getCenterY(r));
+                            b.setAlpha(1.0f);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public int getRowParity() {
@@ -166,10 +224,10 @@ public class BubbleGrid {
 
     /**
      * Shifts all rows down by 1 in Endless mode, flips parity, and inserts the new top row at row 0.
-     * Existing bubbles smoothly glide to their new lower row, while the new top row glides down from above the ceiling.
+     * All bubbles glide down simultaneously with synchronized 60 FPS ease-out curve.
      */
     public void shiftDownAndInsertRow(List<Bubble> newTopRow) {
-        float rowHeight = bubbleRadius * (float) Math.sqrt(3.0);
+        float rowHeight = bubbleRadius * ROW_HEIGHT_RATIO;
 
         // 1. Shift all rows down by 1 from bottom to top
         for (int r = MAX_ROWS - 2; r >= 0; r--) {
@@ -186,25 +244,21 @@ public class BubbleGrid {
         // 3. Toggle parity
         rowParity ^= 1;
 
-        // 4. Insert new top row (positioned initially above the ceiling to glide in smoothly)
+        // 4. Insert new top row
         if (newTopRow != null) {
             int topCols = getCols(0);
             for (int c = 0; c < newTopRow.size() && c < topCols; c++) {
                 Bubble b = newTopRow.get(c);
                 if (b != null) {
-                    float cx = getCenterX(0, c);
-                    float cy = getCenterY(0);
                     b.setGridPosition(new GridPosition(0, c));
-                    b.setX(cx);
-                    b.setY(cy - rowHeight); // Born above the board top
                     b.setRadius(bubbleRadius);
-                    b.setTargetPosition(cx, cy); // Glides down to row 0
+                    b.setAlpha(0f);
                     grid[0][c] = b;
                 }
             }
         }
 
-        // 5. Update target coordinates for all shifted bubbles (they glide down smoothly)
+        // 5. Update grid positions for shifted rows
         for (int r = 1; r < MAX_ROWS; r++) {
             int cols = getCols(r);
             for (int c = 0; c < cols; c++) {
@@ -212,7 +266,24 @@ public class BubbleGrid {
                 if (b != null) {
                     b.setGridPosition(new GridPosition(r, c));
                     b.setRadius(bubbleRadius);
-                    b.setTargetPosition(getCenterX(r, c), getCenterY(r));
+                }
+            }
+        }
+
+        // 6. Start synchronized 60 FPS descent glide
+        isDescending = true;
+        descentElapsed = 0f;
+        descentDuration = 0.28f;
+        currentDescentOffsetY = -rowHeight;
+
+        for (int r = 0; r < MAX_ROWS; r++) {
+            int cols = getCols(r);
+            for (int c = 0; c < cols; c++) {
+                Bubble b = grid[r][c];
+                if (b != null && !b.isFalling() && !b.isPopping()) {
+                    b.setX(getCenterX(r, c));
+                    b.setY(getCenterY(r) + currentDescentOffsetY);
+                    b.setAlpha(r == 0 ? 0f : 1.0f);
                 }
             }
         }
@@ -220,6 +291,8 @@ public class BubbleGrid {
 
     public void clear() {
         rowParity = 0;
+        isDescending = false;
+        currentDescentOffsetY = 0f;
         for (int r = 0; r < MAX_ROWS; r++) {
             for (int c = 0; c < COLS_EVEN; c++) {
                 grid[r][c] = null;

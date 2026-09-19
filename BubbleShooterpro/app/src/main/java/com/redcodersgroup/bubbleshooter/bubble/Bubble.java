@@ -141,19 +141,19 @@ public class Bubble {
     public void setTargetPosition(float targetX, float targetY) {
         this.targetX = targetX;
         this.targetY = targetY;
-        this.hasTargetPosition = true;
+        this.x = targetX;
+        this.y = targetY;
+        this.hasTargetPosition = false;
     }
 
     public void snapToTarget() {
-        if (hasTargetPosition) {
-            this.x = targetX;
-            this.y = targetY;
-            this.hasTargetPosition = false;
-        }
+        this.x = targetX;
+        this.y = targetY;
+        this.hasTargetPosition = false;
     }
 
     public boolean isSliding() {
-        return hasTargetPosition;
+        return false;
     }
 
     public float getRadius() {
@@ -252,28 +252,6 @@ public class Bubble {
             scaleX = 1.0f + popProgress * 0.4f;
             scaleY = scaleX;
             alpha = Math.max(0f, 1.0f - popProgress);
-        } else if (hasTargetPosition) {
-            // Smoothly glide towards target position
-            float dx = targetX - x;
-            float dy = targetY - y;
-            float dist = (float) Math.hypot(dx, dy);
-            if (dist < 0.5f) {
-                x = targetX;
-                y = targetY;
-                hasTargetPosition = false;
-            } else {
-                // Smooth critically damped glide (~0.22s duration)
-                float speed = Math.max(120f, dist * 14.0f);
-                float step = speed * dt;
-                if (step >= dist) {
-                    x = targetX;
-                    y = targetY;
-                    hasTargetPosition = false;
-                } else {
-                    x += (dx / dist) * step;
-                    y += (dy / dist) * step;
-                }
-            }
         }
     }
 
