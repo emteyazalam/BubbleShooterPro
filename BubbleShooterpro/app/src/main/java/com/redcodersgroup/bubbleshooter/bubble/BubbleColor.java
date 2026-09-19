@@ -27,6 +27,10 @@ public enum BubbleColor {
         this.code = code;
     }
 
+    public static java.util.List<BubbleColor> getPlayableColors() {
+        return java.util.Arrays.asList(RED, GREEN, BLUE, YELLOW, PURPLE, ORANGE);
+    }
+
     public static BubbleColor fromChar(char c) {
         for (BubbleColor color : values()) {
             if (color.code == Character.toUpperCase(c)) {

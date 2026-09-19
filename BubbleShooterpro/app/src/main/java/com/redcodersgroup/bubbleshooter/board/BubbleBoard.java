@@ -21,6 +21,10 @@ public class BubbleBoard {
         return grid;
     }
 
+    private List<GridPosition> getNeighbors(GridPosition pos) {
+        return NeighborCalculator.getNeighbors(pos, grid.getRowParity());
+    }
+
     /**
      * Finds matching connected bubbles of the same color starting at startPos.
      * Special handling for Fireball (incinerate blast), Lightning (row vaporize), Bomb (radius burst, direct hits, chain explosions),
@@ -39,7 +43,7 @@ public class BubbleBoard {
             detonatingFireballs.add(startPos);
         }
 
-        for (GridPosition n : NeighborCalculator.getNeighbors(startPos)) {
+        for (GridPosition n : getNeighbors(startPos)) {
             Bubble nb = grid.getBubble(n);
             if (nb != null && !nb.isPopping() && !nb.isFalling()) {
                 if (nb.getType() == BubbleType.FIREBALL || nb.getColor() == BubbleColor.FIREBALL) {
@@ -60,7 +64,7 @@ public class BubbleBoard {
             detonatingLightning.add(startPos);
         }
 
-        for (GridPosition n : NeighborCalculator.getNeighbors(startPos)) {
+        for (GridPosition n : getNeighbors(startPos)) {
             Bubble nb = grid.getBubble(n);
             if (nb != null && !nb.isPopping() && !nb.isFalling()) {
                 if (nb.getType() == BubbleType.LIGHTNING || nb.getColor() == BubbleColor.LIGHTNING) {
@@ -81,7 +85,7 @@ public class BubbleBoard {
             detonatingBombs.add(startPos);
         }
 
-        for (GridPosition n : NeighborCalculator.getNeighbors(startPos)) {
+        for (GridPosition n : getNeighbors(startPos)) {
             Bubble nb = grid.getBubble(n);
             if (nb != null && !nb.isPopping() && !nb.isFalling()) {
                 if (nb.getType() == BubbleType.BOMB || nb.getColor() == BubbleColor.BOMB) {
@@ -107,7 +111,7 @@ public class BubbleBoard {
         BubbleColor targetColor = startBubble.getColor();
         if (startBubble.getType() == BubbleType.RAINBOW || targetColor == BubbleColor.RAINBOW) {
             // Find most prevalent neighbor color (excluding specials and stone)
-            for (GridPosition n : NeighborCalculator.getNeighbors(startPos)) {
+            for (GridPosition n : getNeighbors(startPos)) {
                 Bubble nb = grid.getBubble(n);
                 if (nb != null && nb.getColor() != BubbleColor.RAINBOW && nb.getColor() != BubbleColor.NONE
                         && nb.getColor() != BubbleColor.BOMB && nb.getColor() != BubbleColor.LIGHTNING
@@ -130,7 +134,7 @@ public class BubbleBoard {
             GridPosition current = queue.poll();
             matchedPositions.add(current);
 
-            for (GridPosition neighbor : NeighborCalculator.getNeighbors(current)) {
+            for (GridPosition neighbor : getNeighbors(current)) {
                 if (visited.contains(neighbor)) continue;
 
                 Bubble nb = grid.getBubble(neighbor);
@@ -159,7 +163,7 @@ public class BubbleBoard {
             Set<GridPosition> adjacentLightning = new HashSet<>();
             Set<GridPosition> adjacentFireballs = new HashSet<>();
             for (GridPosition mp : matchedPositions) {
-                for (GridPosition n : NeighborCalculator.getNeighbors(mp)) {
+                for (GridPosition n : getNeighbors(mp)) {
                     Bubble nb = grid.getBubble(n);
                     if (nb != null && !nb.isPopping() && !nb.isFalling()) {
                         if (nb.getType() == BubbleType.BOMB || nb.getColor() == BubbleColor.BOMB) {
@@ -207,9 +211,9 @@ public class BubbleBoard {
             // Radius: 2 neighbor rings around the fireball impact
             Set<GridPosition> localRadius = new HashSet<>();
             localRadius.add(fPos);
-            for (GridPosition n1 : NeighborCalculator.getNeighbors(fPos)) {
+            for (GridPosition n1 : getNeighbors(fPos)) {
                 localRadius.add(n1);
-                for (GridPosition n2 : NeighborCalculator.getNeighbors(n1)) {
+                for (GridPosition n2 : getNeighbors(n1)) {
                     localRadius.add(n2);
                 }
             }
@@ -263,7 +267,7 @@ public class BubbleBoard {
                 boolean hasSameRowNeighbor = false;
                 boolean hasAboveNeighbor = false;
 
-                for (GridPosition n : NeighborCalculator.getNeighbors(startPos)) {
+                for (GridPosition n : getNeighbors(startPos)) {
                     if (n.equals(startPos)) continue;
                     Bubble nb = grid.getBubble(n);
                     if (nb != null && !nb.isPopping() && !nb.isFalling()) {
@@ -293,7 +297,7 @@ public class BubbleBoard {
         Set<GridPosition> bombsToDetonate = new HashSet<>();
         for (int r : targetRows) {
             if (r < 0 || r >= BubbleGrid.MAX_ROWS) continue;
-            int cols = (r % 2 == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+            int cols = grid.getCols(r);
             for (int c = 0; c < cols; c++) {
                 GridPosition pos = new GridPosition(r, c);
                 Bubble b = grid.getBubble(pos);
@@ -337,9 +341,9 @@ public class BubbleBoard {
             // Radius: 2 neighbor rings around the bomb
             Set<GridPosition> localRadius = new HashSet<>();
             localRadius.add(bombPos);
-            for (GridPosition n1 : NeighborCalculator.getNeighbors(bombPos)) {
+            for (GridPosition n1 : getNeighbors(bombPos)) {
                 localRadius.add(n1);
-                for (GridPosition n2 : NeighborCalculator.getNeighbors(n1)) {
+                for (GridPosition n2 : getNeighbors(n1)) {
                     localRadius.add(n2);
                 }
             }
@@ -380,7 +384,8 @@ public class BubbleBoard {
         Queue<GridPosition> queue = new ArrayDeque<>();
 
         // 1. Seed queue with all non-null bubbles touching the ceiling (row 0)
-        for (int c = 0; c < BubbleGrid.COLS_EVEN; c++) {
+        int topCols = grid.getCols(0);
+        for (int c = 0; c < topCols; c++) {
             GridPosition pos = new GridPosition(0, c);
             Bubble b = grid.getBubble(pos);
             if (b != null && !b.isPopping() && !b.isFalling()) {
@@ -392,7 +397,7 @@ public class BubbleBoard {
         // 2. BFS to find all reachable bubbles
         while (!queue.isEmpty()) {
             GridPosition current = queue.poll();
-            for (GridPosition neighbor : NeighborCalculator.getNeighbors(current)) {
+            for (GridPosition neighbor : getNeighbors(current)) {
                 if (connectedToCeiling.contains(neighbor)) continue;
 
                 Bubble nb = grid.getBubble(neighbor);
@@ -406,7 +411,7 @@ public class BubbleBoard {
         // 3. Identify and collect unvisited bubbles
         List<Bubble> floatingBubbles = new ArrayList<>();
         for (int r = 0; r < BubbleGrid.MAX_ROWS; r++) {
-            int cols = (r % 2 == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+            int cols = grid.getCols(r);
             for (int c = 0; c < cols; c++) {
                 GridPosition pos = new GridPosition(r, c);
                 Bubble b = grid.getBubble(pos);
@@ -431,14 +436,14 @@ public class BubbleBoard {
 
         // Consider all valid empty positions
         for (int r = 0; r < BubbleGrid.MAX_ROWS; r++) {
-            int cols = (r % 2 == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+            int cols = grid.getCols(r);
             for (int c = 0; c < cols; c++) {
                 if (grid.isEmpty(r, c)) {
                     GridPosition candidate = new GridPosition(r, c);
                     // Candidate is valid if it touches the ceiling (row 0) OR touches at least one occupied neighbor
                     boolean hasNeighborOrCeiling = (r == 0);
                     if (!hasNeighborOrCeiling) {
-                        for (GridPosition nb : NeighborCalculator.getNeighbors(candidate)) {
+                        for (GridPosition nb : getNeighbors(candidate)) {
                             Bubble b = grid.getBubble(nb);
                             if (b != null && !b.isPopping() && !b.isFalling()) {
                                 hasNeighborOrCeiling = true;

@@ -24,6 +24,7 @@ import com.redcodersgroup.bubbleshooter.ui.dialogs.VictoryDialog;
 public class GameActivity extends BaseActivity implements GameEngine.GameEventListener {
 
     public static final String EXTRA_LEVEL_NUMBER = "extra_level_number";
+    public static final String EXTRA_IS_ENDLESS = "extra_is_endless";
 
     private ActivityGameBinding binding;
     private GameEngine gameEngine;
@@ -32,6 +33,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
     private LevelManager levelManager;
 
     private int currentLevelNumber = 1;
+    private boolean isEndlessMode = false;
     private int currentStarsCount = 0;
     private int[] currentStarThresholds = new int[]{1000, 2000, 3000};
     private android.animation.ValueAnimator progressAnimator;
@@ -47,6 +49,12 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         return intent;
     }
 
+    public static Intent createEndlessIntent(Context context) {
+        Intent intent = new Intent(context, GameActivity.class);
+        intent.putExtra(EXTRA_IS_ENDLESS, true);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +62,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         setContentView(binding.getRoot());
 
         wasBackgrounded = false;
+        isEndlessMode = getIntent().getBooleanExtra(EXTRA_IS_ENDLESS, false);
         currentLevelNumber = getIntent().getIntExtra(EXTRA_LEVEL_NUMBER, 1);
         repository = ProgressRepository.getInstance(this);
         prefs = repository.getPreferences();
@@ -146,22 +155,50 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         gameEngine.setEventListener(this);
         binding.bubbleGameView.setGameEngine(gameEngine);
 
-        loadCurrentLevel();
+        if (isEndlessMode) {
+            loadEndlessMode();
+        } else {
+            loadCurrentLevel();
+        }
     }
 
     private void loadCurrentLevel() {
         isGameOverOrWon = false;
         wasBackgrounded = false;
+        binding.tvShotsLabel.setText("SHOTS");
         binding.bubbleGameView.setBiomeLevel(currentLevelNumber);
         BubbleGameView.BiomeTheme theme = binding.bubbleGameView.getCurrentBiome();
         binding.tvLevelTitle.setText("LVL " + currentLevelNumber + " • " + (theme != null ? theme.title : ""));
         Level level = levelManager.getLevel(currentLevelNumber);
         currentStarsCount = 0;
-        resetStarProgressNodes(level);
+        resetStarProgressNodes(level != null ? level.getStarThresholds() : new int[]{1000, 2000, 3000});
         gameEngine.loadLevel(level);
     }
 
-    private void resetStarProgressNodes(Level level) {
+    private void loadEndlessMode() {
+        isGameOverOrWon = false;
+        wasBackgrounded = false;
+        binding.tvLevelTitle.setText("⚡ ENDLESS SURVIVAL");
+        binding.tvShotsLabel.setText("WAVE");
+        binding.tvShotsCount.setText("1");
+        currentStarsCount = 0;
+
+        int personalBest = prefs.getEndlessHighScore();
+        int[] thresholds;
+        if (personalBest > 0) {
+            int t1 = Math.max(500, (int) (personalBest * 0.35f));
+            int t2 = Math.max(1000, (int) (personalBest * 0.70f));
+            int t3 = Math.max(1500, personalBest);
+            thresholds = new int[]{t1, t2, t3};
+        } else {
+            thresholds = new int[]{1000, 2500, 5000};
+        }
+
+        resetStarProgressNodes(thresholds);
+        gameEngine.loadEndlessMode(personalBest, null);
+    }
+
+    private void resetStarProgressNodes(int[] thresholds) {
         if (progressAnimator != null) {
             progressAnimator.cancel();
         }
@@ -178,8 +215,8 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
 
         binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_green);
 
-        if (level != null && level.getStarThresholds() != null && level.getStarThresholds().length >= 3) {
-            currentStarThresholds = level.getStarThresholds();
+        if (thresholds != null && thresholds.length >= 3) {
+            currentStarThresholds = thresholds;
         }
 
         binding.layoutStarProgressTrack.post(this::positionStarNodes);
@@ -227,17 +264,25 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             @Override
             public void onRestartClicked() {
                 activePauseDialog = null;
-                loadCurrentLevel();
+                if (isEndlessMode) {
+                    loadEndlessMode();
+                } else {
+                    loadCurrentLevel();
+                }
                 enableImmersiveStickyMode();
             }
 
             @Override
             public void onExitClicked() {
                 activePauseDialog = null;
-                Intent intent = LevelSelectActivity.createIntent(GameActivity.this);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-                finish();
+                if (isEndlessMode) {
+                    finish();
+                } else {
+                    Intent intent = LevelSelectActivity.createIntent(GameActivity.this);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         activePauseDialog.show();
@@ -304,11 +349,11 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
     }
 
     @Override
-    public void onShotsUpdated(int shotsRemaining) {
+    public void onShotsUpdated(int shotsRemainingOrWave) {
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
-            binding.tvShotsCount.setText(String.valueOf(shotsRemaining));
-            if (shotsRemaining <= 5) {
+            binding.tvShotsCount.setText(String.valueOf(shotsRemainingOrWave));
+            if (!isEndlessMode && shotsRemainingOrWave <= 5) {
                 binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_red);
                 binding.layoutShots.animate().cancel();
                 binding.layoutShots.setScaleX(1.15f);
@@ -387,11 +432,23 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
                 activePauseDialog = null;
             }
 
-            activeGameOverDialog = new GameOverDialog(this, score, reason, new GameOverDialog.GameOverDialogListener() {
+            int personalBest = 0;
+            if (isEndlessMode) {
+                personalBest = prefs.getEndlessHighScore();
+                if (score > personalBest) {
+                    prefs.setEndlessHighScore(score);
+                }
+            }
+
+            activeGameOverDialog = new GameOverDialog(this, score, reason, personalBest, isEndlessMode, new GameOverDialog.GameOverDialogListener() {
                 @Override
                 public void onRetryClicked() {
                     activeGameOverDialog = null;
-                    loadCurrentLevel();
+                    if (isEndlessMode) {
+                        loadEndlessMode();
+                    } else {
+                        loadCurrentLevel();
+                    }
                     enableImmersiveStickyMode();
                 }
 

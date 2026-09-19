@@ -101,9 +101,7 @@ public class MainActivity extends BaseActivity {
 
     private void launchEndlessMode() {
         soundManager.playClick();
-        Toast.makeText(this, "⚡ Endless Survival Mode Starting!", Toast.LENGTH_SHORT).show();
-        // Launches gameplay with endless survival configuration
-        startActivity(GameActivity.createIntent(this, 1));
+        startActivity(GameActivity.createEndlessIntent(this));
     }
 
     private void startTitleAnimation() {

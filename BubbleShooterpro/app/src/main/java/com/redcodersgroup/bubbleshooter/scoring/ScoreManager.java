@@ -33,6 +33,11 @@ public class ScoreManager {
         return bonus;
     }
 
+    public int addScore(int points) {
+        score += points;
+        return points;
+    }
+
     public int getScore() {
         return score;
     }

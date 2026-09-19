@@ -62,4 +62,42 @@ public class BubbleBoardTest {
         assertNull(grid.getBubble(2, 2));
         assertNull(grid.getBubble(2, 3));
     }
+
+    @Test
+    public void testShiftDownAndInsertRow() {
+        // Place bubbles in row 0
+        grid.setBubble(0, 0, new Bubble(BubbleColor.BLUE, new GridPosition(0, 0)));
+        grid.setBubble(0, 1, new Bubble(BubbleColor.BLUE, new GridPosition(0, 1)));
+        assertEquals(0, grid.getRowParity());
+
+        // Prepare new top row with 8 bubbles (since parity toggles to 1, row 0 will have 8 columns)
+        java.util.List<Bubble> newTopRow = new java.util.ArrayList<>();
+        for (int c = 0; c < BubbleGrid.COLS_ODD; c++) {
+            newTopRow.add(new Bubble(BubbleColor.YELLOW, new GridPosition(0, c)));
+        }
+
+        grid.shiftDownAndInsertRow(newTopRow);
+
+        // Parity is now 1 (odd)
+        assertEquals(1, grid.getRowParity());
+
+        // Row 0 should have the yellow bubbles
+        for (int c = 0; c < BubbleGrid.COLS_ODD; c++) {
+            Bubble b = grid.getBubble(0, c);
+            assertNotNull(b);
+            assertEquals(BubbleColor.YELLOW, b.getColor());
+            assertEquals(0, b.getGridPosition().row);
+            assertEquals(c, b.getGridPosition().col);
+        }
+
+        // Previous row 0 blue bubbles are now shifted to row 1
+        Bubble b0 = grid.getBubble(1, 0);
+        Bubble b1 = grid.getBubble(1, 1);
+        assertNotNull(b0);
+        assertNotNull(b1);
+        assertEquals(BubbleColor.BLUE, b0.getColor());
+        assertEquals(BubbleColor.BLUE, b1.getColor());
+        assertEquals(1, b0.getGridPosition().row);
+        assertEquals(0, b0.getGridPosition().col);
+    }
 }

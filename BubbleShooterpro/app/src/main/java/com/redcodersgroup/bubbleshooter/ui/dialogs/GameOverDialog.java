@@ -19,16 +19,24 @@ public class GameOverDialog extends Dialog {
     private final GameOverDialogListener listener;
     private final int score;
     private final String reason;
+    private final int highScore;
+    private final boolean isEndless;
     private DialogGameOverBinding binding;
 
     public GameOverDialog(@NonNull Context context, int score, GameOverDialogListener listener) {
-        this(context, score, "Out of shots! Don't give up!", listener);
+        this(context, score, "Out of shots! Don't give up!", 0, false, listener);
     }
 
     public GameOverDialog(@NonNull Context context, int score, String reason, GameOverDialogListener listener) {
+        this(context, score, reason, 0, false, listener);
+    }
+
+    public GameOverDialog(@NonNull Context context, int score, String reason, int highScore, boolean isEndless, GameOverDialogListener listener) {
         super(context);
         this.score = score;
         this.reason = reason;
+        this.highScore = highScore;
+        this.isEndless = isEndless;
         this.listener = listener;
     }
 
@@ -44,11 +52,20 @@ public class GameOverDialog extends Dialog {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-        if (binding.tvLoseSubtitle != null && reason != null && !reason.isEmpty()) {
-            binding.tvLoseSubtitle.setText(reason);
+        if (binding.tvLoseSubtitle != null) {
+            if (isEndless && score > highScore && highScore > 0) {
+                binding.tvLoseSubtitle.setText("🎉 NEW BEST HIGH SCORE! 🎉");
+            } else if (reason != null && !reason.isEmpty()) {
+                binding.tvLoseSubtitle.setText(reason);
+            }
         }
 
-        binding.tvLoseScore.setText("FINAL SCORE: " + String.format("%,d", score));
+        if (isEndless) {
+            int displayBest = Math.max(score, highScore);
+            binding.tvLoseScore.setText("SCORE: " + String.format("%,d", score) + "\nBEST: " + String.format("%,d", displayBest));
+        } else {
+            binding.tvLoseScore.setText("FINAL SCORE: " + String.format("%,d", score));
+        }
 
         binding.btnLoseRetry.setOnClickListener(v -> {
             dismiss();

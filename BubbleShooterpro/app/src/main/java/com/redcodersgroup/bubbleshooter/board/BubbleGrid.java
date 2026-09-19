@@ -14,9 +14,22 @@ public class BubbleGrid {
     private float boardLeft = 0f;
     private float boardTop = 0f;
     private float bubbleRadius = 40f;
+    private int rowParity = 0; // 0: even row is 9 cols; 1: even row is 8 cols
 
     public BubbleGrid() {
         this.grid = new Bubble[MAX_ROWS][COLS_EVEN];
+    }
+
+    public int getRowParity() {
+        return rowParity;
+    }
+
+    public void setRowParity(int rowParity) {
+        this.rowParity = rowParity & 1;
+    }
+
+    public int getCols(int row) {
+        return ((row + rowParity) % 2 == 0) ? COLS_EVEN : COLS_ODD;
     }
 
     public void setDimensions(float boardLeft, float boardTop, float bubbleRadius) {
@@ -26,7 +39,7 @@ public class BubbleGrid {
 
         // Update coordinates of all existing bubbles in the grid
         for (int r = 0; r < MAX_ROWS; r++) {
-            int cols = (r % 2 == 0) ? COLS_EVEN : COLS_ODD;
+            int cols = getCols(r);
             for (int c = 0; c < cols; c++) {
                 Bubble b = grid[r][c];
                 if (b != null) {
@@ -51,7 +64,8 @@ public class BubbleGrid {
     }
 
     public float getCenterX(int row, int col) {
-        float xOffset = (row % 2 == 0) ? bubbleRadius : (bubbleRadius * 2f);
+        boolean isEven = ((row + rowParity) % 2 == 0);
+        float xOffset = isEven ? bubbleRadius : (bubbleRadius * 2f);
         return boardLeft + xOffset + (col * 2f * bubbleRadius);
     }
 
@@ -60,7 +74,7 @@ public class BubbleGrid {
     }
 
     public Bubble getBubble(int row, int col) {
-        if (!NeighborCalculator.isValidPosition(row, col)) {
+        if (!NeighborCalculator.isValidPosition(row, col, rowParity)) {
             return null;
         }
         return grid[row][col];
@@ -72,7 +86,7 @@ public class BubbleGrid {
     }
 
     public boolean setBubble(int row, int col, Bubble bubble) {
-        if (!NeighborCalculator.isValidPosition(row, col)) {
+        if (!NeighborCalculator.isValidPosition(row, col, rowParity)) {
             return false;
         }
         grid[row][col] = bubble;
@@ -91,7 +105,7 @@ public class BubbleGrid {
     }
 
     public Bubble removeBubble(int row, int col) {
-        if (!NeighborCalculator.isValidPosition(row, col)) {
+        if (!NeighborCalculator.isValidPosition(row, col, rowParity)) {
             return null;
         }
         Bubble b = grid[row][col];
@@ -115,7 +129,7 @@ public class BubbleGrid {
     public List<Bubble> getAllBubbles() {
         List<Bubble> list = new ArrayList<>();
         for (int r = 0; r < MAX_ROWS; r++) {
-            int cols = (r % 2 == 0) ? COLS_EVEN : COLS_ODD;
+            int cols = getCols(r);
             for (int c = 0; c < cols; c++) {
                 if (grid[r][c] != null) {
                     list.add(grid[r][c]);
@@ -128,7 +142,7 @@ public class BubbleGrid {
     public int getBubbleCount() {
         int count = 0;
         for (int r = 0; r < MAX_ROWS; r++) {
-            int cols = (r % 2 == 0) ? COLS_EVEN : COLS_ODD;
+            int cols = getCols(r);
             for (int c = 0; c < cols; c++) {
                 if (grid[r][c] != null) {
                     count++;
@@ -140,7 +154,7 @@ public class BubbleGrid {
 
     public int getLowestOccupiedRow() {
         for (int r = MAX_ROWS - 1; r >= 0; r--) {
-            int cols = (r % 2 == 0) ? COLS_EVEN : COLS_ODD;
+            int cols = getCols(r);
             for (int c = 0; c < cols; c++) {
                 if (grid[r][c] != null) {
                     return r;
@@ -150,7 +164,51 @@ public class BubbleGrid {
         return -1;
     }
 
+    /**
+     * Shifts all rows down by 1 in Endless mode, flips parity, and inserts the new top row at row 0.
+     */
+    public void shiftDownAndInsertRow(List<Bubble> newTopRow) {
+        // 1. Shift all rows down by 1 from bottom to top
+        for (int r = MAX_ROWS - 2; r >= 0; r--) {
+            for (int c = 0; c < COLS_EVEN; c++) {
+                grid[r + 1][c] = grid[r][c];
+            }
+        }
+
+        // 2. Clear row 0
+        for (int c = 0; c < COLS_EVEN; c++) {
+            grid[0][c] = null;
+        }
+
+        // 3. Toggle parity
+        rowParity ^= 1;
+
+        // 4. Insert new top row
+        if (newTopRow != null) {
+            int topCols = getCols(0);
+            for (int c = 0; c < newTopRow.size() && c < topCols; c++) {
+                Bubble b = newTopRow.get(c);
+                grid[0][c] = b;
+            }
+        }
+
+        // 5. Update physical coordinates for all bubbles in the grid
+        for (int r = 0; r < MAX_ROWS; r++) {
+            int cols = getCols(r);
+            for (int c = 0; c < cols; c++) {
+                Bubble b = grid[r][c];
+                if (b != null) {
+                    b.setGridPosition(new GridPosition(r, c));
+                    b.setX(getCenterX(r, c));
+                    b.setY(getCenterY(r));
+                    b.setRadius(bubbleRadius);
+                }
+            }
+        }
+    }
+
     public void clear() {
+        rowParity = 0;
         for (int r = 0; r < MAX_ROWS; r++) {
             for (int c = 0; c < COLS_EVEN; c++) {
                 grid[r][c] = null;

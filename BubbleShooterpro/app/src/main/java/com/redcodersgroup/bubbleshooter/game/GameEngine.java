@@ -77,6 +77,10 @@ public class GameEngine {
     private Bubble nextBubble;
     private BubbleProjectile activeProjectile;
     private int shotsRemaining = 25;
+    private boolean isEndlessMode = false;
+    private int endlessWaveCount = 1;
+    private int endlessHighScore = 0;
+    private List<BubbleColor> endlessColorsPool = new ArrayList<>();
 
     private final List<Bubble> poppingBubbles = new ArrayList<>();
     private final List<Bubble> fallingBubbles = new ArrayList<>();
@@ -193,6 +197,7 @@ public class GameEngine {
     }
 
     public void loadLevel(Level level) {
+        this.isEndlessMode = false;
         this.currentLevel = level;
         this.shotsRemaining = level.getMaxShots();
         this.scoreManager.reset();
@@ -266,6 +271,97 @@ public class GameEngine {
         updateTrajectory();
     }
 
+    public void loadEndlessMode(int personalBestHighScore, List<BubbleColor> colorsPool) {
+        this.isEndlessMode = true;
+        this.currentLevel = null;
+        this.endlessWaveCount = 1;
+        this.endlessHighScore = personalBestHighScore;
+        this.shotsRemaining = 999999;
+        this.endlessColorsPool = (colorsPool != null && !colorsPool.isEmpty())
+                ? new ArrayList<>(colorsPool)
+                : BubbleColor.getPlayableColors();
+
+        this.scoreManager.reset();
+        if (personalBestHighScore > 0) {
+            int t1 = Math.max(500, (int) (personalBestHighScore * 0.35f));
+            int t2 = Math.max(1000, (int) (personalBestHighScore * 0.70f));
+            int t3 = Math.max(1500, personalBestHighScore);
+            this.scoreManager.setStarThresholds(new int[]{t1, t2, t3});
+        } else {
+            this.scoreManager.setStarThresholds(new int[]{1000, 2500, 5000});
+        }
+
+        this.comboManager.reset();
+        this.poppingBubbles.clear();
+        this.fallingBubbles.clear();
+        this.floatingTexts.clear();
+        this.confettiSystem.clear();
+        this.grid.clear();
+        this.state = GameState.READY;
+        this.isLauncherReloading = false;
+
+        // Populate initial 5 rows
+        for (int r = 0; r < 5; r++) {
+            int cols = grid.getCols(r);
+            for (int c = 0; c < cols; c++) {
+                BubbleColor color = endlessColorsPool.get(random.nextInt(endlessColorsPool.size()));
+                BubbleType type = BubbleType.NORMAL;
+                if (random.nextInt(100) < 3) {
+                    type = BubbleType.BOMB;
+                    color = BubbleColor.BOMB;
+                }
+                Bubble b = new Bubble(color, type, new GridPosition(r, c));
+                grid.setBubble(r, c, b);
+            }
+        }
+
+        // Initialize launcher bubbles
+        this.currentBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
+        this.currentBubble.setX(launcherX);
+        this.currentBubble.setY(launcherY);
+        this.currentBubble.setRadius(bubbleRadius);
+        this.currentBubble.setScale(1.0f);
+        this.currentBubble.setAlpha(1.0f);
+
+        this.nextBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
+        this.nextBubble.setX(previewX);
+        this.nextBubble.setY(previewY);
+        this.nextBubble.setRadius(bubbleRadius * 0.75f);
+        this.nextBubble.setScale(1.0f);
+        this.nextBubble.setAlpha(1.0f);
+
+        if (listener != null) {
+            listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+            listener.onShotsUpdated(endlessWaveCount);
+        }
+
+        updateTrajectory();
+    }
+
+    private List<Bubble> generateEndlessRow() {
+        int nextParity = grid.getRowParity() ^ 1;
+        int cols = (nextParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+        List<Bubble> newRow = new ArrayList<>(cols);
+
+        for (int c = 0; c < cols; c++) {
+            BubbleColor color = pickRandomColor();
+            BubbleType type = BubbleType.NORMAL;
+
+            int specialRoll = random.nextInt(100);
+            if (specialRoll < 2) {
+                type = BubbleType.BOMB;
+                color = BubbleColor.BOMB;
+            } else if (specialRoll < 4) {
+                type = BubbleType.RAINBOW;
+                color = BubbleColor.RAINBOW;
+            }
+
+            Bubble b = new Bubble(color, type, new GridPosition(0, c));
+            newRow.add(b);
+        }
+        return newRow;
+    }
+
     private BubbleColor pickRandomColor() {
         // Collect colors still present on the board
         List<BubbleColor> existingOnBoard = new ArrayList<>();
@@ -285,6 +381,10 @@ public class GameEngine {
         if (currentLevel != null && !currentLevel.getAvailableColors().isEmpty()) {
             List<BubbleColor> avail = currentLevel.getAvailableColors();
             return avail.get(random.nextInt(avail.size()));
+        }
+
+        if (isEndlessMode && endlessColorsPool != null && !endlessColorsPool.isEmpty()) {
+            return endlessColorsPool.get(random.nextInt(endlessColorsPool.size()));
         }
 
         return BubbleColor.RED;
@@ -786,16 +886,68 @@ public class GameEngine {
             }
         }
 
-        shotsRemaining--;
-        if (listener != null) {
-            listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
-            listener.onShotsUpdated(shotsRemaining);
+        if (isEndlessMode) {
+            endlessWaveCount++;
+            List<Bubble> newRow = generateEndlessRow();
+            grid.shiftDownAndInsertRow(newRow);
+
+            if (listener != null) {
+                listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+                listener.onShotsUpdated(endlessWaveCount);
+            }
+        } else {
+            shotsRemaining--;
+            if (listener != null) {
+                listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+                listener.onShotsUpdated(shotsRemaining);
+            }
         }
 
         activeProjectile = null;
     }
 
     private void finishResolution() {
+        if (isEndlessMode) {
+            // If board is wiped clean in Endless Mode, give big bonus and refill top rows
+            if (grid.getBubbleCount() == 0) {
+                soundManager.playWin();
+                confettiSystem.spawnCelebrationBurst(boardRight, boardBottom, 50);
+                scoreManager.addScore(500);
+                floatingTexts.add(new FloatingText("BOARD CLEARED! +500", (boardLeft + boardRight) * 0.5f, boardTop + bubbleRadius * 3, Color.parseColor("#FFD54F"), 52f, 1.5f));
+                for (int r = 0; r < 4; r++) {
+                    int cols = grid.getCols(r);
+                    for (int c = 0; c < cols; c++) {
+                        BubbleColor color = endlessColorsPool.get(random.nextInt(endlessColorsPool.size()));
+                        Bubble b = new Bubble(color, BubbleType.NORMAL, new GridPosition(r, c));
+                        grid.setBubble(r, c, b);
+                    }
+                }
+            }
+
+            // Check danger line breach
+            boolean touchedBottomLine = false;
+            if (deadlineY > 0) {
+                for (Bubble b : grid.getAllBubbles()) {
+                    if (b != null && (b.getY() + b.getRadius()) >= (deadlineY - 2.0f)) {
+                        touchedBottomLine = true;
+                        break;
+                    }
+                }
+            }
+
+            if (touchedBottomLine) {
+                state = GameState.LOSE;
+                if (listener != null) {
+                    listener.onGameLost(scoreManager.getScore(), "The bubbles breached the danger line!");
+                }
+                return;
+            }
+
+            state = GameState.READY;
+            updateTrajectory();
+            return;
+        }
+
         // Check win condition
         boolean won = false;
         if (currentLevel != null && currentLevel.getObjective().isMet(board, scoreManager)) {
@@ -1089,5 +1241,17 @@ public class GameEngine {
 
     public BubbleBoard getBoard() {
         return board;
+    }
+
+    public boolean isEndlessMode() {
+        return isEndlessMode;
+    }
+
+    public int getEndlessWaveCount() {
+        return endlessWaveCount;
+    }
+
+    public int getEndlessHighScore() {
+        return endlessHighScore;
     }
 }
