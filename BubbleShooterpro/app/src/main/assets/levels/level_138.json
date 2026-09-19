@@ -12,17 +12,17 @@
     "target": 0
   },
   "starThresholds": [
-    2202,
-    4394,
-    7274
+    2112,
+    4508,
+    7636
   ],
   "rows": [
-    "CCMMYYGG",
-    "CMMYYGG",
-    "MMYYGGCC",
-    "MYYGGCC",
-    "YYCGGCMM",
-    "YGGCCMM"
+    "C..M.M..C",
+    "C..MM..C",
+    "CYYMMMYYC",
+    "YYCMMCYY",
+    ".YGGMGGY.",
+    "..GYYG.."
   ],
   "level": 138
 }

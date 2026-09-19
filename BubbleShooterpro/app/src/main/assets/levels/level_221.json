@@ -1,5 +1,5 @@
 {
-  "shots": 25,
+  "shots": 24,
   "colors": [
     "CYAN",
     "BLUE",
@@ -8,21 +8,21 @@
     "RED"
   ],
   "objective": {
-    "type": "CLEAR_ALL",
-    "target": 0
+    "type": "SCORE_TARGET",
+    "target": 5832
   },
   "starThresholds": [
-    2587,
-    5387,
-    9097
+    2493,
+    5493,
+    9426
   ],
   "rows": [
-    "CBPYCBPY",
-    "CLPYCLP",
-    "YPBCYPBC",
-    "YPLCYPB",
-    "BBPPYYCC",
-    "BPPYYCB"
+    "CCBBPBBCC",
+    "CBPYYPBC",
+    "BPXYYYXPB",
+    "BYYYYYYB",
+    ".PYYYYYP.",
+    ".PBPPBP."
   ],
   "level": 221
 }

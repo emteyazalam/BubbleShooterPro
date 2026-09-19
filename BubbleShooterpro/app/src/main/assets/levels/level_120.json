@@ -9,20 +9,20 @@
   ],
   "objective": {
     "type": "DROP_COUNT",
-    "target": 21
+    "target": 23
   },
   "starThresholds": [
-    1938,
-    3998,
-    6698
+    1859,
+    4124,
+    7077
   ],
   "rows": [
-    "OORRRROO",
-    "OROORO.",
-    "ROPPOR..",
-    "OOXOO..",
-    "OYYYYO..",
-    "YYYYY.."
+    "RROOROORR",
+    "YYPPPPYY",
+    "YYYXRXYYY",
+    "OPORROPO",
+    "PPYYOYYPP",
+    ".RROORR."
   ],
   "level": 120
 }

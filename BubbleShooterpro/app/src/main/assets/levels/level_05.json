@@ -3,25 +3,24 @@
   "colors": [
     "RED",
     "BLUE",
-    "YELLOW",
-    "GREEN"
+    "YELLOW"
   ],
   "objective": {
     "type": "CLEAR_ALL",
     "target": 0
   },
   "starThresholds": [
-    1200,
-    2400,
-    3600
+    1066,
+    2495,
+    4333
   ],
   "rows": [
-    "RBYGRBYG",
-    "RBYGRBY",
-    "RBYGRBYG",
-    "RBYGRBY",
-    "GGYYBBRR",
-    ".YYBBRR"
+    "RRRRBBBBB",
+    "RRRBBBBY",
+    "RRRRBBRYY",
+    "RRRYYRYY",
+    "RRYYYYYYY",
+    "RRRYYYYY"
   ],
   "level": 5
 }

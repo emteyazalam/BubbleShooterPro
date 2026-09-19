@@ -1,5 +1,5 @@
 {
-  "shots": 24,
+  "shots": 21,
   "colors": [
     "YELLOW",
     "ORANGE",
@@ -8,21 +8,21 @@
     "GREEN"
   ],
   "objective": {
-    "type": "DROP_COUNT",
-    "target": 26
+    "type": "CLEAR_ALL",
+    "target": 0
   },
   "starThresholds": [
-    2833,
-    5905,
-    9985
+    2804,
+    6073,
+    10365
   ],
   "rows": [
-    "YYOORRPP",
-    "YOORRPP",
-    "OORRPPYY",
-    "ORRPPYY",
-    "RRYPPYOO",
-    "RPPYYOO"
+    "Y..O.O..Y",
+    "Y..OO..Y",
+    "YRROOORRY",
+    "RRXOOXRR",
+    ".RPPOPPR.",
+    "..PRRP.."
   ],
   "level": 258
 }

@@ -1,5 +1,5 @@
 {
-  "shots": 24,
+  "shots": 20,
   "colors": [
     "YELLOW",
     "ORANGE",
@@ -8,21 +8,21 @@
     "GREEN"
   ],
   "objective": {
-    "type": "SCORE_TARGET",
-    "target": 5803
+    "type": "DROP_COUNT",
+    "target": 30
   },
   "starThresholds": [
-    2687,
-    5663,
-    9613
+    2553,
+    5727,
+    9893
   ],
   "rows": [
-    "YYYYOOOO",
-    "PYYOOOR",
-    "PPYPPORR",
-    "PPYRRR.",
-    "PRRRRRRR",
-    "PPRRRR."
+    "YYYYOOOOO",
+    "PYYOOOOR",
+    "PPYPOOPRR",
+    "PPYRRYRR",
+    "PPRRRRRRR",
+    "PPPRRRRR"
   ],
   "level": 245
 }

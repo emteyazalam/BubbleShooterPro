@@ -12,17 +12,17 @@
     "target": 0
   },
   "starThresholds": [
-    2136,
-    4291,
-    7121
+    2050,
+    4410,
+    7490
   ],
   "rows": [
-    "CCCCCCCC",
-    ".MMMMMM",
-    ".YYYYYY.",
-    "..GXGG.",
-    "..BBBB..",
-    "...CGC."
+    "CCCCCCCCC",
+    ".MMMMMM.",
+    ".YYYYYYY.",
+    "..GXGG..",
+    "..BBBBBB.",
+    "...CGC.."
   ],
   "level": 133
 }

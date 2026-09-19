@@ -1,5 +1,5 @@
 {
-  "shots": 25,
+  "shots": 21,
   "colors": [
     "GREEN",
     "YELLOW",
@@ -8,22 +8,21 @@
     "PURPLE"
   ],
   "objective": {
-    "type": "DROP_COUNT",
-    "target": 24
+    "type": "CLEAR_ALL",
+    "target": 0
   },
   "starThresholds": [
-    2484,
-    5152,
-    8682
+    2355,
+    5224,
+    8982
   ],
   "rows": [
-    "GGGGGGGG",
-    "GYYYYYG",
-    "GYOOOOYG",
-    "GYOXOYG",
-    "GYO**OYG",
-    "GYOOOYG",
-    "GYYYYYG."
+    "GGYYOORRG",
+    "GYYOORRG",
+    "YYOORRGGY",
+    "YOORRGGY",
+    "OOXRRRXYY",
+    "ORRGGRRO"
   ],
   "level": 203
 }

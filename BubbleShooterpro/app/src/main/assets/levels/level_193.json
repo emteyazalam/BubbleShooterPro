@@ -8,21 +8,22 @@
     "PURPLE"
   ],
   "objective": {
-    "type": "CLEAR_ALL",
-    "target": 0
+    "type": "POP_COLOR",
+    "color": "ORANGE",
+    "target": 21
   },
   "starThresholds": [
-    2450,
-    5045,
-    8475
+    2441,
+    5237,
+    8898
   ],
   "rows": [
-    "GGGGGGGG",
-    ".YYYYYY",
-    ".OOOOOO.",
-    "..RGRR.",
-    "..PPPP..",
-    "...GRG."
+    "GGGGGGGGG",
+    ".YYYYYY.",
+    ".OOOOOOO.",
+    "..RXRR..",
+    "..PPPPPP.",
+    "...GRG.."
   ],
   "level": 193
 }

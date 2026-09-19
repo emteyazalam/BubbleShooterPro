@@ -1,5 +1,5 @@
 {
-  "shots": 19,
+  "shots": 20,
   "colors": [
     "YELLOW",
     "ORANGE",
@@ -9,20 +9,20 @@
   ],
   "objective": {
     "type": "SCORE_TARGET",
-    "target": 5902
+    "target": 6367
   },
   "starThresholds": [
-    2898,
-    5992,
-    10102
+    2733,
+    6023,
+    10344
   ],
   "rows": [
-    "..YYYY..",
-    ".YOOY..",
-    "RROPPORR",
-    "ROPPOR.",
-    "..PPPP..",
-    ".PXXP.."
+    "YYOOROOYY",
+    "YORPPROY",
+    "ORXPPPXRO",
+    "OPPPPPPO",
+    ".RPPPPPR.",
+    ".RORROR."
   ],
   "level": 261
 }

@@ -1,5 +1,5 @@
 {
-  "shots": 23,
+  "shots": 24,
   "colors": [
     "BLUE",
     "CYAN",
@@ -9,20 +9,21 @@
   ],
   "objective": {
     "type": "SCORE_TARGET",
-    "target": 4383
+    "target": 4820
   },
   "starThresholds": [
-    2335,
-    4754,
-    7944
+    2227,
+    4848,
+    8277
   ],
   "rows": [
-    "BBCCGGYY",
-    "BCCGGYB",
-    "CCGGYYBB",
-    "CGGYYBC",
-    "GGYYBBCC",
-    "GYGBBCG"
+    "BBCCCCCBB",
+    "BBSSSSBB",
+    "BB.....BB",
+    "GG....GG",
+    "GGB...BGG",
+    "YY....YY",
+    "YYCCCCCYY"
   ],
   "level": 169
 }

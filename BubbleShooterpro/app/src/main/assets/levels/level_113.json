@@ -9,21 +9,20 @@
   ],
   "objective": {
     "type": "SCORE_TARGET",
-    "target": 3691
+    "target": 4112
   },
   "starThresholds": [
-    1893,
-    3901,
-    6531
+    1818,
+    4032,
+    6918
   ],
   "rows": [
-    "RRRRRRRR",
-    "ROOOOOR",
-    "ROYYYYOR",
-    "ROYXYOR",
-    "ROY**YOR",
-    "ROYYYOR",
-    "ROOOOOR."
+    "RRRRRRRRR",
+    ".OOOOOO.",
+    ".YYYYYYY.",
+    "..PXPP..",
+    "..GGGGGG.",
+    "...R*R.."
   ],
   "level": 113
 }

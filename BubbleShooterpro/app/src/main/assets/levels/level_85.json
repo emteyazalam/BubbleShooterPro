@@ -12,18 +12,17 @@
     "target": 0
   },
   "starThresholds": [
-    1776,
-    3579,
-    5929
+    1719,
+    3729,
+    6343
   ],
   "rows": [
-    ".PP..PP.",
-    "PPPPPPP",
-    "CPPRPPC.",
-    "CCPPCC.",
-    ".YCXCY..",
-    "..YYY..",
-    "...RR..."
+    "PPPPCCCCC",
+    "RPPCCCCY",
+    "RRPRCCRYY",
+    "RRPYYPYY",
+    "RRYYYYYYY",
+    "RRRYYYYY"
   ],
   "level": 85
 }

@@ -1,5 +1,5 @@
 {
-  "shots": 19,
+  "shots": 20,
   "colors": [
     "RED",
     "BLUE",
@@ -11,20 +11,20 @@
   "objective": {
     "type": "POP_COLOR",
     "color": "GREEN",
-    "target": 25
+    "target": 27
   },
   "starThresholds": [
-    3262,
-    6678,
-    11228
+    3071,
+    6681,
+    11428
   ],
   "rows": [
-    "RRRRBBBB",
-    "GRRBBBY",
-    "GGRGGBYY",
-    "GGXYYY.",
-    "GYYYYYYY",
-    "GGYYYY."
+    "RRRRBBBBB",
+    "GRRBBBBY",
+    "GGRGBBGYY",
+    "GGXYYXYY",
+    "GGYYYYYYY",
+    "GGGYYYYY"
   ],
   "level": 305
 }

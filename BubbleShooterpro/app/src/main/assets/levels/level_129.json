@@ -9,21 +9,21 @@
   ],
   "objective": {
     "type": "SCORE_TARGET",
-    "target": 4145
+    "target": 4570
   },
   "starThresholds": [
-    1966,
-    4092,
-    6882
+    1881,
+    4211,
+    7252
   ],
   "rows": [
+    "CCMMMMMCC",
     "CCMMMMCC",
-    "CCMMMCC",
-    "CC....CC",
-    "YY...YY",
-    "YYC..CYY",
-    "GG...GG",
-    "GGMMMMGG"
+    "CC.....CC",
+    "YY....YY",
+    "YYC...CYY",
+    "GG....GG",
+    "GGMMMMMGG"
   ],
   "level": 129
 }

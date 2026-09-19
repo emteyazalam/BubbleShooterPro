@@ -8,21 +8,22 @@
     "PURPLE"
   ],
   "objective": {
-    "type": "SCORE_TARGET",
-    "target": 4314
+    "type": "POP_COLOR",
+    "color": "CYAN",
+    "target": 18
   },
   "starThresholds": [
-    2183,
-    4558,
-    7688
+    2070,
+    4648,
+    8018
   ],
   "rows": [
-    "BBBBBBBB",
-    ".CCCCCC",
-    ".GGGGGG.",
-    "..YXYY.",
-    "..PPPP..",
-    "...BYB."
+    "BBCCGGYYB",
+    "BCCGGYYB",
+    "CCGGYYBBC",
+    "CGGYYBBC",
+    "GGBYYYBCC",
+    "GYYBBYYG"
   ],
   "level": 163
 }

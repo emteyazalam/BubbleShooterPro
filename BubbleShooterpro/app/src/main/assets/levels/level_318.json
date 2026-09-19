@@ -1,5 +1,5 @@
 {
-  "shots": 21,
+  "shots": 22,
   "colors": [
     "RED",
     "BLUE",
@@ -10,20 +10,20 @@
   ],
   "objective": {
     "type": "SCORE_TARGET",
-    "target": 6659
+    "target": 7141
   },
   "starThresholds": [
-    3158,
-    6670,
-    11350
+    2959,
+    6664,
+    11537
   ],
   "rows": [
-    "RRBBYYGG",
-    "RBBYYGG",
-    "BBYYGGRR",
-    "BYYGGRR",
-    "YYXGGXBB",
-    "YGGRRBB"
+    "R..B.B..R",
+    "R..BB..R",
+    "RYYBBBYYR",
+    "YYXBBXYY",
+    ".YGGBGGY.",
+    "..GLLG.."
   ],
   "level": 318
 }

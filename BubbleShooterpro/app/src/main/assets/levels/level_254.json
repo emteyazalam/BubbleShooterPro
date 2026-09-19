@@ -1,5 +1,5 @@
 {
-  "shots": 23,
+  "shots": 24,
   "colors": [
     "YELLOW",
     "ORANGE",
@@ -12,18 +12,18 @@
     "target": 0
   },
   "starThresholds": [
-    2932,
-    5974,
-    10014
+    2772,
+    6012,
+    10265
   ],
   "rows": [
-    "..Y....Y",
-    ".Y.....",
-    ".YOOOOY.",
-    "YOXOXOY",
-    "YOOOOOOY",
-    ".R.RR.R",
-    "R..PP..R"
+    "..Y....Y.",
+    ".Y......",
+    ".YOOOOOY.",
+    "YOXOOXOY",
+    "YOOOOOOOY",
+    ".R.RR.R.",
+    "R..PPP..R"
   ],
   "level": 254
 }

@@ -1,27 +1,26 @@
 {
-  "shots": 24,
+  "shots": 29,
   "colors": [
-    "BLUE",
-    "YELLOW",
     "RED",
-    "GREEN"
+    "BLUE",
+    "YELLOW"
   ],
   "objective": {
-    "type": "DROP_COUNT",
-    "target": 18
+    "type": "CLEAR_ALL",
+    "target": 0
   },
   "starThresholds": [
-    1200,
-    2500,
-    3800
+    1320,
+    2763,
+    4621
   ],
   "rows": [
-    "BBB.BBBB",
-    "YYY.YYY",
-    ".RR.RR.",
-    "..G.G..",
-    "BB...BBB",
-    ".YY.YY."
+    "BRBRBRBRB",
+    "BRBRRBRB",
+    "RBRBRBRBR",
+    "BRBYYBRB",
+    "RBRBRBRBR",
+    "BRBRRBRB"
   ],
   "level": 7
 }

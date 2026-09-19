@@ -9,20 +9,20 @@
   ],
   "objective": {
     "type": "DROP_COUNT",
-    "target": 17
+    "target": 18
   },
   "starThresholds": [
-    1733,
-    3507,
-    5817
+    1677,
+    3658,
+    6233
   ],
   "rows": [
-    "..PPPP..",
-    ".PCCP..",
-    "YYC**CYY",
-    "YCRRCY.",
-    "..RRRR..",
-    ".RPPR.."
+    "PPCCYCCPP",
+    "PCYRRYCP",
+    "CYPRRRPYC",
+    "CRRRRRRC",
+    ".YRRRRRY.",
+    ".YCYYCY."
   ],
   "level": 81
 }

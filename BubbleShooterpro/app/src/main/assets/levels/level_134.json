@@ -10,21 +10,21 @@
   "objective": {
     "type": "POP_COLOR",
     "color": "BLUE",
-    "target": 14
+    "target": 16
   },
   "starThresholds": [
-    2030,
-    4192,
-    7032
+    1943,
+    4310,
+    7399
   ],
   "rows": [
-    "..C....C",
-    ".C.....",
-    ".CMMMMC.",
-    "CMCMCMC",
-    "CMMMMMMC",
-    ".Y.YY.Y",
-    "Y..GG..Y"
+    "..C....C.",
+    ".C......",
+    ".CMMMMMC.",
+    "CMCMMCMC",
+    "CMMMMMMMC",
+    ".Y.YY.Y.",
+    "Y..GGG..Y"
   ],
   "level": 134
 }

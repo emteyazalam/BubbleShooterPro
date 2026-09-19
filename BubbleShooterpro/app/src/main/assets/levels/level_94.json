@@ -10,20 +10,21 @@
   "objective": {
     "type": "POP_COLOR",
     "color": "GREEN",
-    "target": 14
+    "target": 16
   },
   "starThresholds": [
-    1747,
-    3616,
-    6056
+    1684,
+    3760,
+    6461
   ],
   "rows": [
-    "RROOYYPP",
-    "ROOYYPR",
-    "OOYYPPRR",
-    "OYYPPRO",
-    "YYPPRROO",
-    "YPYRROY"
+    "..R....R.",
+    ".R......",
+    ".ROOOOOR.",
+    "ROXOOXOR",
+    "ROOOOOOOR",
+    ".Y.YY.Y.",
+    "Y..PPP..Y"
   ],
   "level": 94
 }

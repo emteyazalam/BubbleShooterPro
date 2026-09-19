@@ -12,18 +12,17 @@
     "target": 0
   },
   "starThresholds": [
-    2049,
-    4101,
-    6791
+    1971,
+    4229,
+    7173
   ],
   "rows": [
-    "..R....R",
-    ".R.....",
-    ".ROOOOR.",
-    "ROXOXOR",
-    "ROOOOOOR",
-    ".Y.YY.Y",
-    "Y..PP..Y"
+    "ROYRPRYOR",
+    "OYPPPPYO",
+    "YPXOOOXPY",
+    "ROPYYPOR",
+    "PYORRROYP",
+    ".PYOOYP."
   ],
   "level": 119
 }

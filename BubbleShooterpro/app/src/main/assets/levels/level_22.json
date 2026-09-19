@@ -1,9 +1,9 @@
 {
-  "shots": 23,
+  "shots": 28,
   "colors": [
-    "PURPLE",
-    "ORANGE",
+    "RED",
     "BLUE",
+    "YELLOW",
     "GREEN"
   ],
   "objective": {
@@ -11,16 +11,18 @@
     "target": 0
   },
   "starThresholds": [
-    1400,
-    2900,
-    4400
+    1397,
+    2949,
+    4952
   ],
   "rows": [
-    "PPOOGGBB",
-    "PP.S.BB",
-    "OOPPBBGG",
-    "OO.F.GG",
-    "GGBBOOPP"
+    "RBYBGBYBR",
+    "RBYGGYBR",
+    ".BYRGRYB.",
+    "..YYYY..",
+    ".GYRGRYG.",
+    "GBRYYRBG",
+    "GBRBGBRBG"
   ],
   "level": 22
 }

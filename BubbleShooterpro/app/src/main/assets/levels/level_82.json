@@ -9,20 +9,21 @@
   ],
   "objective": {
     "type": "SCORE_TARGET",
-    "target": 3322
+    "target": 3733
   },
   "starThresholds": [
-    1763,
-    3544,
-    5864
+    1707,
+    3696,
+    6281
   ],
   "rows": [
-    "CPCPCPCC",
-    "CPCPCPC",
-    "PCXCPXCP",
-    "CPCPCPC",
-    "PCPYYPCP",
-    "CPCPCPC"
+    "PCYCRCYCP",
+    "PCYRRYCP",
+    ".CYXRXYC.",
+    "..YYYY..",
+    ".RYXRXYR.",
+    "RCPYYPCR",
+    "RCPCRCPCR"
   ],
   "level": 82
 }

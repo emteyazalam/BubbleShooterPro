@@ -9,20 +9,20 @@
   ],
   "objective": {
     "type": "SCORE_TARGET",
-    "target": 4086
+    "target": 4508
   },
   "starThresholds": [
-    1864,
-    3894,
-    6554
+    1787,
+    4023,
+    6938
   ],
   "rows": [
-    "ROYPROYP",
-    "RYYPRYY",
-    "PYORPYOR",
-    "PYYRPYO",
-    "OOYYPPRR",
-    "OYYPPRO"
+    ".RRR.OOO.",
+    "RYYROPPO",
+    "RY*YROP*P",
+    "RYYROPPO",
+    ".RRR.ORO.",
+    ".YY..PP."
   ],
   "level": 116
 }

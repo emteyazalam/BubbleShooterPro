@@ -12,17 +12,17 @@
     "target": 0
   },
   "starThresholds": [
-    2004,
-    4174,
-    7024
+    1916,
+    4290,
+    7389
   ],
   "rows": [
-    "SSCCCCSS",
-    "SCMMCS.",
-    "CM**MC..",
-    "MMXMM..",
-    "SYYYYS..",
-    "YYYYY.."
+    "SSCCCCCSS",
+    "SCMMMCSS",
+    "CM****MCC",
+    "MMXMMXMM",
+    "SYYYYYYSS",
+    "YYYYYY.."
   ],
   "level": 135
 }

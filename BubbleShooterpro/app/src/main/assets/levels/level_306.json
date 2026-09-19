@@ -1,5 +1,5 @@
 {
-  "shots": 23,
+  "shots": 24,
   "colors": [
     "RED",
     "BLUE",
@@ -10,20 +10,20 @@
   ],
   "objective": {
     "type": "DROP_COUNT",
-    "target": 29
+    "target": 31
   },
   "starThresholds": [
-    3340,
-    6764,
-    11324
+    3148,
+    6766,
+    11523
   ],
   "rows": [
-    "..RRRR..",
-    ".RBBR..",
-    "YYBGGBYY",
-    "YBGGBY.",
-    "..GGGG..",
-    ".GXXG.."
+    "..RRBRRBR",
+    ".RBBBBR.",
+    "YYBGGGBYY",
+    "YBGGGGBY",
+    "..GGGGGGG",
+    ".GXGGXG."
   ],
   "level": 306
 }

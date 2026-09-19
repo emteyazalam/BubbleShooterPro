@@ -9,20 +9,21 @@
   ],
   "objective": {
     "type": "SCORE_TARGET",
-    "target": 4313
+    "target": 4742
   },
   "starThresholds": [
-    2244,
-    4465,
-    7385
+    2152,
+    4577,
+    7744
   ],
   "rows": [
-    "MCMCMCMM",
-    "MCMCMCM",
-    "CMXMCXMC",
-    "MCMCMCM",
-    "CMCLLCMC",
-    "MCMCMCM"
+    "CMYMGMYMC",
+    "CMYGGYMC",
+    ".MYXGXYM.",
+    "..YLLY..",
+    ".GYXGXYG.",
+    "GMCYYCMG",
+    "GMCMGMCMG"
   ],
   "level": 142
 }

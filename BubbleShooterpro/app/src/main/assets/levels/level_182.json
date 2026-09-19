@@ -1,5 +1,5 @@
 {
-  "shots": 21,
+  "shots": 22,
   "colors": [
     "GREEN",
     "YELLOW",
@@ -12,18 +12,18 @@
     "target": 0
   },
   "starThresholds": [
-    2378,
-    4892,
-    8212
+    2261,
+    4977,
+    8532
   ],
   "rows": [
-    "GYOYYOYG",
-    "GYOOYG.",
-    ".YOGOY..",
-    "..OOO..",
-    ".ROGOR..",
-    "RYGGYR.",
-    "RYGYYGYR"
+    "GYOYRYOYG",
+    "GYORROYG",
+    ".YOGRGOY.",
+    "..OOOO..",
+    ".ROGRGOR.",
+    "RYGOOGYR",
+    "RYGYRYGYR"
   ],
   "level": 182
 }

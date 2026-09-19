@@ -1,5 +1,5 @@
 {
-  "shots": 27,
+  "shots": 26,
   "colors": [
     "BLUE",
     "YELLOW",
@@ -9,21 +9,20 @@
   "objective": {
     "type": "POP_COLOR",
     "color": "YELLOW",
-    "target": 13
+    "target": 14
   },
   "starThresholds": [
-    1493,
-    2907,
-    4727
+    1467,
+    3092,
+    5192
   ],
   "rows": [
-    "BYRYYRYB",
-    "BYRRYB.",
-    ".YRBRY..",
-    "..RRR..",
-    ".GRBRG..",
-    "GYBBYG.",
-    "GYBYYBYG"
+    "BBYYYYYBB",
+    "BBYYYBBB",
+    "RRRGGGGRR",
+    "RBGGGBRR",
+    "BBBBBBBBB",
+    "BBBYYBBB"
   ],
   "level": 32
 }

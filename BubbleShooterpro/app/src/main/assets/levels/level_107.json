@@ -12,18 +12,17 @@
     "target": 0
   },
   "starThresholds": [
-    1741,
-    3705,
-    6275
+    1670,
+    3840,
+    6667
   ],
   "rows": [
-    "ROYSSYOR",
-    "ROYYOR.",
-    ".OYRYO..",
-    "..YYY..",
-    ".PYRYP..",
-    "PORROP.",
-    "PORSSROP"
+    "SRORORORS",
+    "ORORRORO",
+    "ROROROROR",
+    "OROLLORO",
+    "ROROROROR",
+    "ORORRORO"
   ],
   "level": 107
 }
