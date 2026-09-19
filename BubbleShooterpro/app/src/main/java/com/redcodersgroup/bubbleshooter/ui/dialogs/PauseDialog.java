@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import com.redcodersgroup.bubbleshooter.R;
+import com.redcodersgroup.bubbleshooter.audio.SoundManager;
 import com.redcodersgroup.bubbleshooter.data.PreferencesManager;
 import com.redcodersgroup.bubbleshooter.databinding.DialogPauseBinding;
 
@@ -22,12 +23,14 @@ public class PauseDialog extends Dialog {
 
     private final PauseDialogListener listener;
     private final PreferencesManager prefs;
+    private final SoundManager soundManager;
     private DialogPauseBinding binding;
 
     public PauseDialog(@NonNull Context context, PauseDialogListener listener) {
         super(context);
         this.listener = listener;
         this.prefs = new PreferencesManager(context);
+        this.soundManager = SoundManager.getInstance(context);
     }
 
     @Override
@@ -43,22 +46,26 @@ public class PauseDialog extends Dialog {
         }
 
         binding.btnResume.setOnClickListener(v -> {
+            soundManager.playClick();
             dismiss();
             if (listener != null) listener.onResumeClicked();
         });
 
         binding.btnRestart.setOnClickListener(v -> {
+            soundManager.playClick();
             dismiss();
             if (listener != null) listener.onRestartClicked();
         });
 
         binding.btnExit.setOnClickListener(v -> {
+            soundManager.playClick();
             dismiss();
             if (listener != null) listener.onExitClicked();
         });
 
         updateSoundButton(binding.btnToggleSound);
         binding.btnToggleSound.setOnClickListener(v -> {
+            soundManager.playClick();
             boolean current = prefs.isSoundEnabled();
             prefs.setSoundEnabled(!current);
             updateSoundButton(binding.btnToggleSound);
@@ -66,6 +73,7 @@ public class PauseDialog extends Dialog {
 
         updateHapticButton(binding.btnToggleHaptic);
         binding.btnToggleHaptic.setOnClickListener(v -> {
+            soundManager.playClick();
             boolean current = prefs.isHapticEnabled();
             prefs.setHapticEnabled(!current);
             updateHapticButton(binding.btnToggleHaptic);

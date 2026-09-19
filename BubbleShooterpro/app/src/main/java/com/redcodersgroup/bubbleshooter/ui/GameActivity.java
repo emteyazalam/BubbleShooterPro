@@ -150,6 +150,9 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             @Override
             public void onExitClicked() {
                 activePauseDialog = null;
+                Intent intent = LevelSelectActivity.createIntent(GameActivity.this);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 finish();
             }
         });
