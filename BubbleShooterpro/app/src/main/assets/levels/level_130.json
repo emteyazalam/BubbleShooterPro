@@ -1,0 +1,30 @@
+{
+  "shots": 25,
+  "colors": [
+    "CYAN",
+    "MAGENTA",
+    "YELLOW",
+    "GREEN",
+    "BLUE"
+  ],
+  "objective": {
+    "type": "POP_COLOR",
+    "color": "BLUE",
+    "target": 17
+  },
+  "starThresholds": [
+    1962,
+    4095,
+    6895
+  ],
+  "rows": [
+    ".CC..CC.",
+    "CCCCCCC",
+    "MCC*CCM.",
+    "MMCCMM.",
+    ".YMXMY..",
+    "..YYY..",
+    "...GG..."
+  ],
+  "level": 130
+}

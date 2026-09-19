@@ -1,0 +1,29 @@
+{
+  "shots": 22,
+  "colors": [
+    "BLUE",
+    "CYAN",
+    "GREEN",
+    "YELLOW",
+    "PURPLE"
+  ],
+  "objective": {
+    "type": "DROP_COUNT",
+    "target": 22
+  },
+  "starThresholds": [
+    2167,
+    4623,
+    7863
+  ],
+  "rows": [
+    "BBCCCCBB",
+    "BBCCCBB",
+    "BB....BB",
+    "GG...GG",
+    "GGX..XGG",
+    "YY...YY",
+    "YYCCCCYY"
+  ],
+  "level": 174
+}

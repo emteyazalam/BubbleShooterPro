@@ -49,7 +49,7 @@
                 android:id="@+id/tvCurrentWorldSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30 Epic Levels • 3 Biomes"
+                android:text="330 Epic Levels • 11 Biomes"
                 android:textColor="@color/accent_yellow"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -79,195 +79,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="0/90"
+                android:text="0/990"
                 android:textColor="#FFFFFF"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>
 
-    <!-- World Saga Scrollable Path -->
-    <androidx.core.widget.NestedScrollView
+    <!-- World Saga Master RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBiomes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="14dp">
-
-            <!-- BIOME 1: BUBBLE MEADOWS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_biome_meadows"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="WORLD 1"
-                    android:textColor="#C0FFFFFF"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🌿 Bubble Meadows"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLevelsWorld1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:nestedScrollingEnabled="false" />
-
-            <!-- Milestone Treasure Chest 1 -->
-            <LinearLayout
-                android:id="@+id/layoutChestBiome1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:background="@drawable/bg_milestone_chest"
-                android:padding="10dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="14dp">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_chest" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="🎁 Biome 1 Star Chest (Tap to Claim)"
-                    android:textColor="@color/accent_yellow"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- BIOME 2: CRYSTAL CAVERNS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_biome_crystals"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="WORLD 2"
-                    android:textColor="#C0FFFFFF"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="💎 Crystal Caverns"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLevelsWorld2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:nestedScrollingEnabled="false" />
-
-            <!-- Milestone Treasure Chest 2 -->
-            <LinearLayout
-                android:id="@+id/layoutChestBiome2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:background="@drawable/bg_milestone_chest"
-                android:padding="10dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="14dp">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_chest" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="🎁 Biome 2 Star Chest (Tap to Claim)"
-                    android:textColor="@color/accent_yellow"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- BIOME 3: CELESTIAL COSMOS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_biome_cosmos"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="WORLD 3"
-                    android:textColor="#C0FFFFFF"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="✨ Celestial Cosmos"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLevelsWorld3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="24dp"
-                android:nestedScrollingEnabled="false" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        android:padding="14dp"
+        android:clipToPadding="false"
+        android:scrollbars="none" />
 
 </LinearLayout>

@@ -1,0 +1,28 @@
+{
+  "shots": 25,
+  "colors": [
+    "CYAN",
+    "MAGENTA",
+    "YELLOW",
+    "GREEN",
+    "BLUE"
+  ],
+  "objective": {
+    "type": "SCORE_TARGET",
+    "target": 4055
+  },
+  "starThresholds": [
+    2254,
+    4504,
+    7464
+  ],
+  "rows": [
+    "CMYGCMYG",
+    "CYYGCYY",
+    "GYMCGYMC",
+    "GYYCGYM",
+    "MMYYGGCC",
+    "MYYGGCM"
+  ],
+  "level": 146
+}

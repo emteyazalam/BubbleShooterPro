@@ -1,0 +1,29 @@
+{
+  "shots": 24,
+  "colors": [
+    "RED",
+    "ORANGE",
+    "YELLOW",
+    "PURPLE",
+    "GREEN"
+  ],
+  "objective": {
+    "type": "CLEAR_ALL",
+    "target": 0
+  },
+  "starThresholds": [
+    1741,
+    3705,
+    6275
+  ],
+  "rows": [
+    "ROYSSYOR",
+    "ROYYOR.",
+    ".OYRYO..",
+    "..YYY..",
+    ".PYRYP..",
+    "PORROP.",
+    "PORSSROP"
+  ],
+  "level": 107
+}

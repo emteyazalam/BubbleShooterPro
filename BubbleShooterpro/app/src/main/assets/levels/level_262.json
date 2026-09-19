@@ -1,0 +1,28 @@
+{
+  "shots": 22,
+  "colors": [
+    "YELLOW",
+    "ORANGE",
+    "RED",
+    "PURPLE",
+    "GREEN"
+  ],
+  "objective": {
+    "type": "CLEAR_ALL",
+    "target": 0
+  },
+  "starThresholds": [
+    2892,
+    5993,
+    10113
+  ],
+  "rows": [
+    "OYOYOYOO",
+    "OYOYOYO",
+    "YOXOYXOY",
+    "OYOYOYO",
+    "YOYRRYOY",
+    "OYOYOYO"
+  ],
+  "level": 262
+}

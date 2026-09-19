@@ -1,0 +1,29 @@
+{
+  "shots": 21,
+  "colors": [
+    "BLUE",
+    "CYAN",
+    "GREEN",
+    "YELLOW",
+    "PURPLE"
+  ],
+  "objective": {
+    "type": "CLEAR_ALL",
+    "target": 0
+  },
+  "starThresholds": [
+    2272,
+    4764,
+    8054
+  ],
+  "rows": [
+    "..B....B",
+    ".B.....",
+    ".BCCCCB.",
+    "BCBCBCB",
+    "BCCCCCCB",
+    ".G.GG.G",
+    "G..YY..G"
+  ],
+  "level": 179
+}

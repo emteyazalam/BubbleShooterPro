@@ -1,0 +1,29 @@
+{
+  "shots": 25,
+  "colors": [
+    "CYAN",
+    "BLUE",
+    "PURPLE",
+    "YELLOW",
+    "RED"
+  ],
+  "objective": {
+    "type": "POP_COLOR",
+    "color": "CYAN",
+    "target": 23
+  },
+  "starThresholds": [
+    2854,
+    5794,
+    9694
+  ],
+  "rows": [
+    "SSCCCCSS",
+    "SCBBCS.",
+    "CBYYBC..",
+    "BBXBB..",
+    "SPPPPS..",
+    "PPPPP.."
+  ],
+  "level": 240
+}

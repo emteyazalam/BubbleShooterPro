@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LevelManager {
-    public static final int TOTAL_LEVELS = 30;
+    public static final int TOTAL_LEVELS = 330;
     private static LevelManager instance;
     private final Context context;
     private final Map<Integer, Level> levelCache = new HashMap<>();

@@ -1,0 +1,28 @@
+{
+  "shots": 23,
+  "colors": [
+    "CYAN",
+    "MAGENTA",
+    "YELLOW",
+    "GREEN",
+    "BLUE"
+  ],
+  "objective": {
+    "type": "CLEAR_ALL",
+    "target": 0
+  },
+  "starThresholds": [
+    1870,
+    3981,
+    6750
+  ],
+  "rows": [
+    "MCMCMCMM",
+    "MCMCMCM",
+    "CMCMCCMC",
+    "MCMCMCM",
+    "CMCYYCMC",
+    "MCMCMCM"
+  ],
+  "level": 127
+}

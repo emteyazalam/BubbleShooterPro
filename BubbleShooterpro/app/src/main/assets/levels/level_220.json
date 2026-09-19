@@ -1,0 +1,29 @@
+{
+  "shots": 23,
+  "colors": [
+    "CYAN",
+    "BLUE",
+    "PURPLE",
+    "YELLOW",
+    "RED"
+  ],
+  "objective": {
+    "type": "SCORE_TARGET",
+    "target": 5091
+  },
+  "starThresholds": [
+    2707,
+    5500,
+    9200
+  ],
+  "rows": [
+    ".CC..CC.",
+    "CCCCCCC",
+    "BCC*CCB.",
+    "BBCCBB.",
+    ".PBCBP..",
+    "..PPP..",
+    "...YY..."
+  ],
+  "level": 220
+}

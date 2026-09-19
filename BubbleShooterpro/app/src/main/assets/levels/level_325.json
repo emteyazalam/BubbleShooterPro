@@ -1,0 +1,31 @@
+{
+  "shots": 22,
+  "colors": [
+    "RED",
+    "BLUE",
+    "YELLOW",
+    "GREEN",
+    "PURPLE",
+    "ORANGE"
+  ],
+  "objective": {
+    "type": "POP_COLOR",
+    "color": "PURPLE",
+    "target": 27
+  },
+  "starThresholds": [
+    3256,
+    6819,
+    11569
+  ],
+  "rows": [
+    ".RR..RR.",
+    "RRRRRRR",
+    "BRR*RRB.",
+    "BBRRBB.",
+    ".YBXBY..",
+    "..YYY..",
+    "...GG..."
+  ],
+  "level": 325
+}
