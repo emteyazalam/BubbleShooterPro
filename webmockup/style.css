@@ -262,7 +262,7 @@ html, body {
 #screen-menu {
     justify-content: space-between;
     align-items: center;
-    padding: 14px 16px 20px;
+    padding: 10px 14px 14px;
     background: radial-gradient(circle at 50% 25%, #22274d 0%, #151833 80%);
     position: relative;
     overflow: hidden;
@@ -416,7 +416,7 @@ html, body {
 }
 
 .tv-app-title {
-    font-size: 38px;
+    font-size: 32px;
     font-weight: 900;
     color: var(--accent-yellow);
     letter-spacing: 2px;
@@ -433,15 +433,232 @@ html, body {
     text-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 
-/* Interactive Daily Star Chest Card */
+/* Game Modes Container */
+.home-modes-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+}
+
+/* Base Mode Card */
+.mode-card {
+    width: 100%;
+    position: relative;
+    border-radius: 18px;
+    padding: 9px 12px;
+    cursor: pointer;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.mode-card:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+}
+
+.mode-card:active {
+    transform: translateY(1px) scale(0.99);
+}
+
+/* Ambient Radial Glow */
+.mode-card-glow {
+    position: absolute;
+    top: -40%;
+    left: -20%;
+    width: 140%;
+    height: 180%;
+    background: radial-gradient(circle at 30% 30%, rgba(74, 222, 128, 0.18) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.endless-glow {
+    background: radial-gradient(circle at 30% 30%, rgba(192, 132, 252, 0.28) 0%, rgba(6, 182, 212, 0.15) 50%, transparent 70%);
+}
+
+/* 1. Adventure Mode Card Styling */
+.mode-card-adventure {
+    background: linear-gradient(135deg, rgba(22, 101, 52, 0.75) 0%, rgba(30, 39, 73, 0.85) 60%, rgba(15, 23, 42, 0.9) 100%);
+    border: 1.5px solid rgba(74, 222, 128, 0.45);
+}
+
+/* 2. Endless Mode Card Styling */
+.mode-card-endless {
+    background: linear-gradient(135deg, rgba(126, 34, 206, 0.8) 0%, rgba(30, 39, 73, 0.85) 55%, rgba(14, 116, 144, 0.8) 100%);
+    border: 1.5px solid rgba(192, 132, 252, 0.6);
+    box-shadow: 0 8px 24px rgba(126, 34, 206, 0.35), 0 0 12px rgba(192, 132, 252, 0.2);
+}
+
+/* Top Badge on Card */
+.mode-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 8px;
+    margin-bottom: 3px;
+    width: fit-content;
+}
+
+.badge-saga {
+    background: rgba(250, 204, 21, 0.2);
+    color: #FDE047;
+    border: 1px solid rgba(250, 204, 21, 0.4);
+}
+
+.badge-endless {
+    background: rgba(216, 180, 254, 0.25);
+    color: #F0ABFC;
+    border: 1px solid rgba(216, 180, 254, 0.5);
+    box-shadow: 0 0 8px rgba(216, 180, 254, 0.4);
+    animation: neonGlowPulse 2s infinite alternate;
+}
+
+@keyframes neonGlowPulse {
+    0% { opacity: 0.85; filter: drop-shadow(0 0 2px #C084FC); }
+    100% { opacity: 1; filter: drop-shadow(0 0 6px #E879F9); }
+}
+
+/* Card Body */
+.mode-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.mode-icon-endless {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #9333EA, #06B6D4);
+    border: 1.5px solid #E9D5FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+}
+
+.infinity-symbol {
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1;
+    color: #FFFFFF;
+    text-shadow: 0 0 8px #E0E7FF;
+    margin-top: -2px;
+}
+
+.mode-text-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mode-name-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mode-name {
+    font-size: 15px;
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: 0.8px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.endless-text {
+    background: linear-gradient(90deg, #FFFFFF, #E0E7FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge-new-chip {
+    font-size: 8px;
+    font-weight: 900;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, #EC4899, #EF4444);
+    padding: 1px 5px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(236, 72, 153, 0.4);
+}
+
+.mode-meta {
+    font-size: 10px;
+    font-weight: 700;
+    color: #94A3B8;
+    margin-top: 1px;
+}
+
+.endless-meta {
+    color: #67E8F9;
+    font-weight: 800;
+}
+
+/* Play Button Inside Mode Cards */
+.btn-mode-play {
+    width: 82px !important;
+    height: 40px !important;
+    font-size: 14px !important;
+    flex-shrink: 0;
+}
+
+/* Mode Card Footer Links */
+.mode-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6px;
+    padding-top: 5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mode-link-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 3px 8px;
+    color: #FDE047;
+    font-size: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+}
+
+.mode-link-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    color: #FFFFFF;
+}
+
+.mode-stars-count {
+    font-size: 10px;
+    font-weight: 800;
+    color: #FDE047;
+}
+
+/* Interactive Daily Star Chest Card (Compact) */
 .star-chest-card {
     width: 100%;
     display: flex;
     align-items: center;
     background: rgba(30, 39, 73, 0.65);
-    border: 1.5px solid rgba(255, 255, 255, 0.22);
-    border-radius: 20px;
-    padding: 10px 14px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    padding: 6px 10px;
     cursor: pointer;
     z-index: 10;
     backdrop-filter: blur(8px);
@@ -449,13 +666,13 @@ html, body {
 }
 
 .star-chest-card:hover {
-    transform: scale(1.02);
+    transform: scale(1.015);
     box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 
 .chest-icon-wrapper {
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -466,73 +683,51 @@ html, body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    margin-left: 8px;
+}
+
+.chest-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .chest-title {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 900;
     color: #FFFFFF;
     letter-spacing: 0.5px;
 }
 
-.chest-desc {
+.chest-badge-count {
     font-size: 10px;
-    color: #A0E0E0;
-    margin-top: 1px;
+    font-weight: 800;
+    color: #FDE047;
 }
 
 .chest-progress-bar {
     width: 100%;
-    height: 7px;
-    background: rgba(0, 0, 0, 0.4);
+    height: 6px;
+    background: rgba(0, 0, 0, 0.45);
     border-radius: 4px;
-    margin-top: 4px;
+    margin-top: 3px;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.15);
 }
 
 .chest-progress-fill {
-    width: 30%;
+    width: 0%;
     height: 100%;
     background: linear-gradient(90deg, #F59E0B, #FDE047);
     border-radius: 4px;
     transition: width 0.3s ease;
 }
 
-/* Action Buttons */
-.home-action-buttons {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    z-index: 10;
-}
-
-.btn-mega-play {
-    width: 250px !important;
-    height: 64px !important;
-    font-size: 22px !important;
-}
-
-.secondary-btn-row {
-    width: 250px;
-    display: flex;
-    gap: 10px;
-}
-
-.btn-secondary-pill {
-    flex: 1;
-    height: 52px !important;
-    font-size: 16px !important;
-}
-
 /* Pill Buttons Styles */
-.btn-pill-green, .btn-pill-yellow, .btn-pill-red, .btn-pill-blue {
+.btn-pill-green, .btn-pill-yellow, .btn-pill-red, .btn-pill-blue, .btn-pill-purple {
     position: relative;
     border-radius: 28px;
-    border: 2.5px solid #FFFFFF;
+    border: 2px solid #FFFFFF;
     outline: none;
     cursor: pointer;
     display: flex;
@@ -541,19 +736,19 @@ html, body {
     font-weight: 900;
     color: #FFFFFF;
     text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-    letter-spacing: 1.5px;
-    transition: transform 0.08s ease, box-shadow 0.08s ease;
+    letter-spacing: 1.2px;
+    transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
     overflow: hidden;
     font-family: inherit;
 }
 
-.btn-pill-green::before, .btn-pill-yellow::before, .btn-pill-red::before, .btn-pill-blue::before {
+.btn-pill-green::before, .btn-pill-yellow::before, .btn-pill-red::before, .btn-pill-blue::before, .btn-pill-purple::before {
     content: '';
     position: absolute;
-    top: 3px;
-    left: 10px;
-    right: 10px;
-    height: 44%;
+    top: 2px;
+    left: 8px;
+    right: 8px;
+    height: 42%;
     border-radius: 20px 20px 8px 8px;
     background: linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 100%);
     pointer-events: none;
@@ -561,7 +756,12 @@ html, body {
 
 .btn-pill-green {
     background: linear-gradient(180deg, #4ADE80 0%, #22C55E 50%, #15803D 100%);
-    box-shadow: 0 6px 0 #0F5132, 0 10px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 5px 0 #0F5132, 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.btn-pill-purple {
+    background: linear-gradient(180deg, #C084FC 0%, #9333EA 50%, #6B21A8 100%);
+    box-shadow: 0 5px 0 #4C1D95, 0 8px 16px rgba(147, 51, 234, 0.45);
 }
 
 .btn-pill-yellow {
@@ -576,14 +776,14 @@ html, body {
 
 .btn-pill-red {
     background: linear-gradient(180deg, #F87171 0%, #EF4444 50%, #DC2626 100%);
-    box-shadow: 0 6px 0 #450A0A, 0 10px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 5px 0 #450A0A, 0 8px 16px rgba(0,0,0,0.4);
 }
 
-.btn-pill-green:hover, .btn-pill-yellow:hover, .btn-pill-blue:hover, .btn-pill-red:hover {
-    filter: brightness(1.05);
+.btn-pill-green:hover, .btn-pill-purple:hover, .btn-pill-yellow:hover, .btn-pill-blue:hover, .btn-pill-red:hover {
+    filter: brightness(1.08);
 }
 
-.btn-pill-green:active, .btn-pill-yellow:active, .btn-pill-blue:active, .btn-pill-red:active {
+.btn-pill-green:active, .btn-pill-purple:active, .btn-pill-yellow:active, .btn-pill-blue:active, .btn-pill-red:active {
     transform: translateY(3px);
     box-shadow: 0 2px 0 rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3);
 }
@@ -591,7 +791,7 @@ html, body {
 /* Bottom Utility Dock */
 .bottom-utility-dock {
     display: flex;
-    gap: 16px;
+    gap: 14px;
     justify-content: center;
     align-items: center;
     z-index: 10;
