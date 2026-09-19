@@ -145,6 +145,16 @@ public class Bubble {
         this.scaleY = scaleY;
     }
 
+    public void setScale(float scale) {
+        this.scaleX = scale;
+        this.scaleY = scale;
+    }
+
+    public void setScale(float scaleX, float scaleY) {
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+    }
+
     public float getAlpha() {
         return alpha;
     }

@@ -77,6 +77,11 @@ public class GameEngine {
     private boolean isSuperAimActive = false;
     private boolean isAimCancelled = false;
 
+    // Launcher reload jump & pop-in animation
+    private boolean isLauncherReloading = false;
+    private float reloadTimer = 0f;
+    private static final float RELOAD_DURATION = 0.22f;
+
     public GameEngine(Context context) {
         this.context = context.getApplicationContext();
         this.soundManager = SoundManager.getInstance(context);
@@ -113,11 +118,15 @@ public class GameEngine {
             currentBubble.setX(launcherX);
             currentBubble.setY(launcherY);
             currentBubble.setRadius(bubbleRadius);
+            currentBubble.setScale(1.0f);
+            currentBubble.setAlpha(1.0f);
         }
         if (nextBubble != null) {
             nextBubble.setX(previewX);
             nextBubble.setY(previewY);
             nextBubble.setRadius(bubbleRadius * 0.75f);
+            nextBubble.setScale(1.0f);
+            nextBubble.setAlpha(1.0f);
         }
 
         updateTrajectory();
@@ -139,6 +148,7 @@ public class GameEngine {
         this.confettiSystem.clear();
         this.grid.clear();
         this.state = GameState.READY;
+        this.isLauncherReloading = false;
 
         // Populate grid from level row strings
         List<String> rows = level.getRows();
@@ -182,11 +192,15 @@ public class GameEngine {
         this.currentBubble.setX(launcherX);
         this.currentBubble.setY(launcherY);
         this.currentBubble.setRadius(bubbleRadius);
+        this.currentBubble.setScale(1.0f);
+        this.currentBubble.setAlpha(1.0f);
 
         this.nextBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
         this.nextBubble.setX(previewX);
         this.nextBubble.setY(previewY);
         this.nextBubble.setRadius(bubbleRadius * 0.75f);
+        this.nextBubble.setScale(1.0f);
+        this.nextBubble.setAlpha(1.0f);
 
         if (listener != null) {
             listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
@@ -224,6 +238,18 @@ public class GameEngine {
         if (state != GameState.READY && state != GameState.AIMING) return;
         if (currentBubble == null || nextBubble == null) return;
 
+        if (isLauncherReloading) {
+            isLauncherReloading = false;
+            currentBubble.setX(launcherX);
+            currentBubble.setY(launcherY);
+            currentBubble.setScale(1.0f);
+            currentBubble.setAlpha(1.0f);
+            nextBubble.setX(previewX);
+            nextBubble.setY(previewY);
+            nextBubble.setScale(1.0f);
+            nextBubble.setAlpha(1.0f);
+        }
+
         BubbleColor tempColor = currentBubble.getColor();
         BubbleType tempType = currentBubble.getType();
 
@@ -239,6 +265,14 @@ public class GameEngine {
     public void equipBooster(BubbleType type) {
         if (state != GameState.READY && state != GameState.AIMING) return;
         if (currentBubble == null) return;
+
+        if (isLauncherReloading) {
+            isLauncherReloading = false;
+            currentBubble.setX(launcherX);
+            currentBubble.setY(launcherY);
+            currentBubble.setScale(1.0f);
+            currentBubble.setAlpha(1.0f);
+        }
 
         currentBubble.setType(type);
         if (type == BubbleType.BOMB) {
@@ -353,16 +387,79 @@ public class GameEngine {
 
         soundManager.playShoot();
 
-        // Immediately promote next bubble to launcher so old fired bubble never reappears
+        // 1. Promote queued bubble into currentBubble, starting at preview position
         currentBubble.setColor(nextBubble.getColor());
         currentBubble.setType(nextBubble.getType());
+        currentBubble.setRadius(bubbleRadius);
+        currentBubble.setX(previewX);
+        currentBubble.setY(previewY);
+        currentBubble.setScale(0.75f);
+        currentBubble.setAlpha(1.0f);
+
+        // 2. Pick a new random nextBubble and prepare it to pop into the preview position
         nextBubble.setColor(pickRandomColor());
         nextBubble.setType(BubbleType.NORMAL);
+        nextBubble.setRadius(bubbleRadius * 0.75f);
+        nextBubble.setX(previewX);
+        nextBubble.setY(previewY);
+        nextBubble.setScale(0.0f);
+        nextBubble.setAlpha(0.0f);
+
+        // 3. Trigger jump & pop reload animation
+        isLauncherReloading = true;
+        reloadTimer = 0f;
     }
 
     public void update(float dt) {
         if (state == GameState.PAUSED) {
             return;
+        }
+
+        // 0. Update launcher reload jump & pop-in animation
+        if (isLauncherReloading) {
+            reloadTimer += dt;
+            float t = Math.min(1.0f, reloadTimer / RELOAD_DURATION);
+
+            // Parabolic hop arc from preview to launcher
+            float hopHeight = bubbleRadius * 0.70f;
+            float hop = (float) Math.sin(t * Math.PI) * hopHeight;
+
+            float curX = previewX + (launcherX - previewX) * t;
+            float curY = previewY + (launcherY - previewY) * t - hop;
+            float curScale = 0.75f + 0.25f * t;
+
+            if (currentBubble != null) {
+                currentBubble.setX(curX);
+                currentBubble.setY(curY);
+                currentBubble.setScale(curScale);
+            }
+
+            // Pop-in with elastic bounce for new queued bubble
+            float popT = Math.max(0f, (reloadTimer - 0.03f) / (RELOAD_DURATION * 0.85f));
+            popT = Math.min(1.0f, popT);
+            float p = popT - 1.0f;
+            float popScale = (popT == 0f) ? 0f : (p * p * (2.2f * p + 1.2f) + 1.0f);
+
+            if (nextBubble != null) {
+                nextBubble.setScale(Math.max(0f, popScale));
+                nextBubble.setAlpha(Math.min(1.0f, popT * 2.5f));
+            }
+
+            if (t >= 1.0f) {
+                isLauncherReloading = false;
+                if (currentBubble != null) {
+                    currentBubble.setX(launcherX);
+                    currentBubble.setY(launcherY);
+                    currentBubble.setScale(1.0f);
+                    currentBubble.setAlpha(1.0f);
+                }
+                if (nextBubble != null) {
+                    nextBubble.setX(previewX);
+                    nextBubble.setY(previewY);
+                    nextBubble.setScale(1.0f);
+                    nextBubble.setAlpha(1.0f);
+                }
+            }
         }
 
         // 1. Update visual particles and texts
@@ -633,12 +730,12 @@ public class GameEngine {
         paint.setColor(Color.parseColor("#616161"));
         canvas.drawCircle(previewX, previewY, bubbleRadius * 0.95f, paint);
 
-        // Ready Bubble in Launcher
-        if (currentBubble != null && state != GameState.SHOOTING) {
+        // Ready Bubble in Launcher (drawn jumping or resting)
+        if (currentBubble != null) {
             currentBubble.draw(canvas, paint);
         }
 
-        // Preview Bubble
+        // Preview Bubble (drawn popping in or resting)
         if (nextBubble != null) {
             nextBubble.draw(canvas, paint);
         }
