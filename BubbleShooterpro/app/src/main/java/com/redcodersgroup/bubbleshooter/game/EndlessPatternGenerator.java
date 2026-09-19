@@ -23,20 +23,18 @@ public class EndlessPatternGenerator {
     );
 
     /**
-     * Returns an active color palette scaled by wave progression.
-     * Starts with 3 colors for high matchability and gradually unlocks more colors.
+     * Returns an active color palette scaled for mid-level difficulty.
+     * Starts with 4 colors immediately for rich tactical play, scaling to 5 colors at wave 5 and 6 colors at wave 16.
      */
     public static List<BubbleColor> getActiveColors(int waveCount, List<BubbleColor> basePool) {
         List<BubbleColor> pool = (basePool != null && !basePool.isEmpty()) ? basePool : DEFAULT_PALETTE;
         int colorCount;
-        if (waveCount <= 12) {
-            colorCount = 3; // Waves 1-12: 3 colors (high matchability, great combo flow)
-        } else if (waveCount <= 28) {
-            colorCount = 4; // Waves 13-28: 4 colors
-        } else if (waveCount <= 50) {
-            colorCount = 5; // Waves 29-50: 5 colors
+        if (waveCount <= 4) {
+            colorCount = 4; // Waves 1-4: 4 colors (balanced, mid-level challenge from start)
+        } else if (waveCount <= 15) {
+            colorCount = 5; // Waves 5-15: 5 colors (requires tactical planning & banking)
         } else {
-            colorCount = Math.min(pool.size(), 6); // Wave 51+: full palette
+            colorCount = Math.min(pool.size(), 6); // Wave 16+: full 6-color palette
         }
         colorCount = Math.min(colorCount, pool.size());
 
@@ -48,7 +46,7 @@ public class EndlessPatternGenerator {
     }
 
     /**
-     * Generates a single new top row using structured, playful patterns.
+     * Generates a single new top row using structured, mid-difficulty tactical patterns.
      */
     public static List<Bubble> generateRow(int waveCount, int cols, int rowParity, List<BubbleColor> activeColors, Random random) {
         if (activeColors == null || activeColors.isEmpty()) {
@@ -59,20 +57,20 @@ public class EndlessPatternGenerator {
         BubbleType[] rowTypes = new BubbleType[cols];
         Arrays.fill(rowTypes, BubbleType.NORMAL);
 
-        int patternType = random.nextInt(4);
+        int patternType = random.nextInt(5);
 
         if (patternType == 0) {
-            // Pattern 1: Cohesive Cluster Runs (groups of 2-4 same color)
+            // Pattern 1: Balanced 2-Bubble Runs (groups of 2, requiring careful matching)
             int c = 0;
             while (c < cols) {
                 BubbleColor clusterColor = activeColors.get(random.nextInt(activeColors.size()));
-                int clusterLen = 2 + random.nextInt(3); // 2 to 4 bubbles
+                int clusterLen = 2 + random.nextInt(2); // 2 to 3 bubbles
                 for (int i = 0; i < clusterLen && c < cols; i++, c++) {
                     rowColors[c] = clusterColor;
                 }
             }
         } else if (patternType == 1) {
-            // Pattern 2: Symmetrical Mirror
+            // Pattern 2: Symmetrical Mirror (tactical left/right symmetry)
             int half = (cols + 1) / 2;
             BubbleColor[] halfColors = new BubbleColor[half];
             int h = 0;
@@ -88,40 +86,60 @@ public class EndlessPatternGenerator {
                 rowColors[c] = halfColors[srcIdx];
             }
         } else if (patternType == 2) {
-            // Pattern 3: Alternating Pairs [A, A, B, B, A, A, ...]
+            // Pattern 3: Checkerboard Alternating [A, B, A, B, A, B, ...]
             BubbleColor colorA = activeColors.get(random.nextInt(activeColors.size()));
             BubbleColor colorB = activeColors.get(random.nextInt(activeColors.size()));
             if (colorB == colorA && activeColors.size() > 1) {
                 colorB = activeColors.get((activeColors.indexOf(colorA) + 1) % activeColors.size());
             }
             for (int c = 0; c < cols; c++) {
-                rowColors[c] = ((c / 2) % 2 == 0) ? colorA : colorB;
+                rowColors[c] = (c % 2 == 0) ? colorA : colorB;
+            }
+        } else if (patternType == 3) {
+            // Pattern 4: Multi-Section 4-Way Split (4 distinct color segments)
+            BubbleColor[] segColors = new BubbleColor[4];
+            for (int i = 0; i < 4; i++) {
+                segColors[i] = activeColors.get((i + random.nextInt(activeColors.size())) % activeColors.size());
+            }
+            for (int c = 0; c < cols; c++) {
+                int seg = Math.min(3, (c * 4) / cols);
+                rowColors[c] = segColors[seg];
             }
         } else {
-            // Pattern 4: Solid Split with Center Accent
-            BubbleColor leftColor = activeColors.get(random.nextInt(activeColors.size()));
-            BubbleColor rightColor = activeColors.get(random.nextInt(activeColors.size()));
+            // Pattern 5: Center Keystone with Contrasting Flanks
+            BubbleColor flankColor = activeColors.get(random.nextInt(activeColors.size()));
+            BubbleColor centerColor = activeColors.get(random.nextInt(activeColors.size()));
+            if (centerColor == flankColor && activeColors.size() > 1) {
+                centerColor = activeColors.get((activeColors.indexOf(flankColor) + 1) % activeColors.size());
+            }
             int mid = cols / 2;
             for (int c = 0; c < cols; c++) {
-                if (c < mid) {
-                    rowColors[c] = leftColor;
-                } else if (c > mid) {
-                    rowColors[c] = rightColor;
+                if (c == mid || c == mid - 1) {
+                    rowColors[c] = centerColor;
                 } else {
-                    rowColors[c] = activeColors.get(random.nextInt(activeColors.size()));
+                    rowColors[c] = flankColor;
                 }
             }
         }
 
-        // Occasional tactical booster spawn (Bomb or Rainbow)
-        if (random.nextInt(100) < 6 || (waveCount > 0 && waveCount % 8 == 0 && random.nextBoolean())) {
+        // Tactical Stone blocker obstacle (spawn starting wave 8+, moderate 7% chance)
+        if (waveCount >= 8 && random.nextInt(100) < 7) {
+            int stoneCol = 1 + random.nextInt(Math.max(1, cols - 2));
+            rowTypes[stoneCol] = BubbleType.STONE;
+            rowColors[stoneCol] = BubbleColor.STONE;
+        }
+
+        // Tactical booster spawn (Bomb or Rainbow, moderate 5% chance)
+        if (random.nextInt(100) < 5 || (waveCount > 0 && waveCount % 7 == 0 && random.nextBoolean())) {
             int boosterCol = (cols > 2) ? (1 + random.nextInt(cols - 2)) : 0;
-            if (random.nextBoolean()) {
-                rowTypes[boosterCol] = BubbleType.BOMB;
-                rowColors[boosterCol] = BubbleColor.BOMB;
-            } else {
-                rowTypes[boosterCol] = BubbleType.RAINBOW;
-                rowColors[boosterCol] = BubbleColor.RAINBOW;
+            if (rowTypes[boosterCol] == BubbleType.NORMAL) {
+                if (random.nextBoolean()) {
+                    rowTypes[boosterCol] = BubbleType.BOMB;
+                    rowColors[boosterCol] = BubbleColor.BOMB;
+                } else {
+                    rowTypes[boosterCol] = BubbleType.RAINBOW;
+                    rowColors[boosterCol] = BubbleColor.RAINBOW;
+                }
             }
         }
 
@@ -135,7 +153,7 @@ public class EndlessPatternGenerator {
     }
 
     /**
-     * Pre-generates a coherent 2-3 row chunk with 2D vertical & diagonal pattern continuity.
+     * Pre-generates a coherent 2-3 row chunk with 2D vertical & diagonal mid-level puzzle patterns.
      */
     public static List<List<Bubble>> generateMultiRowChunk(int waveCount, int startParity, int numRows, List<BubbleColor> activeColors, Random random) {
         if (activeColors == null || activeColors.isEmpty()) {
@@ -144,36 +162,34 @@ public class EndlessPatternGenerator {
 
         List<List<Bubble>> chunk = new ArrayList<>(numRows);
         int currentParity = startParity;
-        int motif = random.nextInt(4);
+        int motif = random.nextInt(5);
 
         if (motif == 0) {
-            // Motif 1: 2D Vertical Connected Color Blobs (2-3 row color clusters)
-            BubbleColor col1 = activeColors.get(random.nextInt(activeColors.size()));
-            BubbleColor col2 = activeColors.get((activeColors.indexOf(col1) + 1) % activeColors.size());
-            BubbleColor col3 = (activeColors.size() > 2)
-                    ? activeColors.get((activeColors.indexOf(col2) + 1) % activeColors.size())
-                    : col1;
+            // Motif 1: Hexagonal 2D Checkerboard & Honeycomb Weave
+            BubbleColor colA = activeColors.get(random.nextInt(activeColors.size()));
+            BubbleColor colB = activeColors.get((activeColors.indexOf(colA) + 1) % activeColors.size());
+            BubbleColor colC = (activeColors.size() > 2)
+                    ? activeColors.get((activeColors.indexOf(colB) + 1) % activeColors.size())
+                    : colA;
 
             for (int r = 0; r < numRows; r++) {
                 int cols = (currentParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
                 BubbleColor[] rowColors = new BubbleColor[cols];
-                int third = Math.max(1, cols / 3);
                 for (int c = 0; c < cols; c++) {
-                    if (c < third) {
-                        rowColors[c] = col1;
-                    } else if (c < third * 2) {
-                        rowColors[c] = col2;
-                    } else {
-                        rowColors[c] = col3;
-                    }
+                    int slot = (c + (r % 2) * 2) % 3;
+                    if (slot == 0) rowColors[c] = colA;
+                    else if (slot == 1) rowColors[c] = colB;
+                    else rowColors[c] = colC;
                 }
 
                 BubbleType[] rowTypes = new BubbleType[cols];
                 Arrays.fill(rowTypes, BubbleType.NORMAL);
-                if (r == numRows / 2 && random.nextInt(100) < 16) {
-                    int mid = cols / 2;
-                    rowTypes[mid] = random.nextBoolean() ? BubbleType.BOMB : BubbleType.RAINBOW;
-                    rowColors[mid] = (rowTypes[mid] == BubbleType.BOMB) ? BubbleColor.BOMB : BubbleColor.RAINBOW;
+
+                // Occasional mid-level tactical obstacle on later waves
+                if (waveCount >= 10 && r == 0 && random.nextInt(100) < 10) {
+                    int stoneCol = cols / 2;
+                    rowTypes[stoneCol] = BubbleType.STONE;
+                    rowColors[stoneCol] = BubbleColor.STONE;
                 }
 
                 List<Bubble> row = new ArrayList<>(cols);
@@ -184,7 +200,7 @@ public class EndlessPatternGenerator {
                 currentParity ^= 1;
             }
         } else if (motif == 1) {
-            // Motif 2: Diagonal Striped Ribbons across rows
+            // Motif 2: Diagonal Striped Chevron Ribbons (width 2 bands)
             BubbleColor colorA = activeColors.get(random.nextInt(activeColors.size()));
             BubbleColor colorB = activeColors.get(random.nextInt(activeColors.size()));
             if (colorB == colorA && activeColors.size() > 1) {
@@ -202,7 +218,7 @@ public class EndlessPatternGenerator {
                 currentParity ^= 1;
             }
         } else if (motif == 2) {
-            // Motif 3: Symmetrical Concentric Arcs across rows
+            // Motif 3: Symmetrical Concentric Arcs with Keystone Center
             BubbleColor outer = activeColors.get(random.nextInt(activeColors.size()));
             BubbleColor inner = activeColors.get((activeColors.indexOf(outer) + 1) % activeColors.size());
 
@@ -214,7 +230,7 @@ public class EndlessPatternGenerator {
                     boolean isOuter = (c < border || c >= (cols - border));
                     BubbleColor col = isOuter ? outer : inner;
                     BubbleType type = BubbleType.NORMAL;
-                    if (!isOuter && r == numRows - 1 && c == cols / 2 && random.nextInt(100) < 20) {
+                    if (!isOuter && r == numRows - 1 && c == cols / 2 && random.nextInt(100) < 12) {
                         type = BubbleType.BOMB;
                         col = BubbleColor.BOMB;
                     }
@@ -223,8 +239,27 @@ public class EndlessPatternGenerator {
                 chunk.add(row);
                 currentParity ^= 1;
             }
+        } else if (motif == 3) {
+            // Motif 4: Segmented 4-Column Interlocking Blocks
+            BubbleColor c1 = activeColors.get(random.nextInt(activeColors.size()));
+            BubbleColor c2 = activeColors.get((activeColors.indexOf(c1) + 1) % activeColors.size());
+            BubbleColor c3 = (activeColors.size() > 2) ? activeColors.get((activeColors.indexOf(c2) + 1) % activeColors.size()) : c1;
+            BubbleColor c4 = (activeColors.size() > 3) ? activeColors.get((activeColors.indexOf(c3) + 1) % activeColors.size()) : c2;
+
+            BubbleColor[] quad = new BubbleColor[]{c1, c2, c3, c4};
+
+            for (int r = 0; r < numRows; r++) {
+                int cols = (currentParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
+                List<Bubble> row = new ArrayList<>(cols);
+                for (int c = 0; c < cols; c++) {
+                    int quadIdx = ((c * 4) / cols + r) % 4;
+                    row.add(new Bubble(quad[quadIdx], BubbleType.NORMAL, new GridPosition(0, c)));
+                }
+                chunk.add(row);
+                currentParity ^= 1;
+            }
         } else {
-            // Motif 4: Harmonious Cluster Runs
+            // Motif 5: Harmonious Tactical Cluster Runs
             for (int r = 0; r < numRows; r++) {
                 int cols = (currentParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
                 List<Bubble> row = generateRow(waveCount + r, cols, currentParity, activeColors, random);
@@ -237,7 +272,7 @@ public class EndlessPatternGenerator {
     }
 
     /**
-     * Populates the starting board with structured, satisfying puzzle rows.
+     * Populates the starting board with structured, mid-difficulty puzzle rows.
      */
     public static void populateInitialBoard(BubbleGrid grid, int rowCount, List<BubbleColor> activeColors, Random random) {
         grid.clear();

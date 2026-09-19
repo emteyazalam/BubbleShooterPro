@@ -423,12 +423,12 @@ public class GameEngine {
             frontierBubbles = allBubbles;
         }
 
-        // 3. Priority 1: If in critical danger zone, 75% chance to give the exact danger bubble's color!
-        if (lowestDangerBubble != null && random.nextInt(100) < 75) {
+        // 3. Danger Zone: If bubbles are critically close to the deadline (within 2.5 rows), moderate 45% chance for danger color
+        if (lowestDangerBubble != null && random.nextInt(100) < 45) {
             return lowestDangerBubble.getColor();
         }
 
-        // 4. Priority 2: Look for match clusters on the exposed frontier (groups of 2+ connected same color)
+        // 4. Identify match clusters on the exposed frontier and general exposed colors
         List<BubbleColor> matchableColors = new ArrayList<>();
         List<BubbleColor> frontierColors = new ArrayList<>();
         for (Bubble b : frontierBubbles) {
@@ -447,26 +447,36 @@ public class GameEngine {
             }
         }
 
-        // 5. Select from matchable colors (high priority 70%), then frontier colors, then all board colors
-        List<BubbleColor> candidatePool;
-        if (!matchableColors.isEmpty() && random.nextInt(100) < 70) {
-            candidatePool = matchableColors;
-        } else if (!frontierColors.isEmpty()) {
-            candidatePool = frontierColors;
-        } else {
-            candidatePool = new ArrayList<>();
-            for (Bubble b : allBubbles) {
-                if (!candidatePool.contains(b.getColor())) {
-                    candidatePool.add(b.getColor());
-                }
+        List<BubbleColor> allBoardColors = new ArrayList<>();
+        for (Bubble b : allBubbles) {
+            if (!allBoardColors.contains(b.getColor())) {
+                allBoardColors.add(b.getColor());
             }
         }
 
-        // 6. If possible, pick a color different from avoidColorIfPossible (so current & next are versatile)
+        // 5. Balanced Mid-Level Candidate Pool Selection:
+        // ~35% match cluster, ~40% exposed frontier, ~25% general board colors (encourages bank shots & swap strategy)
+        List<BubbleColor> candidatePool;
+        int roll = random.nextInt(100);
+        if (!matchableColors.isEmpty() && roll < 35) {
+            candidatePool = matchableColors;
+        } else if (!frontierColors.isEmpty() && roll < 75) {
+            candidatePool = frontierColors;
+        } else if (!allBoardColors.isEmpty()) {
+            candidatePool = allBoardColors;
+        } else {
+            candidatePool = frontierColors.isEmpty() ? matchableColors : frontierColors;
+        }
+
+        if (candidatePool.isEmpty()) {
+            candidatePool = allBoardColors;
+        }
+
+        // 6. Color Diversity with reserve bubble (65% chance to diversify for tactical bubble swaps)
         if (avoidColorIfPossible != null && candidatePool.size() > 1) {
             List<BubbleColor> diversePool = new ArrayList<>(candidatePool);
             diversePool.remove(avoidColorIfPossible);
-            if (!diversePool.isEmpty() && random.nextInt(100) < 80) {
+            if (!diversePool.isEmpty() && random.nextInt(100) < 65) {
                 return diversePool.get(random.nextInt(diversePool.size()));
             }
         }
