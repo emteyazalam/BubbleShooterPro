@@ -15,6 +15,7 @@ public class PreferencesManager {
     private static final String KEY_BOOSTER_RAINBOW = "key_booster_rainbow";
     private static final String KEY_BOOSTER_LIGHTNING = "key_booster_lightning";
     private static final String KEY_BOOSTER_FIREBALL = "key_booster_fireball";
+    private static final String KEY_ENDLESS_HIGH_SCORE = "key_endless_high_score";
 
     private final SharedPreferences prefs;
 
@@ -108,6 +109,17 @@ public class PreferencesManager {
 
     public void setFireballBoosters(int count) {
         prefs.edit().putInt(KEY_BOOSTER_FIREBALL, count).apply();
+    }
+
+    public int getEndlessHighScore() {
+        return prefs.getInt(KEY_ENDLESS_HIGH_SCORE, 0);
+    }
+
+    public void setEndlessHighScore(int score) {
+        int current = getEndlessHighScore();
+        if (score > current) {
+            prefs.edit().putInt(KEY_ENDLESS_HIGH_SCORE, score).apply();
+        }
     }
 
     public void resetProgress() {
