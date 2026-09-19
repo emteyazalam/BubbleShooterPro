@@ -3,6 +3,7 @@ package com.redcodersgroup.bubbleshooter.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import com.redcodersgroup.bubbleshooter.R;
 import com.redcodersgroup.bubbleshooter.bubble.BubbleType;
@@ -59,26 +60,43 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         binding.btnPause.setOnClickListener(v -> showPauseDialog());
 
         binding.btnBoosterRainbow.setOnClickListener(v -> {
+            playBoosterTapFeedback(binding.layoutBoosterRainbow);
             gameEngine.equipBooster(BubbleType.RAINBOW);
             updateBoosterCounts();
         });
 
         binding.btnBoosterFireball.setOnClickListener(v -> {
+            playBoosterTapFeedback(binding.layoutBoosterFireball);
             gameEngine.equipBooster(BubbleType.FIREBALL);
             updateBoosterCounts();
         });
 
         binding.btnBoosterLightning.setOnClickListener(v -> {
+            playBoosterTapFeedback(binding.layoutBoosterLightning);
             gameEngine.equipBooster(BubbleType.LIGHTNING);
             updateBoosterCounts();
         });
 
         binding.btnBoosterBomb.setOnClickListener(v -> {
+            playBoosterTapFeedback(binding.layoutBoosterBomb);
             gameEngine.equipBooster(BubbleType.BOMB);
             updateBoosterCounts();
         });
 
         updateBoosterCounts();
+    }
+
+    private void playBoosterTapFeedback(View view) {
+        if (view == null) return;
+        view.animate().cancel();
+        view.setScaleX(0.80f);
+        view.setScaleY(0.80f);
+        view.animate()
+                .scaleX(1.20f)
+                .scaleY(1.20f)
+                .setDuration(110)
+                .withEndAction(() -> view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(90).start())
+                .start();
     }
 
     private void updateBoosterCounts() {

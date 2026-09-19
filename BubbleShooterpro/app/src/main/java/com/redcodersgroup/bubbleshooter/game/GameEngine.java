@@ -63,6 +63,7 @@ public class GameEngine {
 
     private float aimAngleRad = (float) (-Math.PI / 2.0); // straight up
     private List<PointF> trajectoryPoints = new ArrayList<>();
+    private final Path laserPath = new Path();
 
     private Bubble currentBubble;
     private Bubble nextBubble;
@@ -296,6 +297,24 @@ public class GameEngine {
         // Sparkle burst particles around launcher base
         int particleColor = currentBubble.getColor().primaryColor;
         confettiSystem.spawnPopParticles(launcherX, launcherY, particleColor, 12);
+
+        // Visual text feedback
+        String boosterName = "BOOSTER!";
+        int textColor = Color.parseColor("#FFD54F");
+        if (type == BubbleType.BOMB) {
+            boosterName = "BOMB!";
+            textColor = Color.parseColor("#FF5722");
+        } else if (type == BubbleType.RAINBOW) {
+            boosterName = "RAINBOW!";
+            textColor = Color.parseColor("#E040FB");
+        } else if (type == BubbleType.LIGHTNING) {
+            boosterName = "LIGHTNING!";
+            textColor = Color.parseColor("#FFEB3B");
+        } else if (type == BubbleType.FIREBALL) {
+            boosterName = "FIREBALL!";
+            textColor = Color.parseColor("#FF9800");
+        }
+        floatingTexts.add(new FloatingText(boosterName, launcherX, launcherY - bubbleRadius * 1.4f, textColor, 44f, 0.9f));
 
         soundManager.playClick();
         updateTrajectory();
@@ -769,26 +788,50 @@ public class GameEngine {
     }
 
     public void draw(Canvas canvas, Paint paint) {
-        // 1. Draw Trajectory Dots (ONLY when actively AIMING and not cancelled)
+        // 1. Draw Shining Colored Laser Trajectory Line (ONLY when actively AIMING and not cancelled)
         if (state == GameState.AIMING && !isAimCancelled && trajectoryPoints != null && !trajectoryPoints.isEmpty()) {
-            paint.setStyle(Paint.Style.FILL);
-            int dotColor = (currentBubble != null) ? currentBubble.getColor().lightColor : Color.WHITE;
-            paint.setColor(dotColor);
-
-            int total = trajectoryPoints.size();
-            for (int i = 0; i < total; i++) {
-                PointF pt = trajectoryPoints.get(i);
-                float radiusFactor = 0.22f + 0.15f * ((float) (total - i) / total);
-                float dotR = bubbleRadius * radiusFactor;
-
-                paint.setAlpha(180);
-                canvas.drawCircle(pt.x, pt.y, dotR, paint);
-
-                paint.setColor(Color.WHITE);
-                paint.setAlpha(240);
-                canvas.drawCircle(pt.x, pt.y, dotR * 0.45f, paint);
-                paint.setColor(dotColor);
+            laserPath.rewind();
+            laserPath.moveTo(launcherX, launcherY);
+            for (PointF pt : trajectoryPoints) {
+                laserPath.lineTo(pt.x, pt.y);
             }
+
+            int laserColor = (currentBubble != null) ? currentBubble.getColor().primaryColor : Color.parseColor("#4FC3F7");
+            int glowColor = (currentBubble != null) ? currentBubble.getColor().lightColor : Color.WHITE;
+
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeCap(Paint.Cap.ROUND);
+            paint.setStrokeJoin(Paint.Join.ROUND);
+
+            // Layer 1: Soft Shining Outer Glow / Shadow
+            paint.setColor(glowColor);
+            paint.setAlpha(65);
+            paint.setStrokeWidth(bubbleRadius * 0.26f);
+            canvas.drawPath(laserPath, paint);
+
+            // Layer 2: Vibrant Colored Laser Line
+            paint.setColor(laserColor);
+            paint.setAlpha(220);
+            paint.setStrokeWidth(bubbleRadius * 0.11f);
+            canvas.drawPath(laserPath, paint);
+
+            // Layer 3: Shiny White Core Beam
+            paint.setColor(Color.WHITE);
+            paint.setAlpha(245);
+            paint.setStrokeWidth(bubbleRadius * 0.045f);
+            canvas.drawPath(laserPath, paint);
+
+            // Target Impact Endpoint Reticle
+            PointF endPt = trajectoryPoints.get(trajectoryPoints.size() - 1);
+            paint.setColor(laserColor);
+            paint.setAlpha(190);
+            paint.setStrokeWidth(bubbleRadius * 0.06f);
+            canvas.drawCircle(endPt.x, endPt.y, bubbleRadius * 0.40f, paint);
+
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(Color.WHITE);
+            paint.setAlpha(240);
+            canvas.drawCircle(endPt.x, endPt.y, bubbleRadius * 0.14f, paint);
         }
 
         // 2. Draw Board Bubbles
@@ -839,64 +882,63 @@ public class GameEngine {
         paint.setColor(Color.parseColor("#616161"));
         canvas.drawCircle(previewX, previewY, bubbleRadius * 0.95f, paint);
 
-        // Ready Bubble in Launcher (drawn jumping or resting)
+        // Preview Bubble & Current Bubble (drawn with natural depth during swap)
+        if (nextBubble != null) {
+            nextBubble.draw(canvas, paint);
+        }
         if (currentBubble != null) {
             currentBubble.draw(canvas, paint);
         }
 
-        // Preview Bubble (drawn popping in or resting)
-        if (nextBubble != null) {
-            nextBubble.draw(canvas, paint);
-        }
-
-        // Swap Icon Indicator (curved rotation arrows between preview and launcher)
+        // Swap Icon Indicator (pure clean curved rotation arrows without enclosing disc)
         float midX = (launcherX + previewX) / 2f;
         float midY = (launcherY + previewY) / 2f;
-        drawSwapIcon(canvas, paint, midX, midY, bubbleRadius * 0.95f);
+        drawSwapIcon(canvas, paint, midX, midY, bubbleRadius * 0.65f);
     }
 
     private void drawSwapIcon(Canvas canvas, Paint paint, float cx, float cy, float size) {
-        // Semi-transparent circular background chip
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.argb(110, 0, 0, 0));
-        canvas.drawCircle(cx, cy, size * 0.70f, paint);
-
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setColor(Color.WHITE);
+
         float strokeW = size * 0.13f;
+        float rx = size * 0.72f;
+        float ry = size * 0.42f;
+
+        // Top curved arrow path (left to right with arrowhead on right)
+        Path topPath = new Path();
+        topPath.moveTo(cx - rx * 0.70f, cy - ry * 0.15f);
+        topPath.cubicTo(cx - rx * 0.40f, cy - ry * 1.35f, cx + rx * 0.40f, cy - ry * 1.35f, cx + rx * 0.75f, cy - ry * 0.35f);
+        // Arrowhead at (cx + rx * 0.75f, cy - ry * 0.35f)
+        float headH = ry * 0.85f;
+        float headW = rx * 0.42f;
+        topPath.moveTo(cx + rx * 0.75f, cy - ry * 0.35f - headH);
+        topPath.lineTo(cx + rx * 0.75f, cy - ry * 0.35f);
+        topPath.lineTo(cx + rx * 0.75f - headW, cy - ry * 0.35f);
+
+        // Bottom curved arrow path (right to left with arrowhead on left)
+        Path botPath = new Path();
+        botPath.moveTo(cx + rx * 0.70f, cy + ry * 0.15f);
+        botPath.cubicTo(cx + rx * 0.40f, cy + ry * 1.35f, cx - rx * 0.40f, cy + ry * 1.35f, cx - rx * 0.75f, cy + ry * 0.35f);
+        // Arrowhead at (cx - rx * 0.75f, cy + ry * 0.35f)
+        botPath.moveTo(cx - rx * 0.75f, cy + ry * 0.35f + headH);
+        botPath.lineTo(cx - rx * 0.75f, cy + ry * 0.35f);
+        botPath.lineTo(cx - rx * 0.75f + headW, cy + ry * 0.35f);
+
+        // 1. Dark Shadow Pass
+        paint.setStrokeWidth(strokeW + 1.5f);
+        paint.setColor(Color.argb(130, 0, 0, 0));
+        canvas.save();
+        canvas.translate(0, 2f);
+        canvas.drawPath(topPath, paint);
+        canvas.drawPath(botPath, paint);
+        canvas.restore();
+
+        // 2. Crisp White Foreground Pass
         paint.setStrokeWidth(strokeW);
-
-        float r = size * 0.44f;
-        RectF oval = new RectF(cx - r, cy - r, cx + r, cy + r);
-
-        // Top arc (sweeps across top from left to right)
-        canvas.drawArc(oval, 215, 110, false, paint);
-
-        // Top arrowhead at the right end of the arc
-        float topEndX = cx + r * (float) Math.cos(Math.toRadians(325));
-        float topEndY = cy + r * (float) Math.sin(Math.toRadians(325));
-        float headLen = size * 0.28f;
-
-        Path topHead = new Path();
-        topHead.moveTo(topEndX - headLen, topEndY);
-        topHead.lineTo(topEndX, topEndY);
-        topHead.lineTo(topEndX, topEndY + headLen);
-        canvas.drawPath(topHead, paint);
-
-        // Bottom arc (sweeps across bottom from right to left)
-        canvas.drawArc(oval, 35, 110, false, paint);
-
-        // Bottom arrowhead at the left end of the arc
-        float botEndX = cx + r * (float) Math.cos(Math.toRadians(145));
-        float botEndY = cy + r * (float) Math.sin(Math.toRadians(145));
-
-        Path botHead = new Path();
-        botHead.moveTo(botEndX + headLen, botEndY);
-        botHead.lineTo(botEndX, botEndY);
-        botHead.lineTo(botEndX, botEndY - headLen);
-        canvas.drawPath(botHead, paint);
+        paint.setColor(Color.WHITE);
+        canvas.drawPath(topPath, paint);
+        canvas.drawPath(botPath, paint);
 
         paint.setStyle(Paint.Style.FILL);
     }
