@@ -18,11 +18,17 @@ public class GameOverDialog extends Dialog {
 
     private final GameOverDialogListener listener;
     private final int score;
+    private final String reason;
     private DialogGameOverBinding binding;
 
     public GameOverDialog(@NonNull Context context, int score, GameOverDialogListener listener) {
+        this(context, score, "Out of shots! Don't give up!", listener);
+    }
+
+    public GameOverDialog(@NonNull Context context, int score, String reason, GameOverDialogListener listener) {
         super(context);
         this.score = score;
+        this.reason = reason;
         this.listener = listener;
     }
 
@@ -36,6 +42,10 @@ public class GameOverDialog extends Dialog {
 
         if (getWindow() != null) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        if (binding.tvLoseSubtitle != null && reason != null && !reason.isEmpty()) {
+            binding.tvLoseSubtitle.setText(reason);
         }
 
         binding.tvLoseScore.setText("FINAL SCORE: " + String.format("%,d", score));

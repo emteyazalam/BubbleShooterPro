@@ -228,6 +228,11 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
 
     @Override
     public void onGameLost(int score) {
+        onGameLost(score, "Out of shots! Don't give up!");
+    }
+
+    @Override
+    public void onGameLost(int score, String reason) {
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
             isGameOverOrWon = true;
@@ -238,7 +243,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
                 activePauseDialog = null;
             }
 
-            activeGameOverDialog = new GameOverDialog(this, score, new GameOverDialog.GameOverDialogListener() {
+            activeGameOverDialog = new GameOverDialog(this, score, reason, new GameOverDialog.GameOverDialogListener() {
                 @Override
                 public void onRetryClicked() {
                     activeGameOverDialog = null;

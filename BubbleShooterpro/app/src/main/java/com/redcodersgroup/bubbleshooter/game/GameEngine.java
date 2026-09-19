@@ -3,6 +3,7 @@ package com.redcodersgroup.bubbleshooter.game;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
@@ -36,6 +37,9 @@ public class GameEngine {
         void onShotsUpdated(int shotsRemaining);
         void onGameWon(int score, int stars);
         void onGameLost(int score);
+        default void onGameLost(int score, String reason) {
+            onGameLost(score);
+        }
     }
 
     private final Context context;
@@ -60,6 +64,10 @@ public class GameEngine {
     private float launcherY;
     private float previewX;
     private float previewY;
+    private float deadlineY;
+    private float dangerPulseTimer = 0f;
+    private DashPathEffect normalDashEffect;
+    private DashPathEffect dangerDashEffect;
 
     private float aimAngleRad = (float) (-Math.PI / 2.0); // straight up
     private List<PointF> trajectoryPoints = new ArrayList<>();
@@ -124,6 +132,9 @@ public class GameEngine {
         this.launcherY = height - (130f * density); // Elevated ~50-60dp above bottom booster bar
         this.previewX = launcherX - (bubbleRadius * 2.85f);
         this.previewY = launcherY + (bubbleRadius * 0.15f);
+        this.deadlineY = launcherY - (bubbleRadius * 1.35f);
+        this.normalDashEffect = new DashPathEffect(new float[]{16f, 12f}, 0);
+        this.dangerDashEffect = new DashPathEffect(new float[]{18f, 8f}, 0);
 
         if (currentBubble != null) {
             currentBubble.setX(launcherX);
@@ -465,6 +476,8 @@ public class GameEngine {
             return;
         }
 
+        dangerPulseTimer += dt;
+
         // 0. Update launcher reload jump & pop-in animation
         if (isLauncherReloading) {
             reloadTimer += dt;
@@ -771,18 +784,30 @@ public class GameEngine {
             return;
         }
 
-        // Check lose condition
-        boolean lost = false;
-        if (shotsRemaining <= 0) {
-            lost = true;
-        } else if (grid.getLowestOccupiedRow() >= 18) { // bottom limit
-            lost = true;
+        // Check lose condition 1: Bubbles crossed or touched bottom deadline line
+        boolean touchedBottomLine = false;
+        if (deadlineY > 0) {
+            for (Bubble b : grid.getAllBubbles()) {
+                if (b != null && (b.getY() + b.getRadius()) >= (deadlineY - 2.0f)) {
+                    touchedBottomLine = true;
+                    break;
+                }
+            }
         }
 
-        if (lost) {
+        if (touchedBottomLine) {
             state = GameState.LOSE;
             if (listener != null) {
-                listener.onGameLost(scoreManager.getScore());
+                listener.onGameLost(scoreManager.getScore(), "Bubbles reached the danger line!");
+            }
+            return;
+        }
+
+        // Check lose condition 2: Out of shots
+        if (shotsRemaining <= 0) {
+            state = GameState.LOSE;
+            if (listener != null) {
+                listener.onGameLost(scoreManager.getScore(), "Out of shots! Don't give up!");
             }
             return;
         }
@@ -792,6 +817,9 @@ public class GameEngine {
     }
 
     public void draw(Canvas canvas, Paint paint) {
+        // 0. Draw Bottom Danger Deadline
+        drawDeadLine(canvas, paint);
+
         // 1. Draw Bold Shining Colored Laser Trajectory Line (ONLY when actively AIMING and not cancelled)
         if (state == GameState.AIMING && !isAimCancelled && trajectoryPoints != null && !trajectoryPoints.isEmpty()) {
             laserPath.rewind();
@@ -858,6 +886,63 @@ public class GameEngine {
         for (FloatingText ft : floatingTexts) {
             ft.draw(canvas, paint);
         }
+    }
+
+    private void drawDeadLine(Canvas canvas, Paint paint) {
+        if (deadlineY <= 0) return;
+
+        float lowestBubbleBottom = -1f;
+        for (Bubble b : grid.getAllBubbles()) {
+            if (b != null) {
+                float bBottom = b.getY() + b.getRadius();
+                if (bBottom > lowestBubbleBottom) {
+                    lowestBubbleBottom = bBottom;
+                }
+            }
+        }
+
+        boolean inDanger = (lowestBubbleBottom > 0 && (deadlineY - lowestBubbleBottom) <= (bubbleRadius * 2.5f));
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+
+        if (inDanger) {
+            // Warning pulsation
+            float pulse = (float) (0.55 + 0.45 * Math.sin(dangerPulseTimer * 10.0));
+
+            // Outer warning glow
+            paint.setPathEffect(null);
+            paint.setColor(Color.parseColor("#FF1744"));
+            paint.setAlpha((int) (pulse * 85));
+            paint.setStrokeWidth(bubbleRadius * 0.38f);
+            canvas.drawLine(0, deadlineY, boardRight, deadlineY, paint);
+
+            // Dashed Danger Line
+            paint.setPathEffect(dangerDashEffect != null ? dangerDashEffect : new DashPathEffect(new float[]{18f, 8f}, 0));
+            paint.setColor(Color.parseColor("#FF5252"));
+            paint.setAlpha((int) (160 + pulse * 95));
+            paint.setStrokeWidth(4.5f);
+            canvas.drawLine(0, deadlineY, boardRight, deadlineY, paint);
+            paint.setPathEffect(null);
+
+            // Small pulsing Danger Tag
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(Color.parseColor("#FF5252"));
+            paint.setAlpha((int) (180 + pulse * 75));
+            paint.setTextSize(bubbleRadius * 0.34f);
+            paint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText("⚠ DANGER LINE", boardRight * 0.5f, deadlineY - 8f, paint);
+        } else {
+            // Calm subtle dashed guideline
+            paint.setPathEffect(normalDashEffect != null ? normalDashEffect : new DashPathEffect(new float[]{16f, 12f}, 0));
+            paint.setColor(Color.WHITE);
+            paint.setAlpha(45);
+            paint.setStrokeWidth(2.5f);
+            canvas.drawLine(0, deadlineY, boardRight, deadlineY, paint);
+            paint.setPathEffect(null);
+        }
+
+        paint.setStyle(Paint.Style.FILL);
     }
 
     private void drawLauncher(Canvas canvas, Paint paint) {
