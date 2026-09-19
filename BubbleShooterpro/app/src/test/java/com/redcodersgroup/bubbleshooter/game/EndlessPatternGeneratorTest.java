@@ -1,0 +1,59 @@
+package com.redcodersgroup.bubbleshooter.game;
+
+import com.redcodersgroup.bubbleshooter.board.BubbleGrid;
+import com.redcodersgroup.bubbleshooter.bubble.Bubble;
+import com.redcodersgroup.bubbleshooter.bubble.BubbleColor;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.Random;
+
+import static org.junit.Assert.*;
+
+public class EndlessPatternGeneratorTest {
+
+    @Test
+    public void testActiveColorsScaling() {
+        // Wave 1 should have 3 active colors for high matchability
+        List<BubbleColor> wave1Colors = EndlessPatternGenerator.getActiveColors(1, null);
+        assertEquals(3, wave1Colors.size());
+
+        // Wave 20 should scale to 4 colors
+        List<BubbleColor> wave20Colors = EndlessPatternGenerator.getActiveColors(20, null);
+        assertEquals(4, wave20Colors.size());
+
+        // Wave 40 should scale to 5 colors
+        List<BubbleColor> wave40Colors = EndlessPatternGenerator.getActiveColors(40, null);
+        assertEquals(5, wave40Colors.size());
+
+        // Wave 60 should have 6 colors
+        List<BubbleColor> wave60Colors = EndlessPatternGenerator.getActiveColors(60, null);
+        assertEquals(6, wave60Colors.size());
+    }
+
+    @Test
+    public void testGenerateRowCohesiveness() {
+        Random random = new Random(42);
+        List<BubbleColor> colors = EndlessPatternGenerator.getActiveColors(1, null);
+        List<Bubble> row = EndlessPatternGenerator.generateRow(1, BubbleGrid.COLS_EVEN, 0, colors, random);
+
+        assertEquals(BubbleGrid.COLS_EVEN, row.size());
+        for (Bubble b : row) {
+            assertNotNull(b);
+            assertNotNull(b.getColor());
+            assertNotEquals(BubbleColor.NONE, b.getColor());
+        }
+    }
+
+    @Test
+    public void testPopulateInitialBoard() {
+        BubbleGrid grid = new BubbleGrid();
+        Random random = new Random(123);
+        List<BubbleColor> colors = EndlessPatternGenerator.getActiveColors(1, null);
+
+        EndlessPatternGenerator.populateInitialBoard(grid, 5, colors, random);
+
+        // 5 rows populated: (9 + 8 + 9 + 8 + 9) = 43 bubbles
+        assertEquals(43, grid.getBubbleCount());
+    }
+}

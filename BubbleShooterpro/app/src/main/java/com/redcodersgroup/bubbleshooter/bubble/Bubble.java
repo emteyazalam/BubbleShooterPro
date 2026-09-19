@@ -59,6 +59,9 @@ public class Bubble {
 
     private float x;
     private float y;
+    private float targetX;
+    private float targetY;
+    private boolean hasTargetPosition = false;
     private float radius;
     private float scaleX = 1.0f;
     private float scaleY = 1.0f;
@@ -111,6 +114,9 @@ public class Bubble {
 
     public void setX(float x) {
         this.x = x;
+        if (!hasTargetPosition) {
+            this.targetX = x;
+        }
     }
 
     public float getY() {
@@ -119,6 +125,35 @@ public class Bubble {
 
     public void setY(float y) {
         this.y = y;
+        if (!hasTargetPosition) {
+            this.targetY = y;
+        }
+    }
+
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+        this.targetX = x;
+        this.targetY = y;
+        this.hasTargetPosition = false;
+    }
+
+    public void setTargetPosition(float targetX, float targetY) {
+        this.targetX = targetX;
+        this.targetY = targetY;
+        this.hasTargetPosition = true;
+    }
+
+    public void snapToTarget() {
+        if (hasTargetPosition) {
+            this.x = targetX;
+            this.y = targetY;
+            this.hasTargetPosition = false;
+        }
+    }
+
+    public boolean isSliding() {
+        return hasTargetPosition;
     }
 
     public float getRadius() {
@@ -212,13 +247,33 @@ public class Bubble {
             vy += 1800f * dt;
             x += vx * dt;
             y += vy * dt;
-        }
-
-        if (isPopping) {
+        } else if (isPopping) {
             popProgress += dt * 4.0f; // 250ms pop
             scaleX = 1.0f + popProgress * 0.4f;
             scaleY = scaleX;
             alpha = Math.max(0f, 1.0f - popProgress);
+        } else if (hasTargetPosition) {
+            // Smoothly glide towards target position
+            float dx = targetX - x;
+            float dy = targetY - y;
+            float dist = (float) Math.hypot(dx, dy);
+            if (dist < 0.5f) {
+                x = targetX;
+                y = targetY;
+                hasTargetPosition = false;
+            } else {
+                // Smooth critically damped glide (~0.22s duration)
+                float speed = Math.max(120f, dist * 14.0f);
+                float step = speed * dt;
+                if (step >= dist) {
+                    x = targetX;
+                    y = targetY;
+                    hasTargetPosition = false;
+                } else {
+                    x += (dx / dist) * step;
+                    y += (dy / dist) * step;
+                }
+            }
         }
     }
 

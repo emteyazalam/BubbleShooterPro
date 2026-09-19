@@ -296,24 +296,12 @@ public class GameEngine {
         this.fallingBubbles.clear();
         this.floatingTexts.clear();
         this.confettiSystem.clear();
-        this.grid.clear();
         this.state = GameState.READY;
         this.isLauncherReloading = false;
 
-        // Populate initial 5 rows
-        for (int r = 0; r < 5; r++) {
-            int cols = grid.getCols(r);
-            for (int c = 0; c < cols; c++) {
-                BubbleColor color = endlessColorsPool.get(random.nextInt(endlessColorsPool.size()));
-                BubbleType type = BubbleType.NORMAL;
-                if (random.nextInt(100) < 3) {
-                    type = BubbleType.BOMB;
-                    color = BubbleColor.BOMB;
-                }
-                Bubble b = new Bubble(color, type, new GridPosition(r, c));
-                grid.setBubble(r, c, b);
-            }
-        }
+        // Structured playable initial board using pattern generator
+        List<BubbleColor> activeColors = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
+        EndlessPatternGenerator.populateInitialBoard(this.grid, 5, activeColors, random);
 
         // Initialize launcher bubbles
         this.currentBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
@@ -341,25 +329,8 @@ public class GameEngine {
     private List<Bubble> generateEndlessRow() {
         int nextParity = grid.getRowParity() ^ 1;
         int cols = (nextParity == 0) ? BubbleGrid.COLS_EVEN : BubbleGrid.COLS_ODD;
-        List<Bubble> newRow = new ArrayList<>(cols);
-
-        for (int c = 0; c < cols; c++) {
-            BubbleColor color = pickRandomColor();
-            BubbleType type = BubbleType.NORMAL;
-
-            int specialRoll = random.nextInt(100);
-            if (specialRoll < 2) {
-                type = BubbleType.BOMB;
-                color = BubbleColor.BOMB;
-            } else if (specialRoll < 4) {
-                type = BubbleType.RAINBOW;
-                color = BubbleColor.RAINBOW;
-            }
-
-            Bubble b = new Bubble(color, type, new GridPosition(0, c));
-            newRow.add(b);
-        }
-        return newRow;
+        List<BubbleColor> activeColors = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
+        return EndlessPatternGenerator.generateRow(endlessWaveCount, cols, nextParity, activeColors, random);
     }
 
     private BubbleColor pickRandomColor() {
@@ -383,8 +354,11 @@ public class GameEngine {
             return avail.get(random.nextInt(avail.size()));
         }
 
-        if (isEndlessMode && endlessColorsPool != null && !endlessColorsPool.isEmpty()) {
-            return endlessColorsPool.get(random.nextInt(endlessColorsPool.size()));
+        if (isEndlessMode) {
+            List<BubbleColor> active = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
+            if (!active.isEmpty()) {
+                return active.get(random.nextInt(active.size()));
+            }
         }
 
         return BubbleColor.RED;
@@ -737,7 +711,14 @@ public class GameEngine {
             }
         }
 
-        // 1. Update visual particles and texts
+        // 1. Update board bubbles (smooth sliding descent animation)
+        for (Bubble b : grid.getAllBubbles()) {
+            if (b != null) {
+                b.update(dt);
+            }
+        }
+
+        // 1.1 Update visual particles and texts
         confettiSystem.update(dt);
 
         Iterator<FloatingText> textIt = floatingTexts.iterator();
@@ -914,14 +895,8 @@ public class GameEngine {
                 confettiSystem.spawnCelebrationBurst(boardRight, boardBottom, 50);
                 scoreManager.addScore(500);
                 floatingTexts.add(new FloatingText("BOARD CLEARED! +500", (boardLeft + boardRight) * 0.5f, boardTop + bubbleRadius * 3, Color.parseColor("#FFD54F"), 52f, 1.5f));
-                for (int r = 0; r < 4; r++) {
-                    int cols = grid.getCols(r);
-                    for (int c = 0; c < cols; c++) {
-                        BubbleColor color = endlessColorsPool.get(random.nextInt(endlessColorsPool.size()));
-                        Bubble b = new Bubble(color, BubbleType.NORMAL, new GridPosition(r, c));
-                        grid.setBubble(r, c, b);
-                    }
-                }
+                List<BubbleColor> activeColors = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
+                EndlessPatternGenerator.populateInitialBoard(grid, 4, activeColors, random);
             }
 
             // Check danger line breach

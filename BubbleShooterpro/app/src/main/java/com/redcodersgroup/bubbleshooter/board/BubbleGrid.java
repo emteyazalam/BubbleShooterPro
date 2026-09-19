@@ -166,8 +166,11 @@ public class BubbleGrid {
 
     /**
      * Shifts all rows down by 1 in Endless mode, flips parity, and inserts the new top row at row 0.
+     * Existing bubbles smoothly glide to their new lower row, while the new top row glides down from above the ceiling.
      */
     public void shiftDownAndInsertRow(List<Bubble> newTopRow) {
+        float rowHeight = bubbleRadius * (float) Math.sqrt(3.0);
+
         // 1. Shift all rows down by 1 from bottom to top
         for (int r = MAX_ROWS - 2; r >= 0; r--) {
             for (int c = 0; c < COLS_EVEN; c++) {
@@ -183,25 +186,33 @@ public class BubbleGrid {
         // 3. Toggle parity
         rowParity ^= 1;
 
-        // 4. Insert new top row
+        // 4. Insert new top row (positioned initially above the ceiling to glide in smoothly)
         if (newTopRow != null) {
             int topCols = getCols(0);
             for (int c = 0; c < newTopRow.size() && c < topCols; c++) {
                 Bubble b = newTopRow.get(c);
-                grid[0][c] = b;
+                if (b != null) {
+                    float cx = getCenterX(0, c);
+                    float cy = getCenterY(0);
+                    b.setGridPosition(new GridPosition(0, c));
+                    b.setX(cx);
+                    b.setY(cy - rowHeight); // Born above the board top
+                    b.setRadius(bubbleRadius);
+                    b.setTargetPosition(cx, cy); // Glides down to row 0
+                    grid[0][c] = b;
+                }
             }
         }
 
-        // 5. Update physical coordinates for all bubbles in the grid
-        for (int r = 0; r < MAX_ROWS; r++) {
+        // 5. Update target coordinates for all shifted bubbles (they glide down smoothly)
+        for (int r = 1; r < MAX_ROWS; r++) {
             int cols = getCols(r);
             for (int c = 0; c < cols; c++) {
                 Bubble b = grid[r][c];
                 if (b != null) {
                     b.setGridPosition(new GridPosition(r, c));
-                    b.setX(getCenterX(r, c));
-                    b.setY(getCenterY(r));
                     b.setRadius(bubbleRadius);
+                    b.setTargetPosition(getCenterX(r, c), getCenterY(r));
                 }
             }
         }
