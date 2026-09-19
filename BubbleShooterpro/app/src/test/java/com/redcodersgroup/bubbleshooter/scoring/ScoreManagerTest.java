@@ -17,10 +17,10 @@ public class ScoreManagerTest {
 
     @Test
     public void testBasePoppedScore() {
-        // 3 bubbles popped with multiplier 1
+        // 3 bubbles popped with multiplier 1 (3 * 60 = 180)
         int earned = scoreManager.addPoppedBubbles(3, 1);
-        assertEquals(30, earned);
-        assertEquals(30, scoreManager.getScore());
+        assertEquals(180, earned);
+        assertEquals(180, scoreManager.getScore());
     }
 
     @Test
@@ -32,7 +32,15 @@ public class ScoreManagerTest {
         assertEquals(2, comboManager.getMultiplier());
 
         int earned = scoreManager.addPoppedBubbles(3, comboManager.getMultiplier());
-        assertEquals(60, earned); // 3 * 10 * 2 = 60
+        assertEquals(360, earned); // 3 * 60 * 2 = 360
+    }
+
+    @Test
+    public void testVictoryBonus() {
+        // 10 shots remaining -> 500 clear bonus + 10 * 100 = 1500
+        int bonus = scoreManager.addVictoryBonus(10);
+        assertEquals(1500, bonus);
+        assertEquals(1500, scoreManager.getScore());
     }
 
     @Test

@@ -761,8 +761,12 @@ public class GameEngine {
             state = GameState.WIN;
             soundManager.playWin();
             confettiSystem.spawnCelebrationBurst(boardRight, boardBottom, 70);
+            int victoryBonus = scoreManager.addVictoryBonus(shotsRemaining);
+            int finalScore = scoreManager.getScore();
+            int starsEarned = Math.max(1, scoreManager.getStarsEarned());
             if (listener != null) {
-                listener.onGameWon(scoreManager.getScore(), Math.max(1, scoreManager.getStarsEarned()));
+                listener.onScoreUpdated(finalScore, starsEarned, scoreManager.getStarProgress());
+                listener.onGameWon(finalScore, starsEarned);
             }
             return;
         }

@@ -1,8 +1,10 @@
 package com.redcodersgroup.bubbleshooter.scoring;
 
 public class ScoreManager {
-    public static final int BASE_POP_SCORE = 10;
-    public static final int BASE_DROP_SCORE = 25;
+    public static final int BASE_POP_SCORE = 60;
+    public static final int BASE_DROP_SCORE = 120;
+    public static final int VICTORY_CLEAR_BONUS = 500;
+    public static final int REMAINING_SHOT_BONUS = 100;
 
     private int score = 0;
     private int[] starThresholds = new int[]{1000, 2500, 4500};
@@ -23,6 +25,12 @@ public class ScoreManager {
         int earned = count * BASE_DROP_SCORE * Math.max(1, multiplier);
         score += earned;
         return earned;
+    }
+
+    public int addVictoryBonus(int remainingShots) {
+        int bonus = VICTORY_CLEAR_BONUS + Math.max(0, remainingShots) * REMAINING_SHOT_BONUS;
+        score += bonus;
+        return bonus;
     }
 
     public int getScore() {

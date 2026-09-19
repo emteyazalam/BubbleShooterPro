@@ -26,8 +26,14 @@ public class ProgressRepository {
     }
 
     public void completeLevel(int level, int stars, int score) {
-        preferencesManager.setStarsForLevel(level, stars);
-        preferencesManager.setHighScoreForLevel(level, score);
+        int oldStars = preferencesManager.getStarsForLevel(level);
+        if (stars > oldStars) {
+            preferencesManager.setStarsForLevel(level, stars);
+        }
+        int oldScore = preferencesManager.getHighScoreForLevel(level);
+        if (score > oldScore) {
+            preferencesManager.setHighScoreForLevel(level, score);
+        }
         preferencesManager.unlockLevel(level + 1);
     }
 
