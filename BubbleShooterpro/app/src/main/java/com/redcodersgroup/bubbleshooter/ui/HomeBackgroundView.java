@@ -243,6 +243,14 @@ public class HomeBackgroundView extends View {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (w > 0 && h > 0) {
+            update(0f);
+        }
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
@@ -493,7 +501,7 @@ public class HomeBackgroundView extends View {
     private void renderAmbientAtmosphere(Canvas canvas, float width, float height) {
         float haloX = width * 0.5f;
         float haloY = height * 0.40f;
-        float haloRadius = Math.min(width, 420 * density) * 0.9f;
+        float haloRadius = Math.max(20.0f, Math.min(width, 420 * density) * 0.9f);
 
         float pulse = 0.5f + 0.5f * (float) Math.sin(time * 1.4f);
         float haloAlpha = 0.18f + pulse * 0.08f;
@@ -599,7 +607,8 @@ public class HomeBackgroundView extends View {
         canvas.save();
 
         float scale = b.popScale;
-        float radius = (b.sizePx * scale) / 2.0f;
+        float baseSize = b.sizePx > 0 ? b.sizePx : (b.sizeDp * density);
+        float radius = Math.max(4.0f, (baseSize * scale) / 2.0f);
         float baseAlpha = b.depth == 2 ? 0.90f : (b.depth == 1 ? 0.70f : 0.45f);
 
         canvas.translate(b.x, b.y);
@@ -621,7 +630,8 @@ public class HomeBackgroundView extends View {
 
         // 3. 3D Spherical Bevel Gradient
         float lightOffset = radius * 0.30f;
-        RadialGradient sphereGrad = new RadialGradient(-lightOffset, -lightOffset, radius * 1.3f,
+        float gradRadius = Math.max(5.0f, radius * 1.3f);
+        RadialGradient sphereGrad = new RadialGradient(-lightOffset, -lightOffset, gradRadius,
                 new int[]{
                         Color.argb((int) (baseAlpha * 140), 255, 255, 255),
                         Color.argb(0, 0, 0, 0),
