@@ -12,6 +12,7 @@ import com.redcodersgroup.bubbleshooter.audio.SoundManager;
 import com.redcodersgroup.bubbleshooter.board.BubbleBoard;
 import com.redcodersgroup.bubbleshooter.board.BubbleGrid;
 import com.redcodersgroup.bubbleshooter.board.GridPosition;
+import com.redcodersgroup.bubbleshooter.board.NeighborCalculator;
 import com.redcodersgroup.bubbleshooter.bubble.Bubble;
 import com.redcodersgroup.bubbleshooter.bubble.BubbleColor;
 import com.redcodersgroup.bubbleshooter.bubble.BubbleProjectile;
@@ -249,15 +250,17 @@ public class GameEngine {
             }
         }
 
-        // Initialize launcher bubbles
-        this.currentBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
+        // Initialize launcher bubbles with smart frontier and danger-aware colors
+        BubbleColor firstColor = pickSmartLauncherColor(null);
+        this.currentBubble = new Bubble(firstColor, BubbleType.NORMAL, null);
         this.currentBubble.setX(launcherX);
         this.currentBubble.setY(launcherY);
         this.currentBubble.setRadius(bubbleRadius);
         this.currentBubble.setScale(1.0f);
         this.currentBubble.setAlpha(1.0f);
 
-        this.nextBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
+        BubbleColor secondColor = pickSmartLauncherColor(firstColor);
+        this.nextBubble = new Bubble(secondColor, BubbleType.NORMAL, null);
         this.nextBubble.setX(previewX);
         this.nextBubble.setY(previewY);
         this.nextBubble.setRadius(bubbleRadius * 0.75f);
@@ -316,15 +319,17 @@ public class GameEngine {
         );
         this.pregeneratedRowQueue.addAll(initialUpcoming);
 
-        // Initialize launcher bubbles
-        this.currentBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
+        // Initialize launcher bubbles with smart frontier and danger-aware colors
+        BubbleColor firstColor = pickSmartLauncherColor(null);
+        this.currentBubble = new Bubble(firstColor, BubbleType.NORMAL, null);
         this.currentBubble.setX(launcherX);
         this.currentBubble.setY(launcherY);
         this.currentBubble.setRadius(bubbleRadius);
         this.currentBubble.setScale(1.0f);
         this.currentBubble.setAlpha(1.0f);
 
-        this.nextBubble = new Bubble(pickRandomColor(), BubbleType.NORMAL, null);
+        BubbleColor secondColor = pickSmartLauncherColor(firstColor);
+        this.nextBubble = new Bubble(secondColor, BubbleType.NORMAL, null);
         this.nextBubble.setX(previewX);
         this.nextBubble.setY(previewY);
         this.nextBubble.setRadius(bubbleRadius * 0.75f);
@@ -360,34 +365,113 @@ public class GameEngine {
     }
 
     private BubbleColor pickRandomColor() {
-        // Collect colors still present on the board
-        List<BubbleColor> existingOnBoard = new ArrayList<>();
+        return pickSmartLauncherColor(currentBubble != null ? currentBubble.getColor() : null);
+    }
+
+    private BubbleColor pickSmartLauncherColor(BubbleColor avoidColorIfPossible) {
+        // 1. Identify all active normal bubbles on the board
+        List<Bubble> allBubbles = new ArrayList<>();
         for (Bubble b : grid.getAllBubbles()) {
-            if (b != null && b.getType() == BubbleType.NORMAL) {
-                if (!existingOnBoard.contains(b.getColor())) {
-                    existingOnBoard.add(b.getColor());
+            if (b != null && b.getType() == BubbleType.NORMAL && b.getColor() != BubbleColor.NONE) {
+                allBubbles.add(b);
+            }
+        }
+
+        if (allBubbles.isEmpty()) {
+            if (isEndlessMode) {
+                List<BubbleColor> active = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
+                return !active.isEmpty() ? active.get(random.nextInt(active.size())) : BubbleColor.RED;
+            }
+            if (currentLevel != null && !currentLevel.getAvailableColors().isEmpty()) {
+                return currentLevel.getAvailableColors().get(random.nextInt(currentLevel.getAvailableColors().size()));
+            }
+            return BubbleColor.RED;
+        }
+
+        // 2. Identify exposed bottom frontier bubbles (bubbles with at least one open neighbor or lowest in column)
+        List<Bubble> frontierBubbles = new ArrayList<>();
+        Bubble lowestDangerBubble = null;
+        float maxDangerY = -1f;
+
+        for (Bubble b : allBubbles) {
+            GridPosition pos = b.getGridPosition();
+            if (pos == null) continue;
+
+            // Check if lowest in column or has empty downward neighbor
+            boolean isBottomExposed = false;
+            List<GridPosition> neighbors = NeighborCalculator.getNeighbors(pos, grid.getRowParity());
+            for (GridPosition n : neighbors) {
+                if (n.row > pos.row && grid.getBubble(n) == null) {
+                    isBottomExposed = true;
+                    break;
+                }
+            }
+            if (pos.row == BubbleGrid.MAX_ROWS - 1 || isBottomExposed) {
+                frontierBubbles.add(b);
+            }
+
+            // Check if in danger zone (within 3.5 radii of danger line)
+            if (deadlineY > 0 && (b.getY() + b.getRadius()) >= (deadlineY - bubbleRadius * 3.5f)) {
+                if (b.getY() > maxDangerY) {
+                    maxDangerY = b.getY();
+                    lowestDangerBubble = b;
                 }
             }
         }
 
-        if (!existingOnBoard.isEmpty()) {
-            return existingOnBoard.get(random.nextInt(existingOnBoard.size()));
+        if (frontierBubbles.isEmpty()) {
+            frontierBubbles = allBubbles;
         }
 
-        // Fallback to level available colors
-        if (currentLevel != null && !currentLevel.getAvailableColors().isEmpty()) {
-            List<BubbleColor> avail = currentLevel.getAvailableColors();
-            return avail.get(random.nextInt(avail.size()));
+        // 3. Priority 1: If in critical danger zone, 75% chance to give the exact danger bubble's color!
+        if (lowestDangerBubble != null && random.nextInt(100) < 75) {
+            return lowestDangerBubble.getColor();
         }
 
-        if (isEndlessMode) {
-            List<BubbleColor> active = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
-            if (!active.isEmpty()) {
-                return active.get(random.nextInt(active.size()));
+        // 4. Priority 2: Look for match clusters on the exposed frontier (groups of 2+ connected same color)
+        List<BubbleColor> matchableColors = new ArrayList<>();
+        List<BubbleColor> frontierColors = new ArrayList<>();
+        for (Bubble b : frontierBubbles) {
+            BubbleColor c = b.getColor();
+            if (!frontierColors.contains(c)) {
+                frontierColors.add(c);
+            }
+            GridPosition pos = b.getGridPosition();
+            if (pos != null) {
+                for (GridPosition n : NeighborCalculator.getNeighbors(pos, grid.getRowParity())) {
+                    Bubble nb = grid.getBubble(n);
+                    if (nb != null && nb.getColor() == c && !matchableColors.contains(c)) {
+                        matchableColors.add(c);
+                    }
+                }
             }
         }
 
-        return BubbleColor.RED;
+        // 5. Select from matchable colors (high priority 70%), then frontier colors, then all board colors
+        List<BubbleColor> candidatePool;
+        if (!matchableColors.isEmpty() && random.nextInt(100) < 70) {
+            candidatePool = matchableColors;
+        } else if (!frontierColors.isEmpty()) {
+            candidatePool = frontierColors;
+        } else {
+            candidatePool = new ArrayList<>();
+            for (Bubble b : allBubbles) {
+                if (!candidatePool.contains(b.getColor())) {
+                    candidatePool.add(b.getColor());
+                }
+            }
+        }
+
+        // 6. If possible, pick a color different from avoidColorIfPossible (so current & next are versatile)
+        if (avoidColorIfPossible != null && candidatePool.size() > 1) {
+            List<BubbleColor> diversePool = new ArrayList<>(candidatePool);
+            diversePool.remove(avoidColorIfPossible);
+            if (!diversePool.isEmpty() && random.nextInt(100) < 80) {
+                return diversePool.get(random.nextInt(diversePool.size()));
+            }
+        }
+
+        return candidatePool.get(random.nextInt(candidatePool.size()));
     }
 
     public void swapBubbles() {
@@ -591,8 +675,8 @@ public class GameEngine {
         currentBubble.setScale(0.75f);
         currentBubble.setAlpha(1.0f);
 
-        // 2. Pick a new random nextBubble and prepare it to pop into the preview position
-        nextBubble.setColor(pickRandomColor());
+        // 2. Pick a new smart nextBubble and prepare it to pop into the preview position
+        nextBubble.setColor(pickSmartLauncherColor(currentBubble.getColor()));
         nextBubble.setType(BubbleType.NORMAL);
         nextBubble.setRadius(bubbleRadius * 0.75f);
         nextBubble.setX(previewX);

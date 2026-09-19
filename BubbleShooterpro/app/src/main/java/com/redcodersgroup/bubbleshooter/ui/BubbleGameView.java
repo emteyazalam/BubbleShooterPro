@@ -98,6 +98,10 @@ public class BubbleGameView extends View {
 
     private GameEngine gameEngine;
     private Paint paint;
+    private Paint bgPaint;
+    private Paint ceilingPaint;
+    private Paint railPaint;
+    private Paint vignettePaint;
     private Paint particlePaint;
     private long lastTimeNanos = 0;
     private LinearGradient backgroundGradient;
@@ -127,6 +131,19 @@ public class BubbleGameView extends View {
     private void init() {
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
         this.paint.setDither(true);
+
+        this.bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+        this.bgPaint.setStyle(Paint.Style.FILL);
+
+        this.ceilingPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.ceilingPaint.setStyle(Paint.Style.FILL);
+
+        this.railPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.railPaint.setStyle(Paint.Style.STROKE);
+
+        this.vignettePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.vignettePaint.setStyle(Paint.Style.FILL);
+
         this.particlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         Bubble.initResources(getContext());
     }
@@ -278,11 +295,10 @@ public class BubbleGameView extends View {
         // Clamp delta time to avoid physics explosion if paused/backgrounded
         if (dt > 0.05f) dt = 0.05f;
 
-        // 1. Draw Biome-Themed Background Gradient
+        // 1. Draw Biome-Themed Background Gradient (Isolated bgPaint prevents flicker/alpha bleed)
         if (backgroundGradient != null) {
-            paint.setShader(backgroundGradient);
-            canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
-            paint.setShader(null);
+            bgPaint.setShader(backgroundGradient);
+            canvas.drawRect(0, 0, getWidth(), getHeight(), bgPaint);
         } else {
             canvas.drawColor(currentBiome.gradientColors[0]);
         }
@@ -296,16 +312,13 @@ public class BubbleGameView extends View {
 
         // 3. Draw Biome Ceiling & Gold Accent Rail (Cleanly positioned under top HUD)
         float topY = (gameEngine != null) ? gameEngine.getBoardTop() : (92f * getResources().getDisplayMetrics().density);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(currentBiome.ceilingColor);
-        canvas.drawRect(0, 0, getWidth(), topY, paint);
+        ceilingPaint.setColor(currentBiome.ceilingColor);
+        canvas.drawRect(0, 0, getWidth(), topY, ceilingPaint);
 
         // Ceiling accent rail
-        paint.setColor(currentBiome.railColor);
-        paint.setStrokeWidth(6f);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawLine(0, topY, getWidth(), topY, paint);
-        paint.setStyle(Paint.Style.FILL);
+        railPaint.setColor(currentBiome.railColor);
+        railPaint.setStrokeWidth(6f);
+        canvas.drawLine(0, topY, getWidth(), topY, railPaint);
 
         // 3.5 Tablet & Wide Screen Boundaries (Elegant side rails and vignette framing)
         if (gameEngine != null && gameEngine.getBoardLeft() > 0) {
@@ -313,18 +326,15 @@ public class BubbleGameView extends View {
             float bRight = gameEngine.getBoardRight();
 
             // Side pillar subtle vignette shade
-            paint.setStyle(Paint.Style.FILL);
-            paint.setColor(Color.argb(75, 0, 0, 0));
-            canvas.drawRect(0, topY, bLeft, getHeight(), paint);
-            canvas.drawRect(bRight, topY, getWidth(), getHeight(), paint);
+            vignettePaint.setColor(Color.argb(75, 0, 0, 0));
+            canvas.drawRect(0, topY, bLeft, getHeight(), vignettePaint);
+            canvas.drawRect(bRight, topY, getWidth(), getHeight(), vignettePaint);
 
             // Left and Right boundary accent rails
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeWidth(4.5f);
-            paint.setColor(currentBiome.railColor);
-            canvas.drawLine(bLeft, topY, bLeft, getHeight(), paint);
-            canvas.drawLine(bRight, topY, bRight, getHeight(), paint);
-            paint.setStyle(Paint.Style.FILL);
+            railPaint.setColor(currentBiome.railColor);
+            railPaint.setStrokeWidth(4.5f);
+            canvas.drawLine(bLeft, topY, bLeft, getHeight(), railPaint);
+            canvas.drawLine(bRight, topY, bRight, getHeight(), railPaint);
         }
 
         // 4. Update and Draw Game Engine
@@ -332,6 +342,9 @@ public class BubbleGameView extends View {
             if (!isViewPaused) {
                 gameEngine.update(dt);
             }
+            paint.reset();
+            paint.setAntiAlias(true);
+            paint.setDither(true);
             gameEngine.draw(canvas, paint);
         }
 
