@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@drawable/bg_card_dialog">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_over"
+        android:textColor="@color/accent_pink"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:shadowColor="#B0000000"
+        android:shadowDx="2"
+        android:shadowDy="3"
+        android:shadowRadius="6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Out of shots! Don't give up!"
+        android:textColor="#E0E0E0"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tvLoseScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="FINAL SCORE: 1,200"
+        android:textColor="@color/accent_yellow"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp">
+
+        <ImageButton
+            android:id="@+id/btnLoseHome"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_home_yellow"
+            android:contentDescription="Home" />
+
+        <ImageButton
+            android:id="@+id/btnLoseRetry"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="20dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_restart_green"
+            android:contentDescription="Retry" />
+    </LinearLayout>
+
+</LinearLayout>

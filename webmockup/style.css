@@ -1,0 +1,1275 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap');
+
+:root {
+    --bg-dark: #1B1F3B;
+    --bg-navy: #273469;
+    --bg-card: #222648;
+    --accent-yellow: #FDE047;
+    --accent-pink: #FF3366;
+    --accent-green: #22C55E;
+    --accent-blue: #38BDF8;
+    --gold: #FFD700;
+    --gold-dark: #B45309;
+    --text-shadow: rgba(0, 0, 0, 0.75);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0B0D17;
+    color: #FFFFFF;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Page Outer Frame (Desktop view wrapper + phone container) */
+.page-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 16px 14px;
+    gap: 10px;
+    position: relative;
+    background: radial-gradient(circle at 50% 30%, #1a1e3d 0%, #080911 100%);
+    overflow: hidden;
+}
+
+/* Top Mockup Toolbar (above the phone frame) */
+.top-mockup-toolbar {
+    position: relative;
+    top: auto;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(27, 31, 59, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    padding: 6px 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+}
+
+.toolbar-label {
+    color: #94A3B8;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.toolbar-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #E2E8F0;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.toolbar-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+}
+
+.toolbar-btn.active {
+    background: #22C55E;
+    border-color: #4ADE80;
+    color: #FFFFFF;
+}
+
+/* Authentic Android Phone Frame (328px) */
+.phone-frame {
+    width: 328px;
+    max-width: 328px;
+    height: 100%;
+    max-height: calc(100vh - 78px);
+    aspect-ratio: 328 / 680;
+    border-radius: 36px;
+    background: var(--bg-dark);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 8px #1E2028, 0 0 0 10px #2D313E;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 1;
+}
+
+/* Fullscreen mode removes phone bezels */
+.phone-frame.fullscreen-mode {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Android Status Bar */
+.android-status-bar {
+    height: 30px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+    position: relative;
+    z-index: 50;
+    flex-shrink: 0;
+    background: rgba(19, 23, 46, 0.75);
+}
+
+.camera-notch {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #0B0D17;
+    box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+}
+
+.status-icons {
+    display: flex;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Screens Viewport */
+.screens-container {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    height: calc(100% - 30px);
+    overflow: hidden;
+}
+
+.screen-view {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.98);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.screen-view.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1.0);
+}
+
+/* =========================================================================
+   0. CINEMATIC SPLASH SCREEN (activity_splash.xml / SplashActivity.java)
+   ========================================================================= */
+.splash-screen-container {
+    background: radial-gradient(circle at 50% 35%, #1e2749 0%, #12162e 100%);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.splash-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.splash-branding-box {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+    text-align: center;
+}
+
+.splash-branding-sub {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.splash-branding-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.splash-brand-text {
+    font-size: 13px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================================================
+   1. REDESIGNED HOME SCREEN (activity_main.xml)
+   ========================================================================= */
+#screen-menu {
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px 20px;
+    background: radial-gradient(circle at 50% 25%, #22274d 0%, #151833 80%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ambient Floating Background Bubbles */
+.ambient-bubble {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.35;
+    animation: ambientFloat 6s ease-in-out infinite alternate;
+}
+.amb-1 {
+    width: 70px;
+    height: 70px;
+    top: 15%;
+    left: -20px;
+    background: radial-gradient(circle at 30% 30%, #38BDF8, #0284C7);
+    animation-duration: 7s;
+}
+.amb-2 {
+    width: 90px;
+    height: 90px;
+    bottom: 25%;
+    right: -30px;
+    background: radial-gradient(circle at 30% 30%, #F472B6, #DB2777);
+    animation-duration: 9s;
+}
+.amb-3 {
+    width: 40px;
+    height: 40px;
+    top: 45%;
+    right: 15px;
+    background: radial-gradient(circle at 30% 30%, #FDE047, #CA8A04);
+    animation-duration: 5s;
+}
+.amb-4 {
+    width: 50px;
+    height: 50px;
+    bottom: 10%;
+    left: 10px;
+    background: radial-gradient(circle at 30% 30%, #4ADE80, #15803D);
+    animation-duration: 8s;
+}
+
+@keyframes ambientFloat {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-24px) scale(1.08); }
+}
+
+/* Home Top Header: Profile + Currencies */
+.home-top-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+.player-profile-card {
+    display: flex;
+    align-items: center;
+    background: rgba(30, 39, 73, 0.65);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 3px 10px 3px 3px;
+    backdrop-filter: blur(8px);
+}
+
+.avatar-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 6px;
+}
+
+.player-name {
+    font-size: 11px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+}
+
+.player-rank {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent-yellow);
+}
+
+.currencies-row {
+    display: flex;
+    gap: 6px;
+}
+
+.currency-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(30, 39, 73, 0.65);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 5px 9px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #FFFFFF;
+    backdrop-filter: blur(8px);
+}
+
+/* Hero Title Banner */
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
+    animation: titleFloatAnim 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes titleFloatAnim {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+}
+
+.mini-bubbles-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.mini-icon {
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+}
+
+.star-pulse {
+    animation: starPulseAnim 2.2s infinite ease-in-out;
+}
+
+@keyframes starPulseAnim {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+}
+
+.tv-app-title {
+    font-size: 38px;
+    font-weight: 900;
+    color: var(--accent-yellow);
+    letter-spacing: 2px;
+    line-height: 1.05;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.75), 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+.tv-subtitle {
+    color: var(--accent-pink);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-top: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+/* Interactive Daily Star Chest Card */
+.star-chest-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: rgba(30, 39, 73, 0.65);
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    border-radius: 20px;
+    padding: 10px 14px;
+    cursor: pointer;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.star-chest-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.chest-icon-wrapper {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chest-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.chest-title {
+    font-size: 12px;
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+}
+
+.chest-desc {
+    font-size: 10px;
+    color: #A0E0E0;
+    margin-top: 1px;
+}
+
+.chest-progress-bar {
+    width: 100%;
+    height: 7px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    margin-top: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.chest-progress-fill {
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(90deg, #F59E0B, #FDE047);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* Action Buttons */
+.home-action-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.btn-mega-play {
+    width: 250px !important;
+    height: 64px !important;
+    font-size: 22px !important;
+}
+
+.secondary-btn-row {
+    width: 250px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-secondary-pill {
+    flex: 1;
+    height: 52px !important;
+    font-size: 16px !important;
+}
+
+/* Pill Buttons Styles */
+.btn-pill-green, .btn-pill-yellow, .btn-pill-red, .btn-pill-blue {
+    position: relative;
+    border-radius: 28px;
+    border: 2.5px solid #FFFFFF;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    letter-spacing: 1.5px;
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.btn-pill-green::before, .btn-pill-yellow::before, .btn-pill-red::before, .btn-pill-blue::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 10px;
+    right: 10px;
+    height: 44%;
+    border-radius: 20px 20px 8px 8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+.btn-pill-green {
+    background: linear-gradient(180deg, #4ADE80 0%, #22C55E 50%, #15803D 100%);
+    box-shadow: 0 6px 0 #0F5132, 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.btn-pill-yellow {
+    background: linear-gradient(180deg, #FACC15 0%, #EAB308 50%, #CA8A04 100%);
+    box-shadow: 0 5px 0 #78350F, 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.btn-pill-blue {
+    background: linear-gradient(180deg, #38BDF8 0%, #0284C7 50%, #0369A1 100%);
+    box-shadow: 0 5px 0 #075985, 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.btn-pill-red {
+    background: linear-gradient(180deg, #F87171 0%, #EF4444 50%, #DC2626 100%);
+    box-shadow: 0 6px 0 #450A0A, 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.btn-pill-green:hover, .btn-pill-yellow:hover, .btn-pill-blue:hover, .btn-pill-red:hover {
+    filter: brightness(1.05);
+}
+
+.btn-pill-green:active, .btn-pill-yellow:active, .btn-pill-blue:active, .btn-pill-red:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Bottom Utility Dock */
+.bottom-utility-dock {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.dock-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.08s ease;
+}
+
+.btn-orb-red.dock-btn {
+    background: radial-gradient(circle at 35% 35%, #FCA5A5, #EF4444 60%, #B91C1C 100%);
+    box-shadow: 0 4px 0 #450A0A, 0 6px 14px rgba(0,0,0,0.4);
+    border: 2px solid #FFFFFF;
+    position: relative;
+}
+
+.btn-orb-red.dock-btn::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    right: 8px;
+    height: 40%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+.dock-btn:hover {
+    transform: scale(1.08);
+}
+.dock-btn:active {
+    transform: translateY(3px) scale(0.96);
+}
+
+/* =========================================================================
+   2. REDESIGNED WORLD SAGA LEVEL SELECT SCREEN (activity_level_select.xml)
+   ========================================================================= */
+#screen-levels {
+    background: var(--bg-dark);
+}
+
+.level-header-bar {
+    height: 60px;
+    background: var(--bg-navy);
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    z-index: 20;
+}
+
+.header-center-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.level-header-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    letter-spacing: 1px;
+}
+
+.level-header-subtitle {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent-yellow);
+    letter-spacing: 0.5px;
+}
+
+.star-pill-small {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(180deg, #FDE047 0%, #EAB308 55%, #CA8A04 100%);
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 13px;
+    color: #FFFFFF;
+    border: 1.5px solid #FFFFFF;
+    box-shadow: 0 3px 0 #78350F, 0 4px 10px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+/* Saga Scroll View */
+.saga-map-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.saga-map-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+.saga-map-scroll::-webkit-scrollbar-thumb {
+    background: #2A2E52;
+    border-radius: 4px;
+}
+
+/* Biome Banners */
+.biome-banner {
+    width: 100%;
+    padding: 8px 14px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.biome-meadows {
+    background: linear-gradient(90deg, #15803D, #047857);
+}
+
+.biome-crystals {
+    background: linear-gradient(90deg, #7E22CE, #4338CA);
+}
+
+.biome-cosmos {
+    background: linear-gradient(90deg, #1E1B4B, #0F172A);
+}
+
+.biome-tag {
+    font-size: 10px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 1px;
+}
+
+.biome-name {
+    font-size: 14px;
+    font-weight: 900;
+    color: #FFFFFF;
+}
+
+/* Levels Grid */
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px 10px;
+    align-content: start;
+}
+
+.level-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.level-badge-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #FFFFFF;
+    position: relative;
+    transition: transform 0.1s ease;
+    overflow: visible;
+}
+
+.level-badge-circle::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    right: 8px;
+    height: 40%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+.level-badge-yellow {
+    background: radial-gradient(circle at 35% 35%, #FEF08A, #EAB308 60%, #CA8A04 100%);
+    box-shadow: 0 4px 0 #78350F, 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.level-badge-green {
+    background: radial-gradient(circle at 35% 35%, #86EFAC, #22C55E 60%, #15803D 100%);
+    box-shadow: 0 4px 0 #0F5132, 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.level-badge-gray {
+    background: radial-gradient(circle at 35% 35%, #475569, #334155 60%, #1E293B 100%);
+    border: 2px solid #475569;
+    box-shadow: 0 3px 0 #0F172A;
+    cursor: not-allowed;
+}
+
+.current-active-node {
+    animation: activeNodePulse 1.8s infinite ease-in-out;
+}
+
+@keyframes activeNodePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 0 #78350F, 0 0 14px #FDE047; }
+    50% { transform: scale(1.08); box-shadow: 0 6px 0 #78350F, 0 0 22px #FDE047; }
+}
+
+.here-tag {
+    position: absolute;
+    top: -12px;
+    background: #EF4444;
+    color: #FFFFFF;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 1px 5px;
+    border-radius: 6px;
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    letter-spacing: 0.5px;
+}
+
+.level-badge-circle:hover {
+    transform: scale(1.06);
+}
+.level-badge-circle:active {
+    transform: translateY(2px) scale(0.98);
+}
+
+.level-badge-num {
+    font-size: 21px;
+    font-weight: 900;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 2;
+}
+
+.level-stars-row {
+    display: flex;
+    gap: 2px;
+    margin-top: 4px;
+}
+
+/* Milestone Treasure Chests in Saga */
+.milestone-chest-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(39, 52, 105, 0.65);
+    border: 2px dashed #FBBF24;
+    border-radius: 16px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.milestone-chest-wrapper:hover {
+    transform: scale(1.03);
+}
+
+.milestone-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: #FDE047;
+}
+
+/* =========================================================================
+   3. GAMEPLAY SCREEN (activity_game.xml)
+   ========================================================================= */
+#screen-game {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+    overflow: hidden;
+}
+
+.top-hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 32px 12px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.btn-hud-pause {
+    pointer-events: auto;
+}
+
+.hud-center-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
+.tv-level-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: #FFFFFF;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    letter-spacing: 0.5px;
+}
+
+.tv-score {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--accent-yellow);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    margin-top: 1px;
+}
+
+.hud-mini-stars {
+    display: flex;
+    gap: 2px;
+    margin-top: 2px;
+}
+
+.layout-shots-badge {
+    background: linear-gradient(180deg, #4ADE80 0%, #22C55E 55%, #15803D 100%);
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 3px 0 #0F5132, 0 4px 10px rgba(0,0,0,0.3);
+    border-radius: 16px;
+    padding: 4px 12px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
+.tv-shots-count {
+    font-size: 20px;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.tv-shots-label {
+    font-size: 10px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.5px;
+}
+
+#game-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: crosshair;
+}
+
+/* Bottom Boosters Bar */
+.bottom-boosters-bar {
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.booster-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.booster-orb {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 2px solid #FFFFFF;
+}
+
+.btn-orb-yellow.booster-orb {
+    background: radial-gradient(circle at 35% 35%, #FEF08A, #EAB308 60%, #CA8A04 100%);
+    box-shadow: 0 4px 0 #78350F, 0 6px 14px rgba(0,0,0,0.4);
+}
+
+.btn-orb-red.booster-orb {
+    background: radial-gradient(circle at 35% 35%, #FCA5A5, #EF4444 60%, #B91C1C 100%);
+    box-shadow: 0 4px 0 #450A0A, 0 6px 14px rgba(0,0,0,0.4);
+}
+
+.booster-orb::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    right: 8px;
+    height: 40%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+.booster-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-top: 3px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.booster-middle-space {
+    width: 140px;
+    height: 1px;
+    pointer-events: none;
+}
+
+/* =========================================================================
+   4. DIALOGS & MODALS
+   ========================================================================= */
+.dialog-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 12, 25, 0.78);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.dialog-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dialog-card {
+    width: 88%;
+    max-width: 320px;
+    background: var(--bg-card);
+    border: 3px solid #3B4377;
+    border-radius: 28px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: scale(0.92);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dialog-overlay.active .dialog-card {
+    transform: scale(1.0);
+}
+
+.dialog-title {
+    font-size: 26px;
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+/* Level Preview Modal Styles */
+.preview-world-tag {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--accent-pink);
+    letter-spacing: 1.5px;
+}
+
+.preview-stars-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.preview-star-svg {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+.preview-star-svg.center {
+    transform: scale(1.15);
+}
+
+.preview-objective-card {
+    width: 100%;
+    background: rgba(19, 23, 46, 0.7);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.preview-sublabel {
+    font-size: 10px;
+    font-weight: 900;
+    color: #94A3B8;
+    letter-spacing: 1px;
+}
+
+.preview-objective-text {
+    font-size: 13px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-top: 2px;
+}
+
+.preview-boosters-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.preview-booster-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(30, 39, 73, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.preview-booster-btn.active {
+    border-color: #FDE047;
+    background: radial-gradient(circle at 35% 35%, #FEF08A, #EAB308 60%, #CA8A04 100%);
+    box-shadow: 0 0 12px rgba(253, 224, 71, 0.6);
+}
+
+.btn-text-close {
+    background: transparent;
+    border: none;
+    color: #94A3B8;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.dialog-audio-row {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.dialog-vertical-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+}
+
+.btn-dialog-pill {
+    width: 200px !important;
+    height: 54px !important;
+    font-size: 18px !important;
+}
+
+.victory-stars-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.win-star-svg.side {
+    width: 54px;
+    height: 54px;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+}
+
+.win-star-svg.center {
+    width: 68px;
+    height: 68px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+.tv-win-score {
+    font-size: 22px;
+    font-weight: 900;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.tv-win-high-score {
+    font-size: 14px;
+    color: #A0E0E0;
+    margin-top: 4px;
+}
+
+.victory-actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.gameover-subtitle {
+    font-size: 15px;
+    color: #E0E0E0;
+    margin-top: 8px;
+}
+
+.tv-lose-score {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--accent-yellow);
+    margin-top: 16px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.gameover-actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+/* Toast Notifications */
+.toast-notify {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(50px);
+    background: rgba(19, 23, 46, 0.95);
+    border: 2px solid var(--accent-yellow);
+    color: #FFFFFF;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 200;
+    white-space: nowrap;
+}
+
+.toast-notify.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}

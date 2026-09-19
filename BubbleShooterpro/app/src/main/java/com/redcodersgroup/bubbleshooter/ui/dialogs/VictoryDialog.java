@@ -1,0 +1,88 @@
+package com.redcodersgroup.bubbleshooter.ui.dialogs;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
+import androidx.annotation.NonNull;
+import com.redcodersgroup.bubbleshooter.R;
+import com.redcodersgroup.bubbleshooter.databinding.DialogVictoryBinding;
+
+public class VictoryDialog extends Dialog {
+
+    public interface VictoryDialogListener {
+        void onNextLevelClicked();
+        void onReplayClicked();
+        void onHomeClicked();
+    }
+
+    private final VictoryDialogListener listener;
+    private final int score;
+    private final int highScore;
+    private final int stars;
+    private DialogVictoryBinding binding;
+
+    public VictoryDialog(@NonNull Context context, int score, int highScore, int stars, VictoryDialogListener listener) {
+        super(context);
+        this.score = score;
+        this.highScore = highScore;
+        this.stars = stars;
+        this.listener = listener;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        binding = DialogVictoryBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setCancelable(false);
+
+        if (getWindow() != null) {
+            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        binding.tvWinScore.setText("SCORE: " + String.format("%,d", score));
+        binding.tvWinHighScore.setText("HIGH SCORE: " + String.format("%,d", highScore));
+
+        // Animate stars popping in with bounce
+        animateStar(binding.ivWinStar1, stars >= 1, 200);
+        animateStar(binding.ivWinStar2, stars >= 2, 450);
+        animateStar(binding.ivWinStar3, stars >= 3, 700);
+
+        binding.btnWinNext.setOnClickListener(v -> {
+            dismiss();
+            if (listener != null) listener.onNextLevelClicked();
+        });
+
+        binding.btnWinRestart.setOnClickListener(v -> {
+            dismiss();
+            if (listener != null) listener.onReplayClicked();
+        });
+
+        binding.btnWinHome.setOnClickListener(v -> {
+            dismiss();
+            if (listener != null) listener.onHomeClicked();
+        });
+    }
+
+    private void animateStar(ImageView iv, boolean filled, long delay) {
+        if (!filled) return;
+        iv.postDelayed(() -> {
+            iv.setImageResource(R.drawable.ic_star_filled);
+            iv.setScaleX(0f);
+            iv.setScaleY(0f);
+            iv.animate()
+                    .scaleX(1.15f)
+                    .scaleY(1.15f)
+                    .setDuration(350)
+                    .setInterpolator(new OvershootInterpolator(2.5f))
+                    .withEndAction(() -> iv.animate().scaleX(1.0f).scaleY(1.0f).setDuration(150).start())
+                    .start();
+        }, delay);
+    }
+}

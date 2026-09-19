@@ -1,0 +1,30 @@
+{
+  "shots": 24,
+  "colors": [
+    "RED",
+    "BLUE",
+    "YELLOW",
+    "GREEN",
+    "PURPLE",
+    "ORANGE"
+  ],
+  "objective": {
+    "type": "SCORE_TARGET",
+    "target": 4000
+  },
+  "starThresholds": [
+    2000,
+    4000,
+    6000
+  ],
+  "rows": [
+    "RBYGPO..",
+    "RBYGPO.",
+    "..RBYGPO",
+    ".RBYGPO",
+    "OPGYBR..",
+    "OPGYBR.",
+    "..OPGYBR"
+  ],
+  "level": 25
+}

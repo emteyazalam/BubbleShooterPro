@@ -1,0 +1,31 @@
+{
+  "shots": 25,
+  "colors": [
+    "RED",
+    "BLUE",
+    "YELLOW",
+    "GREEN",
+    "PURPLE",
+    "ORANGE"
+  ],
+  "objective": {
+    "type": "CLEAR_ALL",
+    "target": 0
+  },
+  "starThresholds": [
+    2200,
+    4500,
+    7000
+  ],
+  "rows": [
+    "RBYGPO.*",
+    "R.X.P.X",
+    "OPGYBR.*",
+    "O.X.Y.X",
+    "RBYGPO.*",
+    "P.X.G.X",
+    "OPGYBR.*",
+    "G.X.B.X"
+  ],
+  "level": 30
+}

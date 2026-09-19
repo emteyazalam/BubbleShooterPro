@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bubble Shooter Pro - 1:1 Casual Game Redesign</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page-container">
+    <!-- Floating Mockup Control Bar (Desktop view helper) -->
+    <div class="top-mockup-toolbar">
+        <span class="toolbar-label">Bubble Shooter Pro 1:1</span>
+        <button id="tb-nav-splash" class="toolbar-btn active">⚡ Splash</button>
+        <button id="tb-nav-menu" class="toolbar-btn">🏠 Menu</button>
+        <button id="tb-nav-levels" class="toolbar-btn">🗺️ World Saga</button>
+        <button id="tb-nav-game" class="toolbar-btn">🎯 Play</button>
+        <button id="tb-sound-toggle" class="toolbar-btn">🔊 Sound ON</button>
+        <button id="tb-frame-toggle" class="toolbar-btn">🖥️ Fullscreen</button>
+    </div>
+
+    <!-- Authentic Android Phone Frame (328px Width) -->
+    <div id="phone-frame" class="phone-frame">
+        <!-- Android Status Bar -->
+        <div class="android-status-bar">
+            <span id="status-bar-time">7:30</span>
+            <div class="camera-notch"></div>
+            <div class="status-icons">
+                <span>5G</span>
+                <span>▲ 100%</span>
+            </div>
+        </div>
+
+        <!-- Screens Viewport Container -->
+        <div class="screens-container">
+
+            <!-- 0. CINEMATIC ANIMATED SPLASH SCREEN (activity_splash.xml / SplashActivity.java) -->
+            <div id="screen-splash" class="screen-view active splash-screen-container">
+                <canvas id="splash-canvas" class="splash-canvas"></canvas>
+                
+                <!-- Bottom Small Branding -->
+                <div class="splash-branding-box">
+                    <span class="splash-branding-sub">POWERED BY</span>
+                    <div class="splash-branding-logo">
+                        <span class="splash-brand-text">RED CODERS GROUP</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. REDESIGNED HERO HOME SCREEN (activity_main.xml) -->
+            <div id="screen-menu" class="screen-view">
+                <!-- Floating Ambient Background Bubbles -->
+                <div class="ambient-bubble amb-1"></div>
+                <div class="ambient-bubble amb-2"></div>
+                <div class="ambient-bubble amb-3"></div>
+                <div class="ambient-bubble amb-4"></div>
+
+                <!-- Top Profile & Currencies Header -->
+                <div class="home-top-header">
+                    <!-- Player Avatar Card -->
+                    <div class="player-profile-card">
+                        <div class="avatar-circle">
+                            <svg viewBox="0 0 44 44" width="36" height="36">
+                                <circle cx="22" cy="22" r="21" fill="#FEF08A" stroke="#CA8A04" stroke-width="2"/>
+                                <circle cx="22" cy="22" r="18" fill="#38BDF8" />
+                                <circle cx="22" cy="22" r="14" fill="#FF80AB" />
+                                <path fill="#FFFFFF" fill-opacity="0.4" d="M14,14 C18,10 26,10 30,14 C26,17 18,17 14,14 Z" />
+                                <ellipse cx="17" cy="20" rx="2" ry="3" fill="#1E293B" />
+                                <ellipse cx="27" cy="20" rx="2" ry="3" fill="#1E293B" />
+                                <circle cx="16.5" cy="19" r="0.8" fill="#FFFFFF" />
+                                <circle cx="26.5" cy="19" r="0.8" fill="#FFFFFF" />
+                                <circle cx="14" cy="23" r="1.8" fill="#FF4081" fill-opacity="0.6"/>
+                                <circle cx="30" cy="23" r="1.8" fill="#FF4081" fill-opacity="0.6"/>
+                                <path fill="none" stroke="#880E4F" stroke-width="1.2" stroke-linecap="round" d="M19,24 Q22,27 25,24" />
+                            </svg>
+                        </div>
+                        <div class="player-info">
+                            <span class="player-name">POP MASTER</span>
+                            <span id="tv-player-rank" class="player-rank">Level 1 Popper</span>
+                        </div>
+                    </div>
+
+                    <!-- Currencies Badges (Stars & Coins) -->
+                    <div class="currencies-row">
+                        <!-- Star Count Badge -->
+                        <div class="currency-pill">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="#FFD700" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                            </svg>
+                            <span id="tv-main-stars">0/90</span>
+                        </div>
+
+                        <!-- Coin Count Badge -->
+                        <div class="currency-pill">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <circle cx="12" cy="12" r="10" fill="#FFD700" />
+                                <circle cx="12" cy="12" r="8" fill="#FBBF24" stroke="#D97706" stroke-width="1"/>
+                                <path fill="#FFFFFF" d="M12,7 L13.5,10.5 L17,11 L14.5,13.5 L15,17 L12,15.2 L9,17 L9.5,13.5 L7,11 L10.5,10.5 Z" />
+                            </svg>
+                            <span id="tv-coin-count" style="color: #FFD700;">500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animated Game Title Banner & Floating Emblem -->
+                <div class="title-container" id="title-container">
+                    <div class="mini-bubbles-row">
+                        <svg class="mini-icon" viewBox="0 0 24 24" width="22" height="22">
+                            <circle cx="12" cy="12" r="10" fill="#9C27B0"/>
+                            <circle cx="12" cy="12" r="7" fill="#00BCD4"/>
+                            <circle cx="12" cy="12" r="4" fill="#4CAF50"/>
+                            <circle cx="12" cy="12" r="2" fill="#FFEB3B"/>
+                        </svg>
+                        <svg class="mini-icon star-pulse" viewBox="0 0 24 24" width="28" height="28">
+                            <path fill="#FFD700" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                        </svg>
+                        <svg class="mini-icon" viewBox="0 0 24 24" width="22" height="22">
+                            <path fill="#FF5722" d="M12,2a1,1 0 0,1 1,1v1.07A8,8 0 0,1 20,12a8,8 0 0,1 -8,8 8,8 0 0,1 -8,-8 8,8 0 0,1 7,-7.93V3a1,1 0 0,1 1,-1zm0,4a6,6 0 1,0 0,12 6,6 0 0,0 0,-12z"/>
+                            <rect x="11" y="10" width="2" height="5" fill="#FFEB3B"/>
+                            <rect x="11" y="16" width="2" height="2" fill="#FFEB3B"/>
+                        </svg>
+                    </div>
+
+                    <h1 class="tv-app-title">BUBBLE<br>SHOOTER</h1>
+                    <div class="tv-subtitle">✦ PRO EDITION ✦</div>
+                </div>
+
+                <!-- Interactive Daily Star Chest Card -->
+                <div class="star-chest-card" id="layout-star-chest">
+                    <div class="chest-icon-wrapper">
+                        <svg viewBox="0 0 24 24" width="42" height="42">
+                            <path fill="#451A03" d="M3,11 H21 V20 C21,21.1 20.1,22 19,22 H5 C3.9,22 3,21.1 3,20 Z" />
+                            <path fill="#92400E" d="M3,10 H21 V19 C21,20.1 20.1,21 19,21 H5 C3.9,21 3,20.1 3,19 Z" />
+                            <path fill="#B45309" d="M3,10 C3,6.5 5,4 12,4 C19,4 21,6.5 21,10 Z" />
+                            <path fill="#FBBF24" d="M6,4 V21 H8 V4 Z M16,4 V21 H18 V4 Z" />
+                            <rect x="10" y="8" width="4" height="6" rx="1" fill="#FDE047" />
+                            <circle cx="12" cy="10.5" r="0.8" fill="#78350F" />
+                            <rect x="11.6" y="10.5" width="0.8" height="2" fill="#78350F" />
+                            <rect x="2" y="9.5" width="20" height="2" rx="0.5" fill="#FACC15" />
+                        </svg>
+                    </div>
+                    <div class="chest-details">
+                        <span class="chest-title">STAR CHEST</span>
+                        <span id="tv-chest-progress" class="chest-desc">Earn 10 stars to unlock booster!</span>
+                        <div class="chest-progress-bar">
+                            <div id="chest-progress-fill" class="chest-progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Action Buttons -->
+                <div class="home-action-buttons">
+                    <!-- Mega Continue Button -->
+                    <button id="btn-main-play" class="btn-pill-green btn-mega-play">▶ PLAY NOW</button>
+
+                    <!-- Secondary Row: World Map & Trophies -->
+                    <div class="secondary-btn-row">
+                        <button id="btn-main-levels" class="btn-pill-yellow btn-secondary-pill">🗺 MAP</button>
+                        <button id="btn-main-trophy" class="btn-pill-blue btn-secondary-pill">🏆 RANKS</button>
+                    </div>
+                </div>
+
+                <!-- Bottom Utility Dock: Sound, Settings, Gift -->
+                <div class="bottom-utility-dock">
+                    <button id="btn-main-sound" class="btn-orb-green dock-btn" title="Toggle Sound">
+                        <svg id="sound-icon-svg" viewBox="0 0 56 56" width="52" height="52">
+                            <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#0F5132" />
+                            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#22C55E" />
+                            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                            <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                            <path d="M20,24 v8 h5 l6,6 V18 l-6,6 H20 z M35,28 c0,-2.5 -1.5,-4.7 -3.5,-5.7 v11.4 c2,-1 3.5,-3.2 3.5,-5.7 z" fill="#FFFFFF"/>
+                        </svg>
+                    </button>
+
+                    <button id="btn-main-haptic" class="btn-orb-yellow dock-btn" title="Settings">
+                        <svg viewBox="0 0 56 56" width="52" height="52">
+                            <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#78350F" />
+                            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#EAB308" />
+                            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                            <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                            <path d="M28,23 A4,4 0 1,0 28,31 A4,4 0 1,0 28,23 Z M33,25.5 L35.5,24 L34,21.4 L31.2,22.3 C30.4,21.5 29.5,21 28.5,20.8 L28,18 H25 L24.5,20.8 C23.5,21 22.6,21.5 21.8,22.3 L19,21.4 L17.5,24 L20,25.5 C19.8,26.5 19.8,27.5 20,28.5 L17.5,30 L19,32.6 L21.8,31.7 C22.6,32.5 23.5,33 24.5,33.2 L25,36 H28 L28.5,33.2 C29.5,33 30.4,32.5 31.2,31.7 L34,32.6 L35.5,30 L33,28.5 C33.2,27.5 33.2,26.5 33,25.5 Z" fill="#FFFFFF"/>
+                        </svg>
+                    </button>
+
+                    <button id="btn-main-gift" class="btn-orb-red dock-btn" title="Daily Gift">
+                        <svg viewBox="0 0 24 24" width="28" height="28">
+                            <rect x="3" y="10" width="18" height="11" rx="1" fill="#FFFFFF" />
+                            <rect x="2" y="8" width="20" height="3" rx="1" fill="#FFFFFF" />
+                            <rect x="10.5" y="8" width="3" height="13" fill="#FACC15" />
+                            <rect x="2" y="9" width="20" height="2" fill="#FDE047" />
+                            <path fill="#FACC15" d="M12,8 C9,4 6,5 7.5,7 C9,8 11,8 12,8 Z M12,8 C15,4 18,5 16.5,7 C15,8 13,8 12,8 Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. REDESIGNED WORLD SAGA LEVEL SELECT SCREEN (activity_level_select.xml) -->
+            <div id="screen-levels" class="screen-view">
+                <!-- Top World Saga Navigation Header -->
+                <div class="level-header-bar">
+                    <button id="btn-levels-back" class="btn-orb-yellow btn-header-back" title="Home">
+                        <svg viewBox="0 0 56 56" width="48" height="48">
+                            <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#78350F" />
+                            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#EAB308" />
+                            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                            <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                            <path d="M28,17 L16,27 H20 V37 H26 V31 H30 V37 H36 V27 H40 Z" fill="#FFFFFF"/>
+                        </svg>
+                    </button>
+
+                    <div class="header-center-title">
+                        <div class="level-header-title">WORLD SAGA</div>
+                        <div id="tv-world-subtitle" class="level-header-subtitle">30 Epic Levels • 3 Biomes</div>
+                    </div>
+
+                    <!-- Stars Pill Badge -->
+                    <div class="star-pill-small">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                            <path fill="#FFD700" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                        </svg>
+                        <span id="tv-total-stars">0/90</span>
+                    </div>
+                </div>
+
+                <!-- Saga Map Scrollable Container with Biomes -->
+                <div id="saga-map-scroll" class="saga-map-scroll">
+                    <!-- Biome 1: Bubble Meadows -->
+                    <div class="biome-banner biome-meadows">
+                        <span class="biome-tag">WORLD 1</span>
+                        <span class="biome-name">🌿 Bubble Meadows</span>
+                    </div>
+
+                    <!-- 4-Column Levels Grid for Biome 1 -->
+                    <div id="levels-grid-1" class="levels-grid"></div>
+
+                    <!-- Milestone Treasure Chest 1 -->
+                    <div class="milestone-chest-wrapper" onclick="openChestMilestone(1)">
+                        <svg viewBox="0 0 24 24" width="36" height="36">
+                            <path fill="#451A03" d="M3,11 H21 V20 C21,21.1 20.1,22 19,22 H5 C3.9,22 3,21.1 3,20 Z" />
+                            <path fill="#92400E" d="M3,10 H21 V19 C21,20.1 20.1,21 19,21 H5 C3.9,21 3,20.1 3,19 Z" />
+                            <path fill="#B45309" d="M3,10 C3,6.5 5,4 12,4 C19,4 21,6.5 21,10 Z" />
+                            <path fill="#FBBF24" d="M6,4 V21 H8 V4 Z M16,4 V21 H18 V4 Z" />
+                            <rect x="10" y="8" width="4" height="6" rx="1" fill="#FDE047" />
+                        </svg>
+                        <span class="milestone-label">🎁 Biome 1 Star Chest</span>
+                    </div>
+
+                    <!-- Biome 2: Crystal Caverns -->
+                    <div class="biome-banner biome-crystals">
+                        <span class="biome-tag">WORLD 2</span>
+                        <span class="biome-name">💎 Crystal Caverns</span>
+                    </div>
+
+                    <div id="levels-grid-2" class="levels-grid"></div>
+
+                    <!-- Milestone Treasure Chest 2 -->
+                    <div class="milestone-chest-wrapper" onclick="openChestMilestone(2)">
+                        <svg viewBox="0 0 24 24" width="36" height="36">
+                            <path fill="#451A03" d="M3,11 H21 V20 C21,21.1 20.1,22 19,22 H5 C3.9,22 3,21.1 3,20 Z" />
+                            <path fill="#92400E" d="M3,10 H21 V19 C21,20.1 20.1,21 19,21 H5 C3.9,21 3,20.1 3,19 Z" />
+                            <path fill="#B45309" d="M3,10 C3,6.5 5,4 12,4 C19,4 21,6.5 21,10 Z" />
+                            <path fill="#FBBF24" d="M6,4 V21 H8 V4 Z M16,4 V21 H18 V4 Z" />
+                            <rect x="10" y="8" width="4" height="6" rx="1" fill="#FDE047" />
+                        </svg>
+                        <span class="milestone-label">🎁 Biome 2 Star Chest</span>
+                    </div>
+
+                    <!-- Biome 3: Celestial Cosmos -->
+                    <div class="biome-banner biome-cosmos">
+                        <span class="biome-tag">WORLD 3</span>
+                        <span class="biome-name">✨ Celestial Cosmos</span>
+                    </div>
+
+                    <div id="levels-grid-3" class="levels-grid"></div>
+                </div>
+            </div>
+
+            <!-- 3. GAMEPLAY SCREEN (activity_game.xml) -->
+            <div id="screen-game" class="screen-view">
+                <!-- Top HUD Overlay (RelativeLayout) -->
+                <div class="top-hud">
+                    <!-- Pause Button (btn_pause_yellow, 46dp) -->
+                    <button id="btn-game-pause" class="btn-orb-yellow btn-hud-pause" title="Pause">
+                        <svg viewBox="0 0 56 56" width="46" height="46">
+                            <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#78350F" />
+                            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#EAB308" />
+                            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                            <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                            <rect x="21" y="20" width="5" height="16" rx="2" fill="#FFFFFF"/>
+                            <rect x="30" y="20" width="5" height="16" rx="2" fill="#FFFFFF"/>
+                        </svg>
+                    </button>
+
+                    <!-- Center Info (Level, Score, 3 Mini Stars) -->
+                    <div class="hud-center-info">
+                        <div id="tv-level-title" class="tv-level-title">LEVEL 1</div>
+                        <div id="tv-score" class="tv-score">SCORE: 0</div>
+                        <div class="hud-mini-stars">
+                            <svg id="hud-star-1" class="hud-star" viewBox="0 0 24 24" width="14" height="14">
+                                <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                            </svg>
+                            <svg id="hud-star-2" class="hud-star" viewBox="0 0 24 24" width="14" height="14">
+                                <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                            </svg>
+                            <svg id="hud-star-3" class="hud-star" viewBox="0 0 24 24" width="14" height="14">
+                                <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Shots Remaining Badge (bg_button_glossy_green) -->
+                    <div id="layout-shots" class="layout-shots-badge">
+                        <span id="tv-shots-count" class="tv-shots-count">25</span>
+                        <span class="tv-shots-label">SHOTS</span>
+                    </div>
+                </div>
+
+                <!-- Custom Bubble Canvas View -->
+                <canvas id="game-canvas"></canvas>
+
+                <!-- Bottom Boosters Bar (Rainbow Left, Bomb Right, Launcher in Middle) -->
+                <div id="bottom-boosters" class="bottom-boosters-bar">
+                    <!-- Rainbow Booster -->
+                    <div class="booster-container" id="booster-rainbow-container">
+                        <button id="btn-booster-rainbow" class="btn-orb-yellow booster-orb" title="Rainbow Booster">
+                            <svg viewBox="0 0 128 128" width="34" height="34">
+                                <defs>
+                                    <linearGradient id="rainbowLinearGrad" x1="1.5%" y1="1.5%" x2="98.5%" y2="98.5%">
+                                        <stop offset="0%" stop-color="#FF1F4B"/>
+                                        <stop offset="20%" stop-color="#FF8A1F"/>
+                                        <stop offset="40%" stop-color="#FFD200"/>
+                                        <stop offset="60%" stop-color="#00C853"/>
+                                        <stop offset="80%" stop-color="#1E88FF"/>
+                                        <stop offset="100%" stop-color="#9C27B0"/>
+                                    </linearGradient>
+                                    <radialGradient id="rainbowBevelGrad" cx="35.5%" cy="30.6%" r="77.5%">
+                                        <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
+                                        <stop offset="50%" stop-color="rgba(0,0,0,0)"/>
+                                        <stop offset="100%" stop-color="rgba(0,0,0,0.35)"/>
+                                    </radialGradient>
+                                </defs>
+                                <circle cx="64" cy="64" r="62" fill="url(#rainbowLinearGrad)"/>
+                                <circle cx="64" cy="64" r="62" fill="url(#rainbowBevelGrad)"/>
+                                <circle cx="64" cy="64" r="61" fill="none" stroke="#000" stroke-width="2" stroke-opacity="0.4"/>
+                                <path d="M29.35,43.46 a8,13 55,1 0,21.3 -14.91 a8,13 55,1 0,-21.3 14.91 z" fill="#fff" fill-opacity="0.85"/>
+                            </svg>
+                        </button>
+                        <span class="booster-label">Rainbow</span>
+                    </div>
+
+                    <!-- Middle space for launcher cannon -->
+                    <div class="booster-middle-space"></div>
+
+                    <!-- Bomb Booster -->
+                    <div class="booster-container" id="booster-bomb-container">
+                        <button id="btn-booster-bomb" class="btn-orb-red booster-orb" title="Bomb Booster">
+                            <svg viewBox="0 0 128 128" width="34" height="34">
+                                <defs>
+                                    <radialGradient id="bombGradOrb" cx="35.5%" cy="30.6%" r="77.5%">
+                                        <stop offset="0%" stop-color="#5C636E"/>
+                                        <stop offset="45%" stop-color="#2B2F37"/>
+                                        <stop offset="100%" stop-color="#0C0E12"/>
+                                    </radialGradient>
+                                    <radialGradient id="bombCoreGrad" cx="41.25%" cy="48.75%" r="30%">
+                                        <stop offset="0%" stop-color="#FFFFFF"/>
+                                        <stop offset="55%" stop-color="#EEF0F3"/>
+                                        <stop offset="100%" stop-color="#B4BAC4"/>
+                                    </radialGradient>
+                                    <radialGradient id="bombSparkGrad" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="#FFFFFF"/>
+                                        <stop offset="35%" stop-color="#FFE066"/>
+                                        <stop offset="75%" stop-color="rgba(255,138,31,0.8)"/>
+                                        <stop offset="100%" stop-color="rgba(255,90,0,0)"/>
+                                    </radialGradient>
+                                </defs>
+                                <circle cx="64" cy="64" r="62" fill="url(#bombGradOrb)" stroke="#000" stroke-width="2" stroke-opacity="0.55"/>
+                                <circle cx="64" cy="64" r="58" fill="none" stroke="#fff" stroke-width="2" stroke-opacity="0.06"/>
+                                <circle cx="36" cy="34" r="6.5" fill="#d7dbe0" fill-opacity="0.75"/>
+                                <circle cx="60" cy="72" r="24" fill="url(#bombCoreGrad)"/>
+                                <ellipse cx="50" cy="62" rx="4.9" ry="2" transform="rotate(-35 50 62)" fill="#fff"/>
+                                <path d="M78.15,46.08 L85.92,53.85 A2.5,2.5 0 0,1 85.92,57.39 L82.39,60.92 A2.5,2.5 0 0,1 78.85,60.92 L71.08,53.15 A2.5,2.5 0 0,1 71.08,49.61 L74.61,46.08 A2.5,2.5 0 0,1 78.15,46.08 Z" fill="#d3d8df"/>
+                                <path d="M73.2,47.49 L84.51,58.8 L82.39,60.92 L71.08,49.61 Z" fill="#9aa1ac" fill-opacity="0.7"/>
+                                <path d="M83,49 C88,42 93,46 96,38" fill="none" stroke="#f3d9a4" stroke-width="3.5" stroke-linecap="round"/>
+                                <circle cx="98" cy="36" r="10" fill="url(#bombSparkGrad)"/>
+                                <path d="M98,27 L99.8,34.2 L107,36 L99.8,37.8 L98,45 L96.2,37.8 L89,36 L96.2,34.2 Z" fill="#fff8d0"/>
+                            </svg>
+                        </button>
+                        <span class="booster-label">Bomb</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL: LEVEL PREVIEW (dialog_level_preview.xml) -->
+            <div id="level-preview-dialog" class="dialog-overlay">
+                <div class="dialog-card">
+                    <span id="tv-preview-world" class="preview-world-tag">WORLD 1 • BUBBLE MEADOWS</span>
+                    <span id="tv-preview-level" class="dialog-title" style="color: #FDE047; font-size: 28px;">LEVEL 1</span>
+
+                    <!-- 3 Target Star Milestones -->
+                    <div class="preview-stars-row">
+                        <svg id="iv-preview-star1" class="preview-star-svg" viewBox="0 0 24 24" width="32" height="32">
+                            <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                        </svg>
+                        <svg id="iv-preview-star2" class="preview-star-svg center" viewBox="0 0 24 24" width="38" height="38">
+                            <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                        </svg>
+                        <svg id="iv-preview-star3" class="preview-star-svg" viewBox="0 0 24 24" width="32" height="32">
+                            <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                        </svg>
+                    </div>
+
+                    <!-- Target Objective Card -->
+                    <div class="preview-objective-card">
+                        <span class="preview-sublabel">TARGET OBJECTIVE</span>
+                        <span id="tv-preview-objective" class="preview-objective-text">Clear all bubbles with limited shots!</span>
+                    </div>
+
+                    <!-- Select Boosters Row -->
+                    <span class="preview-sublabel" style="margin-top: 14px;">EQUIP BOOSTERS</span>
+                    <div class="preview-boosters-row">
+                        <div id="btn-preview-rainbow" class="preview-booster-btn active" title="Rainbow Booster">
+                            <svg viewBox="0 0 128 128" width="30" height="30">
+                                <circle cx="64" cy="64" r="62" fill="url(#rainbowLinearGrad)"/>
+                                <circle cx="64" cy="64" r="62" fill="url(#rainbowBevelGrad)"/>
+                                <circle cx="64" cy="64" r="61" fill="none" stroke="#000" stroke-width="2" stroke-opacity="0.4"/>
+                                <path d="M29.35,43.46 a8,13 55,1 0,21.3 -14.91 a8,13 55,1 0,-21.3 14.91 z" fill="#fff" fill-opacity="0.85"/>
+                            </svg>
+                        </div>
+                        <div id="btn-preview-bomb" class="preview-booster-btn active" title="Bomb Booster">
+                            <svg viewBox="0 0 128 128" width="30" height="30">
+                                <circle cx="64" cy="64" r="62" fill="url(#bombGradOrb)" stroke="#000" stroke-width="2" stroke-opacity="0.55"/>
+                                <circle cx="64" cy="64" r="58" fill="none" stroke="#fff" stroke-width="2" stroke-opacity="0.06"/>
+                                <circle cx="36" cy="34" r="6.5" fill="#d7dbe0" fill-opacity="0.75"/>
+                                <circle cx="60" cy="72" r="24" fill="url(#bombCoreGrad)"/>
+                                <ellipse cx="50" cy="62" rx="4.9" ry="2" transform="rotate(-35 50 62)" fill="#fff"/>
+                                <path d="M78.15,46.08 L85.92,53.85 A2.5,2.5 0 0,1 85.92,57.39 L82.39,60.92 A2.5,2.5 0 0,1 78.85,60.92 L71.08,53.15 A2.5,2.5 0 0,1 71.08,49.61 L74.61,46.08 A2.5,2.5 0 0,1 78.15,46.08 Z" fill="#d3d8df"/>
+                                <path d="M73.2,47.49 L84.51,58.8 L82.39,60.92 L71.08,49.61 Z" fill="#9aa1ac" fill-opacity="0.7"/>
+                                <path d="M83,49 C88,42 93,46 96,38" fill="none" stroke="#f3d9a4" stroke-width="3.5" stroke-linecap="round"/>
+                                <circle cx="98" cy="36" r="10" fill="url(#bombSparkGrad)"/>
+                                <path d="M98,27 L99.8,34.2 L107,36 L99.8,37.8 L98,45 L96.2,37.8 L89,36 L96.2,34.2 Z" fill="#fff8d0"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Start Button -->
+                    <button id="btn-preview-start" class="btn-pill-green" style="width: 220px; height: 56px; font-size: 19px; margin-top: 18px;">▶ START LEVEL</button>
+                    <button id="btn-preview-close" class="btn-text-close">Close</button>
+                </div>
+            </div>
+
+            <!-- MODAL: PAUSE (dialog_pause.xml) -->
+            <div id="pause-dialog" class="dialog-overlay">
+                <div class="dialog-card">
+                    <div class="dialog-title">PAUSED</div>
+
+                    <div class="dialog-audio-row">
+                        <button id="btn-toggle-sound" class="btn-orb-green" style="width: 54px; height: 54px;" title="Toggle Sound">
+                            <svg id="dialog-sound-svg" viewBox="0 0 56 56" width="54" height="54">
+                                <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#0F5132" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#22C55E" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                                <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                                <path d="M20,24 v8 h5 l6,6 V18 l-6,6 H20 z M35,28 c0,-2.5 -1.5,-4.7 -3.5,-5.7 v11.4 c2,-1 3.5,-3.2 3.5,-5.7 z" fill="#FFFFFF"/>
+                            </svg>
+                        </button>
+
+                        <button id="btn-toggle-haptic" class="btn-orb-yellow" style="width: 54px; height: 54px;" title="Settings">
+                            <svg viewBox="0 0 56 56" width="54" height="54">
+                                <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#78350F" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#EAB308" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                                <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                                <path d="M28,23 A4,4 0 1,0 28,31 A4,4 0 1,0 28,23 Z M33,25.5 L35.5,24 L34,21.4 L31.2,22.3 C30.4,21.5 29.5,21 28.5,20.8 L28,18 H25 L24.5,20.8 C23.5,21 22.6,21.5 21.8,22.3 L19,21.4 L17.5,24 L20,25.5 C19.8,26.5 19.8,27.5 20,28.5 L17.5,30 L19,32.6 L21.8,31.7 C22.6,32.5 23.5,33 24.5,33.2 L25,36 H28 L28.5,33.2 C29.5,33 30.4,32.5 31.2,31.7 L34,32.6 L35.5,30 L33,28.5 C33.2,27.5 33.2,26.5 33,25.5 Z" fill="#FFFFFF"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="dialog-vertical-buttons">
+                        <button id="btn-dialog-resume" class="btn-pill-green btn-dialog-pill">RESUME</button>
+                        <button id="btn-dialog-restart" class="btn-pill-yellow btn-dialog-pill">RESTART</button>
+                        <button id="btn-dialog-exit" class="btn-pill-red btn-dialog-pill">LEVELS</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL: VICTORY (dialog_victory.xml) -->
+            <div id="victory-dialog" class="dialog-overlay">
+                <div class="dialog-card">
+                    <div class="dialog-title" style="color: #FDE047;">LEVEL COMPLETE</div>
+
+                    <div class="victory-stars-row">
+                        <svg id="iv-win-star1" class="win-star-svg side" viewBox="0 0 24 24">
+                            <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                        </svg>
+                        <svg id="iv-win-star2" class="win-star-svg center" viewBox="0 0 24 24">
+                            <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                        </svg>
+                        <svg id="iv-win-star3" class="win-star-svg side" viewBox="0 0 24 24">
+                            <path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/>
+                        </svg>
+                    </div>
+
+                    <div id="tv-win-score" class="tv-win-score">SCORE: 3,450</div>
+                    <div id="tv-win-high-score" class="tv-win-high-score">HIGH SCORE: 3,450</div>
+
+                    <div class="victory-actions-row">
+                        <button id="btn-win-home" class="btn-orb-yellow" style="width: 58px; height: 58px;" title="Home">
+                            <svg viewBox="0 0 56 56" width="58" height="58">
+                                <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#78350F" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#EAB308" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                                <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                                <path d="M28,17 L16,27 H20 V37 H26 V31 H30 V37 H36 V27 H40 Z" fill="#FFFFFF"/>
+                            </svg>
+                        </button>
+
+                        <button id="btn-win-restart" class="btn-orb-yellow" style="width: 58px; height: 58px;" title="Replay">
+                            <svg viewBox="0 0 56 56" width="58" height="58">
+                                <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#78350F" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#EAB308" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                                <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                                <path d="M37.65,22.35 C36.2,20.9 34.21,20 32,20 C27.58,20 24,23.58 24,28 C24,32.42 27.58,36 32,36 C35.73,36 38.84,33.45 39.73,30 H37.65 C36.83,32.33 34.61,34 32,34 C28.69,34 26,31.31 26,28 C26,24.69 28.69,22 32,22 C33.66,22 35.14,22.69 36.22,23.78 L33,27 H40 V20 L37.65,22.35 Z" fill="#FFFFFF"/>
+                            </svg>
+                        </button>
+
+                        <button id="btn-win-next" class="btn-orb-green" style="width: 72px; height: 72px;" title="Next Level">
+                            <svg viewBox="0 0 56 56" width="72" height="72">
+                                <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#0F5132" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#22C55E" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                                <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                                <path d="M23,18 L37,28 L23,38 Z" fill="#FFFFFF"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL: GAME OVER (dialog_game_over.xml) -->
+            <div id="gameover-dialog" class="dialog-overlay">
+                <div class="dialog-card">
+                    <div class="dialog-title" style="color: #FF3366;">GAME OVER</div>
+                    <div class="gameover-subtitle">Out of shots! Don't give up!</div>
+                    <div id="tv-lose-score" class="tv-lose-score">FINAL SCORE: 1,200</div>
+
+                    <div class="gameover-actions-row">
+                        <button id="btn-lose-home" class="btn-orb-yellow" style="width: 58px; height: 58px;" title="Home">
+                            <svg viewBox="0 0 56 56" width="58" height="58">
+                                <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#78350F" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#EAB308" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                                <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                                <path d="M28,17 L16,27 H20 V37 H26 V31 H30 V37 H36 V27 H40 Z" fill="#FFFFFF"/>
+                            </svg>
+                        </button>
+
+                        <button id="btn-lose-retry" class="btn-orb-green" style="width: 68px; height: 68px;" title="Retry">
+                            <svg viewBox="0 0 56 56" width="68" height="68">
+                                <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#0F5132" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#22C55E" />
+                                <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                                <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+                                <path d="M37.65,22.35 C36.2,20.9 34.21,20 32,20 C27.58,20 24,23.58 24,28 C24,32.42 27.58,36 32,36 C35.73,36 38.84,33.45 39.73,30 H37.65 C36.83,32.33 34.61,34 32,34 C28.69,34 26,31.31 26,28 C26,24.69 28.69,22 32,22 C33.66,22 35.14,22.69 36.22,23.78 L33,27 H40 V20 L37.65,22.35 Z" fill="#FFFFFF"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Notification Popup -->
+            <div id="toast-notify" class="toast-notify"></div>
+
+        </div>
+    </div>
+</div>
+
+<script src="audio.js"></script>
+<script src="levels.js"></script>
+<script src="game.js"></script>
+<script>
+    // Game Flow & Persistence Management
+    const STORAGE_KEY = 'bubble_shooter_pro_save';
+    let saveData = {
+        unlockedLevel: 1,
+        levels: {},
+        coins: 500,
+        soundEnabled: true
+    };
+
+    let selectedPreviewLevel = 1;
+
+    function loadSaveData() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+                saveData = Object.assign(saveData, JSON.parse(raw));
+            }
+        } catch (e) {}
+        sounds.enabled = saveData.soundEnabled;
+    }
+
+    function saveProgress() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
+        } catch (e) {}
+    }
+
+    function getTotalStars() {
+        let count = 0;
+        for (const lvl in saveData.levels) {
+            count += (saveData.levels[lvl].stars || 0);
+        }
+        return count;
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast-notify');
+        toast.innerText = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    function updateMenuStars() {
+        const total = getTotalStars();
+        document.getElementById('tv-main-stars').innerText = `${total}/90`;
+        document.getElementById('tv-total-stars').innerText = `${total}/90`;
+        document.getElementById('tv-coin-count').innerText = (saveData.coins || 500);
+
+        const currentLvl = saveData.unlockedLevel || 1;
+        document.getElementById('btn-main-play').innerText = `▶ PLAY • LVL ${currentLvl}`;
+        document.getElementById('tv-player-rank').innerText = `Level ${currentLvl} Popper`;
+
+        // Update Star Chest Progress (threshold 10 stars)
+        const chestPct = Math.min(100, Math.floor((total / 10) * 100));
+        document.getElementById('chest-progress-fill').style.width = `${chestPct}%`;
+        if (total >= 10) {
+            document.getElementById('tv-chest-progress').innerText = "Chest Ready to Open! Tap here! 🎁";
+            document.getElementById('tv-chest-progress').style.color = "#FFD700";
+        } else {
+            document.getElementById('tv-chest-progress').innerText = `Earn ${10 - total} more stars to unlock!`;
+            document.getElementById('tv-chest-progress').style.color = "#A0E0E0";
+        }
+    }
+
+    function updateSoundButton() {
+        const tbBtn = document.getElementById('tb-sound-toggle');
+        const mainSvg = document.getElementById('sound-icon-svg');
+        const dialogSvg = document.getElementById('dialog-sound-svg');
+
+        const greenContent = `
+            <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#0F5132" />
+            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#22C55E" />
+            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+            <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.5)" />
+            <path d="M20,24 v8 h5 l6,6 V18 l-6,6 H20 z M35,28 c0,-2.5 -1.5,-4.7 -3.5,-5.7 v11.4 c2,-1 3.5,-3.2 3.5,-5.7 z" fill="#FFFFFF"/>
+        `;
+
+        const grayContent = `
+            <path d="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z" fill="#0F172A" />
+            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" fill="#475569" />
+            <path d="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z" stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+            <path d="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z" fill="rgba(255,255,255,0.25)" />
+            <path d="M36.5,28 c0,-2.5 -1.5,-4.7 -3.5,-5.7 v3.1 l3.5,3.5 c0,-0.3 0,-0.6 0,-0.9 z M20,24 v8 h5 l6,6 v-9.5 l-8.9,-8.9 H20 z M42,40 L16,14 L14.7,15.3 L23.4,24 H20 v8 h5 l6,6 v-1.4 l8.7,8.7 L42,40 z" fill="#FFFFFF"/>
+        `;
+
+        if (sounds.enabled) {
+            mainSvg.innerHTML = greenContent;
+            if (dialogSvg) dialogSvg.innerHTML = greenContent;
+            tbBtn.innerText = '🔊 Sound ON';
+            tbBtn.classList.remove('active');
+        } else {
+            mainSvg.innerHTML = grayContent;
+            if (dialogSvg) dialogSvg.innerHTML = grayContent;
+            tbBtn.innerText = '🔇 Sound OFF';
+            tbBtn.classList.add('active');
+        }
+    }
+
+    // Screen Switching
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+        const target = document.getElementById(screenId);
+        if (target) target.classList.add('active');
+        
+        const tbSplash = document.getElementById('tb-nav-splash');
+        if (tbSplash) tbSplash.classList.toggle('active', screenId === 'screen-splash');
+        document.getElementById('tb-nav-menu').classList.toggle('active', screenId === 'screen-menu');
+        document.getElementById('tb-nav-levels').classList.toggle('active', screenId === 'screen-levels');
+        document.getElementById('tb-nav-game').classList.toggle('active', screenId === 'screen-game');
+        
+        sounds.playClick();
+    }
+
+    // 0. Cinematic Animated Splash Screen Controller
+    class SplashAnimator {
+        constructor(canvas, onFinished) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.onFinished = onFinished;
+            this.clusterBubbles = [];
+            this.particles = [];
+            this.projectileBubble = null;
+            this.elapsedTime = 0;
+            this.soundPlayed = false;
+            this.finishedTriggered = false;
+            this.titleScale = 0;
+            this.titleAlpha = 0;
+            this.animFrameId = null;
+            this.lastTime = null;
+        }
+
+        resize() {
+            const rect = this.canvas.parentElement.getBoundingClientRect();
+            this.canvas.width = rect.width || 328;
+            this.canvas.height = rect.height || 690;
+            this.width = this.canvas.width;
+            this.height = this.canvas.height;
+        }
+
+        init() {
+            this.resize();
+            this.clusterBubbles = [];
+            this.particles = [];
+            this.elapsedTime = 0;
+            this.soundPlayed = false;
+            this.finishedTriggered = false;
+            this.titleScale = 0;
+            this.titleAlpha = 0;
+
+            const w = this.width;
+            const h = this.height;
+            const r = w / 16;
+            const centerX = w * 0.5;
+            const clusterCenterY = h * 0.38;
+
+            const colorKeys = ['PURPLE', 'BLUE', 'YELLOW', 'RED', 'GREEN', 'CYAN', 'ORANGE'];
+
+            // Center bubble
+            this.clusterBubbles.push({
+                x: centerX,
+                y: clusterCenterY,
+                radius: r * 1.05,
+                colorKey: colorKeys[0],
+                vx: 0,
+                vy: 0,
+                alpha: 1.0,
+                scattered: false
+            });
+
+            // 6 Surrounding bubbles in hexagon
+            for (let i = 0; i < 6; i++) {
+                const angle = (i * Math.PI / 3.0);
+                const bx = centerX + Math.cos(angle) * (r * 2.0);
+                const by = clusterCenterY + Math.sin(angle) * (r * 2.0);
+                this.clusterBubbles.push({
+                    x: bx,
+                    y: by,
+                    radius: r * 1.05,
+                    colorKey: colorKeys[(i + 1) % colorKeys.length],
+                    vx: 0,
+                    vy: 0,
+                    alpha: 1.0,
+                    scattered: false
+                });
+            }
+
+            // Projectile at bottom launcher
+            this.projectileBubble = {
+                x: centerX,
+                y: h * 0.85,
+                radius: r * 1.1,
+                colorKey: 'RED',
+                alpha: 1.0
+            };
+        }
+
+        start() {
+            this.init();
+            if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
+            this.lastTime = performance.now();
+            const frame = (now) => {
+                const dt = Math.min(0.05, (now - this.lastTime) / 1000);
+                this.lastTime = now;
+                this.update(dt);
+                this.render();
+                if (this.elapsedTime < 3.2) {
+                    this.animFrameId = requestAnimationFrame(frame);
+                }
+            };
+            this.animFrameId = requestAnimationFrame(frame);
+        }
+
+        update(dt) {
+            this.elapsedTime += dt;
+            const h = this.height;
+            const w = this.width;
+            const centerX = w * 0.5;
+            const clusterCenterY = h * 0.38;
+
+            // Stage 2: Auto Shoot (0.4s -> 0.85s)
+            if (this.elapsedTime > 0.4 && this.elapsedTime <= 0.85) {
+                const shootProgress = (this.elapsedTime - 0.4) / 0.45;
+                const startY = h * 0.85;
+                this.projectileBubble.y = startY - shootProgress * (startY - clusterCenterY);
+            }
+
+            // Stage 3: Impact & Scatter Burst (0.85s+)
+            if (this.elapsedTime > 0.85) {
+                if (!this.soundPlayed) {
+                    this.soundPlayed = true;
+                    sounds.playPop(3);
+                    sounds.playWin();
+
+                    // Scatter cluster bubbles
+                    for (let b of this.clusterBubbles) {
+                        b.scattered = true;
+                        const dx = b.x - centerX;
+                        const dy = b.y - clusterCenterY;
+                        const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.5;
+                        const speed = 350 + Math.random() * 450;
+                        b.vx = Math.cos(angle) * speed;
+                        b.vy = Math.sin(angle) * speed - 120;
+                    }
+
+                    this.projectileBubble.alpha = 0;
+
+                    // 60 confetti particles
+                    const cols = ['#FFD600', '#FF1744', '#00C853', '#0091EA', '#AA00FF', '#00E5FF', '#FFFFFF'];
+                    for (let i = 0; i < 60; i++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const speed = 150 + Math.random() * 450;
+                        this.particles.push({
+                            x: centerX,
+                            y: clusterCenterY,
+                            vx: Math.cos(angle) * speed,
+                            vy: Math.sin(angle) * speed,
+                            color: cols[i % cols.length],
+                            radius: 3 + Math.random() * 5,
+                            alpha: 1.0,
+                            decay: 1.1 + Math.random() * 1.4
+                        });
+                    }
+                }
+
+                // Physics on scattered bubbles
+                for (let b of this.clusterBubbles) {
+                    if (b.scattered) {
+                        b.x += b.vx * dt;
+                        b.y += b.vy * dt;
+                        b.vy += 800 * dt; // gravity
+                        b.alpha = Math.max(0, b.alpha - dt * 0.8);
+                    }
+                }
+
+                // Physics on particles
+                for (let p of this.particles) {
+                    p.x += p.vx * dt;
+                    p.y += p.vy * dt;
+                    p.vy += 450 * dt;
+                    p.alpha -= p.decay * dt;
+                }
+
+                // Title zoom elastic bounce
+                const titleTime = this.elapsedTime - 0.85;
+                if (titleTime < 0.6) {
+                    const t = titleTime / 0.6;
+                    this.titleScale = Math.sin(-13 * (t + 1) * Math.PI / 2) * Math.pow(2, -10 * t) + 1;
+                    this.titleAlpha = Math.min(1.0, t * 2.0);
+                } else {
+                    this.titleScale = 1.0;
+                    this.titleAlpha = 1.0;
+                }
+            }
+
+            // Trigger finished navigation at 2.4s
+            if (this.elapsedTime >= 2.4 && !this.finishedTriggered) {
+                this.finishedTriggered = true;
+                if (this.onFinished) this.onFinished();
+            }
+        }
+
+        render() {
+            const ctx = this.ctx;
+            const w = this.width;
+            const h = this.height;
+            ctx.clearRect(0, 0, w, h);
+
+            // 1. Rich Background
+            const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+            bgGrad.addColorStop(0, '#12162E');
+            bgGrad.addColorStop(0.5, '#1B1F3B');
+            bgGrad.addColorStop(1, '#273469');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, w, h);
+
+            // 2. Draw Cluster Bubbles
+            for (let b of this.clusterBubbles) {
+                this.drawBubble(ctx, b.x, b.y, b.radius, b.colorKey, b.alpha);
+            }
+
+            // 3. Draw Projectile
+            if (this.projectileBubble && this.projectileBubble.alpha > 0) {
+                this.drawBubble(ctx, this.projectileBubble.x, this.projectileBubble.y, this.projectileBubble.radius, this.projectileBubble.colorKey, this.projectileBubble.alpha);
+            }
+
+            // 4. Draw Particles
+            for (let p of this.particles) {
+                if (p.alpha > 0) {
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.alpha);
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            // 5. Draw 3D Title
+            if (this.titleAlpha > 0) {
+                ctx.save();
+                ctx.translate(w * 0.5, h * 0.38);
+                ctx.scale(this.titleScale, this.titleScale);
+                ctx.globalAlpha = this.titleAlpha;
+                ctx.textAlign = 'center';
+
+                // Title Shadow
+                ctx.font = `900 ${Math.floor(w * 0.11)}px 'Plus Jakarta Sans', sans-serif`;
+                ctx.fillStyle = '#78350F';
+                ctx.fillText('BUBBLE', 0, -w * 0.05 + 5);
+                ctx.fillText('SHOOTER', 0, w * 0.09 + 5);
+
+                // Title Main Text
+                ctx.fillStyle = '#FDE047';
+                ctx.fillText('BUBBLE', 0, -w * 0.05);
+                ctx.fillText('SHOOTER', 0, w * 0.09);
+
+                // Pro Edition Subtitle
+                ctx.font = `800 ${Math.floor(w * 0.045)}px 'Plus Jakarta Sans', sans-serif`;
+                ctx.fillStyle = '#FF3366';
+                ctx.fillText('✦ PRO EDITION ✦', 0, w * 0.20);
+
+                ctx.restore();
+            }
+        }
+
+        drawBubble(ctx, x, y, radius, colorKey, alpha = 1.0) {
+            if (alpha <= 0 || radius <= 0) return;
+            const color = BUBBLE_COLORS[colorKey] || BUBBLE_COLORS.RED;
+
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.globalAlpha = Math.max(0, alpha);
+
+            // 1. Subtle drop shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.25)';
+            ctx.beginPath();
+            ctx.arc(0, radius * 0.12, radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 2. Base vibrant circle
+            ctx.fillStyle = color.primary;
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 3. 3D Spherical bevel gradient
+            const lightOffset = radius * 0.25;
+            const sphereGrad = ctx.createRadialGradient(-lightOffset, -lightOffset, 0, 0, 0, radius * 1.3);
+            sphereGrad.addColorStop(0, 'rgba(255,255,255,0.4)');
+            sphereGrad.addColorStop(0.5, 'rgba(0,0,0,0)');
+            sphereGrad.addColorStop(1, color.dark);
+            ctx.fillStyle = sphereGrad;
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 4. Outer rim stroke
+            ctx.strokeStyle = color.dark;
+            ctx.lineWidth = radius * 0.08;
+            ctx.stroke();
+
+            // 5. Specular top-left crescent highlight
+            ctx.fillStyle = 'rgba(255,255,255,0.75)';
+            ctx.save();
+            ctx.translate(-radius * 0.35, -radius * 0.35);
+            ctx.rotate(-Math.PI / 4);
+            ctx.beginPath();
+            ctx.ellipse(0, 0, radius * 0.26, radius * 0.13, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // 6. Pinpoint sparkle
+            ctx.fillStyle = 'rgba(255,255,255,0.9)';
+            ctx.beginPath();
+            ctx.arc(-radius * 0.22, -radius * 0.52, radius * 0.07, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+    }
+
+    function showDialog(dialogId) {
+        document.getElementById(dialogId).classList.add('active');
+    }
+
+    function hideDialog(dialogId) {
+        document.getElementById(dialogId).classList.remove('active');
+    }
+
+    function hideAllDialogs() {
+        document.querySelectorAll('.dialog-overlay').forEach(d => d.classList.remove('active'));
+    }
+
+    // Build Saga Map Grids
+    function renderSagaGrids() {
+        const buildSection = (containerId, startLvl, endLvl) => {
+            const grid = document.getElementById(containerId);
+            grid.innerHTML = '';
+
+            for (let i = startLvl; i <= endLvl; i++) {
+                const item = document.createElement('div');
+                const isUnlocked = i <= saveData.unlockedLevel;
+                const lvlProgress = saveData.levels[i];
+                const stars = lvlProgress ? (lvlProgress.stars || 0) : 0;
+                const isCurrent = (i === saveData.unlockedLevel);
+
+                item.className = 'level-item-wrapper';
+
+                if (isUnlocked) {
+                    const badgeClass = stars > 0 ? 'level-badge-green' : 'level-badge-yellow';
+                    item.innerHTML = `
+                        <div class="level-badge-circle ${badgeClass} ${isCurrent ? 'current-active-node' : ''}">
+                            <span class="level-badge-num">${i}</span>
+                            ${isCurrent ? '<span class="here-tag">HERE!</span>' : ''}
+                        </div>
+                        <div class="level-stars-row">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="${stars >= 1 ? '#FFD700' : '#557F8C8D'}" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/></svg>
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="${stars >= 2 ? '#FFD700' : '#557F8C8D'}" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/></svg>
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="${stars >= 3 ? '#FFD700' : '#557F8C8D'}" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/></svg>
+                        </div>
+                    `;
+                    item.onclick = () => showLevelPreview(i);
+                } else {
+                    item.innerHTML = `
+                        <div class="level-badge-circle level-badge-gray">
+                            <svg viewBox="0 0 24 24" width="28" height="28">
+                                <path fill="#E0E0E0" d="M18,8h-1V6c0,-2.76 -2.24,-5 -5,-5S7,3.24 7,6v2H6c-1.1,0 -2,0.9 -2,2v10c0,1.1 0.9,2 2,2h12c1.1,0 2,-0.9 2,-2V10c0,-1.1 -0.9,-2 -2,-2zm-6,9c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2 2,0.9 2,2 -0.9,2 -2,2zm3.1,-9H8.9V6c0,-1.71 1.39,-3.1 3.1,-3.1 1.71,0 3.1,1.39 3.1,3.1v2z" />
+                            </svg>
+                        </div>
+                        <div class="level-stars-row">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/></svg>
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/></svg>
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#557F8C8D" d="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z"/></svg>
+                        </div>
+                    `;
+                    item.onclick = () => showToast(`Complete Level ${i - 1} to unlock!`);
+                }
+
+                grid.appendChild(item);
+            }
+        };
+
+        buildSection('levels-grid-1', 1, 10);
+        buildSection('levels-grid-2', 11, 20);
+        buildSection('levels-grid-3', 21, 30);
+    }
+
+    // Show Interactive Level Preview Modal
+    function showLevelPreview(levelNum) {
+        selectedPreviewLevel = levelNum;
+        sounds.playClick();
+
+        let biome;
+        if (levelNum <= 10) biome = "WORLD 1 • BUBBLE MEADOWS";
+        else if (levelNum <= 20) biome = "WORLD 2 • CRYSTAL CAVERNS";
+        else biome = "WORLD 3 • CELESTIAL COSMOS";
+
+        document.getElementById('tv-preview-world').innerText = biome;
+        document.getElementById('tv-preview-level').innerText = `LEVEL ${levelNum}`;
+
+        const stars = saveData.levels[levelNum]?.stars || 0;
+        const pStar1 = document.getElementById('iv-preview-star1').querySelector('path');
+        const pStar2 = document.getElementById('iv-preview-star2').querySelector('path');
+        const pStar3 = document.getElementById('iv-preview-star3').querySelector('path');
+
+        pStar1.setAttribute('fill', stars >= 1 ? '#FFD700' : '#557F8C8D');
+        pStar2.setAttribute('fill', stars >= 2 ? '#FFD700' : '#557F8C8D');
+        pStar3.setAttribute('fill', stars >= 3 ? '#FFD700' : '#557F8C8D');
+
+        showDialog('level-preview-dialog');
+    }
+
+    function openChestMilestone(biomeNum) {
+        sounds.playWin();
+        saveData.coins = (saveData.coins || 500) + 150;
+        saveProgress();
+        updateMenuStars();
+        showToast(`🎁 Biome ${biomeNum} Chest Opened! +150 Coins & +1 Rainbow!`);
+    }
+
+    // Initialize Game Engine
+    const canvas = document.getElementById('game-canvas');
+    const engine = new GameEngine(canvas);
+
+    function startLevel(levelNum) {
+        hideAllDialogs();
+        showScreen('screen-game');
+        setTimeout(() => {
+            engine.loadLevel(levelNum);
+        }, 30);
+    }
+
+    // Game loop
+    let lastTime = performance.now();
+    function loop(now) {
+        const dt = Math.min(0.05, (now - lastTime) / 1000);
+        lastTime = now;
+
+        if (!engine.isPaused) {
+            engine.update(dt);
+        }
+        engine.render();
+
+        requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    // Event Hookups
+    window.addEventListener('DOMContentLoaded', () => {
+        loadSaveData();
+        updateMenuStars();
+        updateSoundButton();
+        renderSagaGrids();
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let mins = now.getMinutes();
+            if (mins < 10) mins = '0' + mins;
+            document.getElementById('status-bar-time').innerText = `${hours}:${mins}`;
+        }
+        updateClock();
+        setInterval(updateClock, 10000);
+
+        // Top Toolbar & Splash Controller
+        const splashCanvas = document.getElementById('splash-canvas');
+        const splash = new SplashAnimator(splashCanvas, () => {
+            showScreen('screen-menu');
+        });
+
+        // Trigger splash animation on initial app launch
+        setTimeout(() => {
+            splash.start();
+        }, 80);
+
+        document.getElementById('tb-nav-splash').onclick = () => {
+            showScreen('screen-splash');
+            splash.start();
+        };
+        document.getElementById('tb-nav-menu').onclick = () => showScreen('screen-menu');
+        document.getElementById('tb-nav-levels').onclick = () => {
+            renderSagaGrids();
+            updateMenuStars();
+            showScreen('screen-levels');
+        };
+        document.getElementById('tb-nav-game').onclick = () => startLevel(saveData.unlockedLevel);
+        
+        document.getElementById('tb-sound-toggle').onclick = () => {
+            sounds.enabled = !sounds.enabled;
+            saveData.soundEnabled = sounds.enabled;
+            saveProgress();
+            updateSoundButton();
+        };
+
+        const frame = document.getElementById('phone-frame');
+        document.getElementById('tb-frame-toggle').onclick = () => {
+            frame.classList.toggle('fullscreen-mode');
+            setTimeout(() => engine.resize(), 100);
+        };
+
+        // Screen Navigation Buttons (activity_main.xml)
+        document.getElementById('btn-main-play').onclick = () => startLevel(saveData.unlockedLevel);
+        document.getElementById('btn-main-levels').onclick = () => {
+            renderSagaGrids();
+            updateMenuStars();
+            showScreen('screen-levels');
+        };
+        document.getElementById('btn-main-trophy').onclick = () => {
+            renderSagaGrids();
+            updateMenuStars();
+            showScreen('screen-levels');
+        };
+        document.getElementById('btn-levels-back').onclick = () => showScreen('screen-menu');
+
+        // Star Chest & Daily Gift Clicks
+        document.getElementById('layout-star-chest').onclick = () => {
+            sounds.playClick();
+            const total = getTotalStars();
+            if (total >= 10) {
+                sounds.playWin();
+                saveData.coins = (saveData.coins || 500) + 200;
+                saveProgress();
+                updateMenuStars();
+                showToast("🎁 Star Chest Opened! +200 Coins & +1 Bomb Booster!");
+            } else {
+                showToast(`Earn ${10 - total} more stars to open this chest!`);
+            }
+        };
+
+        document.getElementById('btn-main-gift').onclick = () => {
+            sounds.playWin();
+            saveData.coins = (saveData.coins || 500) + 100;
+            saveProgress();
+            updateMenuStars();
+            showToast("🎁 Daily Gift Claimed: +100 Coins & +1 Rainbow Booster!");
+        };
+
+        document.getElementById('btn-main-sound').onclick = () => {
+            sounds.enabled = !sounds.enabled;
+            saveData.soundEnabled = sounds.enabled;
+            saveProgress();
+            updateSoundButton();
+            sounds.playClick();
+        };
+
+        document.getElementById('btn-main-haptic').onclick = () => sounds.playClick();
+
+        // Level Preview Modal Actions
+        document.getElementById('btn-preview-start').onclick = () => {
+            hideDialog('level-preview-dialog');
+            startLevel(selectedPreviewLevel);
+        };
+        document.getElementById('btn-preview-close').onclick = () => {
+            hideDialog('level-preview-dialog');
+            sounds.playClick();
+        };
+
+        document.getElementById('btn-preview-rainbow').onclick = (e) => {
+            sounds.playClick();
+            e.currentTarget.classList.toggle('active');
+        };
+        document.getElementById('btn-preview-bomb').onclick = (e) => {
+            sounds.playClick();
+            e.currentTarget.classList.toggle('active');
+        };
+
+        // In-game Boosters
+        document.getElementById('btn-booster-bomb').onclick = () => engine.equipBooster('BOMB');
+        document.getElementById('btn-booster-rainbow').onclick = () => engine.equipBooster('RAINBOW');
+
+        // Pause Dialog
+        document.getElementById('btn-game-pause').onclick = () => {
+            engine.isPaused = true;
+            showDialog('pause-dialog');
+            sounds.playClick();
+        };
+        document.getElementById('btn-toggle-sound').onclick = () => {
+            sounds.enabled = !sounds.enabled;
+            saveData.soundEnabled = sounds.enabled;
+            saveProgress();
+            updateSoundButton();
+            sounds.playClick();
+        };
+        document.getElementById('btn-toggle-haptic').onclick = () => sounds.playClick();
+        document.getElementById('btn-dialog-resume').onclick = () => {
+            hideDialog('pause-dialog');
+            engine.isPaused = false;
+            sounds.playClick();
+        };
+        document.getElementById('btn-dialog-restart').onclick = () => {
+            hideDialog('pause-dialog');
+            startLevel(engine.currentLevel);
+        };
+        document.getElementById('btn-dialog-exit').onclick = () => {
+            hideDialog('pause-dialog');
+            renderSagaGrids();
+            updateMenuStars();
+            showScreen('screen-levels');
+        };
+
+        // Victory Dialog
+        document.getElementById('btn-win-home').onclick = () => {
+            hideDialog('victory-dialog');
+            renderSagaGrids();
+            updateMenuStars();
+            showScreen('screen-menu');
+        };
+        document.getElementById('btn-win-restart').onclick = () => {
+            hideDialog('victory-dialog');
+            startLevel(engine.currentLevel);
+        };
+        document.getElementById('btn-win-next').onclick = () => {
+            hideDialog('victory-dialog');
+            const nextLvl = Math.min(30, engine.currentLevel + 1);
+            startLevel(nextLvl);
+        };
+
+        // Game Over Dialog
+        document.getElementById('btn-gameover-home').onclick = () => {
+            hideDialog('gameover-dialog');
+            renderSagaGrids();
+            updateMenuStars();
+            showScreen('screen-menu');
+        };
+        document.getElementById('btn-gameover-retry').onclick = () => {
+            hideDialog('gameover-dialog');
+            startLevel(engine.currentLevel);
+        };
+        // Auto-pause when browser window/tab is backgrounded
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                const gameScreen = document.getElementById('screen-game');
+                if (gameScreen && gameScreen.classList.contains('active') && !engine.isGameOver && !engine.isPaused) {
+                    engine.isPaused = true;
+                    showDialog('pause-dialog');
+                }
+            }
+        });
+    });
+
+    // Engine Event Callbacks
+    engine.onScoreUpdated = (score, stars, progress) => {
+        document.getElementById('tv-score').innerText = `SCORE: ${score.toLocaleString()}`;
+
+        const star1 = document.getElementById('hud-star-1').querySelector('path');
+        const star2 = document.getElementById('hud-star-2').querySelector('path');
+        const star3 = document.getElementById('hud-star-3').querySelector('path');
+
+        star1.setAttribute('fill', stars >= 1 ? '#FFD700' : '#557F8C8D');
+        star2.setAttribute('fill', stars >= 2 ? '#FFD700' : '#557F8C8D');
+        star3.setAttribute('fill', stars >= 3 ? '#FFD700' : '#557F8C8D');
+    };
+
+    engine.onShotsUpdated = (shots) => {
+        document.getElementById('tv-shots-count').innerText = shots;
+    };
+
+    engine.onLevelLoaded = (levelNum) => {
+        document.getElementById('tv-level-title').innerText = `LEVEL ${levelNum}`;
+    };
+
+    engine.onGameWon = (levelNum, score, stars) => {
+        const currentSaved = saveData.levels[levelNum] || { stars: 0, score: 0 };
+        const newStars = Math.max(currentSaved.stars, stars);
+        const newScore = Math.max(currentSaved.score, score);
+
+        saveData.levels[levelNum] = { stars: newStars, score: newScore };
+        if (levelNum >= saveData.unlockedLevel && levelNum < 30) {
+            saveData.unlockedLevel = levelNum + 1;
+        }
+        saveData.coins = (saveData.coins || 500) + (stars * 25);
+        saveProgress();
+        updateMenuStars();
+
+        document.getElementById('tv-win-score').innerText = `SCORE: ${score.toLocaleString()}`;
+        document.getElementById('tv-win-high-score').innerText = `HIGH SCORE: ${newScore.toLocaleString()}`;
+
+        const wStar1 = document.getElementById('iv-win-star1').querySelector('path');
+        const wStar2 = document.getElementById('iv-win-star2').querySelector('path');
+        const wStar3 = document.getElementById('iv-win-star3').querySelector('path');
+
+        wStar1.setAttribute('fill', stars >= 1 ? '#FFD700' : '#557F8C8D');
+        wStar2.setAttribute('fill', stars >= 2 ? '#FFD700' : '#557F8C8D');
+        wStar3.setAttribute('fill', stars >= 3 ? '#FFD700' : '#557F8C8D');
+
+        showDialog('victory-dialog');
+    };
+
+    engine.onGameLost = (levelNum, score) => {
+        document.getElementById('tv-lose-score').innerText = `FINAL SCORE: ${score.toLocaleString()}`;
+        showDialog('gameover-dialog');
+    };
+</script>
+
+</body>
+</html>

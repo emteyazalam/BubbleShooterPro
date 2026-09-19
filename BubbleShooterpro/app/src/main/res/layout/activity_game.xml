@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
+
+    <!-- The Custom Canvas Game View (Fills full screen) -->
+    <com.redcodersgroup.bubbleshooter.ui.BubbleGameView
+        android:id="@+id/bubbleGameView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Top HUD Overlay (Cleanly positioned above ceiling line) -->
+    <RelativeLayout
+        android:id="@+id/topHud"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+
+        <!-- Pause Button -->
+        <ImageButton
+            android:id="@+id/btnPause"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_pause_yellow"
+            android:contentDescription="Pause" />
+
+        <!-- Level and Score Info -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/btnPause"
+            android:layout_toStartOf="@+id/layoutShots"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/tvLevelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LEVEL 1"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:shadowColor="#80000000"
+                android:shadowDx="1"
+                android:shadowDy="2"
+                android:shadowRadius="4" />
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SCORE: 0"
+                android:textColor="@color/accent_yellow"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- 3 Mini Stars in HUD -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp">
+
+                <ImageView
+                    android:id="@+id/hudStar1"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_star_empty" />
+
+                <ImageView
+                    android:id="@+id/hudStar2"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="2dp"
+                    android:src="@drawable/ic_star_empty" />
+
+                <ImageView
+                    android:id="@+id/hudStar3"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="2dp"
+                    android:src="@drawable/ic_star_empty" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Shots Remaining Badge -->
+        <LinearLayout
+            android:id="@+id/layoutShots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_button_glossy_green"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/tvShotsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SHOTS"
+                android:textColor="#E0FFFFFF"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- Bottom Boosters Bar (Clean horizontal row of 4 mod boosters with bubble count badges) -->
+    <LinearLayout
+        android:id="@+id/bottomBoosters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="12dp">
+
+        <!-- Rainbow Booster -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <FrameLayout
+                android:id="@+id/layoutBoosterRainbow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <ImageButton
+                    android:id="@+id/btnBoosterRainbow"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_circle_transparent"
+                    android:scaleType="fitCenter"
+                    android:padding="2dp"
+                    android:src="@drawable/rainbow_bubble"
+                    android:contentDescription="Rainbow Booster" />
+
+                <!-- Bubble badge for count -->
+                <TextView
+                    android:id="@+id/tvCountRainbow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:minWidth="18dp"
+                    android:minHeight="18dp"
+                    android:gravity="center"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:background="@drawable/bg_booster_badge"
+                    android:text="∞"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:elevation="6dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Fireball Booster -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <FrameLayout
+                android:id="@+id/layoutBoosterFireball"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <ImageButton
+                    android:id="@+id/btnBoosterFireball"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_circle_transparent"
+                    android:scaleType="fitCenter"
+                    android:padding="2dp"
+                    android:src="@drawable/fireball_bubble"
+                    android:contentDescription="Fireball Booster" />
+
+                <!-- Bubble badge for count -->
+                <TextView
+                    android:id="@+id/tvCountFireball"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:minWidth="18dp"
+                    android:minHeight="18dp"
+                    android:gravity="center"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:background="@drawable/bg_booster_badge"
+                    android:text="∞"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:elevation="6dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Lightning Booster -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <FrameLayout
+                android:id="@+id/layoutBoosterLightning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <ImageButton
+                    android:id="@+id/btnBoosterLightning"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_circle_transparent"
+                    android:scaleType="fitCenter"
+                    android:padding="2dp"
+                    android:src="@drawable/lightning_bubble"
+                    android:contentDescription="Lightning Booster" />
+
+                <!-- Bubble badge for count -->
+                <TextView
+                    android:id="@+id/tvCountLightning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:minWidth="18dp"
+                    android:minHeight="18dp"
+                    android:gravity="center"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:background="@drawable/bg_booster_badge"
+                    android:text="∞"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:elevation="6dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Bomb Booster -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <FrameLayout
+                android:id="@+id/layoutBoosterBomb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <ImageButton
+                    android:id="@+id/btnBoosterBomb"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_circle_transparent"
+                    android:scaleType="fitCenter"
+                    android:padding="2dp"
+                    android:src="@drawable/bomb_bubble"
+                    android:contentDescription="Bomb Booster" />
+
+                <!-- Bubble badge for count -->
+                <TextView
+                    android:id="@+id/tvCountBomb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:minWidth="18dp"
+                    android:minHeight="18dp"
+                    android:gravity="center"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:background="@drawable/bg_booster_badge"
+                    android:text="∞"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:elevation="6dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

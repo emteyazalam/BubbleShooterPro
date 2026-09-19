@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="56"
+    android:viewportHeight="56">
+
+    <!-- 3D Base Shadow -->
+    <path
+        android:pathData="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z"
+        android:fillColor="#78350F" />
+
+    <!-- Main Glossy Yellow Circle -->
+    <path
+        android:pathData="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z"
+        android:fillColor="#EAB308" />
+
+    <!-- Outer Highlight Ring -->
+    <path
+        android:pathData="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5" />
+
+    <!-- Top Specular Highlight Arc -->
+    <path
+        android:pathData="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z"
+        android:fillColor="#80FFFFFF" />
+
+    <!-- Home Icon Shadow -->
+    <path
+        android:pathData="M28,16 L14,28 L19,28 L19,41 L25,41 L25,32 L31,32 L31,41 L37,41 L37,28 L42,28 Z"
+        android:fillColor="#78350F" />
+
+    <!-- Home Icon Foreground -->
+    <path
+        android:pathData="M28,15 L14,27 L19,27 L19,40 L25,40 L25,31 L31,31 L31,40 L37,40 L37,27 L42,27 Z"
+        android:fillColor="#FFFFFF" />
+</vector>

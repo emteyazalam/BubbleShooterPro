@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Bottom 3D Bevel Shadow -->
+    <item android:top="6dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <solid android:color="#075985" />
+        </shape>
+    </item>
+    <!-- Main Button Body -->
+    <item android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#38BDF8"
+                android:centerColor="#0284C7"
+                android:endColor="#0369A1" />
+            <stroke
+                android:width="2.5dp"
+                android:color="#FFFFFF" />
+        </shape>
+    </item>
+    <!-- Top Specular Highlight -->
+    <item
+        android:left="12dp"
+        android:right="12dp"
+        android:top="3dp"
+        android:bottom="36dp">
+        <shape android:shape="rectangle">
+            <corners
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp"
+                android:bottomLeftRadius="8dp"
+                android:bottomRightRadius="8dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#B0FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@drawable/bg_card_dialog">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/paused"
+        android:textColor="#FFFFFF"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:shadowColor="#B0000000"
+        android:shadowDx="2"
+        android:shadowDy="3"
+        android:shadowRadius="6" />
+
+    <!-- Audio Toggles -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
+        <ImageButton
+            android:id="@+id/btnToggleSound"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_sound_green"
+            android:contentDescription="Toggle Sound" />
+
+        <ImageButton
+            android:id="@+id/btnToggleHaptic"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_vibration_yellow"
+            android:contentDescription="Toggle Vibration" />
+    </LinearLayout>
+
+    <!-- Resume Button -->
+    <Button
+        android:id="@+id/btnResume"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
+        android:background="@drawable/btn_pill_blank_green"
+        android:text="@string/resume"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Restart Button -->
+    <Button
+        android:id="@+id/btnRestart"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/btn_pill_blank_yellow"
+        android:text="@string/restart"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Exit to Levels Button -->
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/btn_pill_blank_red"
+        android:text="@string/levels"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+{
+  "shots": 25,
+  "colors": [
+    "PURPLE",
+    "YELLOW",
+    "BLUE"
+  ],
+  "objective": {
+    "type": "POP_COLOR",
+    "target": 14,
+    "color": "PURPLE"
+  },
+  "starThresholds": [
+    1100,
+    2300,
+    3500
+  ],
+  "rows": [
+    "PPPPPPPP",
+    "YYYYYYY",
+    "BBBBBBBB",
+    "PPPPPPP",
+    "YYYYYYYY",
+    ".BBBBBB"
+  ],
+  "level": 11
+}
