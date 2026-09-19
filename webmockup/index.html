@@ -36,7 +36,7 @@
         <div class="screens-container">
 
             <!-- 0. CINEMATIC ANIMATED SPLASH SCREEN (activity_splash.xml / SplashActivity.java) -->
-            <div id="screen-splash" class="screen-view active splash-screen-container">
+            <div id="screen-splash" class="screen-view splash-screen-container">
                 <canvas id="splash-canvas" class="splash-canvas"></canvas>
                 
                 <!-- Bottom Small Branding -->
@@ -49,7 +49,7 @@
             </div>
 
             <!-- 1. REDESIGNED HERO HOME SCREEN (activity_main.xml) -->
-            <div id="screen-menu" class="screen-view">
+            <div id="screen-menu" class="screen-view active">
                 <!-- Floating Ambient Background Bubbles -->
                 <div class="ambient-bubble amb-1"></div>
                 <div class="ambient-bubble amb-2"></div>
@@ -1211,15 +1211,17 @@
             showScreen('screen-menu');
         });
 
-        // Trigger splash animation on initial app launch
-        setTimeout(() => {
-            splash.start();
-        }, 80);
+        // Ensure home screen is visible on load
+        showScreen('screen-menu');
 
         document.getElementById('tb-nav-splash').onclick = () => {
             showScreen('screen-splash');
             splash.start();
         };
+        const splashScreenEl = document.getElementById('screen-splash');
+        if (splashScreenEl) {
+            splashScreenEl.onclick = () => showScreen('screen-menu');
+        }
         document.getElementById('tb-nav-menu').onclick = () => showScreen('screen-menu');
         document.getElementById('tb-nav-levels').onclick = () => {
             renderSagaGrids();
