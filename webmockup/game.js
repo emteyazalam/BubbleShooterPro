@@ -1126,7 +1126,21 @@ class GameEngine {
 
         if (!hasBubbles) {
             this.isGameOver = true;
-            if (this.starsEarned === 0) this.starsEarned = 1;
+            // Victory bonus (500 clear bonus + 100 per remaining shot)
+            const victoryBonus = 500 + Math.max(0, this.shotsRemaining) * 100;
+            this.score += victoryBonus;
+
+            if (this.levelData && this.levelData.starThresholds) {
+                const th = this.levelData.starThresholds;
+                if (this.score >= th[2]) this.starsEarned = 3;
+                else if (this.score >= th[1]) this.starsEarned = 2;
+                else if (this.score >= th[0]) this.starsEarned = 1;
+                else this.starsEarned = 1;
+            } else {
+                this.starsEarned = 1;
+            }
+
+            this.updateHUD();
             sounds.playWin();
             setTimeout(() => {
                 if (this.onGameWon) this.onGameWon(this.currentLevel, this.score, this.starsEarned);
