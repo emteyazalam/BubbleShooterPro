@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -71,6 +72,13 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
 
         initViews();
         setupGame();
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                handleBackPress();
+            }
+        });
     }
 
     private void initViews() {
@@ -302,6 +310,48 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             }
         });
         activePauseDialog.show();
+    }
+
+    private void handleBackPress() {
+        if (isFinishing() || isDestroyed()) return;
+
+        // If a terminal dialog (Victory or Game Over) is active, back finishes cleanly
+        if (activeVictoryDialog != null && activeVictoryDialog.isShowing()) {
+            activeVictoryDialog.dismiss();
+            activeVictoryDialog = null;
+            finish();
+            return;
+        }
+
+        if (activeGameOverDialog != null && activeGameOverDialog.isShowing()) {
+            activeGameOverDialog.dismiss();
+            activeGameOverDialog = null;
+            finish();
+            return;
+        }
+
+        // If pause dialog is already visible, back press dismisses and resumes gameplay
+        if (activePauseDialog != null && activePauseDialog.isShowing()) {
+            activePauseDialog.dismiss();
+            activePauseDialog = null;
+            if (gameEngine != null) {
+                gameEngine.resume();
+            }
+            enableImmersiveStickyMode();
+            return;
+        }
+
+        // If in active gameplay (any mode: Level Mode or Endless Mode), show the pause dialog
+        if (!isGameOverOrWon) {
+            showPauseDialog();
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        handleBackPress();
     }
 
     @Override
