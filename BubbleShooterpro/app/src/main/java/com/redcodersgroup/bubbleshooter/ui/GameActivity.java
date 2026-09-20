@@ -258,7 +258,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             gameEngine.pause();
         }
 
-        activePauseDialog = new PauseDialog(this, new PauseDialog.PauseDialogListener() {
+        activePauseDialog = new PauseDialog(this, isEndlessMode, new PauseDialog.PauseDialogListener() {
             @Override
             public void onResumeClicked() {
                 activePauseDialog = null;

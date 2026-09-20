@@ -23,12 +23,18 @@ public class PauseDialog extends Dialog {
     }
 
     private final PauseDialogListener listener;
+    private final boolean isEndlessMode;
     private final PreferencesManager prefs;
     private final SoundManager soundManager;
     private DialogPauseBinding binding;
 
     public PauseDialog(@NonNull Context context, PauseDialogListener listener) {
+        this(context, false, listener);
+    }
+
+    public PauseDialog(@NonNull Context context, boolean isEndlessMode, PauseDialogListener listener) {
         super(context);
+        this.isEndlessMode = isEndlessMode;
         this.listener = listener;
         this.prefs = new PreferencesManager(context);
         this.soundManager = SoundManager.getInstance(context);
@@ -44,6 +50,18 @@ public class PauseDialog extends Dialog {
 
         if (getWindow() != null) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        if (isEndlessMode) {
+            binding.btnLevels.setVisibility(android.view.View.GONE);
+            // Remove extra top margin so restart button sits nicely below the top controls
+            if (binding.btnRestart.getLayoutParams() instanceof android.view.ViewGroup.MarginLayoutParams) {
+                android.view.ViewGroup.MarginLayoutParams params = (android.view.ViewGroup.MarginLayoutParams) binding.btnRestart.getLayoutParams();
+                params.topMargin = 0;
+                binding.btnRestart.setLayoutParams(params);
+            }
+        } else {
+            binding.btnLevels.setVisibility(android.view.View.VISIBLE);
         }
 
         // Top Horizontal: Sound, Haptic, Home
