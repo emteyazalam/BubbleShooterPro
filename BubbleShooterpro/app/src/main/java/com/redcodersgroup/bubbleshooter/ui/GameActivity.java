@@ -9,6 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.redcodersgroup.bubbleshooter.MainActivity;
 import com.redcodersgroup.bubbleshooter.R;
 import com.redcodersgroup.bubbleshooter.bubble.BubbleType;
 import com.redcodersgroup.bubbleshooter.data.PreferencesManager;
@@ -273,7 +274,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             }
 
             @Override
-            public void onExitClicked() {
+            public void onLevelsClicked() {
                 activePauseDialog = null;
                 if (isEndlessMode) {
                     finish();
@@ -283,6 +284,15 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
                     startActivity(intent);
                     finish();
                 }
+            }
+
+            @Override
+            public void onHomeClicked() {
+                activePauseDialog = null;
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
             }
         });
         activePauseDialog.show();

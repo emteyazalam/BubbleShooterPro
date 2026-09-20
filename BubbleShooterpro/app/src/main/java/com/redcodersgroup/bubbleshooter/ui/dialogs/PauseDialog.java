@@ -18,7 +18,8 @@ public class PauseDialog extends Dialog {
     public interface PauseDialogListener {
         void onResumeClicked();
         void onRestartClicked();
-        void onExitClicked();
+        void onLevelsClicked();
+        void onHomeClicked();
     }
 
     private final PauseDialogListener listener;
@@ -45,24 +46,7 @@ public class PauseDialog extends Dialog {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-        binding.btnResume.setOnClickListener(v -> {
-            soundManager.playClick();
-            dismiss();
-            if (listener != null) listener.onResumeClicked();
-        });
-
-        binding.btnRestart.setOnClickListener(v -> {
-            soundManager.playClick();
-            dismiss();
-            if (listener != null) listener.onRestartClicked();
-        });
-
-        binding.btnExit.setOnClickListener(v -> {
-            soundManager.playClick();
-            dismiss();
-            if (listener != null) listener.onExitClicked();
-        });
-
+        // Top Horizontal: Sound, Haptic, Home
         updateSoundButton(binding.btnToggleSound);
         binding.btnToggleSound.setOnClickListener(v -> {
             soundManager.playClick();
@@ -77,6 +61,31 @@ public class PauseDialog extends Dialog {
             boolean current = prefs.isHapticEnabled();
             prefs.setHapticEnabled(!current);
             updateHapticButton(binding.btnToggleHaptic);
+        });
+
+        binding.btnHome.setOnClickListener(v -> {
+            soundManager.playClick();
+            dismiss();
+            if (listener != null) listener.onHomeClicked();
+        });
+
+        // Vertical Buttons (Top to Down: Levels, Restart, Resume)
+        binding.btnLevels.setOnClickListener(v -> {
+            soundManager.playClick();
+            dismiss();
+            if (listener != null) listener.onLevelsClicked();
+        });
+
+        binding.btnRestart.setOnClickListener(v -> {
+            soundManager.playClick();
+            dismiss();
+            if (listener != null) listener.onRestartClicked();
+        });
+
+        binding.btnResume.setOnClickListener(v -> {
+            soundManager.playClick();
+            dismiss();
+            if (listener != null) listener.onResumeClicked();
         });
     }
 
