@@ -1,9 +1,6 @@
 package com.redcodersgroup.bubbleshooter;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import com.redcodersgroup.bubbleshooter.audio.SoundManager;
 import com.redcodersgroup.bubbleshooter.data.PreferencesManager;
 import com.redcodersgroup.bubbleshooter.data.ProgressRepository;
@@ -35,7 +32,6 @@ public class MainActivity extends BaseActivity {
         soundManager = SoundManager.getInstance(this);
 
         initViews();
-        startTitleAnimation();
     }
 
     private void initViews() {
@@ -75,21 +71,9 @@ public class MainActivity extends BaseActivity {
         startActivity(GameActivity.createEndlessIntent(this));
     }
 
-    private void startTitleAnimation() {
-        ObjectAnimator floatAnim = ObjectAnimator.ofFloat(binding.titleContainer, "translationY", 0f, -12f, 0f);
-        floatAnim.setDuration(2200);
-        floatAnim.setRepeatCount(ValueAnimator.INFINITE);
-        floatAnim.setRepeatMode(ValueAnimator.REVERSE);
-        floatAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-        floatAnim.start();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        if (binding.homeBackgroundView != null) {
-            binding.homeBackgroundView.resumeAnimation();
-        }
 
         int currentLevel = prefs.getHighestUnlockedLevel();
         int maxLevels = levelManager.getTotalLevels();
@@ -109,9 +93,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (binding.homeBackgroundView != null) {
-            binding.homeBackgroundView.pauseAnimation();
-        }
         if (settingsDialog != null && settingsDialog.isShowing()) {
             settingsDialog.dismiss();
             settingsDialog = null;
