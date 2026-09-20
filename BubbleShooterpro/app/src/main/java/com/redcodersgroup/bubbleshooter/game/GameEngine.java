@@ -600,7 +600,7 @@ public class GameEngine {
         if (state == GameState.AIMING) {
             float cancelThreshold = launcherY - (bubbleRadius * 0.4f);
             if (isAimCancelled || touchY >= cancelThreshold) {
-                // Cancelled shot: reset to READY, clear trajectory, do NOT launch projectile
+                // Canceled shot: reset to READY, clear trajectory, do NOT launch projectile
                 state = GameState.READY;
                 isAimCancelled = false;
                 if (trajectoryPoints != null) {
@@ -636,12 +636,10 @@ public class GameEngine {
     private final Set<GridPosition> fireballPoppedPositions = new HashSet<>();
 
     private void updateTrajectory() {
-        boolean isPiercing = (currentBubble != null &&
-                (currentBubble.getType() == BubbleType.FIREBALL || currentBubble.getColor() == BubbleColor.FIREBALL));
         this.trajectoryPoints = TrajectoryCalculator.calculateTrajectory(
                 launcherX, launcherY, aimAngleRad,
                 boardLeft, boardRight, boardTop,
-                grid, bubbleRadius, isPiercing
+                grid, bubbleRadius, false
         );
     }
 
@@ -1267,7 +1265,7 @@ public class GameEngine {
         // 0. Draw Bottom Danger Deadline
         drawDeadLine(canvas, paint);
 
-        // 1. Draw Bold Shining Colored Laser Trajectory Line (ONLY when actively AIMING and not cancelled)
+        // 1. Draw Bold Shining Colored Laser Trajectory Line (ONLY when actively AIMING and not canceled)
         if (state == GameState.AIMING && !isAimCancelled && trajectoryPoints != null && !trajectoryPoints.isEmpty()) {
             laserPath.rewind();
             laserPath.moveTo(launcherX, launcherY);
