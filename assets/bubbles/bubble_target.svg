@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="grad_1" cx="48" cy="42" r="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#FFFFFF" stop-opacity="0.125"/>
+      <stop offset="45.0%" stop-color="#B2EBF2" stop-opacity="0.208"/>
+      <stop offset="80.0%" stop-color="#80DEEA" stop-opacity="0.314"/>
+      <stop offset="100.0%" stop-color="#4DD0E1" stop-opacity="0.459"/>
+    </radialGradient>
+    <linearGradient id="grad_2" x1="20" y1="20" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#E0F7FA" stop-opacity="0.502"/>
+      <stop offset="35.0%" stop-color="#B388FF" stop-opacity="0.376"/>
+      <stop offset="70.0%" stop-color="#80D8FF" stop-opacity="0.376"/>
+      <stop offset="100.0%" stop-color="#A7FFEB" stop-opacity="0.502"/>
+    </linearGradient>
+  </defs>
+    <path d="M64,68m-58,0a58,58 0,1 1,116 0a58,58 0,1 1,-116 0" fill="#000000" fill-opacity="0.094"/>
+    <path d="M64,64m-60,0a60,60 0,1 1,120 0a60,60 0,1 1,-120 0" fill="url(#grad_1)"/>
+    <path d="M64,64m-52,0a52,52 0,1 1,104 0a52,52 0,1 1,-104 0" fill="none" stroke="url(#grad_2)" stroke-width="4"/>
+    <path d="M38,98 C50,114 78,114 96,98 C86,108 60,108 48,96 Z" fill="#FFFFFF" fill-opacity="0.439"/>
+    <path d="M64,64m-59,0a59,59 0,1 1,118 0a59,59 0,1 1,-118 0" fill="none" stroke="#FFFFFF" stroke-opacity="0.439" stroke-width="2.5"/>
+    <path d="M34,26 C44,16 62,18 68,30 C64,22 48,22 38,32 Z" fill="#FFFFFF" fill-opacity="0.898"/>
+    <path d="M30,42 C33,36 40,36 43,42 C41,38 34,38 31,44 Z" fill="#FFFFFF" fill-opacity="0.627"/>
+    <path d="M48,34m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" fill="#FFFFFF"/>
+    <path d="M84,40 L86,45 L91,47 L86,49 L84,54 L82,49 L77,47 L82,45 Z" fill="#FFFFFF" fill-opacity="0.565"/>
+</svg>

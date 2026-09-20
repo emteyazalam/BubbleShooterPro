@@ -5,7 +5,7 @@
     {
       "worldNumber": 1,
       "name": "Bubble Meadows",
-      "subtitle": "WORLD 1 \u2022 BUBBLE MEADOWS",
+      "subtitle": "WORLD 1 • BUBBLE MEADOWS",
       "mapBackground": "bg_map_world_1",
       "gameBackground": "bg_game_world_1",
       "levelsCount": 10,
@@ -83,7 +83,7 @@
     {
       "worldNumber": 2,
       "name": "Whispering Woods",
-      "subtitle": "WORLD 2 \u2022 WHISPERING WOODS",
+      "subtitle": "WORLD 2 • WHISPERING WOODS",
       "mapBackground": "bg_map_world_2",
       "gameBackground": "bg_game_world_2",
       "levelsCount": 10,
@@ -161,7 +161,7 @@
     {
       "worldNumber": 3,
       "name": "Sakura Blossom Valley",
-      "subtitle": "WORLD 3 \u2022 SAKURA BLOSSOM VALLEY",
+      "subtitle": "WORLD 3 • SAKURA BLOSSOM VALLEY",
       "mapBackground": "bg_map_world_3",
       "gameBackground": "bg_game_world_3",
       "levelsCount": 10,
@@ -239,7 +239,7 @@
     {
       "worldNumber": 4,
       "name": "Lavender Mist",
-      "subtitle": "WORLD 4 \u2022 LAVENDER MIST",
+      "subtitle": "WORLD 4 • LAVENDER MIST",
       "mapBackground": "bg_map_world_4",
       "gameBackground": "bg_game_world_4",
       "levelsCount": 10,
@@ -317,7 +317,7 @@
     {
       "worldNumber": 5,
       "name": "Sunflower Valley",
-      "subtitle": "WORLD 5 \u2022 SUNFLOWER VALLEY",
+      "subtitle": "WORLD 5 • SUNFLOWER VALLEY",
       "mapBackground": "bg_map_world_5",
       "gameBackground": "bg_game_world_5",
       "levelsCount": 10,
@@ -395,7 +395,7 @@
     {
       "worldNumber": 6,
       "name": "Lotus Flower Lagoon",
-      "subtitle": "WORLD 6 \u2022 LOTUS FLOWER LAGOON",
+      "subtitle": "WORLD 6 • LOTUS FLOWER LAGOON",
       "mapBackground": "bg_map_world_6",
       "gameBackground": "bg_game_world_6",
       "levelsCount": 10,
@@ -473,7 +473,7 @@
     {
       "worldNumber": 7,
       "name": "Rainbow Clover Fields",
-      "subtitle": "WORLD 7 \u2022 RAINBOW CLOVER FIELDS",
+      "subtitle": "WORLD 7 • RAINBOW CLOVER FIELDS",
       "mapBackground": "bg_map_world_7",
       "gameBackground": "bg_game_world_7",
       "levelsCount": 10,
@@ -551,7 +551,7 @@
     {
       "worldNumber": 8,
       "name": "Autumn Isles",
-      "subtitle": "WORLD 8 \u2022 AUTUMN ISLES",
+      "subtitle": "WORLD 8 • AUTUMN ISLES",
       "mapBackground": "bg_map_world_8",
       "gameBackground": "bg_game_world_8",
       "levelsCount": 10,
@@ -629,7 +629,7 @@
     {
       "worldNumber": 9,
       "name": "Fairy Mushroom Haven",
-      "subtitle": "WORLD 9 \u2022 FAIRY MUSHROOM HAVEN",
+      "subtitle": "WORLD 9 • FAIRY MUSHROOM HAVEN",
       "mapBackground": "bg_map_world_9",
       "gameBackground": "bg_game_world_9",
       "levelsCount": 10,
@@ -707,7 +707,7 @@
     {
       "worldNumber": 10,
       "name": "Bamboo Sanctuary",
-      "subtitle": "WORLD 10 \u2022 BAMBOO SANCTUARY",
+      "subtitle": "WORLD 10 • BAMBOO SANCTUARY",
       "mapBackground": "bg_map_world_10",
       "gameBackground": "bg_game_world_10",
       "levelsCount": 10,
@@ -785,7 +785,7 @@
     {
       "worldNumber": 11,
       "name": "Orchid Cloud Garden",
-      "subtitle": "WORLD 11 \u2022 ORCHID CLOUD GARDEN",
+      "subtitle": "WORLD 11 • ORCHID CLOUD GARDEN",
       "mapBackground": "bg_map_world_11",
       "gameBackground": "bg_game_world_11",
       "levelsCount": 10,
@@ -863,7 +863,7 @@
     {
       "worldNumber": 12,
       "name": "Willow Marsh Glade",
-      "subtitle": "WORLD 12 \u2022 WILLOW MARSH GLADE",
+      "subtitle": "WORLD 12 • WILLOW MARSH GLADE",
       "mapBackground": "bg_map_world_12",
       "gameBackground": "bg_game_world_12",
       "levelsCount": 10,
@@ -941,7 +941,7 @@
     {
       "worldNumber": 13,
       "name": "Bonsai Peak Sanctuary",
-      "subtitle": "WORLD 13 \u2022 BONSAI PEAK SANCTUARY",
+      "subtitle": "WORLD 13 • BONSAI PEAK SANCTUARY",
       "mapBackground": "bg_map_world_13",
       "gameBackground": "bg_game_world_13",
       "levelsCount": 10,
@@ -1019,7 +1019,7 @@
     {
       "worldNumber": 14,
       "name": "Honeycomb Meadow",
-      "subtitle": "WORLD 14 \u2022 HONEYCOMB MEADOW",
+      "subtitle": "WORLD 14 • HONEYCOMB MEADOW",
       "mapBackground": "bg_map_world_14",
       "gameBackground": "bg_game_world_14",
       "levelsCount": 10,
@@ -1046,13 +1046,13 @@
         },
         {
           "level": 135,
-          "x": 0.5206,
-          "y": 0.4375
+          "x": 0.515,
+          "y": 0.452
         },
         {
           "level": 136,
-          "x": 0.4125,
-          "y": 0.4208
+          "x": 0.335,
+          "y": 0.408
         },
         {
           "level": 137,
@@ -1097,7 +1097,7 @@
     {
       "worldNumber": 15,
       "name": "Jungle River Canyon",
-      "subtitle": "WORLD 15 \u2022 JUNGLE RIVER CANYON",
+      "subtitle": "WORLD 15 • JUNGLE RIVER CANYON",
       "mapBackground": "bg_map_world_15",
       "gameBackground": "bg_game_world_15",
       "levelsCount": 10,
@@ -1175,7 +1175,7 @@
     {
       "worldNumber": 16,
       "name": "Dandelion Cloud Heights",
-      "subtitle": "WORLD 16 \u2022 DANDELION CLOUD HEIGHTS",
+      "subtitle": "WORLD 16 • DANDELION CLOUD HEIGHTS",
       "mapBackground": "bg_map_world_16",
       "gameBackground": "bg_game_world_16",
       "levelsCount": 10,
@@ -1253,7 +1253,7 @@
     {
       "worldNumber": 17,
       "name": "Tropical Palm Atoll",
-      "subtitle": "WORLD 17 \u2022 TROPICAL PALM ATOLL",
+      "subtitle": "WORLD 17 • TROPICAL PALM ATOLL",
       "mapBackground": "bg_map_world_17",
       "gameBackground": "bg_game_world_17",
       "levelsCount": 10,
@@ -1331,7 +1331,7 @@
     {
       "worldNumber": 18,
       "name": "Sunlit Apple Orchard",
-      "subtitle": "WORLD 18 \u2022 SUNLIT APPLE ORCHARD",
+      "subtitle": "WORLD 18 • SUNLIT APPLE ORCHARD",
       "mapBackground": "bg_map_world_18",
       "gameBackground": "bg_game_world_18",
       "levelsCount": 10,
@@ -1409,7 +1409,7 @@
     {
       "worldNumber": 19,
       "name": "Bluebell Forest",
-      "subtitle": "WORLD 19 \u2022 BLUEBELL FOREST",
+      "subtitle": "WORLD 19 • BLUEBELL FOREST",
       "mapBackground": "bg_map_world_19",
       "gameBackground": "bg_game_world_19",
       "levelsCount": 10,
@@ -1487,7 +1487,7 @@
     {
       "worldNumber": 20,
       "name": "Regal Palace Gardens",
-      "subtitle": "WORLD 20 \u2022 REGAL PALACE GARDENS",
+      "subtitle": "WORLD 20 • REGAL PALACE GARDENS",
       "mapBackground": "bg_map_world_20",
       "gameBackground": "bg_game_world_20",
       "levelsCount": 10,
@@ -1565,7 +1565,7 @@
     {
       "worldNumber": 21,
       "name": "Tulip Terrace",
-      "subtitle": "WORLD 21 \u2022 TULIP TERRACE",
+      "subtitle": "WORLD 21 • TULIP TERRACE",
       "mapBackground": "bg_map_world_21",
       "gameBackground": "bg_game_world_21",
       "levelsCount": 10,
@@ -1643,7 +1643,7 @@
     {
       "worldNumber": 22,
       "name": "Glowing Vine Jungle",
-      "subtitle": "WORLD 22 \u2022 GLOWING VINE JUNGLE",
+      "subtitle": "WORLD 22 • GLOWING VINE JUNGLE",
       "mapBackground": "bg_map_world_22",
       "gameBackground": "bg_game_world_22",
       "levelsCount": 10,
@@ -1721,7 +1721,7 @@
     {
       "worldNumber": 23,
       "name": "Pinecone Peak",
-      "subtitle": "WORLD 23 \u2022 PINECONE PEAK",
+      "subtitle": "WORLD 23 • PINECONE PEAK",
       "mapBackground": "bg_map_world_23",
       "gameBackground": "bg_game_world_23",
       "levelsCount": 10,
@@ -1799,7 +1799,7 @@
     {
       "worldNumber": 24,
       "name": "Butterfly Sanctuary",
-      "subtitle": "WORLD 24 \u2022 BUTTERFLY SANCTUARY",
+      "subtitle": "WORLD 24 • BUTTERFLY SANCTUARY",
       "mapBackground": "bg_map_world_24",
       "gameBackground": "bg_game_world_24",
       "levelsCount": 10,
@@ -1877,7 +1877,7 @@
     {
       "worldNumber": 25,
       "name": "Desert Canyon Trail",
-      "subtitle": "WORLD 25 \u2022 DESERT CANYON TRAIL",
+      "subtitle": "WORLD 25 • DESERT CANYON TRAIL",
       "mapBackground": "bg_map_world_25",
       "gameBackground": "bg_game_world_25",
       "levelsCount": 10,
@@ -1955,7 +1955,7 @@
     {
       "worldNumber": 26,
       "name": "Starlight Meadow",
-      "subtitle": "WORLD 26 \u2022 STARLIGHT MEADOW",
+      "subtitle": "WORLD 26 • STARLIGHT MEADOW",
       "mapBackground": "bg_map_world_26",
       "gameBackground": "bg_game_world_26",
       "levelsCount": 10,
@@ -2033,7 +2033,7 @@
     {
       "worldNumber": 27,
       "name": "Dewdrop Clover Meadow",
-      "subtitle": "WORLD 27 \u2022 DEWDROP CLOVER MEADOW",
+      "subtitle": "WORLD 27 • DEWDROP CLOVER MEADOW",
       "mapBackground": "bg_map_world_27",
       "gameBackground": "bg_game_world_27",
       "levelsCount": 10,
@@ -2111,7 +2111,7 @@
     {
       "worldNumber": 28,
       "name": "Toadstool Village",
-      "subtitle": "WORLD 28 \u2022 TOADSTOOL VILLAGE",
+      "subtitle": "WORLD 28 • TOADSTOOL VILLAGE",
       "mapBackground": "bg_map_world_28",
       "gameBackground": "bg_game_world_28",
       "levelsCount": 10,
@@ -2189,7 +2189,7 @@
     {
       "worldNumber": 29,
       "name": "Daisy Cloud Garden",
-      "subtitle": "WORLD 29 \u2022 DAISY CLOUD GARDEN",
+      "subtitle": "WORLD 29 • DAISY CLOUD GARDEN",
       "mapBackground": "bg_map_world_29",
       "gameBackground": "bg_game_world_29",
       "levelsCount": 10,
@@ -2267,7 +2267,7 @@
     {
       "worldNumber": 30,
       "name": "Sunny Brook Glade",
-      "subtitle": "WORLD 30 \u2022 SUNNY BROOK GLADE",
+      "subtitle": "WORLD 30 • SUNNY BROOK GLADE",
       "mapBackground": "bg_map_world_30",
       "gameBackground": "bg_game_world_30",
       "levelsCount": 10,
@@ -2345,7 +2345,7 @@
     {
       "worldNumber": 31,
       "name": "Wisteria Skybridge",
-      "subtitle": "WORLD 31 \u2022 WISTERIA SKYBRIDGE",
+      "subtitle": "WORLD 31 • WISTERIA SKYBRIDGE",
       "mapBackground": "bg_map_world_31",
       "gameBackground": "bg_game_world_31",
       "levelsCount": 10,
@@ -2423,7 +2423,7 @@
     {
       "worldNumber": 32,
       "name": "Teacup Garden",
-      "subtitle": "WORLD 32 \u2022 TEACUP GARDEN",
+      "subtitle": "WORLD 32 • TEACUP GARDEN",
       "mapBackground": "bg_map_world_32",
       "gameBackground": "bg_game_world_32",
       "levelsCount": 10,
@@ -2501,7 +2501,7 @@
     {
       "worldNumber": 33,
       "name": "Lucky Clover Spire",
-      "subtitle": "WORLD 33 \u2022 LUCKY CLOVER SPIRE",
+      "subtitle": "WORLD 33 • LUCKY CLOVER SPIRE",
       "mapBackground": "bg_map_world_33",
       "gameBackground": "bg_game_world_33",
       "levelsCount": 10,
@@ -2579,7 +2579,7 @@
     {
       "worldNumber": 34,
       "name": "Starry Midnight Ascent",
-      "subtitle": "WORLD 34 \u2022 STARRY MIDNIGHT ASCENT",
+      "subtitle": "WORLD 34 • STARRY MIDNIGHT ASCENT",
       "mapBackground": "bg_map_world_34",
       "gameBackground": "bg_game_world_34",
       "levelsCount": 10,
@@ -2657,7 +2657,7 @@
     {
       "worldNumber": 35,
       "name": "Sunset Mushroom Cliffs",
-      "subtitle": "WORLD 35 \u2022 SUNSET MUSHROOM CLIFFS",
+      "subtitle": "WORLD 35 • SUNSET MUSHROOM CLIFFS",
       "mapBackground": "bg_map_world_35",
       "gameBackground": "bg_game_world_35",
       "levelsCount": 10,
@@ -2735,7 +2735,7 @@
     {
       "worldNumber": 36,
       "name": "Amethyst Crystal Cavern",
-      "subtitle": "WORLD 36 \u2022 AMETHYST CRYSTAL CAVERN",
+      "subtitle": "WORLD 36 • AMETHYST CRYSTAL CAVERN",
       "mapBackground": "bg_map_world_36",
       "gameBackground": "bg_game_world_36",
       "levelsCount": 10,
@@ -2813,7 +2813,7 @@
     {
       "worldNumber": 37,
       "name": "Sapphire Ice Cascade",
-      "subtitle": "WORLD 37 \u2022 SAPPHIRE ICE CASCADE",
+      "subtitle": "WORLD 37 • SAPPHIRE ICE CASCADE",
       "mapBackground": "bg_map_world_37",
       "gameBackground": "bg_game_world_37",
       "levelsCount": 10,
@@ -2891,7 +2891,7 @@
     {
       "worldNumber": 38,
       "name": "Emerald Mine Railway",
-      "subtitle": "WORLD 38 \u2022 EMERALD MINE RAILWAY",
+      "subtitle": "WORLD 38 • EMERALD MINE RAILWAY",
       "mapBackground": "bg_map_world_38",
       "gameBackground": "bg_game_world_38",
       "levelsCount": 10,
@@ -2969,7 +2969,7 @@
     {
       "worldNumber": 39,
       "name": "Golden Autumn Realm",
-      "subtitle": "WORLD 39 \u2022 GOLDEN AUTUMN REALM",
+      "subtitle": "WORLD 39 • GOLDEN AUTUMN REALM",
       "mapBackground": "bg_map_world_39",
       "gameBackground": "bg_game_world_39",
       "levelsCount": 10,
@@ -3047,7 +3047,7 @@
     {
       "worldNumber": 40,
       "name": "Prismatic Crystal Cavern",
-      "subtitle": "WORLD 40 \u2022 PRISMATIC CRYSTAL CAVERN",
+      "subtitle": "WORLD 40 • PRISMATIC CRYSTAL CAVERN",
       "mapBackground": "bg_map_world_40",
       "gameBackground": "bg_game_world_40",
       "levelsCount": 10,
@@ -3125,7 +3125,7 @@
     {
       "worldNumber": 41,
       "name": "Cloud Castle Causeway",
-      "subtitle": "WORLD 41 \u2022 CLOUD CASTLE CAUSEWAY",
+      "subtitle": "WORLD 41 • CLOUD CASTLE CAUSEWAY",
       "mapBackground": "bg_map_world_41",
       "gameBackground": "bg_game_world_41",
       "levelsCount": 10,
@@ -3203,7 +3203,7 @@
     {
       "worldNumber": 42,
       "name": "Sunken Atlantis Ruins",
-      "subtitle": "WORLD 42 \u2022 SUNKEN ATLANTIS RUINS",
+      "subtitle": "WORLD 42 • SUNKEN ATLANTIS RUINS",
       "mapBackground": "bg_map_world_42",
       "gameBackground": "bg_game_world_42",
       "levelsCount": 10,
@@ -3281,7 +3281,7 @@
     {
       "worldNumber": 43,
       "name": "Coral Reef Stairway",
-      "subtitle": "WORLD 43 \u2022 CORAL REEF STAIRWAY",
+      "subtitle": "WORLD 43 • CORAL REEF STAIRWAY",
       "mapBackground": "bg_map_world_43",
       "gameBackground": "bg_game_world_43",
       "levelsCount": 10,
@@ -3359,7 +3359,7 @@
     {
       "worldNumber": 44,
       "name": "Bioluminescent Abyss",
-      "subtitle": "WORLD 44 \u2022 BIOLUMINESCENT ABYSS",
+      "subtitle": "WORLD 44 • BIOLUMINESCENT ABYSS",
       "mapBackground": "bg_map_world_44",
       "gameBackground": "bg_game_world_44",
       "levelsCount": 10,
@@ -3437,7 +3437,7 @@
     {
       "worldNumber": 45,
       "name": "Pirate Shipwreck Bay",
-      "subtitle": "WORLD 45 \u2022 PIRATE SHIPWRECK BAY",
+      "subtitle": "WORLD 45 • PIRATE SHIPWRECK BAY",
       "mapBackground": "bg_map_world_45",
       "gameBackground": "bg_game_world_45",
       "levelsCount": 10,
@@ -3515,7 +3515,7 @@
     {
       "worldNumber": 46,
       "name": "Pearlescent Shell Lagoon",
-      "subtitle": "WORLD 46 \u2022 PEARLESCENT SHELL LAGOON",
+      "subtitle": "WORLD 46 • PEARLESCENT SHELL LAGOON",
       "mapBackground": "bg_map_world_46",
       "gameBackground": "bg_game_world_46",
       "levelsCount": 10,
@@ -3593,7 +3593,7 @@
     {
       "worldNumber": 47,
       "name": "Cosmic Nebula Stairway",
-      "subtitle": "WORLD 47 \u2022 COSMIC NEBULA STAIRWAY",
+      "subtitle": "WORLD 47 • COSMIC NEBULA STAIRWAY",
       "mapBackground": "bg_map_world_47",
       "gameBackground": "bg_game_world_47",
       "levelsCount": 10,
@@ -3671,7 +3671,7 @@
     {
       "worldNumber": 48,
       "name": "Candyland Kingdom",
-      "subtitle": "WORLD 48 \u2022 CANDYLAND KINGDOM",
+      "subtitle": "WORLD 48 • CANDYLAND KINGDOM",
       "mapBackground": "bg_map_world_48",
       "gameBackground": "bg_game_world_48",
       "levelsCount": 10,
@@ -3749,7 +3749,7 @@
     {
       "worldNumber": 49,
       "name": "Spooky Hollow",
-      "subtitle": "WORLD 49 \u2022 SPOOKY HOLLOW",
+      "subtitle": "WORLD 49 • SPOOKY HOLLOW",
       "mapBackground": "bg_map_world_49",
       "gameBackground": "bg_game_world_49",
       "levelsCount": 10,

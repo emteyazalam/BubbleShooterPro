@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="grad_1" cx="45.4" cy="39.2" r="99.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#5C636E" stop-opacity="1.0"/>
+      <stop offset="45.0%" stop-color="#2B2F37" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#0C0E12" stop-opacity="1.0"/>
+    </radialGradient>
+    <radialGradient id="grad_2" cx="52.8" cy="62.4" r="38.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#FFFFFF" stop-opacity="1.0"/>
+      <stop offset="55.0%" stop-color="#EEF0F3" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#B4BAC4" stop-opacity="1.0"/>
+    </radialGradient>
+    <radialGradient id="grad_3" cx="98" cy="36" r="10" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#FFFFFF" stop-opacity="1.0"/>
+      <stop offset="35.0%" stop-color="#FFE066" stop-opacity="1.0"/>
+      <stop offset="75.0%" stop-color="#FF8A1F" stop-opacity="0.8"/>
+      <stop offset="100.0%" stop-color="#FF5A00" stop-opacity="0.0"/>
+    </radialGradient>
+  </defs>
+    <path d="M64,64m-62,0a62,62 0,1 1,124 0a62,62 0,1 1,-124 0" fill="url(#grad_1)"/>
+    <path d="M64,64m-61,0a61,61 0,1 1,122 0a61,61 0,1 1,-122 0" fill="none" stroke="#000000" stroke-opacity="0.550" stroke-width="2"/>
+    <path d="M64,64m-58,0a58,58 0,1 1,116 0a58,58 0,1 1,-116 0" fill="none" stroke="#ffffff" stroke-opacity="0.060" stroke-width="2"/>
+    <path d="M36,34m-6.5,0a6.5,6.5 0,1 1,13 0a6.5,6.5 0,1 1,-13 0" fill="#d7dbe0" fill-opacity="0.750"/>
+    <path d="M60,72m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0" fill="url(#grad_2)"/>
+    <path d="M45.09,65.44a3.5,6 55,1 0,9.83 -6.88a3.5,6 55,1 0,-9.83 6.88z" fill="#ffffff"/>
+    <path d="M78.15,46.08L85.92,53.85A2.5,2.5 0,0 1,85.92 57.39L82.39,60.92A2.5,2.5 112.54,0 1,78.85 60.92L71.08,53.15A2.5,2.5 0,0 1,71.08 49.61L74.61,46.08A2.5,2.5 0,0 1,78.15 46.08z" fill="#d3d8df"/>
+    <path d="M73.2,47.49l11.31,11.31l-2.12,2.12l-11.31,-11.31z" fill="#9aa1ac" fill-opacity="0.700"/>
+    <path d="M83,49C88,42 93,46 96,38" fill="none" stroke="#f3d9a4" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M98,36m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" fill="url(#grad_3)"/>
+    <path d="M98,27L99.8,34.2L107,36L99.8,37.8L98,45L96.2,37.8L89,36L96.2,34.2Z" fill="#fff8d0"/>
+</svg>

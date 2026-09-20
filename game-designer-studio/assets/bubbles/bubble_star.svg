@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="grad_1" x1="2" y1="2" x2="126" y2="126" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#FF1F4B" stop-opacity="1.0"/>
+      <stop offset="20.0%" stop-color="#FF8A1F" stop-opacity="1.0"/>
+      <stop offset="40.0%" stop-color="#FFD200" stop-opacity="1.0"/>
+      <stop offset="60.0%" stop-color="#00C853" stop-opacity="1.0"/>
+      <stop offset="80.0%" stop-color="#1E88FF" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#9C27B0" stop-opacity="1.0"/>
+    </linearGradient>
+    <radialGradient id="grad_2" cx="45.4" cy="39.2" r="99.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#FFFFFF" stop-opacity="0.247"/>
+      <stop offset="50.0%" stop-color="none" stop-opacity="0.0"/>
+      <stop offset="100.0%" stop-color="#000000" stop-opacity="0.349"/>
+    </radialGradient>
+  </defs>
+    <path d="M64,64m-62,0a62,62 0,1 1,124 0a62,62 0,1 1,-124 0" fill="url(#grad_1)"/>
+    <path d="M64,64m-62,0a62,62 0,1 1,124 0a62,62 0,1 1,-124 0" fill="url(#grad_2)"/>
+    <path d="M64,64m-61,0a61,61 0,1 1,122 0a61,61 0,1 1,-122 0" fill="none" stroke="#000000" stroke-opacity="0.400" stroke-width="2"/>
+    <path d="M29.35,43.46a8,13 55,1 0,21.3 -14.91a8,13 55,1 0,-21.3 14.91z" fill="#ffffff" fill-opacity="0.850"/>
+</svg>

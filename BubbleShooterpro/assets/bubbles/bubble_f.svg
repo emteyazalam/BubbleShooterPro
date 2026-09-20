@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <clipPath id="clip_1">
+      <path d="M64,64m-62,0a62,62 0,1 1,124 0a62,62 0,1 1,-124 0"/>
+    </clipPath>
+    <radialGradient id="grad_1" cx="64" cy="64" r="68.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#FFF5A0" stop-opacity="1.0"/>
+      <stop offset="35.0%" stop-color="#FFC21A" stop-opacity="1.0"/>
+      <stop offset="70.0%" stop-color="#FF6A0A" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#D42A00" stop-opacity="1.0"/>
+    </radialGradient>
+    <linearGradient id="grad_2" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_3" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_4" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_5" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_6" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_7" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_8" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_9" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_10" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_11" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_12" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_13" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_14" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_15" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_16" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_17" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_18" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <linearGradient id="grad_19" x1="10" y1="0" x2="118" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#F0561E" stop-opacity="1.0"/>
+      <stop offset="50.0%" stop-color="#C02A0E" stop-opacity="1.0"/>
+      <stop offset="100.0%" stop-color="#7A1206" stop-opacity="1.0"/>
+    </linearGradient>
+    <radialGradient id="grad_20" cx="45.4" cy="39.2" r="99.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0%" stop-color="#FFFFFF" stop-opacity="0.22"/>
+      <stop offset="55.0%" stop-color="none" stop-opacity="0.0"/>
+      <stop offset="100.0%" stop-color="#3A0500" stop-opacity="0.549"/>
+    </radialGradient>
+  </defs>
+  <g clip-path="url(#clip_1)">
+    <path d="M64,64m-62,0a62,62 0,1 1,124 0a62,62 0,1 1,-124 0" fill="url(#grad_1)"/>
+    <path d="M-6,-6l62,0l-6,26l-14,12l-16,6l-26,4z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M70,-6l64,0l0,34l-24,4l-18,-6l-16,-8z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M26,50l20,-4l14,10l-4,18l-18,10l-16,-10z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M68,36l18,4l12,10l-4,12l-18,4l-8,-12z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M110,46l24,-4l0,44l-16,-4l-10,-12z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M-6,54l20,-2l0,24l-6,20l-14,4z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M46,92l16,-8l18,0l10,12l-10,14l-22,4l-14,-10z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M100,82l16,12l18,4l0,36l-30,0l-10,-24z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M-6,110l20,-4l16,8l10,10l-4,10l-42,0z" fill="#ffb02e" stroke="#ffb02e" stroke-width="10.5" stroke-linejoin="round"/>
+    <path d="M-6,-6l62,0l-6,26l-14,12l-16,6l-26,4z" fill="url(#grad_2)" stroke="url(#grad_3)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M70,-6l64,0l0,34l-24,4l-18,-6l-16,-8z" fill="url(#grad_4)" stroke="url(#grad_5)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M26,50l20,-4l14,10l-4,18l-18,10l-16,-10z" fill="url(#grad_6)" stroke="url(#grad_7)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M68,36l18,4l12,10l-4,12l-18,4l-8,-12z" fill="url(#grad_8)" stroke="url(#grad_9)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M110,46l24,-4l0,44l-16,-4l-10,-12z" fill="url(#grad_10)" stroke="url(#grad_11)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M-6,54l20,-2l0,24l-6,20l-14,4z" fill="url(#grad_12)" stroke="url(#grad_13)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M46,92l16,-8l18,0l10,12l-10,14l-22,4l-14,-10z" fill="url(#grad_14)" stroke="url(#grad_15)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M100,82l16,12l18,4l0,36l-30,0l-10,-24z" fill="url(#grad_16)" stroke="url(#grad_17)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M-6,110l20,-4l16,8l10,10l-4,10l-42,0z" fill="url(#grad_18)" stroke="url(#grad_19)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M38,22m-2.2,0a2.2,2.2 0,1 1,4.4 0a2.2,2.2 0,1 1,-4.4 0" fill="#ff9a2e" fill-opacity="0.850"/>
+    <path d="M84,12m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" fill="#ff9a2e" fill-opacity="0.850"/>
+    <path d="M44,62m-2.4,0a2.4,2.4 0,1 1,4.8 0a2.4,2.4 0,1 1,-4.8 0" fill="#ff9a2e" fill-opacity="0.850"/>
+    <path d="M84,52m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" fill="#ff9a2e" fill-opacity="0.850"/>
+    <path d="M66,98m-2.6,0a2.6,2.6 0,1 1,5.2 0a2.6,2.6 0,1 1,-5.2 0" fill="#ff9a2e" fill-opacity="0.850"/>
+    <path d="M112,64m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" fill="#ff9a2e" fill-opacity="0.850"/>
+    <path d="M16,118m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" fill="#ff9a2e" fill-opacity="0.850"/>
+    <path d="M64,64m-62,0a62,62 0,1 1,124 0a62,62 0,1 1,-124 0" fill="url(#grad_20)"/>
+    <path d="M27.35,37.46a8,13 55,1 0,21.3 -14.91a8,13 55,1 0,-21.3 14.91z" fill="#ffffff" fill-opacity="0.850"/>
+  </g>
+    <path d="M64,64m-61,0a61,61 0,1 1,122 0a61,61 0,1 1,-122 0" fill="none" stroke="#4a0a02" stroke-opacity="0.700" stroke-width="2"/>
+</svg>

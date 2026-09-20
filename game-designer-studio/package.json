@@ -1,0 +1,42 @@
+{
+  "name": "game-designer-studio",
+  "version": "1.0.0",
+  "description": "Desktop Game Designer Studio for Bubble Shooter Pro",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist:win": "electron-builder --win portable"
+  },
+  "keywords": [
+    "bubble-shooter",
+    "level-designer",
+    "pin-positioner",
+    "game-studio"
+  ],
+  "author": "RedCoders Group",
+  "license": "ISC",
+  "type": "commonjs",
+  "build": {
+    "appId": "com.redcodersgroup.gamedesignerstudio",
+    "productName": "Game Designer Studio",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "assets/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.4.3",
+    "electron-builder": "^26.15.3"
+  }
+}
