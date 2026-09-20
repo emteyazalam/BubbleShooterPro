@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp"
+    android:padding="@dimen/dp_24"
     android:background="@drawable/bg_card_dialog">
 
     <!-- Level Header & Biome Badge -->
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="WORLD 1 • BUBBLE MEADOWS"
         android:textColor="@color/accent_pink"
-        android:textSize="12sp"
+        android:textSize="@dimen/sp_12"
         android:textStyle="bold"
         android:letterSpacing="0.15" />
 
@@ -22,10 +22,10 @@
         android:id="@+id/tvPreviewLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/dp_2"
         android:text="LEVEL 1"
         android:textColor="@color/accent_yellow"
-        android:textSize="28sp"
+        android:textSize="@dimen/sp_28"
         android:textStyle="bold"
         android:shadowColor="#B0000000"
         android:shadowDx="2"
@@ -38,26 +38,26 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="@dimen/dp_12">
 
         <ImageView
             android:id="@+id/ivPreviewStar1"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
             android:src="@drawable/ic_star_filled" />
 
         <ImageView
             android:id="@+id/ivPreviewStar2"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="6dp"
+            android:layout_width="@dimen/dp_38"
+            android:layout_height="@dimen/dp_38"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_6"
             android:src="@drawable/ic_star_empty" />
 
         <ImageView
             android:id="@+id/ivPreviewStar3"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
             android:src="@drawable/ic_star_empty" />
     </LinearLayout>
 
@@ -68,15 +68,15 @@
         android:orientation="vertical"
         android:gravity="center"
         android:background="@drawable/bg_card_profile"
-        android:padding="12dp"
-        android:layout_marginTop="16dp">
+        android:padding="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_16">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TARGET OBJECTIVE"
             android:textColor="#94A3B8"
-            android:textSize="10sp"
+            android:textSize="@dimen/sp_10"
             android:textStyle="bold"
             android:letterSpacing="0.1" />
 
@@ -84,10 +84,10 @@
             android:id="@+id/tvPreviewObjective"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="@dimen/dp_2"
             android:text="Pop all bubbles on the board!"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -97,28 +97,28 @@
         android:layout_height="wrap_content"
         android:text="SELECT BOOSTERS"
         android:textColor="#94A3B8"
-        android:textSize="10sp"
+        android:textSize="@dimen/sp_10"
         android:textStyle="bold"
         android:letterSpacing="0.1"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="@dimen/dp_16" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="@dimen/dp_8">
 
         <!-- Rainbow Booster Toggle -->
         <FrameLayout
             android:id="@+id/btnToggleBoosterRainbow"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
             android:background="@drawable/btn_orb_blank_yellow">
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="@dimen/dp_34"
+                android:layout_height="@dimen/dp_34"
                 android:layout_gravity="center"
                 android:src="@drawable/rainbow_bubble" />
         </FrameLayout>
@@ -126,14 +126,14 @@
         <!-- Fireball Booster Toggle -->
         <FrameLayout
             android:id="@+id/btnToggleBoosterFireball"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_10"
             android:background="@drawable/btn_orb_blank_orange">
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="@dimen/dp_34"
+                android:layout_height="@dimen/dp_34"
                 android:layout_gravity="center"
                 android:src="@drawable/fireball_bubble" />
         </FrameLayout>
@@ -141,14 +141,14 @@
         <!-- Lightning Booster Toggle -->
         <FrameLayout
             android:id="@+id/btnToggleBoosterLightning"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_10"
             android:background="@drawable/btn_orb_blank_blue">
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="@dimen/dp_34"
+                android:layout_height="@dimen/dp_34"
                 android:layout_gravity="center"
                 android:src="@drawable/lightning_bubble" />
         </FrameLayout>
@@ -156,14 +156,14 @@
         <!-- Bomb Booster Toggle -->
         <FrameLayout
             android:id="@+id/btnToggleBoosterBomb"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_10"
             android:background="@drawable/btn_orb_blank_red">
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="@dimen/dp_34"
+                android:layout_height="@dimen/dp_34"
                 android:layout_gravity="center"
                 android:src="@drawable/bomb_bubble" />
         </FrameLayout>
@@ -172,24 +172,24 @@
     <!-- Start Button -->
     <Button
         android:id="@+id/btnStartLevel"
-        android:layout_width="220dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="@dimen/dp_220"
+        android:layout_height="@dimen/dp_56"
+        android:layout_marginTop="@dimen/dp_20"
         android:background="@drawable/btn_pill_blank_green"
         android:text="▶ START LEVEL"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="@dimen/sp_18"
         android:textStyle="bold" />
 
     <!-- Close Button -->
     <Button
         android:id="@+id/btnClosePreview"
-        android:layout_width="160dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="@dimen/dp_42"
+        android:layout_marginTop="@dimen/dp_8"
         android:background="@android:color/transparent"
         android:text="Close"
         android:textColor="#94A3B8"
-        android:textSize="14sp" />
+        android:textSize="@dimen/sp_14" />
 
 </LinearLayout>

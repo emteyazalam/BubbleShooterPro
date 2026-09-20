@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="@dimen/dp_20">
 
     <!-- Biome Banner -->
     <LinearLayout
@@ -13,10 +13,10 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/bg_biome_meadows"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:paddingStart="@dimen/dp_14"
+        android:paddingEnd="@dimen/dp_14"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10">
 
         <TextView
             android:id="@+id/tvWorldTag"
@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:text="WORLD 1"
             android:textColor="#C0FFFFFF"
-            android:textSize="11sp"
+            android:textSize="@dimen/sp_11"
             android:textStyle="bold"
             android:letterSpacing="0.1" />
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="🌿 Bubble Meadows"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="@dimen/sp_15"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -44,7 +44,7 @@
         android:id="@+id/rvBiomeLevels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dp_10"
         android:nestedScrollingEnabled="false" />
 
     <!-- Milestone Treasure Chest -->
@@ -55,22 +55,22 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:background="@drawable/bg_milestone_chest"
-        android:padding="10dp"
-        android:layout_marginTop="12dp">
+        android:padding="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_12">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
             android:src="@drawable/ic_chest" />
 
         <TextView
             android:id="@+id/tvChestTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/dp_10"
             android:text="🎁 World Star Chest (Tap to Claim)"
             android:textColor="@color/accent_yellow"
-            android:textSize="13sp"
+            android:textSize="@dimen/sp_13"
             android:textStyle="bold" />
     </LinearLayout>
 

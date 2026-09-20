@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp"
+    android:padding="@dimen/dp_24"
     android:background="@drawable/bg_card_dialog">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="SETTINGS"
         android:textColor="@color/accent_yellow"
-        android:textSize="26sp"
+        android:textSize="@dimen/sp_26"
         android:textStyle="bold"
         android:shadowColor="#B0000000"
         android:shadowDx="2"
@@ -24,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="24dp">
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_24">
 
         <!-- Sound Control Item -->
         <LinearLayout
@@ -35,17 +35,17 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/bg_card_profile"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingStart="@dimen/dp_14"
+            android:paddingEnd="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
             android:clickable="true"
             android:focusable="true">
 
             <ImageButton
                 android:id="@+id/btnSettingSound"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="@dimen/dp_44"
+                android:layout_height="@dimen/dp_44"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_sound_green"
@@ -55,7 +55,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="@dimen/dp_14"
                 android:orientation="vertical">
 
                 <TextView
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sound Effects"
                     android:textColor="#FFFFFF"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp_15"
                     android:textStyle="bold" />
 
                 <TextView
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:text="ON"
                     android:textColor="#4ADE80"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp_12"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
@@ -84,19 +84,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dp_10"
             android:background="@drawable/bg_card_profile"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingStart="@dimen/dp_14"
+            android:paddingEnd="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
             android:clickable="true"
             android:focusable="true">
 
             <ImageButton
                 android:id="@+id/btnSettingHaptic"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="@dimen/dp_44"
+                android:layout_height="@dimen/dp_44"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_vibration_yellow"
@@ -106,7 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="@dimen/dp_14"
                 android:orientation="vertical">
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="Vibration &amp; Haptics"
                     android:textColor="#FFFFFF"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/sp_15"
                     android:textStyle="bold" />
 
                 <TextView
@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:text="ON"
                     android:textColor="#FDE047"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp_12"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
@@ -132,12 +132,12 @@
     <!-- Close Button -->
     <Button
         android:id="@+id/btnCloseSettings"
-        android:layout_width="180dp"
-        android:layout_height="52dp"
+        android:layout_width="@dimen/dp_180"
+        android:layout_height="@dimen/dp_52"
         android:background="@drawable/btn_pill_blank_green"
         android:text="CLOSE"
         android:textColor="#FFFFFF"
-        android:textSize="17sp"
+        android:textSize="@dimen/sp_17"
         android:textStyle="bold" />
 
 </LinearLayout>

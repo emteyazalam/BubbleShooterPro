@@ -7,10 +7,10 @@
     android:background="@drawable/bg_home_gradient"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingTop="36dp"
-    android:paddingBottom="24dp">
+    android:paddingStart="@dimen/dp_16"
+    android:paddingEnd="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_36"
+    android:paddingBottom="@dimen/dp_24">
 
     <!-- Top Bar: Settings Button on Top Right -->
     <LinearLayout
@@ -21,13 +21,13 @@
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/btnMainSettings"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             android:src="@drawable/btn_settings_yellow"
@@ -35,7 +35,7 @@
     </LinearLayout>
 
     <Space
-        android:layout_width="1dp"
+        android:layout_width="@dimen/dp_1"
         android:layout_height="0dp"
         android:layout_weight="0.8" />
 
@@ -53,23 +53,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="4dp">
+            android:layout_marginBottom="@dimen/dp_4">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
                 android:src="@drawable/rainbow_bubble" />
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:src="@drawable/ic_star_filled" />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
                 android:src="@drawable/bomb_bubble" />
         </LinearLayout>
 
@@ -80,7 +80,7 @@
             android:text="BUBBLE\nSHOOTER"
             android:textAlignment="center"
             android:textColor="@color/accent_yellow"
-            android:textSize="38sp"
+            android:textSize="@dimen/sp_38"
             android:textStyle="bold"
             android:letterSpacing="0.04"
             android:shadowColor="#D0000000"
@@ -94,14 +94,14 @@
             android:layout_height="wrap_content"
             android:text="✦ PRO EDITION ✦"
             android:textColor="@color/accent_pink"
-            android:textSize="13sp"
+            android:textSize="@dimen/sp_13"
             android:textStyle="bold"
             android:letterSpacing="0.25"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="@dimen/dp_2" />
     </LinearLayout>
 
     <Space
-        android:layout_width="1dp"
+        android:layout_width="@dimen/dp_1"
         android:layout_height="0dp"
         android:layout_weight="1.2" />
 
@@ -118,10 +118,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_card_adventure"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_12"
             android:clickable="true"
             android:focusable="true">
 
@@ -132,13 +132,13 @@
                 android:background="@drawable/bg_badge_saga"
                 android:text="⭐ SAGA"
                 android:textColor="#FDE047"
-                android:textSize="9.5sp"
+                android:textSize="@dimen/sp_10"
                 android:textStyle="bold"
-                android:paddingStart="7dp"
-                android:paddingEnd="7dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:layout_marginBottom="4dp" />
+                android:paddingStart="@dimen/dp_7"
+                android:paddingEnd="@dimen/dp_7"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingBottom="@dimen/dp_2"
+                android:layout_marginBottom="@dimen/dp_4" />
 
             <!-- Card Body -->
             <LinearLayout
@@ -158,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:text="ADVENTURE"
                         android:textColor="#FFFFFF"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/sp_16"
                         android:textStyle="bold" />
 
                     <TextView
@@ -167,18 +167,18 @@
                         android:layout_height="wrap_content"
                         android:text="Level 1 • 30 Levels"
                         android:textColor="#94A3B8"
-                        android:textSize="11sp"
-                        android:layout_marginTop="2dp" />
+                        android:textSize="@dimen/sp_11"
+                        android:layout_marginTop="@dimen/dp_2" />
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/btnMainPlay"
-                    android:layout_width="94dp"
-                    android:layout_height="46dp"
+                    android:layout_width="@dimen/dp_94"
+                    android:layout_height="@dimen/dp_46"
                     android:background="@drawable/btn_pill_blank_green"
-                    android:text="PLAY"
+                    android:text="▶ PLAY"
                     android:textColor="#FFFFFF"
-                    android:textSize="14.5sp"
+                    android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -188,8 +188,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp"
-                android:paddingTop="4dp">
+                android:layout_marginTop="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_4">
 
                 <TextView
                     android:id="@+id/btnMainLevels"
@@ -198,12 +198,12 @@
                     android:background="@drawable/bg_map_link_btn"
                     android:text="🗺️ Select Level / Map"
                     android:textColor="#FDE047"
-                    android:textSize="11sp"
+                    android:textSize="@dimen/sp_11"
                     android:textStyle="bold"
-                    android:paddingStart="9dp"
-                    android:paddingEnd="9dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
+                    android:paddingStart="@dimen/dp_9"
+                    android:paddingEnd="@dimen/dp_9"
+                    android:paddingTop="@dimen/dp_3"
+                    android:paddingBottom="@dimen/dp_3"
                     android:clickable="true"
                     android:focusable="true" />
             </LinearLayout>
@@ -215,12 +215,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/dp_12"
             android:background="@drawable/bg_card_endless"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_12"
             android:clickable="true"
             android:focusable="true">
 
@@ -231,13 +231,13 @@
                 android:background="@drawable/bg_badge_endless"
                 android:text="⚡ INFINITE"
                 android:textColor="#F0ABFC"
-                android:textSize="9.5sp"
+                android:textSize="@dimen/sp_10"
                 android:textStyle="bold"
-                android:paddingStart="7dp"
-                android:paddingEnd="7dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:layout_marginBottom="4dp" />
+                android:paddingStart="@dimen/dp_7"
+                android:paddingEnd="@dimen/dp_7"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingBottom="@dimen/dp_2"
+                android:layout_marginBottom="@dimen/dp_4" />
 
             <!-- Card Body -->
             <LinearLayout
@@ -248,8 +248,8 @@
 
                 <!-- Infinity Box Icon -->
                 <LinearLayout
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
+                    android:layout_width="@dimen/dp_38"
+                    android:layout_height="@dimen/dp_38"
                     android:background="@drawable/bg_infinity_box"
                     android:gravity="center">
 
@@ -258,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:text="∞"
                         android:textColor="#FFFFFF"
-                        android:textSize="24sp"
+                        android:textSize="@dimen/sp_24"
                         android:textStyle="bold"
                         android:includeFontPadding="false"
                         android:layout_marginTop="-2dp" />
@@ -268,7 +268,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:orientation="vertical">
 
                     <TextView
@@ -276,7 +276,7 @@
                         android:layout_height="wrap_content"
                         android:text="ENDLESS"
                         android:textColor="#FFFFFF"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/sp_16"
                         android:textStyle="bold" />
 
                     <TextView
@@ -285,26 +285,26 @@
                         android:layout_height="wrap_content"
                         android:text="🏆 Best: 0 pts • Survival"
                         android:textColor="#67E8F9"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/sp_11"
                         android:textStyle="bold"
-                        android:layout_marginTop="2dp" />
+                        android:layout_marginTop="@dimen/dp_2" />
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/btnMainEndless"
-                    android:layout_width="94dp"
-                    android:layout_height="46dp"
+                    android:layout_width="@dimen/dp_94"
+                    android:layout_height="@dimen/dp_46"
                     android:background="@drawable/btn_pill_purple"
-                    android:text="PLAY"
+                    android:text="⚡ PLAY"
                     android:textColor="#FFFFFF"
-                    android:textSize="14.5sp"
+                    android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <Space
-        android:layout_width="1dp"
+        android:layout_width="@dimen/dp_1"
         android:layout_height="0dp"
         android:layout_weight="1.0" />
 
