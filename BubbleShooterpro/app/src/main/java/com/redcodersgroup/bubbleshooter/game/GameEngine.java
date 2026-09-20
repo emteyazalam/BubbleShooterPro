@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import com.redcodersgroup.bubbleshooter.audio.SoundManager;
 import com.redcodersgroup.bubbleshooter.board.BubbleBoard;
 import com.redcodersgroup.bubbleshooter.board.BubbleGrid;
@@ -41,6 +42,9 @@ public class GameEngine {
         void onGameWon(int score, int stars);
         default void onGameWon(int score, int stars, String objectiveSummary) {
             onGameWon(score, stars);
+        }
+        default void onGameWon(int score, int stars, String objectiveSummary, int shotsRemaining, int shotBonus) {
+            onGameWon(score, stars, objectiveSummary);
         }
         void onGameLost(int score);
         default void onGameLost(int score, String reason) {
@@ -1277,14 +1281,19 @@ public class GameEngine {
             state = GameState.WIN;
             soundManager.playWin();
             confettiSystem.spawnCelebrationBurst(boardRight, boardBottom, 70);
+            int shotsLeft = Math.max(0, shotsRemaining);
+            int shotBonus = shotsLeft * ScoreManager.REMAINING_SHOT_BONUS;
             int victoryBonus = scoreManager.addVictoryBonus(shotsRemaining);
             int finalScore = scoreManager.getScore();
             int starsEarned = isEndlessMode
                     ? Math.max(1, scoreManager.getStarsEarned())
                     : scoreManager.calculateStars(shotsRemaining, initialShots);
+            if (shotsLeft > 0 && !isEndlessMode) {
+                floatingTexts.add(new FloatingText("+" + shotBonus + " SHOT BONUS!", launcherX, launcherY - bubbleRadius * 1.6f, Color.parseColor("#FFD54F"), 44f, 2.2f));
+            }
             if (listener != null) {
                 listener.onScoreUpdated(finalScore, starsEarned, scoreManager.getStarProgress());
-                listener.onGameWon(finalScore, starsEarned, getObjectiveCompletedSummary());
+                listener.onGameWon(finalScore, starsEarned, getObjectiveCompletedSummary(), shotsLeft, shotBonus);
             }
             return;
         }
@@ -1469,6 +1478,7 @@ public class GameEngine {
         // Preview Bubble & Current Bubble (drawn with natural depth during swap)
         if (nextBubble != null) {
             nextBubble.draw(canvas, paint);
+            drawNextBubbleShotsBadge(canvas, paint);
         }
         if (currentBubble != null) {
             currentBubble.draw(canvas, paint);
@@ -1478,6 +1488,76 @@ public class GameEngine {
         float midX = (launcherX + previewX) / 2f;
         float midY = (launcherY + previewY) / 2f;
         drawSwapIcon(canvas, paint, midX, midY, bubbleRadius * 0.65f);
+    }
+
+    private void drawNextBubbleShotsBadge(Canvas canvas, Paint paint) {
+        if (nextBubble == null) return;
+        float nbX = nextBubble.getX();
+        float nbY = nextBubble.getY();
+        float scale = nextBubble.getScaleX();
+        float alpha = nextBubble.getAlpha();
+        if (scale < 0.1f || alpha < 0.05f) return;
+
+        float badgeRadius = bubbleRadius * 0.44f * scale;
+        boolean isLowShots = !isEndlessMode && shotsRemaining <= 5;
+        String countStr = isEndlessMode ? "∞" : String.valueOf(Math.max(0, shotsRemaining));
+
+        // 1. Low shots urgency glow pulse or clean dark obsidian disc
+        if (isLowShots) {
+            float pulse = (float) (Math.sin(System.currentTimeMillis() * 0.008) * 0.5 + 0.5);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(bubbleRadius * 0.08f * scale);
+            paint.setColor(Color.argb((int) ((100 + 100 * pulse) * alpha), 255, 23, 68));
+            canvas.drawCircle(nbX, nbY, badgeRadius + (bubbleRadius * 0.10f * pulse * scale), paint);
+
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(Color.argb((int) (225 * alpha), 211, 47, 47));
+            canvas.drawCircle(nbX, nbY, badgeRadius, paint);
+        } else {
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(Color.argb((int) (190 * alpha), 15, 23, 42));
+            canvas.drawCircle(nbX, nbY, badgeRadius, paint);
+        }
+
+        // 2. Crisp ring border
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(Math.max(2.0f, bubbleRadius * 0.06f * scale));
+        if (isLowShots) {
+            paint.setColor(Color.argb((int) (240 * alpha), 255, 205, 210));
+        } else {
+            paint.setColor(Color.argb((int) (230 * alpha), 255, 255, 255));
+        }
+        canvas.drawCircle(nbX, nbY, badgeRadius, paint);
+
+        // 3. Centered count text
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+
+        float fontSize;
+        if (countStr.length() >= 3) {
+            fontSize = badgeRadius * 0.95f;
+        } else if (countStr.length() == 2) {
+            fontSize = badgeRadius * 1.15f;
+        } else {
+            fontSize = badgeRadius * 1.35f;
+        }
+        paint.setTextSize(fontSize);
+
+        float textY = nbY - ((paint.descent() + paint.ascent()) / 2f);
+
+        // Drop shadow for ultra high readability
+        paint.setColor(Color.argb((int) (180 * alpha), 0, 0, 0));
+        canvas.drawText(countStr, nbX, textY + (1.5f * scale), paint);
+
+        // Text foreground
+        paint.setColor(Color.argb((int) (255 * alpha), 255, 255, 255));
+        canvas.drawText(countStr, nbX, textY, paint);
+
+        // Reset Paint attributes
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTypeface(null);
+        paint.setStyle(Paint.Style.FILL);
     }
 
     private void drawSwapIcon(Canvas canvas, Paint paint, float cx, float cy, float size) {

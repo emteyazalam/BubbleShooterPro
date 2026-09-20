@@ -408,11 +408,16 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
 
     @Override
     public void onGameWon(int score, int stars) {
-        onGameWon(score, stars, "✓ Level Completed!");
+        onGameWon(score, stars, "✓ Level Completed!", 0, 0);
     }
 
     @Override
     public void onGameWon(int score, int stars, String objectiveSummary) {
+        onGameWon(score, stars, objectiveSummary, 0, 0);
+    }
+
+    @Override
+    public void onGameWon(int score, int stars, String objectiveSummary, int shotsRemaining, int shotBonus) {
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
             isGameOverOrWon = true;
@@ -428,7 +433,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             int newHigh = Math.max(previousHigh, score);
             repository.completeLevel(currentLevelNumber, effectiveStars, score);
 
-            activeVictoryDialog = new VictoryDialog(this, score, newHigh, effectiveStars, objectiveSummary, new VictoryDialog.VictoryDialogListener() {
+            activeVictoryDialog = new VictoryDialog(this, score, newHigh, effectiveStars, objectiveSummary, shotsRemaining, shotBonus, new VictoryDialog.VictoryDialogListener() {
                 @Override
                 public void onNextLevelClicked() {
                     activeVictoryDialog = null;

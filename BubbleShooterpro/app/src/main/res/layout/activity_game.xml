@@ -177,13 +177,14 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Shots Remaining Badge -->
+        <!-- Shots Remaining Badge (Hidden from top HUD as redesigned counter is on nextBubble) -->
         <LinearLayout
             android:id="@+id/layoutShots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
+            android:visibility="gone"
             android:background="@drawable/bg_button_glossy_green"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"

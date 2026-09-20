@@ -59,6 +59,42 @@
             android:src="@drawable/ic_star_empty" />
     </LinearLayout>
 
+    <!-- Shots Left Bonus Breakdown Card -->
+    <LinearLayout
+        android:id="@+id/layoutWinShotsBonus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/bg_badge_objective"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="12dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp">
+
+        <TextView
+            android:id="@+id/tvWinShotsBonusTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🎯 REMAINING SHOTS BONUS"
+            android:textColor="#FFD54F"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.04" />
+
+        <TextView
+            android:id="@+id/tvWinShotsBonusCalculation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="+1,200 Bonus (12 Shots Left × 100 pts)"
+            android:textColor="#FFFFFF"
+            android:textSize="13.5sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tvWinScore"
         android:layout_width="wrap_content"

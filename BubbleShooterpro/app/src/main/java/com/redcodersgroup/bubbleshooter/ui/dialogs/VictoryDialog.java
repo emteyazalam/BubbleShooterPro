@@ -25,18 +25,26 @@ public class VictoryDialog extends Dialog {
     private final int highScore;
     private final int stars;
     private final String objectiveSummary;
+    private final int shotsRemaining;
+    private final int shotBonus;
     private DialogVictoryBinding binding;
 
     public VictoryDialog(@NonNull Context context, int score, int highScore, int stars, VictoryDialogListener listener) {
-        this(context, score, highScore, stars, "✓ Level Completed!", listener);
+        this(context, score, highScore, stars, "✓ Level Completed!", 0, 0, listener);
     }
 
     public VictoryDialog(@NonNull Context context, int score, int highScore, int stars, String objectiveSummary, VictoryDialogListener listener) {
+        this(context, score, highScore, stars, objectiveSummary, 0, 0, listener);
+    }
+
+    public VictoryDialog(@NonNull Context context, int score, int highScore, int stars, String objectiveSummary, int shotsRemaining, int shotBonus, VictoryDialogListener listener) {
         super(context);
         this.score = score;
         this.highScore = highScore;
         this.stars = stars;
         this.objectiveSummary = (objectiveSummary != null && !objectiveSummary.isEmpty()) ? objectiveSummary : "✓ Level Completed!";
+        this.shotsRemaining = shotsRemaining;
+        this.shotBonus = shotBonus;
         this.listener = listener;
     }
 
@@ -52,9 +60,18 @@ public class VictoryDialog extends Dialog {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-        binding.tvWinScore.setText("SCORE: " + String.format("%,d", score));
-        binding.tvWinHighScore.setText("HIGH SCORE: " + String.format("%,d", highScore));
+        binding.tvWinScore.setText("SCORE: " + String.format(java.util.Locale.getDefault(), "%,d", score));
+        binding.tvWinHighScore.setText("HIGH SCORE: " + String.format(java.util.Locale.getDefault(), "%,d", highScore));
         binding.tvWinObjectiveSummary.setText(objectiveSummary);
+
+        if (shotsRemaining > 0 && shotBonus > 0) {
+            binding.layoutWinShotsBonus.setVisibility(android.view.View.VISIBLE);
+            binding.tvWinShotsBonusCalculation.setText(
+                    String.format(java.util.Locale.getDefault(), "+%,d Bonus (%d Shots Left × 100 pts)", shotBonus, shotsRemaining)
+            );
+        } else {
+            binding.layoutWinShotsBonus.setVisibility(android.view.View.GONE);
+        }
 
         // Animate stars popping in with bounce
         animateStar(binding.ivWinStar1, stars >= 1, 200);
