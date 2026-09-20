@@ -14,17 +14,17 @@ public class EndlessPatternGeneratorTest {
 
     @Test
     public void testActiveColorsScaling() {
-        // Wave 1 should have 4 active colors for engaging mid-level challenge
+        // Wave 1 should have 3 active colors for high matchability
         List<BubbleColor> wave1Colors = EndlessPatternGenerator.getActiveColors(1, null);
-        assertEquals(4, wave1Colors.size());
+        assertEquals(3, wave1Colors.size());
 
-        // Wave 10 should scale to 5 colors
-        List<BubbleColor> wave10Colors = EndlessPatternGenerator.getActiveColors(10, null);
-        assertEquals(5, wave10Colors.size());
-
-        // Wave 20 should scale to 6 colors
+        // Wave 20 should scale to 4 colors
         List<BubbleColor> wave20Colors = EndlessPatternGenerator.getActiveColors(20, null);
-        assertEquals(6, wave20Colors.size());
+        assertEquals(4, wave20Colors.size());
+
+        // Wave 40 should scale to 5 colors
+        List<BubbleColor> wave40Colors = EndlessPatternGenerator.getActiveColors(40, null);
+        assertEquals(5, wave40Colors.size());
 
         // Wave 60 should have 6 colors
         List<BubbleColor> wave60Colors = EndlessPatternGenerator.getActiveColors(60, null);

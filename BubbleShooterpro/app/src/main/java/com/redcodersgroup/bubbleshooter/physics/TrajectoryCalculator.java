@@ -16,6 +16,13 @@ public class TrajectoryCalculator {
             float startX, float startY, float angleRad,
             float leftBound, float rightBound, float topBound,
             BubbleGrid grid, float bubbleRadius) {
+        return calculateTrajectory(startX, startY, angleRad, leftBound, rightBound, topBound, grid, bubbleRadius, false);
+    }
+
+    public static List<PointF> calculateTrajectory(
+            float startX, float startY, float angleRad,
+            float leftBound, float rightBound, float topBound,
+            BubbleGrid grid, float bubbleRadius, boolean isPiercing) {
 
         List<PointF> points = new ArrayList<>();
         float minX = leftBound + bubbleRadius;
@@ -56,13 +63,16 @@ public class TrajectoryCalculator {
             // 2. Ceiling hit
             if (ry <= minY) {
                 ry = minY;
-                points.add(new PointF(rx, ry));
+                PointF pt = new PointF();
+                pt.x = rx;
+                pt.y = ry;
+                points.add(pt);
                 break;
             }
 
-            // 3. Collision with existing grid bubbles
+            // 3. Collision with existing grid bubbles (ignored if piercing)
             boolean collided = false;
-            if (grid != null) {
+            if (!isPiercing && grid != null) {
                 for (Bubble b : grid.getAllBubbles()) {
                     if (b != null && !b.isPopping() && !b.isFalling()) {
                         float distSq = (rx - b.getX()) * (rx - b.getX()) + (ry - b.getY()) * (ry - b.getY());
@@ -74,7 +84,10 @@ public class TrajectoryCalculator {
                 }
             }
 
-            points.add(new PointF(rx, ry));
+            PointF pt = new PointF();
+            pt.x = rx;
+            pt.y = ry;
+            points.add(pt);
 
             if (collided) {
                 break;

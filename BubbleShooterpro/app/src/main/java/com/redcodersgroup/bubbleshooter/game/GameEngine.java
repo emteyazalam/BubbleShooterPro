@@ -27,9 +27,11 @@ import com.redcodersgroup.bubbleshooter.scoring.ScoreManager;
 import com.redcodersgroup.bubbleshooter.visual.ConfettiSystem;
 import com.redcodersgroup.bubbleshooter.visual.FloatingText;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class GameEngine {
 
@@ -423,12 +425,12 @@ public class GameEngine {
             frontierBubbles = allBubbles;
         }
 
-        // 3. Danger Zone: If bubbles are critically close to the deadline (within 2.5 rows), moderate 45% chance for danger color
-        if (lowestDangerBubble != null && random.nextInt(100) < 45) {
+        // 3. Priority 1: If in critical danger zone, 75% chance to give the exact danger bubble's color!
+        if (lowestDangerBubble != null && random.nextInt(100) < 75) {
             return lowestDangerBubble.getColor();
         }
 
-        // 4. Identify match clusters on the exposed frontier and general exposed colors
+        // 4. Priority 2: Look for match clusters on the exposed frontier (groups of 2+ connected same color)
         List<BubbleColor> matchableColors = new ArrayList<>();
         List<BubbleColor> frontierColors = new ArrayList<>();
         for (Bubble b : frontierBubbles) {
@@ -447,36 +449,26 @@ public class GameEngine {
             }
         }
 
-        List<BubbleColor> allBoardColors = new ArrayList<>();
-        for (Bubble b : allBubbles) {
-            if (!allBoardColors.contains(b.getColor())) {
-                allBoardColors.add(b.getColor());
+        // 5. Select from matchable colors (high priority 70%), then frontier colors, then all board colors
+        List<BubbleColor> candidatePool;
+        if (!matchableColors.isEmpty() && random.nextInt(100) < 70) {
+            candidatePool = matchableColors;
+        } else if (!frontierColors.isEmpty()) {
+            candidatePool = frontierColors;
+        } else {
+            candidatePool = new ArrayList<>();
+            for (Bubble b : allBubbles) {
+                if (!candidatePool.contains(b.getColor())) {
+                    candidatePool.add(b.getColor());
+                }
             }
         }
 
-        // 5. Balanced Mid-Level Candidate Pool Selection:
-        // ~35% match cluster, ~40% exposed frontier, ~25% general board colors (encourages bank shots & swap strategy)
-        List<BubbleColor> candidatePool;
-        int roll = random.nextInt(100);
-        if (!matchableColors.isEmpty() && roll < 35) {
-            candidatePool = matchableColors;
-        } else if (!frontierColors.isEmpty() && roll < 75) {
-            candidatePool = frontierColors;
-        } else if (!allBoardColors.isEmpty()) {
-            candidatePool = allBoardColors;
-        } else {
-            candidatePool = frontierColors.isEmpty() ? matchableColors : frontierColors;
-        }
-
-        if (candidatePool.isEmpty()) {
-            candidatePool = allBoardColors;
-        }
-
-        // 6. Color Diversity with reserve bubble (65% chance to diversify for tactical bubble swaps)
+        // 6. If possible, pick a color different from avoidColorIfPossible (so current & next are versatile)
         if (avoidColorIfPossible != null && candidatePool.size() > 1) {
             List<BubbleColor> diversePool = new ArrayList<>(candidatePool);
             diversePool.remove(avoidColorIfPossible);
-            if (!diversePool.isEmpty() && random.nextInt(100) < 65) {
+            if (!diversePool.isEmpty() && random.nextInt(100) < 80) {
                 return diversePool.get(random.nextInt(diversePool.size()));
             }
         }
@@ -640,11 +632,16 @@ public class GameEngine {
         updateTrajectory();
     }
 
+    // Fireball piercing trajectory tracking
+    private final Set<GridPosition> fireballPoppedPositions = new HashSet<>();
+
     private void updateTrajectory() {
+        boolean isPiercing = (currentBubble != null &&
+                (currentBubble.getType() == BubbleType.FIREBALL || currentBubble.getColor() == BubbleColor.FIREBALL));
         this.trajectoryPoints = TrajectoryCalculator.calculateTrajectory(
                 launcherX, launcherY, aimAngleRad,
                 boardLeft, boardRight, boardTop,
-                grid, bubbleRadius
+                grid, bubbleRadius, isPiercing
         );
     }
 
@@ -669,6 +666,7 @@ public class GameEngine {
         }
 
         state = GameState.SHOOTING;
+        fireballPoppedPositions.clear();
         activeProjectile = new BubbleProjectile(currentBubble.getColor(), currentBubble.getType(), bubbleRadius);
         float dirX = (float) Math.cos(aimAngleRad);
         float dirY = (float) Math.sin(aimAngleRad);
@@ -867,18 +865,37 @@ public class GameEngine {
 
         // 2. Projectile Movement and Collision
         if (state == GameState.SHOOTING && activeProjectile != null) {
+            float prevX = activeProjectile.getX();
+            float prevY = activeProjectile.getY();
+
             activeProjectile.update(dt);
+
+            float currX = activeProjectile.getX();
+            float currY = activeProjectile.getY();
 
             boolean bounced = WallBounceCalculator.checkAndHandleWallBounce(activeProjectile, boardLeft, boardRight);
             if (bounced) {
                 soundManager.playBounce();
             }
 
-            CollisionDetector.CollisionResult collision =
-                    CollisionDetector.checkCollision(activeProjectile, board, boardTop);
+            boolean isFireball = (activeProjectile.getType() == BubbleType.FIREBALL
+                    || activeProjectile.getColor() == BubbleColor.FIREBALL);
 
-            if (collision.collided) {
-                resolveCollision(collision.snapPosition);
+            if (isFireball) {
+                // Fireball penetrates along its trajectory line, incinerating visible bubbles in its path
+                handleFireballPiercing(prevX, prevY, currX, currY);
+
+                // Check ceiling strike
+                if (currY - activeProjectile.getRadius() <= boardTop) {
+                    finishFireballFlight();
+                }
+            } else {
+                CollisionDetector.CollisionResult collision =
+                        CollisionDetector.checkCollision(activeProjectile, board, boardTop);
+
+                if (collision.collided) {
+                    resolveCollision(collision.snapPosition);
+                }
             }
         }
 
@@ -1006,6 +1023,154 @@ public class GameEngine {
         }
 
         activeProjectile = null;
+    }
+
+    private void handleFireballPiercing(float prevX, float prevY, float currX, float currY) {
+        float hitThresholdSq = (bubbleRadius * 1.85f) * (bubbleRadius * 1.85f);
+        List<GridPosition> newHits = new ArrayList<>();
+        Set<GridPosition> bombsToExplode = new HashSet<>();
+        Set<GridPosition> lightningToTrigger = new HashSet<>();
+
+        for (int r = 0; r < BubbleGrid.MAX_ROWS; r++) {
+            int cols = grid.getCols(r);
+            for (int c = 0; c < cols; c++) {
+                Bubble b = grid.getBubble(r, c);
+                if (b != null && !b.isPopping() && !b.isFalling()) {
+                    // Only visible bubbles inside the active playing field
+                    if (isBubbleVisibleOnBoard(b)) {
+                        float bx = b.getX();
+                        float by = b.getY();
+                        float dSq = distanceSqToSegment(bx, by, prevX, prevY, currX, currY);
+                        if (dSq <= hitThresholdSq) {
+                            GridPosition pos = new GridPosition(r, c);
+                            newHits.add(pos);
+                            if (b.getType() == BubbleType.BOMB || b.getColor() == BubbleColor.BOMB) {
+                                bombsToExplode.add(pos);
+                            } else if (b.getType() == BubbleType.LIGHTNING || b.getColor() == BubbleColor.LIGHTNING) {
+                                lightningToTrigger.add(pos);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Secondary chain reactions from hit specials
+        if (!bombsToExplode.isEmpty()) {
+            newHits.addAll(board.getBombExplosionPositions(bombsToExplode));
+        }
+        if (!lightningToTrigger.isEmpty()) {
+            newHits.addAll(board.getLightningExplosionPositions(lightningToTrigger, null));
+        }
+
+        boolean poppedAny = false;
+        for (GridPosition pos : newHits) {
+            if (!fireballPoppedPositions.contains(pos)) {
+                fireballPoppedPositions.add(pos);
+                Bubble popped = grid.removeBubble(pos);
+                if (popped != null) {
+                    popped.startPop();
+                    poppingBubbles.add(popped);
+                    int pColor = (popped.getColor() == BubbleColor.BOMB || popped.getType() == BubbleType.BOMB)
+                            ? Color.parseColor("#FF6D00")
+                            : ((popped.getColor() == BubbleColor.LIGHTNING || popped.getType() == BubbleType.LIGHTNING)
+                            ? Color.parseColor("#FFEB3B")
+                            : Color.parseColor("#FF5722"));
+                    confettiSystem.spawnPopParticles(popped.getX(), popped.getY(), pColor, 16);
+                    poppedAny = true;
+                }
+            }
+        }
+
+        if (poppedAny) {
+            soundManager.playPop(1);
+        }
+    }
+
+    private void finishFireballFlight() {
+        state = GameState.RESOLVING;
+        resolveTimer = 0.28f;
+
+        if (activeProjectile != null) {
+            confettiSystem.spawnCelebrationBurst(activeProjectile.getX(), boardTop + bubbleRadius, 30);
+        }
+        soundManager.playBomb();
+
+        // 1. Identify and drop unsupported floating bubbles
+        List<Bubble> floating = board.findFloatingBubbles();
+        for (Bubble fb : floating) {
+            float vx = (float) ((Math.random() - 0.5) * 450.0);
+            float vy = (float) (-150 - Math.random() * 200.0);
+            fb.startFalling(vx, vy);
+            fallingBubbles.add(fb);
+        }
+
+        // 2. Combo & Score calculation
+        comboManager.registerSuccess();
+        int multiplier = comboManager.getMultiplier();
+        int popCount = fireballPoppedPositions.size();
+        int popScore = scoreManager.addPoppedBubbles(Math.max(1, popCount), multiplier);
+        int dropScore = scoreManager.addDroppedBubbles(floating.size(), multiplier);
+        int totalTurnScore = popScore + dropScore;
+
+        float textX = (activeProjectile != null) ? activeProjectile.getX() : (boardLeft + boardRight) * 0.5f;
+        float textY = boardTop + bubbleRadius * 2.5f;
+        floatingTexts.add(new FloatingText("FIREBURST! +" + totalTurnScore, textX, textY, Color.parseColor("#FF5722"), 48f, 1.4f));
+
+        String praise = comboManager.getPraiseText();
+        if (!praise.isEmpty()) {
+            floatingTexts.add(new FloatingText(praise, textX, textY - 60f, Color.parseColor("#FF4081"), 48f, 1.4f));
+        }
+
+        // 3. Update objective progress
+        if (currentLevel != null) {
+            LevelObjective obj = currentLevel.getObjective();
+            if (obj.getType() == LevelObjective.Type.DROP_COUNT) {
+                obj.addProgress(floating.size());
+            }
+        }
+
+        // 4. Wave / Shot progression
+        if (isEndlessMode) {
+            endlessWaveCount++;
+            List<Bubble> newRow = generateEndlessRow();
+            grid.shiftDownAndInsertRow(newRow);
+
+            if (listener != null) {
+                listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+                listener.onShotsUpdated(endlessWaveCount);
+            }
+        } else {
+            shotsRemaining--;
+            if (listener != null) {
+                listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+                listener.onShotsUpdated(shotsRemaining);
+            }
+        }
+
+        activeProjectile = null;
+        fireballPoppedPositions.clear();
+    }
+
+    private boolean isBubbleVisibleOnBoard(Bubble b) {
+        if (b == null) return false;
+        float y = b.getY();
+        float x = b.getX();
+        float r = b.getRadius();
+        return (y + r * 0.4f >= boardTop) && (y - r <= boardBottom) && (x + r >= boardLeft) && (x - r <= boardRight);
+    }
+
+    private static float distanceSqToSegment(float px, float py, float x1, float y1, float x2, float y2) {
+        float dx = x2 - x1;
+        float dy = y2 - y1;
+        float l2 = dx * dx + dy * dy;
+        if (l2 == 0f) {
+            return (px - x1) * (px - x1) + (py - y1) * (py - y1);
+        }
+        float t = Math.max(0f, Math.min(1f, ((px - x1) * dx + (py - y1) * dy) / l2));
+        float projX = x1 + t * dx;
+        float projY = y1 + t * dy;
+        return (px - projX) * (px - projX) + (py - projY) * (py - projY);
     }
 
     private void finishResolution() {
