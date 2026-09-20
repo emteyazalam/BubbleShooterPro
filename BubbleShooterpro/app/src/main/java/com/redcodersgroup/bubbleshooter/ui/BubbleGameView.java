@@ -167,6 +167,21 @@ public class BubbleGameView extends View {
         invalidate();
     }
 
+    /**
+     * Sets the aesthetic biome and authentic campaign world background for Endless Mode.
+     * Transitions dynamically through the game's 49 worlds every 5 waves.
+     */
+    public void setEndlessBiome(int wave) {
+        int worldNumber = ((Math.max(1, wave) - 1) / 5) % 49 + 1;
+        int simulatedLevel = (worldNumber - 1) * 10 + 1;
+        this.currentLevel = simulatedLevel;
+        this.currentBiome = BiomeTheme.forLevel(simulatedLevel);
+        loadWorldBackground(simulatedLevel);
+        updateBackgroundGradient();
+        initParticles();
+        invalidate();
+    }
+
     private void loadWorldBackground(int levelNumber) {
         int resId = 0;
         try {
@@ -357,7 +372,7 @@ public class BubbleGameView extends View {
             bgPaint.setShader(backgroundGradient);
             canvas.drawRect(0, 0, getWidth(), getHeight(), bgPaint);
         } else {
-            canvas.drawColor(currentBiome.gradientColors[0]);
+            canvas.drawColor(currentBiome != null ? currentBiome.gradientColors[0] : 0xFF0E381E);
         }
 
         // 2. Draw Ambient Background Atmosphere Particles
@@ -370,12 +385,16 @@ public class BubbleGameView extends View {
         // 3. Draw Biome Ceiling & Gold Accent Rail (Cleanly positioned under top HUD)
         float topY = (gameEngine != null) ? gameEngine.getBoardTop() : (92f * getResources().getDisplayMetrics().density);
         if (backgroundBitmap == null) {
-            ceilingPaint.setColor(currentBiome.ceilingColor);
+            ceilingPaint.setColor(currentBiome != null ? currentBiome.ceilingColor : 0xFF0F4724);
             canvas.drawRect(0, 0, getWidth(), topY, ceilingPaint);
+        } else {
+            // Subtle top HUD vignette scrim for crystal clear readability over vibrant world artwork
+            vignettePaint.setColor(Color.argb(95, 0, 0, 0));
+            canvas.drawRect(0, 0, getWidth(), topY, vignettePaint);
         }
 
         // Ceiling accent rail
-        railPaint.setColor(currentBiome.railColor);
+        railPaint.setColor(currentBiome != null ? currentBiome.railColor : 0xFF4ADE80);
         railPaint.setStrokeWidth(6f);
         canvas.drawLine(0, topY, getWidth(), topY, railPaint);
 
@@ -390,7 +409,7 @@ public class BubbleGameView extends View {
             canvas.drawRect(bRight, topY, getWidth(), getHeight(), vignettePaint);
 
             // Left and Right boundary accent rails
-            railPaint.setColor(currentBiome.railColor);
+            railPaint.setColor(currentBiome != null ? currentBiome.railColor : 0xFF4ADE80);
             railPaint.setStrokeWidth(4.5f);
             canvas.drawLine(bLeft, topY, bLeft, getHeight(), railPaint);
             canvas.drawLine(bRight, topY, bRight, getHeight(), railPaint);

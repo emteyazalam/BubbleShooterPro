@@ -92,6 +92,7 @@ public class GameEngine {
     private boolean isEndlessMode = false;
     private int endlessWaveCount = 1;
     private int endlessHighScore = 0;
+    private boolean hasCelebratedNewBest = false;
     private List<BubbleColor> endlessColorsPool = new ArrayList<>();
     private final java.util.LinkedList<List<Bubble>> pregeneratedRowQueue = new java.util.LinkedList<>();
 
@@ -101,6 +102,13 @@ public class GameEngine {
 
     public String getObjectiveBadgeText() {
         if (isEndlessMode) {
+            int curScore = scoreManager.getScore();
+            if (endlessHighScore > 0 && curScore > endlessHighScore) {
+                return "🎉 NEW BEST! • " + String.format(java.util.Locale.getDefault(), "%,d", curScore);
+            }
+            if (endlessHighScore > 0) {
+                return "⚡ BEST: " + String.format(java.util.Locale.getDefault(), "%,d", endlessHighScore) + " • WAVE " + endlessWaveCount;
+            }
             return "⚡ SURVIVE • WAVE " + endlessWaveCount;
         }
         if (currentLevel != null && currentLevel.getObjective() != null) {
@@ -111,7 +119,9 @@ public class GameEngine {
     }
 
     public boolean isObjectiveCompleted() {
-        if (isEndlessMode) return false;
+        if (isEndlessMode) {
+            return endlessHighScore > 0 && scoreManager.getScore() > endlessHighScore;
+        }
         if (currentLevel != null && currentLevel.getObjective() != null) {
             return currentLevel.getObjective().isMet(board, scoreManager);
         }
@@ -337,14 +347,28 @@ public class GameEngine {
     }
 
     public void loadEndlessMode(int personalBestHighScore, List<BubbleColor> colorsPool) {
+        loadEndlessMode(personalBestHighScore, null, colorsPool);
+    }
+
+    public void loadEndlessMode(int personalBestHighScore, int[] thresholds, List<BubbleColor> colorsPool) {
         this.isEndlessMode = true;
+        this.hasCelebratedNewBest = false;
         this.currentLevel = null;
         this.initialShots = 0;
         this.endlessWaveCount = 1;
         this.endlessHighScore = personalBestHighScore;
         this.shotsRemaining = 999999;
         this.scoreManager.reset();
-        this.scoreManager.setStarThresholds(new int[]{5000, 15000, 30000});
+        if (thresholds != null && thresholds.length >= 3) {
+            this.scoreManager.setStarThresholds(thresholds);
+        } else if (personalBestHighScore > 0) {
+            int t1 = Math.max(500, (int) (personalBestHighScore * 0.35f));
+            int t2 = Math.max(1000, (int) (personalBestHighScore * 0.70f));
+            int t3 = Math.max(1500, personalBestHighScore);
+            this.scoreManager.setStarThresholds(new int[]{t1, t2, t3});
+        } else {
+            this.scoreManager.setStarThresholds(new int[]{1000, 2500, 5000});
+        }
         this.comboManager.reset();
         this.poppingBubbles.clear();
         this.fallingBubbles.clear();
@@ -386,6 +410,9 @@ public class GameEngine {
         this.nextBubble.setRadius(bubbleRadius * 0.75f);
         this.nextBubble.setScale(1.0f);
         this.nextBubble.setAlpha(1.0f);
+
+        // Introductory floating objective banner matching campaign mode aesthetics
+        floatingTexts.add(new FloatingText("⚡ SURVIVE THE ENDLESS DESCENT", (boardLeft + boardRight) * 0.5f, boardTop + bubbleRadius * 3.5f, Color.parseColor("#FFF176"), 44f, 2.4f));
 
         if (listener != null) {
             listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
@@ -1058,8 +1085,11 @@ public class GameEngine {
             }
         }
 
+        checkEndlessAesthetics();
+
         if (isEndlessMode) {
             endlessWaveCount++;
+            checkEndlessWaveMilestone();
             List<Bubble> newRow = generateEndlessRow();
             grid.shiftDownAndInsertRow(newRow);
 
@@ -1189,9 +1219,12 @@ public class GameEngine {
             }
         }
 
+        checkEndlessAesthetics();
+
         // 4. Wave / Shot progression
         if (isEndlessMode) {
             endlessWaveCount++;
+            checkEndlessWaveMilestone();
             List<Bubble> newRow = generateEndlessRow();
             grid.shiftDownAndInsertRow(newRow);
 
@@ -1210,6 +1243,23 @@ public class GameEngine {
         notifyObjectiveUpdated();
         activeProjectile = null;
         fireballPoppedPositions.clear();
+    }
+
+    private void checkEndlessAesthetics() {
+        if (isEndlessMode && endlessHighScore > 0 && !hasCelebratedNewBest && scoreManager.getScore() > endlessHighScore) {
+            hasCelebratedNewBest = true;
+            soundManager.playWin();
+            floatingTexts.add(new FloatingText("🎉 NEW BEST SCORE!", (boardLeft + boardRight) * 0.5f, boardTop + bubbleRadius * 3.2f, Color.parseColor("#4ADE80"), 48f, 2.2f));
+            confettiSystem.spawnCelebrationBurst(boardRight, boardBottom, 35);
+        }
+    }
+
+    private void checkEndlessWaveMilestone() {
+        if (isEndlessMode && endlessWaveCount % 5 == 1 && endlessWaveCount > 1) {
+            soundManager.playPop(5);
+            floatingTexts.add(new FloatingText("🌊 WAVE " + endlessWaveCount + " • NEW BIOME!", (boardLeft + boardRight) * 0.5f, boardTop + bubbleRadius * 3.5f, Color.parseColor("#80D8FF"), 46f, 2.2f));
+            confettiSystem.spawnCelebrationBurst(boardRight, boardBottom, 25);
+        }
     }
 
     private boolean isBubbleVisibleOnBoard(Bubble b) {

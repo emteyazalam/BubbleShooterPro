@@ -191,14 +191,24 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
     private void loadEndlessMode() {
         isGameOverOrWon = false;
         wasBackgrounded = false;
-        binding.tvLevelTitle.setText("⚡ ENDLESS SURVIVAL");
+
+        binding.bubbleGameView.setEndlessBiome(1);
+        BubbleGameView.BiomeTheme theme = binding.bubbleGameView.getCurrentBiome();
+        String themeTitle = (theme != null) ? theme.title : "Meadows";
+        binding.tvLevelTitle.setText("WAVE 1 • " + themeTitle);
+
         binding.tvShotsLabel.setText("WAVE");
         binding.tvShotsCount.setText("1");
-        binding.tvObjectiveBadge.setText("⚡ SURVIVE • WAVE 1");
+
+        int personalBest = prefs.getEndlessHighScore();
+        if (personalBest > 0) {
+            binding.tvObjectiveBadge.setText("⚡ BEST: " + String.format(java.util.Locale.getDefault(), "%,d", personalBest) + " • WAVE 1");
+        } else {
+            binding.tvObjectiveBadge.setText("⚡ SURVIVE • WAVE 1");
+        }
         binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective);
         currentStarsCount = 0;
 
-        int personalBest = prefs.getEndlessHighScore();
         int[] thresholds;
         if (personalBest > 0) {
             int t1 = Math.max(500, (int) (personalBest * 0.35f));
@@ -210,7 +220,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         }
 
         resetStarProgressNodes(thresholds);
-        gameEngine.loadEndlessMode(personalBest, null);
+        gameEngine.loadEndlessMode(personalBest, thresholds, null);
     }
 
     private void resetStarProgressNodes(int[] thresholds) {
@@ -440,18 +450,26 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
             binding.tvShotsCount.setText(String.valueOf(shotsRemainingOrWave));
-            if (!isEndlessMode && shotsRemainingOrWave <= 5) {
-                binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_red);
-                binding.layoutShots.animate().cancel();
-                binding.layoutShots.setScaleX(1.15f);
-                binding.layoutShots.setScaleY(1.15f);
-                binding.layoutShots.animate()
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .setDuration(200)
-                        .start();
+            if (isEndlessMode) {
+                // Synchronize endless biome and background illustration as waves progress
+                binding.bubbleGameView.setEndlessBiome(shotsRemainingOrWave);
+                BubbleGameView.BiomeTheme theme = binding.bubbleGameView.getCurrentBiome();
+                String themeTitle = (theme != null) ? theme.title : "Meadows";
+                binding.tvLevelTitle.setText("WAVE " + shotsRemainingOrWave + " • " + themeTitle);
             } else {
-                binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_green);
+                if (shotsRemainingOrWave <= 5) {
+                    binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_red);
+                    binding.layoutShots.animate().cancel();
+                    binding.layoutShots.setScaleX(1.15f);
+                    binding.layoutShots.setScaleY(1.15f);
+                    binding.layoutShots.animate()
+                            .scaleX(1.0f)
+                            .scaleY(1.0f)
+                            .setDuration(200)
+                            .start();
+                } else {
+                    binding.layoutShots.setBackgroundResource(R.drawable.bg_button_glossy_green);
+                }
             }
         });
     }
