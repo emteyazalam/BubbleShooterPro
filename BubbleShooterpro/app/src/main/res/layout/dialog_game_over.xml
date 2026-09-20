@@ -1,69 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="@dimen/dp_24"
-    android:background="@drawable/bg_card_dialog">
+    android:layout_gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/dp_16"
+    android:paddingEnd="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_12"
+    android:paddingBottom="@dimen/dp_12">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/game_over"
-        android:textColor="@color/accent_pink"
-        android:textSize="@dimen/sp_26"
-        android:textStyle="bold"
-        android:shadowColor="#B0000000"
-        android:shadowDx="2"
-        android:shadowDy="3"
-        android:shadowRadius="6" />
-
-    <TextView
-        android:id="@+id/tvLoseSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8"
-        android:text="Out of shots! Don't give up!"
-        android:textColor="#E0E0E0"
-        android:textSize="@dimen/sp_15" />
-
-    <TextView
-        android:id="@+id/tvLoseScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_16"
-        android:text="FINAL SCORE: 1,200"
-        android:textColor="@color/accent_yellow"
-        android:textSize="@dimen/sp_20"
-        android:textStyle="bold" />
-
-    <!-- Action Buttons -->
+    <!-- Main Dialog Card Body -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_24">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_frame"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_48"
+        android:paddingBottom="@dimen/dp_24">
 
-        <ImageButton
-            android:id="@+id/btnLoseHome"
-            android:layout_width="@dimen/dp_58"
-            android:layout_height="@dimen/dp_58"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_home_yellow"
-            android:contentDescription="Home" />
+        <!-- Subtitle Reason -->
+        <TextView
+            android:id="@+id/tvLoseSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Out of shots! Don't give up!"
+            android:textColor="#EF4444"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dp_12" />
 
-        <ImageButton
-            android:id="@+id/btnLoseRetry"
-            android:layout_width="@dimen/dp_68"
-            android:layout_height="@dimen/dp_68"
-            android:layout_marginStart="@dimen/dp_20"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_restart_green"
-            android:contentDescription="Retry" />
+        <!-- Inset Score Panel -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_dialog_inset_panel"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_14"
+            android:paddingBottom="@dimen/dp_14"
+            android:layout_marginBottom="@dimen/dp_18">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FINAL SCORE"
+                android:textColor="#64748B"
+                android:textSize="@dimen/sp_11"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <TextView
+                android:id="@+id/tvLoseScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="1,200"
+                android:textColor="#D97706"
+                android:textSize="@dimen/sp_30"
+                android:textStyle="bold"
+                android:shadowColor="#30000000"
+                android:shadowDx="1"
+                android:shadowDy="2"
+                android:shadowRadius="3" />
+
+            <TextView
+                android:id="@+id/tvLoseBestScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="BEST: 2,450"
+                android:textColor="#94A3B8"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Action Buttons Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_4">
+
+            <!-- Home Orb Button -->
+            <ImageButton
+                android:id="@+id/btnLoseHome"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_home_yellow"
+                android:contentDescription="@string/home" />
+
+            <!-- Big Glossy Green Retry Button -->
+            <Button
+                android:id="@+id/btnLoseRetry"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_56"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/dp_14"
+                android:background="@drawable/btn_pill_blank_green"
+                android:text="@string/restart"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                android:letterSpacing="0.03"
+                android:shadowColor="#80000000"
+                android:shadowDx="1"
+                android:shadowDy="2"
+                android:shadowRadius="3" />
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+    <!-- Top Curved Blue Header Plaque ("Try Again" / "Game Over") -->
+    <LinearLayout
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_46"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/bg_dialog_header_plaque"
+        android:gravity="center"
+        android:elevation="@dimen/dp_4">
+
+        <TextView
+            android:id="@+id/tvLoseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_over"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:shadowColor="#B0000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="4" />
+    </LinearLayout>
+
+    <!-- Top-Right Glossy Red Close Button -->
+    <ImageButton
+        android:id="@+id/btnCloseLose"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_close_red"
+        android:elevation="@dimen/dp_6"
+        android:contentDescription="Close" />
+
+</FrameLayout>

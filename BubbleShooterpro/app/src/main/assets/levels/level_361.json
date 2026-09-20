@@ -1,0 +1,30 @@
+{
+  "level": 361,
+  "shots": 15,
+  "colors": [
+    "RED",
+    "BLUE",
+    "PURPLE",
+    "YELLOW",
+    "ORANGE"
+  ],
+  "objective": {
+    "type": "CLEAR_ALL",
+    "target": 0
+  },
+  "starThresholds": [
+    4888,
+    10753,
+    18574
+  ],
+  "rows": [
+    "RRPO.RR..",
+    "RYBRRPBR",
+    "O...BOPPO",
+    "BYR...Y.",
+    ".RBPR.RPP",
+    "R.R..PYP",
+    "RPYYYYB.R",
+    "B.YYYO.B"
+  ]
+}

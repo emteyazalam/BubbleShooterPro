@@ -1,0 +1,30 @@
+{
+  "level": 384,
+  "shots": 18,
+  "colors": [
+    "YELLOW",
+    "BLUE",
+    "RED",
+    "GREEN",
+    "ORANGE"
+  ],
+  "objective": {
+    "type": "POP_COLOR",
+    "color": "GREEN",
+    "target": 18
+  },
+  "starThresholds": [
+    5072,
+    11158,
+    19273
+  ],
+  "rows": [
+    "ROGO.BBRY",
+    ".BBRBBY.",
+    "BRORBOOYG",
+    "GB.ORROO",
+    "GYY.R.BYO",
+    "ORYGYGRO",
+    "RGR.RO.GG"
+  ]
+}

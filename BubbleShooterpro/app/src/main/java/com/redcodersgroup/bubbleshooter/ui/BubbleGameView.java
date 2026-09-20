@@ -1,11 +1,14 @@
 package com.redcodersgroup.bubbleshooter.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RadialGradient;
+import android.graphics.Rect;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -103,6 +106,10 @@ public class BubbleGameView extends View {
     private Paint railPaint;
     private Paint vignettePaint;
     private Paint particlePaint;
+    private Bitmap backgroundBitmap;
+    private Rect bgSrcRect;
+    private Rect bgDstRect;
+    private Paint bgBitmapPaint;
     private long lastTimeNanos = 0;
     private LinearGradient backgroundGradient;
     private BiomeTheme currentBiome = BiomeTheme.MEADOWS;
@@ -132,6 +139,9 @@ public class BubbleGameView extends View {
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
         this.paint.setDither(true);
 
+        this.bgBitmapPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+        this.bgBitmapPaint.setDither(true);
+
         this.bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         this.bgPaint.setStyle(Paint.Style.FILL);
 
@@ -151,9 +161,53 @@ public class BubbleGameView extends View {
     public void setBiomeLevel(int levelNumber) {
         this.currentLevel = levelNumber;
         this.currentBiome = BiomeTheme.forLevel(levelNumber);
+        loadWorldBackground(levelNumber);
         updateBackgroundGradient();
         initParticles();
         invalidate();
+    }
+
+    private void loadWorldBackground(int levelNumber) {
+        int resId = 0;
+        try {
+            com.redcodersgroup.bubbleshooter.data.WorldConfigManager.WorldModel world = 
+                    com.redcodersgroup.bubbleshooter.data.WorldConfigManager.getInstance(getContext()).getWorldForLevel(levelNumber);
+            if (world != null && world.gameBackground != null) {
+                resId = getResources().getIdentifier(world.gameBackground, "drawable", getContext().getPackageName());
+            }
+        } catch (Exception ignored) {}
+
+        if (resId == 0) {
+            int worldNumber = ((levelNumber - 1) / 10) + 1;
+            resId = getResources().getIdentifier("bg_game_world_" + worldNumber, "drawable", getContext().getPackageName());
+        }
+
+        if (resId != 0) {
+            try {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                backgroundBitmap = BitmapFactory.decodeResource(getResources(), resId, options);
+                updateBgRects();
+            } catch (Throwable ignored) {
+                backgroundBitmap = null;
+            }
+        } else {
+            backgroundBitmap = null;
+        }
+    }
+
+    private void updateBgRects() {
+        if (backgroundBitmap != null && viewWidth > 0 && viewHeight > 0) {
+            int bw = backgroundBitmap.getWidth();
+            int bh = backgroundBitmap.getHeight();
+            float scale = Math.max((float) viewWidth / bw, (float) viewHeight / bh);
+            int scaledW = (int) (viewWidth / scale);
+            int scaledH = (int) (viewHeight / scale);
+            int left = Math.max(0, (bw - scaledW) / 2);
+            int top = Math.max(0, (bh - scaledH) / 2);
+            bgSrcRect = new Rect(left, top, Math.min(bw, left + scaledW), Math.min(bh, top + scaledH));
+            bgDstRect = new Rect(0, 0, viewWidth, viewHeight);
+        }
     }
 
     public BiomeTheme getCurrentBiome() {
@@ -250,6 +304,7 @@ public class BubbleGameView extends View {
         this.viewWidth = w;
         this.viewHeight = h;
 
+        updateBgRects();
         updateBackgroundGradient();
         initParticles();
 
@@ -295,8 +350,10 @@ public class BubbleGameView extends View {
         // Clamp delta time to avoid physics explosion if paused/backgrounded
         if (dt > 0.05f) dt = 0.05f;
 
-        // 1. Draw Biome-Themed Background Gradient (Isolated bgPaint prevents flicker/alpha bleed)
-        if (backgroundGradient != null) {
+        // 1. Draw Custom World Illustration Background if available, else Gradient
+        if (backgroundBitmap != null && bgDstRect != null && bgSrcRect != null) {
+            canvas.drawBitmap(backgroundBitmap, bgSrcRect, bgDstRect, bgBitmapPaint);
+        } else if (backgroundGradient != null) {
             bgPaint.setShader(backgroundGradient);
             canvas.drawRect(0, 0, getWidth(), getHeight(), bgPaint);
         } else {
@@ -312,8 +369,10 @@ public class BubbleGameView extends View {
 
         // 3. Draw Biome Ceiling & Gold Accent Rail (Cleanly positioned under top HUD)
         float topY = (gameEngine != null) ? gameEngine.getBoardTop() : (92f * getResources().getDisplayMetrics().density);
-        ceilingPaint.setColor(currentBiome.ceilingColor);
-        canvas.drawRect(0, 0, getWidth(), topY, ceilingPaint);
+        if (backgroundBitmap == null) {
+            ceilingPaint.setColor(currentBiome.ceilingColor);
+            canvas.drawRect(0, 0, getWidth(), topY, ceilingPaint);
+        }
 
         // Ceiling accent rail
         railPaint.setColor(currentBiome.railColor);

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutNodeContainer"
+    android:layout_width="@dimen/dp_56"
+    android:layout_height="@dimen/dp_56"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Main 3D Pedestal Button (scales with nodeSize) -->
+    <FrameLayout
+        android:id="@+id/layoutNodeOrb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_level_active">
+
+        <TextView
+            android:id="@+id/tvNodeLevelNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="2dp"
+            android:text="1"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:shadowColor="#99000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="3" />
+    </FrameLayout>
+
+    <!-- 3 Milestone Stars (Floats right above orb without shifting the orb) -->
+    <LinearLayout
+        android:id="@+id/layoutNodeStars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="-16dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivNodeStar1"
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_14"
+            android:src="@drawable/ic_star_filled"
+            android:contentDescription="Star 1" />
+
+        <ImageView
+            android:id="@+id/ivNodeStar2"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:src="@drawable/ic_star_filled"
+            android:contentDescription="Star 2" />
+
+        <ImageView
+            android:id="@+id/ivNodeStar3"
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_14"
+            android:src="@drawable/ic_star_filled"
+            android:contentDescription="Star 3" />
+    </LinearLayout>
+
+    <!-- Top Marker: Player Avatar Pin (Floats right above orb on active level) -->
+    <ImageView
+        android:id="@+id/ivPlayerAvatarPin"
+        android:layout_width="@dimen/dp_38"
+        android:layout_height="@dimen/dp_38"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="-30dp"
+        android:src="@drawable/ic_avatar_pin"
+        android:visibility="gone"
+        android:contentDescription="Player Location" />
+
+</FrameLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Deep Outer Drop Shadow -->
+    <item
+        android:left="0dp"
+        android:right="0dp"
+        android:top="8dp"
+        android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <solid android:color="#4D000000" />
+        </shape>
+    </item>
+
+    <!-- 3D Dark Blue Bevel Base -->
+    <item
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp"
+        android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <solid android:color="#1D4ED8" />
+        </shape>
+    </item>
+
+    <!-- Main Vibrant Blue Outer Frame -->
+    <item
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp"
+        android:bottom="10dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <solid android:color="#3B82F6" />
+        </shape>
+    </item>
+
+    <!-- Inner Warm Ivory Canvas Card -->
+    <item
+        android:left="6dp"
+        android:right="6dp"
+        android:top="6dp"
+        android:bottom="16dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="24dp" />
+            <solid android:color="#FFFDF7" />
+        </shape>
+    </item>
+</layer-list>

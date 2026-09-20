@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 3D Base Drop Shadow -->
+    <item android:top="4dp">
+        <shape android:shape="oval">
+            <solid android:color="#1E1B4B" />
+        </shape>
+    </item>
+
+    <!-- Outer Violet/Cyan Rim -->
+    <item android:bottom="3dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="linear"
+                android:angle="270"
+                android:startColor="#C084FC"
+                android:endColor="#6366F1" />
+            <stroke android:width="2dp" android:color="#E0E7FF" />
+        </shape>
+    </item>
+
+    <!-- Main Glossy Deep Purple Body -->
+    <item android:top="2.5dp" android:bottom="5.5dp" android:left="2.5dp" android:right="2.5dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="linear"
+                android:angle="270"
+                android:startColor="#7C3AED"
+                android:centerColor="#5B21B6"
+                android:endColor="#312E81" />
+        </shape>
+    </item>
+
+    <!-- Top Specular Highlight Arc -->
+    <item android:top="3dp" android:bottom="28dp" android:left="8dp" android:right="8dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="linear"
+                android:angle="270"
+                android:startColor="#90FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,31 @@
+{
+  "level": 423,
+  "shots": 19,
+  "colors": [
+    "GREEN",
+    "BLUE",
+    "PURPLE",
+    "RED",
+    "ORANGE"
+  ],
+  "objective": {
+    "type": "POP_COLOR",
+    "color": "GREEN",
+    "target": 15
+  },
+  "starThresholds": [
+    5384,
+    11844,
+    20459
+  ],
+  "rows": [
+    "OOPO.PBGR",
+    ".OGGOGPP",
+    "R.BGGOOOG",
+    "PGPGP.GB",
+    "OR.P.PRPP",
+    "BPO.POPR",
+    "GBGBORGOO",
+    "OPOBPPGR"
+  ]
+}

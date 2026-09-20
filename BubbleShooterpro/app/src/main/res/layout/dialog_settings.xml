@@ -1,143 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="@dimen/dp_24"
-    android:background="@drawable/bg_card_dialog">
+    android:layout_gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/dp_16"
+    android:paddingEnd="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_12"
+    android:paddingBottom="@dimen/dp_12">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SETTINGS"
-        android:textColor="@color/accent_yellow"
-        android:textSize="@dimen/sp_26"
-        android:textStyle="bold"
-        android:shadowColor="#B0000000"
-        android:shadowDx="2"
-        android:shadowDy="3"
-        android:shadowRadius="6" />
-
-    <!-- Controls Container -->
+    <!-- Main Dialog Card Body -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_24">
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_frame"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_48"
+        android:paddingBottom="@dimen/dp_24">
 
-        <!-- Sound Control Item -->
+        <!-- Inset Controls Panel (Houses the 3 Glossy Circular Orbs: Sound, Music, Vibration) -->
         <LinearLayout
-            android:id="@+id/rowSoundSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@drawable/bg_card_profile"
-            android:paddingStart="@dimen/dp_14"
-            android:paddingEnd="@dimen/dp_14"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:clickable="true"
-            android:focusable="true">
+            android:gravity="center"
+            android:background="@drawable/bg_dialog_inset_panel"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginBottom="@dimen/dp_16">
 
-            <ImageButton
-                android:id="@+id/btnSettingSound"
-                android:layout_width="@dimen/dp_44"
-                android:layout_height="@dimen/dp_44"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_sound_green"
-                android:contentDescription="@string/sound" />
-
+            <!-- Sound Orb Item -->
             <LinearLayout
+                android:id="@+id/layoutSoundToggle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/dp_14"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageButton
+                    android:id="@+id/btnSettingSound"
+                    android:layout_width="@dimen/dp_56"
+                    android:layout_height="@dimen/dp_56"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_sound_green"
+                    android:contentDescription="@string/sound" />
 
                 <TextView
+                    android:id="@+id/tvSettingSoundLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sound Effects"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/sp_15"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvSettingSoundStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ON"
-                    android:textColor="#4ADE80"
-                    android:textSize="@dimen/sp_12"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:text="@string/sound"
+                    android:textColor="#334155"
+                    android:textSize="@dimen/sp_13"
                     android:textStyle="bold" />
             </LinearLayout>
+
+            <!-- Music Orb Item -->
+            <LinearLayout
+                android:id="@+id/layoutMusicToggle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageButton
+                    android:id="@+id/btnSettingMusic"
+                    android:layout_width="@dimen/dp_56"
+                    android:layout_height="@dimen/dp_56"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_music_green"
+                    android:contentDescription="@string/music" />
+
+                <TextView
+                    android:id="@+id/tvSettingMusicLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:text="@string/music"
+                    android:textColor="#334155"
+                    android:textSize="@dimen/sp_13"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Haptics / Vibration Orb Item -->
+            <LinearLayout
+                android:id="@+id/layoutHapticToggle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageButton
+                    android:id="@+id/btnSettingHaptic"
+                    android:layout_width="@dimen/dp_56"
+                    android:layout_height="@dimen/dp_56"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_vibration_yellow"
+                    android:contentDescription="@string/haptics" />
+
+                <TextView
+                    android:id="@+id/tvSettingHapticLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:text="@string/haptics"
+                    android:textColor="#334155"
+                    android:textSize="@dimen/sp_13"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
 
-        <!-- Haptics Control Item -->
-        <LinearLayout
-            android:id="@+id/rowHapticSetting"
-            android:layout_width="match_parent"
+        <!-- Version Footer -->
+        <TextView
+            android:id="@+id/tvAppVersion"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/bg_card_profile"
-            android:paddingStart="@dimen/dp_14"
-            android:paddingEnd="@dimen/dp_14"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="V: 2.1.0"
+            android:textColor="#94A3B8"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/btnSettingHaptic"
-                android:layout_width="@dimen/dp_44"
-                android:layout_height="@dimen/dp_44"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_vibration_yellow"
-                android:contentDescription="@string/haptics" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/dp_14"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vibration &amp; Haptics"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/sp_15"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvSettingHapticStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ON"
-                    android:textColor="#FDE047"
-                    android:textSize="@dimen/sp_12"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 
-    <!-- Close Button -->
-    <Button
-        android:id="@+id/btnCloseSettings"
-        android:layout_width="@dimen/dp_180"
-        android:layout_height="@dimen/dp_52"
-        android:background="@drawable/btn_pill_blank_green"
-        android:text="CLOSE"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_17"
-        android:textStyle="bold" />
+    <!-- Top Curved Blue Header Plaque ("Settings") -->
+    <LinearLayout
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_46"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/bg_dialog_header_plaque"
+        android:gravity="center"
+        android:elevation="@dimen/dp_4">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:shadowColor="#B0000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="4" />
+    </LinearLayout>
+
+    <!-- Top-Right Glossy Red Close Button -->
+    <ImageButton
+        android:id="@+id/btnCloseSettings"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_close_red"
+        android:elevation="@dimen/dp_6"
+        android:contentDescription="Close" />
+
+</FrameLayout>

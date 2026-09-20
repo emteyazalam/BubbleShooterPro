@@ -1,0 +1,29 @@
+{
+  "level": 489,
+  "shots": 18,
+  "colors": [
+    "BLUE",
+    "YELLOW",
+    "ORANGE",
+    "RED",
+    "PURPLE"
+  ],
+  "objective": {
+    "type": "CLEAR_ALL",
+    "target": 0
+  },
+  "starThresholds": [
+    5912,
+    13006,
+    22465
+  ],
+  "rows": [
+    "BRBPROP.Y",
+    "BP.BRBYP",
+    "BPBRP.BBO",
+    "ORRBRBRB",
+    "OOBRYPYO.",
+    "RY.YB.OR",
+    "OPOBPBRPP"
+  ]
+}

@@ -1,195 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="@dimen/dp_24"
-    android:background="@drawable/bg_card_dialog">
+    android:layout_gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/dp_16"
+    android:paddingEnd="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_12"
+    android:paddingBottom="@dimen/dp_12">
 
-    <!-- Level Header & Biome Badge -->
-    <TextView
-        android:id="@+id/tvPreviewWorld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WORLD 1 • BUBBLE MEADOWS"
-        android:textColor="@color/accent_pink"
-        android:textSize="@dimen/sp_12"
-        android:textStyle="bold"
-        android:letterSpacing="0.15" />
-
-    <TextView
-        android:id="@+id/tvPreviewLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_2"
-        android:text="LEVEL 1"
-        android:textColor="@color/accent_yellow"
-        android:textSize="@dimen/sp_28"
-        android:textStyle="bold"
-        android:shadowColor="#B0000000"
-        android:shadowDx="2"
-        android:shadowDy="3"
-        android:shadowRadius="6" />
-
-    <!-- 3 Stars Target Milestones -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_12">
-
-        <ImageView
-            android:id="@+id/ivPreviewStar1"
-            android:layout_width="@dimen/dp_32"
-            android:layout_height="@dimen/dp_32"
-            android:src="@drawable/ic_star_filled" />
-
-        <ImageView
-            android:id="@+id/ivPreviewStar2"
-            android:layout_width="@dimen/dp_38"
-            android:layout_height="@dimen/dp_38"
-            android:layout_marginStart="@dimen/dp_6"
-            android:layout_marginEnd="@dimen/dp_6"
-            android:src="@drawable/ic_star_empty" />
-
-        <ImageView
-            android:id="@+id/ivPreviewStar3"
-            android:layout_width="@dimen/dp_32"
-            android:layout_height="@dimen/dp_32"
-            android:src="@drawable/ic_star_empty" />
-    </LinearLayout>
-
-    <!-- Objective Card -->
+    <!-- Main Dialog Card Body -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_card_profile"
-        android:padding="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_16">
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_frame"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_48"
+        android:paddingBottom="@dimen/dp_24">
 
+        <!-- World / Biome Subtitle -->
         <TextView
+            android:id="@+id/tvPreviewWorld"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TARGET OBJECTIVE"
-            android:textColor="#94A3B8"
-            android:textSize="@dimen/sp_10"
+            android:text="WORLD 1 • BUBBLE MEADOWS"
+            android:textColor="#3B82F6"
+            android:textSize="@dimen/sp_12"
             android:textStyle="bold"
             android:letterSpacing="0.1" />
 
-        <TextView
-            android:id="@+id/tvPreviewObjective"
+        <!-- 3 Stars Target Milestones -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_2"
-            android:text="Pop all bubbles on the board!"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_12">
+
+            <ImageView
+                android:id="@+id/ivPreviewStar1"
+                android:layout_width="@dimen/dp_36"
+                android:layout_height="@dimen/dp_36"
+                android:src="@drawable/ic_star_filled"
+                android:contentDescription="Star 1" />
+
+            <ImageView
+                android:id="@+id/ivPreviewStar2"
+                android:layout_width="@dimen/dp_44"
+                android:layout_height="@dimen/dp_44"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:src="@drawable/ic_star_empty"
+                android:contentDescription="Star 2" />
+
+            <ImageView
+                android:id="@+id/ivPreviewStar3"
+                android:layout_width="@dimen/dp_36"
+                android:layout_height="@dimen/dp_36"
+                android:src="@drawable/ic_star_empty"
+                android:contentDescription="Star 3" />
+        </LinearLayout>
+
+        <!-- Objective Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_dialog_inset_panel"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_14">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TARGET OBJECTIVE"
+                android:textColor="#64748B"
+                android:textSize="@dimen/sp_10"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <TextView
+                android:id="@+id/tvPreviewObjective"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="Pop all bubbles on the board!"
+                android:textColor="#1E293B"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Pre-game Boosters Selection -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SELECT BOOSTERS"
+            android:textColor="#64748B"
+            android:textSize="@dimen/sp_11"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="@dimen/dp_8" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dp_18">
+
+            <!-- Rainbow Booster Toggle -->
+            <FrameLayout
+                android:id="@+id/btnToggleBoosterRainbow"
+                android:layout_width="@dimen/dp_52"
+                android:layout_height="@dimen/dp_52"
+                android:background="@drawable/btn_orb_blank_yellow"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_34"
+                    android:layout_height="@dimen/dp_34"
+                    android:layout_gravity="center"
+                    android:src="@drawable/rainbow_bubble"
+                    android:contentDescription="Rainbow Booster" />
+            </FrameLayout>
+
+            <!-- Fireball Booster Toggle -->
+            <FrameLayout
+                android:id="@+id/btnToggleBoosterFireball"
+                android:layout_width="@dimen/dp_52"
+                android:layout_height="@dimen/dp_52"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@drawable/btn_orb_blank_orange"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_34"
+                    android:layout_height="@dimen/dp_34"
+                    android:layout_gravity="center"
+                    android:src="@drawable/fireball_bubble"
+                    android:contentDescription="Fireball Booster" />
+            </FrameLayout>
+
+            <!-- Lightning Booster Toggle -->
+            <FrameLayout
+                android:id="@+id/btnToggleBoosterLightning"
+                android:layout_width="@dimen/dp_52"
+                android:layout_height="@dimen/dp_52"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@drawable/btn_orb_blank_blue"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_34"
+                    android:layout_height="@dimen/dp_34"
+                    android:layout_gravity="center"
+                    android:src="@drawable/lightning_bubble"
+                    android:contentDescription="Lightning Booster" />
+            </FrameLayout>
+
+            <!-- Bomb Booster Toggle -->
+            <FrameLayout
+                android:id="@+id/btnToggleBoosterBomb"
+                android:layout_width="@dimen/dp_52"
+                android:layout_height="@dimen/dp_52"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@drawable/btn_orb_blank_red"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_34"
+                    android:layout_height="@dimen/dp_34"
+                    android:layout_gravity="center"
+                    android:src="@drawable/bomb_bubble"
+                    android:contentDescription="Bomb Booster" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Big Glossy Green Start Button -->
+        <Button
+            android:id="@+id/btnStartLevel"
+            android:layout_width="@dimen/dp_220"
+            android:layout_height="@dimen/dp_56"
+            android:background="@drawable/btn_pill_blank_green"
+            android:text="@string/play"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:letterSpacing="0.04"
+            android:shadowColor="#80000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="3" />
+
     </LinearLayout>
 
-    <!-- Pre-game Boosters Selection -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SELECT BOOSTERS"
-        android:textColor="#94A3B8"
-        android:textSize="@dimen/sp_10"
-        android:textStyle="bold"
-        android:letterSpacing="0.1"
-        android:layout_marginTop="@dimen/dp_16" />
-
+    <!-- Top Curved Blue Header Plaque ("Level X") -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_46"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/bg_dialog_header_plaque"
         android:gravity="center"
-        android:layout_marginTop="@dimen/dp_8">
+        android:elevation="@dimen/dp_4">
 
-        <!-- Rainbow Booster Toggle -->
-        <FrameLayout
-            android:id="@+id/btnToggleBoosterRainbow"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:background="@drawable/btn_orb_blank_yellow">
-
-            <ImageView
-                android:layout_width="@dimen/dp_34"
-                android:layout_height="@dimen/dp_34"
-                android:layout_gravity="center"
-                android:src="@drawable/rainbow_bubble" />
-        </FrameLayout>
-
-        <!-- Fireball Booster Toggle -->
-        <FrameLayout
-            android:id="@+id/btnToggleBoosterFireball"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginStart="@dimen/dp_10"
-            android:background="@drawable/btn_orb_blank_orange">
-
-            <ImageView
-                android:layout_width="@dimen/dp_34"
-                android:layout_height="@dimen/dp_34"
-                android:layout_gravity="center"
-                android:src="@drawable/fireball_bubble" />
-        </FrameLayout>
-
-        <!-- Lightning Booster Toggle -->
-        <FrameLayout
-            android:id="@+id/btnToggleBoosterLightning"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginStart="@dimen/dp_10"
-            android:background="@drawable/btn_orb_blank_blue">
-
-            <ImageView
-                android:layout_width="@dimen/dp_34"
-                android:layout_height="@dimen/dp_34"
-                android:layout_gravity="center"
-                android:src="@drawable/lightning_bubble" />
-        </FrameLayout>
-
-        <!-- Bomb Booster Toggle -->
-        <FrameLayout
-            android:id="@+id/btnToggleBoosterBomb"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginStart="@dimen/dp_10"
-            android:background="@drawable/btn_orb_blank_red">
-
-            <ImageView
-                android:layout_width="@dimen/dp_34"
-                android:layout_height="@dimen/dp_34"
-                android:layout_gravity="center"
-                android:src="@drawable/bomb_bubble" />
-        </FrameLayout>
+        <TextView
+            android:id="@+id/tvPreviewLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LEVEL 1"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:shadowColor="#B0000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="4" />
     </LinearLayout>
 
-    <!-- Start Button -->
-    <Button
-        android:id="@+id/btnStartLevel"
-        android:layout_width="@dimen/dp_220"
-        android:layout_height="@dimen/dp_56"
-        android:layout_marginTop="@dimen/dp_20"
-        android:background="@drawable/btn_pill_blank_green"
-        android:text="▶ START LEVEL"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_18"
-        android:textStyle="bold" />
-
-    <!-- Close Button -->
-    <Button
+    <!-- Top-Right Glossy Red Close Button -->
+    <ImageButton
         android:id="@+id/btnClosePreview"
-        android:layout_width="@dimen/dp_160"
-        android:layout_height="@dimen/dp_42"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_4"
         android:background="@android:color/transparent"
-        android:text="Close"
-        android:textColor="#94A3B8"
-        android:textSize="@dimen/sp_14" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_close_red"
+        android:elevation="@dimen/dp_6"
+        android:contentDescription="Close" />
 
-</LinearLayout>
+</FrameLayout>

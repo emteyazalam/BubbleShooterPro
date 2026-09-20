@@ -16,11 +16,11 @@
   ],
   "rows": [
     "RRR...BBB",
-    "RR.TTT.BB",
+    "RR.TTT.B",
     "GGGTTTGGG",
-    "GG...GG",
-    "RRRRRRR",
-    "RRRRRR"
+    "GG...GG.",
+    "RRRRRRR..",
+    "RRRRRR.."
   ],
   "level": 7
 }

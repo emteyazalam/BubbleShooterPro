@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/dp_16"
+    android:paddingEnd="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_12"
+    android:paddingBottom="@dimen/dp_12">
+
+    <!-- Main Dialog Card Body -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_frame"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_52"
+        android:paddingBottom="@dimen/dp_28">
+
+        <!-- Chest Graphic -->
+        <ImageView
+            android:id="@+id/ivChestArt"
+            android:layout_width="@dimen/dp_130"
+            android:layout_height="@dimen/dp_130"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_star_chest_gold"
+            android:contentDescription="Star Chest" />
+
+        <!-- Star Progress Bar Container -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:background="@drawable/bg_star_progress_track">
+
+            <!-- Progress Text -->
+            <TextView
+                android:id="@+id/tvChestProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="3 / 20"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                android:shadowColor="#B0000000"
+                android:shadowDx="1"
+                android:shadowDy="2"
+                android:shadowRadius="3" />
+
+            <!-- Left Star Icon -->
+            <ImageView
+                android:layout_width="@dimen/dp_28"
+                android:layout_height="@dimen/dp_28"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="@dimen/dp_2"
+                android:src="@drawable/ic_star_filled"
+                android:contentDescription="Star" />
+        </FrameLayout>
+
+        <!-- Description Subtitle -->
+        <TextView
+            android:id="@+id/tvChestSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Collect 20 stars from levels\nto open!"
+            android:textAlignment="center"
+            android:textColor="#92400E"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dp_20" />
+
+        <!-- Big Glossy Green OK Button -->
+        <Button
+            android:id="@+id/btnChestOk"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_54"
+            android:background="@drawable/btn_pill_blank_green"
+            android:text="OK"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:letterSpacing="0.04"
+            android:shadowColor="#80000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="3" />
+
+    </LinearLayout>
+
+    <!-- Top Curved Blue Header Plaque ("Star Chest") -->
+    <LinearLayout
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_46"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/bg_dialog_header_plaque"
+        android:gravity="center"
+        android:elevation="@dimen/dp_4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Star Chest"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:shadowColor="#B0000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="4" />
+    </LinearLayout>
+
+    <!-- Top-Right Glossy Red Close Button -->
+    <ImageButton
+        android:id="@+id/btnCloseChest"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_close_red"
+        android:elevation="@dimen/dp_6"
+        android:contentDescription="Close" />
+
+</FrameLayout>

@@ -5,9 +5,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.view.Window;
 import androidx.annotation.NonNull;
 import com.redcodersgroup.bubbleshooter.R;
+import com.redcodersgroup.bubbleshooter.audio.MusicManager;
 import com.redcodersgroup.bubbleshooter.audio.SoundManager;
 import com.redcodersgroup.bubbleshooter.data.PreferencesManager;
 import com.redcodersgroup.bubbleshooter.databinding.DialogSettingsBinding;
@@ -34,15 +36,23 @@ public class SettingsDialog extends Dialog {
 
         if (getWindow() != null) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            getWindow().setLayout(
+                    (int) (getContext().getResources().getDisplayMetrics().widthPixels * 0.90),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
         }
 
         updateSoundUI();
+        updateMusicUI();
         updateHapticUI();
 
-        binding.rowSoundSetting.setOnClickListener(v -> toggleSound());
+        binding.layoutSoundToggle.setOnClickListener(v -> toggleSound());
         binding.btnSettingSound.setOnClickListener(v -> toggleSound());
 
-        binding.rowHapticSetting.setOnClickListener(v -> toggleHaptics());
+        binding.layoutMusicToggle.setOnClickListener(v -> toggleMusic());
+        binding.btnSettingMusic.setOnClickListener(v -> toggleMusic());
+
+        binding.layoutHapticToggle.setOnClickListener(v -> toggleHaptics());
         binding.btnSettingHaptic.setOnClickListener(v -> toggleHaptics());
 
         binding.btnCloseSettings.setOnClickListener(v -> {
@@ -58,6 +68,15 @@ public class SettingsDialog extends Dialog {
         updateSoundUI();
     }
 
+    private void toggleMusic() {
+        boolean current = prefs.isMusicEnabled();
+        boolean newVal = !current;
+        prefs.setMusicEnabled(newVal);
+        MusicManager.getInstance(getContext()).setMusicEnabled(newVal);
+        soundManager.playClick();
+        updateMusicUI();
+    }
+
     private void toggleHaptics() {
         boolean current = prefs.isHapticEnabled();
         prefs.setHapticEnabled(!current);
@@ -69,13 +88,19 @@ public class SettingsDialog extends Dialog {
         if (prefs.isSoundEnabled()) {
             binding.btnSettingSound.setImageResource(R.drawable.btn_sound_green);
             binding.btnSettingSound.setAlpha(1.0f);
-            binding.tvSettingSoundStatus.setText("ON");
-            binding.tvSettingSoundStatus.setTextColor(Color.parseColor("#4ADE80"));
         } else {
             binding.btnSettingSound.setImageResource(R.drawable.btn_sound_gray);
             binding.btnSettingSound.setAlpha(0.65f);
-            binding.tvSettingSoundStatus.setText("OFF");
-            binding.tvSettingSoundStatus.setTextColor(Color.parseColor("#94A3B8"));
+        }
+    }
+
+    private void updateMusicUI() {
+        if (prefs.isMusicEnabled()) {
+            binding.btnSettingMusic.setImageResource(R.drawable.btn_music_green);
+            binding.btnSettingMusic.setAlpha(1.0f);
+        } else {
+            binding.btnSettingMusic.setImageResource(R.drawable.btn_music_gray);
+            binding.btnSettingMusic.setAlpha(0.65f);
         }
     }
 
@@ -83,13 +108,9 @@ public class SettingsDialog extends Dialog {
         if (prefs.isHapticEnabled()) {
             binding.btnSettingHaptic.setImageResource(R.drawable.btn_vibration_yellow);
             binding.btnSettingHaptic.setAlpha(1.0f);
-            binding.tvSettingHapticStatus.setText("ON");
-            binding.tvSettingHapticStatus.setTextColor(Color.parseColor("#FDE047"));
         } else {
             binding.btnSettingHaptic.setImageResource(R.drawable.btn_vibration_gray);
             binding.btnSettingHaptic.setAlpha(0.65f);
-            binding.tvSettingHapticStatus.setText("OFF");
-            binding.tvSettingHapticStatus.setTextColor(Color.parseColor("#94A3B8"));
         }
     }
 }

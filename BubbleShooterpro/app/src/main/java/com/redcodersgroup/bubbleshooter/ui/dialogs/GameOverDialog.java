@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.view.Window;
 import androidx.annotation.NonNull;
 import com.redcodersgroup.bubbleshooter.databinding.DialogGameOverBinding;
@@ -50,21 +51,27 @@ public class GameOverDialog extends Dialog {
 
         if (getWindow() != null) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            getWindow().setLayout(
+                    (int) (getContext().getResources().getDisplayMetrics().widthPixels * 0.90),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
         }
 
-        if (binding.tvLoseSubtitle != null) {
-            if (isEndless && score > highScore && highScore > 0) {
-                binding.tvLoseSubtitle.setText("🎉 NEW BEST HIGH SCORE! 🎉");
-            } else if (reason != null && !reason.isEmpty()) {
-                binding.tvLoseSubtitle.setText(reason);
-            }
+        if (isEndless && score > highScore && highScore > 0) {
+            binding.tvLoseSubtitle.setText("🎉 NEW BEST HIGH SCORE! 🎉");
+            binding.tvLoseSubtitle.setTextColor(Color.parseColor("#16A34A"));
+        } else if (reason != null && !reason.isEmpty()) {
+            binding.tvLoseSubtitle.setText(reason);
         }
 
-        if (isEndless) {
-            int displayBest = Math.max(score, highScore);
-            binding.tvLoseScore.setText("SCORE: " + String.format("%,d", score) + "\nBEST: " + String.format("%,d", displayBest));
+        binding.tvLoseScore.setText(String.format(java.util.Locale.getDefault(), "%,d", score));
+
+        int displayBest = Math.max(score, highScore);
+        if (displayBest > 0) {
+            binding.tvLoseBestScore.setVisibility(android.view.View.VISIBLE);
+            binding.tvLoseBestScore.setText("BEST: " + String.format(java.util.Locale.getDefault(), "%,d", displayBest));
         } else {
-            binding.tvLoseScore.setText("FINAL SCORE: " + String.format("%,d", score));
+            binding.tvLoseBestScore.setVisibility(android.view.View.GONE);
         }
 
         binding.btnLoseRetry.setOnClickListener(v -> {
@@ -73,6 +80,11 @@ public class GameOverDialog extends Dialog {
         });
 
         binding.btnLoseHome.setOnClickListener(v -> {
+            dismiss();
+            if (listener != null) listener.onHomeClicked();
+        });
+
+        binding.btnCloseLose.setOnClickListener(v -> {
             dismiss();
             if (listener != null) listener.onHomeClicked();
         });

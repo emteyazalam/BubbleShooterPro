@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
@@ -58,10 +59,14 @@ public class VictoryDialog extends Dialog {
 
         if (getWindow() != null) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            getWindow().setLayout(
+                    (int) (getContext().getResources().getDisplayMetrics().widthPixels * 0.90),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
         }
 
-        binding.tvWinScore.setText("SCORE: " + String.format(java.util.Locale.getDefault(), "%,d", score));
-        binding.tvWinHighScore.setText("HIGH SCORE: " + String.format(java.util.Locale.getDefault(), "%,d", highScore));
+        binding.tvWinScore.setText(String.format(java.util.Locale.getDefault(), "%,d", score));
+        binding.tvWinHighScore.setText("HIGH SCORE: " + String.format(java.util.Locale.getDefault(), "%,d", Math.max(score, highScore)));
         binding.tvWinObjectiveSummary.setText(objectiveSummary);
 
         if (shotsRemaining > 0 && shotBonus > 0) {

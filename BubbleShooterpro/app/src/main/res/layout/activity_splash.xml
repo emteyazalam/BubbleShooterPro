@@ -1,50 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_dark">
+    android:layout_height="match_parent">
 
-    <!-- Cinematic Bubble Shoot & Scatter Animation View -->
-    <com.redcodersgroup.bubbleshooter.ui.splash.SplashAnimationView
-        android:id="@+id/splashAnimationView"
+    <!-- 1. Magical Fantasy World Splash Background -->
+    <ImageView
+        android:id="@+id/ivSplashBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_splash_screen"
+        android:scaleType="centerCrop"
+        android:contentDescription="Splash Background" />
+
+    <!-- 2. Ambient Translucent Floating Bubbles & Twinkling Stars -->
+    <com.redcodersgroup.bubbleshooter.ui.splash.SplashFloatingBubblesView
+        android:id="@+id/splashBubblesView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Small Branding at the Bottom -->
+    <!-- 3. Vignette Overlay for Readability -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1A000000" />
+
+    <!-- 4. Content Container -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="@dimen/dp_28"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center_horizontal"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="POWERED BY"
-            android:textColor="#80FFFFFF"
-            android:textSize="@dimen/sp_10"
-            android:textStyle="bold"
-            android:letterSpacing="0.25" />
+        <!-- Top Spacer (Pushes logo to upper third) -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2" />
 
+        <!-- 3D BUBBLE SHOOTER PRO Game Logo -->
+        <ImageView
+            android:id="@+id/ivGameLogo"
+            android:layout_width="320dp"
+            android:layout_height="170dp"
+            android:src="@drawable/logo_bubble_shooter_pro"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:contentDescription="Bubble Shooter Pro Logo" />
+
+
+
+        <!-- Middle Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0" />
+
+        <!-- Loading Section -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/dp_2">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
 
-            <!-- Red Dot Brand Accent -->
+            <!-- Dynamic Loading Hint -->
+            <TextView
+                android:id="@+id/tvLoadingHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Loading Magical Worlds..."
+                android:textColor="#FFFDF0"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:shadowColor="#CC000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="4" />
+
+            <!-- 3D Candy Progress Bar Container -->
+            <FrameLayout
+                android:id="@+id/layoutProgressTrack"
+                android:layout_width="260dp"
+                android:layout_height="22dp"
+                android:background="@drawable/bg_splash_progress_track">
+
+                <!-- Animated Progress Fill -->
+                <View
+                    android:id="@+id/viewProgressFill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_splash_progress_fill" />
+
+                <!-- Percentage Text -->
+                <TextView
+                    android:id="@+id/tvProgressPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0%"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#B0000000"
+                    android:shadowDx="0"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- Bottom Studio Branding -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="28dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RED CODERS GROUP"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/sp_13"
+                android:text="POWERED BY"
+                android:textColor="#D0E8FF"
+                android:textSize="10sp"
                 android:textStyle="bold"
-                android:letterSpacing="0.15" />
+                android:letterSpacing="0.25"
+                android:shadowColor="#80000000"
+                android:shadowDx="0"
+                android:shadowDy="1"
+                android:shadowRadius="2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="✦ RED CODERS GROUP ✦"
+                android:textColor="#FFD54F"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15"
+                android:shadowColor="#99000000"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="3" />
         </LinearLayout>
 
     </LinearLayout>

@@ -1,0 +1,29 @@
+{
+  "level": 394,
+  "shots": 18,
+  "colors": [
+    "YELLOW",
+    "ORANGE",
+    "PURPLE",
+    "RED",
+    "BLUE"
+  ],
+  "objective": {
+    "type": "SCORE_TARGET",
+    "target": 10268
+  },
+  "starThresholds": [
+    5152,
+    11334,
+    19577
+  ],
+  "rows": [
+    "OBRRP.ROB",
+    "YPO.BOPB",
+    "..BYYBROB",
+    "BOPBRO.O",
+    "POR..RYBB",
+    "RBRRRORO",
+    "BYROPYR.P"
+  ]
+}

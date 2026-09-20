@@ -1,0 +1,28 @@
+{
+  "level": 403,
+  "shots": 14,
+  "colors": [
+    "ORANGE",
+    "PURPLE",
+    "RED",
+    "BLUE",
+    "GREEN"
+  ],
+  "objective": {
+    "type": "DROP_COUNT",
+    "target": 14
+  },
+  "starThresholds": [
+    5224,
+    11492,
+    19851
+  ],
+  "rows": [
+    "BRBRBPORO",
+    "PBPGP.BG",
+    "OPPRGBBO.",
+    "RRBOB..G",
+    "RPPPGBPOP",
+    "BG.OB..."
+  ]
+}

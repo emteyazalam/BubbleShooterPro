@@ -1,4 +1,5 @@
 {
+  "level": 1,
   "shots": 16,
   "colors": [
     "RED",
@@ -21,6 +22,5 @@
     "BRRRRRRB",
     ".YRRRRRY.",
     ".YBYYBY."
-  ],
-  "level": 1
+  ]
 }

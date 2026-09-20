@@ -1,154 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="@dimen/dp_24"
-    android:background="@drawable/bg_card_dialog">
+    android:layout_gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/dp_16"
+    android:paddingEnd="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_32"
+    android:paddingBottom="@dimen/dp_12">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/level_complete"
-        android:textColor="@color/accent_yellow"
-        android:textSize="@dimen/sp_26"
-        android:textStyle="bold"
-        android:shadowColor="#B0000000"
-        android:shadowDx="2"
-        android:shadowDy="3"
-        android:shadowRadius="6" />
-
-    <TextView
-        android:id="@+id/tvWinObjectiveSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
-        android:text="✓ All bubbles cleared!"
-        android:textColor="#E0F7FA"
-        android:textSize="@dimen/sp_14"
-        android:textStyle="bold" />
-
-    <!-- 3 Big Victory Stars -->
+    <!-- Main Dialog Card Body -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_16">
-
-        <ImageView
-            android:id="@+id/ivWinStar1"
-            android:layout_width="@dimen/dp_54"
-            android:layout_height="@dimen/dp_54"
-            android:src="@drawable/ic_star_empty" />
-
-        <ImageView
-            android:id="@+id/ivWinStar2"
-            android:layout_width="@dimen/dp_68"
-            android:layout_height="@dimen/dp_68"
-            android:layout_marginStart="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:src="@drawable/ic_star_empty" />
-
-        <ImageView
-            android:id="@+id/ivWinStar3"
-            android:layout_width="@dimen/dp_54"
-            android:layout_height="@dimen/dp_54"
-            android:src="@drawable/ic_star_empty" />
-    </LinearLayout>
-
-    <!-- Shots Left Bonus Breakdown Card -->
-    <LinearLayout
-        android:id="@+id/layoutWinShotsBonus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_badge_objective"
-        android:layout_marginTop="@dimen/dp_2"
-        android:layout_marginBottom="@dimen/dp_12"
-        android:paddingStart="@dimen/dp_14"
-        android:paddingEnd="@dimen/dp_14"
-        android:paddingTop="@dimen/dp_7"
-        android:paddingBottom="@dimen/dp_7">
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_frame"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_56"
+        android:paddingBottom="@dimen/dp_24">
 
+        <!-- Objective Summary Subtitle -->
         <TextView
-            android:id="@+id/tvWinShotsBonusTitle"
+            android:id="@+id/tvWinObjectiveSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🎯 REMAINING SHOTS BONUS"
-            android:textColor="#FFD54F"
-            android:textSize="@dimen/sp_12"
-            android:textStyle="bold"
-            android:letterSpacing="0.04" />
-
-        <TextView
-            android:id="@+id/tvWinShotsBonusCalculation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_2"
-            android:text="+1,200 Bonus (12 Shots Left × 100 pts)"
-            android:textColor="#FFFFFF"
+            android:text="✓ All bubbles cleared!"
+            android:textColor="#16A34A"
             android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dp_12" />
+
+        <!-- Inset Score Panel -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_dialog_inset_panel"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_14"
+            android:paddingBottom="@dimen/dp_14"
+            android:layout_marginBottom="@dimen/dp_12">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/score"
+                android:textColor="#64748B"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <TextView
+                android:id="@+id/tvWinScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="3,450"
+                android:textColor="#D97706"
+                android:textSize="@dimen/sp_32"
+                android:textStyle="bold"
+                android:shadowColor="#30000000"
+                android:shadowDx="1"
+                android:shadowDy="2"
+                android:shadowRadius="3" />
+
+            <TextView
+                android:id="@+id/tvWinHighScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="HIGH SCORE: 3,450"
+                android:textColor="#94A3B8"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Shots Left Bonus Breakdown Card -->
+        <LinearLayout
+            android:id="@+id/layoutWinShotsBonus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_objective"
+            android:paddingStart="@dimen/dp_14"
+            android:paddingEnd="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_18">
+
+            <TextView
+                android:id="@+id/tvWinShotsBonusTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎯 REMAINING SHOTS BONUS"
+                android:textColor="#FFD54F"
+                android:textSize="@dimen/sp_11"
+                android:textStyle="bold"
+                android:letterSpacing="0.04" />
+
+            <TextView
+                android:id="@+id/tvWinShotsBonusCalculation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="+1,200 Bonus (12 Shots Left × 100 pts)"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Action Buttons Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_4">
+
+            <!-- Home Orb Button -->
+            <ImageButton
+                android:id="@+id/btnWinHome"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_home_yellow"
+                android:contentDescription="@string/home" />
+
+            <!-- Restart / Replay Orb Button -->
+            <ImageButton
+                android:id="@+id/btnWinRestart"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginStart="@dimen/dp_12"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_restart_yellow"
+                android:contentDescription="@string/restart" />
+
+            <!-- Big Glossy Green Next Button -->
+            <Button
+                android:id="@+id/btnWinNext"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_56"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/dp_14"
+                android:background="@drawable/btn_pill_blank_green"
+                android:text="@string/next_level"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/sp_17"
+                android:textStyle="bold"
+                android:letterSpacing="0.03"
+                android:shadowColor="#80000000"
+                android:shadowDx="1"
+                android:shadowDy="2"
+                android:shadowRadius="3" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvWinScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SCORE: 3,450"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_22"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvWinHighScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
-        android:text="HIGH SCORE: 3,450"
-        android:textColor="#A0E0E0E0"
-        android:textSize="@dimen/sp_14" />
-
-    <!-- Buttons: Next Level, Replay, Home -->
+    <!-- Top Floating Stars & Ribbon Banner Container -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_24">
+        android:layout_gravity="top|center_horizontal"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:clipChildren="false"
+        android:elevation="@dimen/dp_6">
 
-        <ImageButton
-            android:id="@+id/btnWinHome"
-            android:layout_width="@dimen/dp_58"
-            android:layout_height="@dimen/dp_58"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_home_yellow"
-            android:contentDescription="Home" />
+        <!-- 3 Big Victory Stars Floating on Top -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:clipChildren="false"
+            android:layout_marginBottom="-12dp">
 
-        <ImageButton
-            android:id="@+id/btnWinRestart"
-            android:layout_width="@dimen/dp_58"
-            android:layout_height="@dimen/dp_58"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_restart_yellow"
-            android:contentDescription="Replay" />
+            <ImageView
+                android:id="@+id/ivWinStar1"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:src="@drawable/ic_star_empty"
+                android:contentDescription="Star 1" />
 
-        <ImageButton
-            android:id="@+id/btnWinNext"
-            android:layout_width="@dimen/dp_72"
-            android:layout_height="@dimen/dp_72"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_play_green"
-            android:contentDescription="Next Level" />
+            <ImageView
+                android:id="@+id/ivWinStar2"
+                android:layout_width="@dimen/dp_64"
+                android:layout_height="@dimen/dp_64"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:src="@drawable/ic_star_empty"
+                android:contentDescription="Star 2" />
+
+            <ImageView
+                android:id="@+id/ivWinStar3"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:src="@drawable/ic_star_empty"
+                android:contentDescription="Star 3" />
+        </LinearLayout>
+
+        <!-- Blue Ribbon Plaque -->
+        <LinearLayout
+            android:layout_width="@dimen/dp_220"
+            android:layout_height="@dimen/dp_46"
+            android:background="@drawable/bg_dialog_header_plaque"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvWinLevelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/level_complete"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                android:shadowColor="#B0000000"
+                android:shadowDx="1"
+                android:shadowDy="2"
+                android:shadowRadius="4" />
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

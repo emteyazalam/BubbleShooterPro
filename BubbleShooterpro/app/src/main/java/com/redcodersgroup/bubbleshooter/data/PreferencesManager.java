@@ -122,6 +122,14 @@ public class PreferencesManager {
         }
     }
 
+    public boolean hasClaimedWorldGift(int world, int giftIndex) {
+        return prefs.getBoolean("world_gift_" + world + "_" + giftIndex, false);
+    }
+
+    public void setClaimedWorldGift(int world, int giftIndex, boolean claimed) {
+        prefs.edit().putBoolean("world_gift_" + world + "_" + giftIndex, claimed).apply();
+    }
+
     public void resetProgress() {
         prefs.edit().clear().apply();
     }

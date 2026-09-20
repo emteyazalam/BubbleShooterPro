@@ -1,0 +1,29 @@
+{
+  "level": 415,
+  "shots": 14,
+  "colors": [
+    "BLUE",
+    "ORANGE",
+    "GREEN",
+    "YELLOW",
+    "PURPLE"
+  ],
+  "objective": {
+    "type": "SCORE_TARGET",
+    "target": 10663
+  },
+  "starThresholds": [
+    5320,
+    11704,
+    20216
+  ],
+  "rows": [
+    "GYY.OGGYB",
+    "Y..PPOYY",
+    "YPYOGYOPG",
+    "OO...O.B",
+    "BOGOPYBOP",
+    "BP..O.GO",
+    "YY.BYGYOO"
+  ]
+}

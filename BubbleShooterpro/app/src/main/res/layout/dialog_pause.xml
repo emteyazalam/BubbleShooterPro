@@ -1,98 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="@dimen/dp_24"
-    android:background="@drawable/bg_card_dialog">
+    android:layout_gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/dp_16"
+    android:paddingEnd="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_12"
+    android:paddingBottom="@dimen/dp_12">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/paused"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_26"
-        android:textStyle="bold"
-        android:shadowColor="#B0000000"
-        android:shadowDx="2"
-        android:shadowDy="3"
-        android:shadowRadius="6" />
-
-    <!-- Top Horizontal Row: Sound, Haptic, Home -->
+    <!-- Main Dialog Card Body -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_20">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_dialog_frame"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_48"
+        android:paddingBottom="@dimen/dp_28">
 
-        <ImageButton
-            android:id="@+id/btnToggleSound"
-            android:layout_width="@dimen/dp_54"
-            android:layout_height="@dimen/dp_54"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_sound_green"
-            android:contentDescription="@string/sound" />
+        <!-- Inset Controls Panel (Houses the 3 Glossy Circular Orbs) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/bg_dialog_inset_panel"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_18"
+            android:paddingBottom="@dimen/dp_18"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_20">
 
-        <ImageButton
-            android:id="@+id/btnToggleHaptic"
-            android:layout_width="@dimen/dp_54"
-            android:layout_height="@dimen/dp_54"
-            android:layout_marginStart="@dimen/dp_16"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_vibration_yellow"
-            android:contentDescription="@string/haptics" />
+            <!-- Restart Orb -->
+            <ImageButton
+                android:id="@+id/btnRestart"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_restart_yellow"
+                android:contentDescription="@string/restart" />
 
-        <ImageButton
-            android:id="@+id/btnHome"
-            android:layout_width="@dimen/dp_54"
-            android:layout_height="@dimen/dp_54"
-            android:layout_marginStart="@dimen/dp_16"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_home_yellow"
-            android:contentDescription="@string/home" />
+            <!-- Home Orb -->
+            <ImageButton
+                android:id="@+id/btnHome"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginStart="@dimen/dp_12"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_home_yellow"
+                android:contentDescription="@string/home" />
+
+            <!-- Levels / Map Orb -->
+            <ImageButton
+                android:id="@+id/btnLevels"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginStart="@dimen/dp_12"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_grid_yellow"
+                android:contentDescription="@string/levels" />
+
+            <!-- Settings Orb -->
+            <ImageButton
+                android:id="@+id/btnSettings"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginStart="@dimen/dp_12"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_settings_yellow"
+                android:contentDescription="@string/settings" />
+        </LinearLayout>
+
+        <!-- Big Glossy Green Resume Button -->
+        <Button
+            android:id="@+id/btnResume"
+            android:layout_width="@dimen/dp_220"
+            android:layout_height="@dimen/dp_56"
+            android:background="@drawable/btn_pill_blank_green"
+            android:text="@string/resume"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:shadowColor="#80000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="3" />
+
     </LinearLayout>
 
-    <!-- Vertical Buttons in top-to-down order: Levels, Restart, Resume -->
-
-    <!-- 1. Levels Button (Top) -->
-    <Button
-        android:id="@+id/btnLevels"
+    <!-- Top Curved Blue Header Plaque ("Paused") -->
+    <LinearLayout
         android:layout_width="@dimen/dp_200"
-        android:layout_height="@dimen/dp_54"
-        android:background="@drawable/btn_pill_blank_blue"
-        android:text="@string/levels"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_18"
-        android:textStyle="bold" />
+        android:layout_height="@dimen/dp_46"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/bg_dialog_header_plaque"
+        android:gravity="center"
+        android:elevation="@dimen/dp_4">
 
-    <!-- 2. Restart Button (Middle) -->
-    <Button
-        android:id="@+id/btnRestart"
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="@dimen/dp_54"
-        android:layout_marginTop="@dimen/dp_12"
-        android:background="@drawable/btn_pill_blank_yellow"
-        android:text="@string/restart"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_18"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvPauseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paused"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:shadowColor="#B0000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="4" />
+    </LinearLayout>
 
-    <!-- 3. Resume Button (Bottom) -->
-    <Button
-        android:id="@+id/btnResume"
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="@dimen/dp_54"
-        android:layout_marginTop="@dimen/dp_12"
-        android:background="@drawable/btn_pill_blank_green"
-        android:text="@string/resume"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_18"
-        android:textStyle="bold" />
+    <!-- Top-Right Glossy Red Close Button -->
+    <ImageButton
+        android:id="@+id/btnClosePause"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_close_red"
+        android:elevation="@dimen/dp_6"
+        android:contentDescription="Close" />
 
-</LinearLayout>
+</FrameLayout>

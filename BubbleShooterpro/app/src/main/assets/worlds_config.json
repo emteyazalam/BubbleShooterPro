@@ -1,0 +1,3828 @@
+{
+  "description": "Bubble Shooter Pro - World Map & Level Configurations",
+  "version": 4,
+  "worlds": [
+    {
+      "worldNumber": 1,
+      "name": "Bubble Meadows",
+      "subtitle": "WORLD 1 \u2022 BUBBLE MEADOWS",
+      "mapBackground": "bg_map_world_1",
+      "gameBackground": "bg_game_world_1",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 1,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 2,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 3,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 4,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 5,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 6,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 7,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 8,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 9,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 10,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Viaduct Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 100
+        },
+        {
+          "giftIndex": 2,
+          "name": "Castle Gate Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 200
+        }
+      ]
+    },
+    {
+      "worldNumber": 2,
+      "name": "Whispering Woods",
+      "subtitle": "WORLD 2 \u2022 WHISPERING WOODS",
+      "mapBackground": "bg_map_world_2",
+      "gameBackground": "bg_game_world_2",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 11,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 12,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 13,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 14,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 15,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 16,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 17,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 18,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 19,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 20,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Lantern Bridge Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 150
+        },
+        {
+          "giftIndex": 2,
+          "name": "Moonlit Peak Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 300
+        }
+      ]
+    },
+    {
+      "worldNumber": 3,
+      "name": "Sakura Blossom Valley",
+      "subtitle": "WORLD 3 \u2022 SAKURA BLOSSOM VALLEY",
+      "mapBackground": "bg_map_world_3",
+      "gameBackground": "bg_game_world_3",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 21,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 22,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 23,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 24,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 25,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 26,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 27,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 28,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 29,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 30,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Torii Gate Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 200
+        },
+        {
+          "giftIndex": 2,
+          "name": "Cherry Summit Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 400
+        }
+      ]
+    },
+    {
+      "worldNumber": 4,
+      "name": "Lavender Mist",
+      "subtitle": "WORLD 4 \u2022 LAVENDER MIST",
+      "mapBackground": "bg_map_world_4",
+      "gameBackground": "bg_game_world_4",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 31,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 32,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 33,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 34,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 35,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 36,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 37,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 38,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 39,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 40,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Windmill Path Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 250
+        },
+        {
+          "giftIndex": 2,
+          "name": "Misty Peak Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 500
+        }
+      ]
+    },
+    {
+      "worldNumber": 5,
+      "name": "Sunflower Valley",
+      "subtitle": "WORLD 5 \u2022 SUNFLOWER VALLEY",
+      "mapBackground": "bg_map_world_5",
+      "gameBackground": "bg_game_world_5",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 41,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 42,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 43,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 44,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 45,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 46,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 47,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 48,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 49,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 50,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Honeybee Hive Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 300
+        },
+        {
+          "giftIndex": 2,
+          "name": "Golden Castle Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 600
+        }
+      ]
+    },
+    {
+      "worldNumber": 6,
+      "name": "Lotus Flower Lagoon",
+      "subtitle": "WORLD 6 \u2022 LOTUS FLOWER LAGOON",
+      "mapBackground": "bg_map_world_6",
+      "gameBackground": "bg_game_world_6",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 51,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 52,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 53,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 54,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 55,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 56,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 57,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 58,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 59,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 60,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Lily Pad Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 350
+        },
+        {
+          "giftIndex": 2,
+          "name": "Crystal Lagoon Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 700
+        }
+      ]
+    },
+    {
+      "worldNumber": 7,
+      "name": "Rainbow Clover Fields",
+      "subtitle": "WORLD 7 \u2022 RAINBOW CLOVER FIELDS",
+      "mapBackground": "bg_map_world_7",
+      "gameBackground": "bg_game_world_7",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 61,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 62,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 63,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 64,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 65,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 66,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 67,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 68,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 69,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 70,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Lucky Clover Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 400
+        },
+        {
+          "giftIndex": 2,
+          "name": "Rainbow Arch Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 800
+        }
+      ]
+    },
+    {
+      "worldNumber": 8,
+      "name": "Autumn Isles",
+      "subtitle": "WORLD 8 \u2022 AUTUMN ISLES",
+      "mapBackground": "bg_map_world_8",
+      "gameBackground": "bg_game_world_8",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 71,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 72,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 73,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 74,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 75,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 76,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 77,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 78,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 79,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 80,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Maple Bridge Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 450
+        },
+        {
+          "giftIndex": 2,
+          "name": "Harvest Peak Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 900
+        }
+      ]
+    },
+    {
+      "worldNumber": 9,
+      "name": "Fairy Mushroom Haven",
+      "subtitle": "WORLD 9 \u2022 FAIRY MUSHROOM HAVEN",
+      "mapBackground": "bg_map_world_9",
+      "gameBackground": "bg_game_world_9",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 81,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 82,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 83,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 84,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 85,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 86,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 87,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 88,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 89,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 90,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Glowing Spore Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 500
+        },
+        {
+          "giftIndex": 2,
+          "name": "Crystal Mushroom Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1000
+        }
+      ]
+    },
+    {
+      "worldNumber": 10,
+      "name": "Bamboo Sanctuary",
+      "subtitle": "WORLD 10 \u2022 BAMBOO SANCTUARY",
+      "mapBackground": "bg_map_world_10",
+      "gameBackground": "bg_game_world_10",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 91,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 92,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 93,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 94,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 95,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 96,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 97,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 98,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 99,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 100,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Pagoda Bridge Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 550
+        },
+        {
+          "giftIndex": 2,
+          "name": "Temple Summit Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1100
+        }
+      ]
+    },
+    {
+      "worldNumber": 11,
+      "name": "Orchid Cloud Garden",
+      "subtitle": "WORLD 11 \u2022 ORCHID CLOUD GARDEN",
+      "mapBackground": "bg_map_world_11",
+      "gameBackground": "bg_game_world_11",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 101,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 102,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 103,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 104,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 105,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 106,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 107,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 108,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 109,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 110,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Orchid Bower Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 600
+        },
+        {
+          "giftIndex": 2,
+          "name": "Crystal Bloom Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1200
+        }
+      ]
+    },
+    {
+      "worldNumber": 12,
+      "name": "Willow Marsh Glade",
+      "subtitle": "WORLD 12 \u2022 WILLOW MARSH GLADE",
+      "mapBackground": "bg_map_world_12",
+      "gameBackground": "bg_game_world_12",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 111,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 112,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 113,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 114,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 115,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 116,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 117,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 118,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 119,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 120,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Weeping Willow Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 650
+        },
+        {
+          "giftIndex": 2,
+          "name": "Firefly Glade Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1300
+        }
+      ]
+    },
+    {
+      "worldNumber": 13,
+      "name": "Bonsai Peak Sanctuary",
+      "subtitle": "WORLD 13 \u2022 BONSAI PEAK SANCTUARY",
+      "mapBackground": "bg_map_world_13",
+      "gameBackground": "bg_game_world_13",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 121,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 122,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 123,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 124,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 125,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 126,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 127,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 128,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 129,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 130,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Ancient Bonsai Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 700
+        },
+        {
+          "giftIndex": 2,
+          "name": "Cloud Mountain Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1400
+        }
+      ]
+    },
+    {
+      "worldNumber": 14,
+      "name": "Honeycomb Meadow",
+      "subtitle": "WORLD 14 \u2022 HONEYCOMB MEADOW",
+      "mapBackground": "bg_map_world_14",
+      "gameBackground": "bg_game_world_14",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 131,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 132,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 133,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 134,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 135,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 136,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 137,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 138,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 139,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 140,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Honeycomb Way Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 750
+        },
+        {
+          "giftIndex": 2,
+          "name": "Hive Queen Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1500
+        }
+      ]
+    },
+    {
+      "worldNumber": 15,
+      "name": "Jungle River Canyon",
+      "subtitle": "WORLD 15 \u2022 JUNGLE RIVER CANYON",
+      "mapBackground": "bg_map_world_15",
+      "gameBackground": "bg_game_world_15",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 141,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 142,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 143,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 144,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 145,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 146,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 147,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 148,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 149,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 150,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "River Crossing Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 800
+        },
+        {
+          "giftIndex": 2,
+          "name": "Canyon Temple Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1600
+        }
+      ]
+    },
+    {
+      "worldNumber": 16,
+      "name": "Dandelion Cloud Heights",
+      "subtitle": "WORLD 16 \u2022 DANDELION CLOUD HEIGHTS",
+      "mapBackground": "bg_map_world_16",
+      "gameBackground": "bg_game_world_16",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 151,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 152,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 153,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 154,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 155,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 156,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 157,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 158,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 159,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 160,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Floating Seed Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 850
+        },
+        {
+          "giftIndex": 2,
+          "name": "Cloud Palace Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1700
+        }
+      ]
+    },
+    {
+      "worldNumber": 17,
+      "name": "Tropical Palm Atoll",
+      "subtitle": "WORLD 17 \u2022 TROPICAL PALM ATOLL",
+      "mapBackground": "bg_map_world_17",
+      "gameBackground": "bg_game_world_17",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 161,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 162,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 163,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 164,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 165,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 166,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 167,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 168,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 169,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 170,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Lagoon Breeze Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 900
+        },
+        {
+          "giftIndex": 2,
+          "name": "Sunken Reef Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1800
+        }
+      ]
+    },
+    {
+      "worldNumber": 18,
+      "name": "Sunlit Apple Orchard",
+      "subtitle": "WORLD 18 \u2022 SUNLIT APPLE ORCHARD",
+      "mapBackground": "bg_map_world_18",
+      "gameBackground": "bg_game_world_18",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 171,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 172,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 173,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 174,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 175,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 176,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 177,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 178,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 179,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 180,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Golden Apple Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 950
+        },
+        {
+          "giftIndex": 2,
+          "name": "Orchard Crown Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 1900
+        }
+      ]
+    },
+    {
+      "worldNumber": 19,
+      "name": "Bluebell Forest",
+      "subtitle": "WORLD 19 \u2022 BLUEBELL FOREST",
+      "mapBackground": "bg_map_world_19",
+      "gameBackground": "bg_game_world_19",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 181,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 182,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 183,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 184,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 185,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 186,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 187,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 188,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 189,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 190,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Stepping Stone Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1000
+        },
+        {
+          "giftIndex": 2,
+          "name": "Fairy Bell Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2000
+        }
+      ]
+    },
+    {
+      "worldNumber": 20,
+      "name": "Regal Palace Gardens",
+      "subtitle": "WORLD 20 \u2022 REGAL PALACE GARDENS",
+      "mapBackground": "bg_map_world_20",
+      "gameBackground": "bg_game_world_20",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 191,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 192,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 193,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 194,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 195,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 196,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 197,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 198,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 199,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 200,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Marble Arch Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1050
+        },
+        {
+          "giftIndex": 2,
+          "name": "Royal Spire Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2100
+        }
+      ]
+    },
+    {
+      "worldNumber": 21,
+      "name": "Tulip Terrace",
+      "subtitle": "WORLD 21 \u2022 TULIP TERRACE",
+      "mapBackground": "bg_map_world_21",
+      "gameBackground": "bg_game_world_21",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 201,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 202,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 203,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 204,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 205,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 206,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 207,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 208,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 209,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 210,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Brick Walkway Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1100
+        },
+        {
+          "giftIndex": 2,
+          "name": "Windmill Terrace Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2200
+        }
+      ]
+    },
+    {
+      "worldNumber": 22,
+      "name": "Glowing Vine Jungle",
+      "subtitle": "WORLD 22 \u2022 GLOWING VINE JUNGLE",
+      "mapBackground": "bg_map_world_22",
+      "gameBackground": "bg_game_world_22",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 211,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 212,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 213,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 214,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 215,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 216,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 217,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 218,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 219,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 220,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Night Vine Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1150
+        },
+        {
+          "giftIndex": 2,
+          "name": "Bioluminescent Peak Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2300
+        }
+      ]
+    },
+    {
+      "worldNumber": 23,
+      "name": "Pinecone Peak",
+      "subtitle": "WORLD 23 \u2022 PINECONE PEAK",
+      "mapBackground": "bg_map_world_23",
+      "gameBackground": "bg_game_world_23",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 221,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 222,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 223,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 224,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 225,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 226,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 227,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 228,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 229,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 230,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Frostpine Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1200
+        },
+        {
+          "giftIndex": 2,
+          "name": "Ice Castle Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2400
+        }
+      ]
+    },
+    {
+      "worldNumber": 24,
+      "name": "Butterfly Sanctuary",
+      "subtitle": "WORLD 24 \u2022 BUTTERFLY SANCTUARY",
+      "mapBackground": "bg_map_world_24",
+      "gameBackground": "bg_game_world_24",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 231,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 232,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 233,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 234,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 235,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 236,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 237,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 238,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 239,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 240,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Chrysalis Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1250
+        },
+        {
+          "giftIndex": 2,
+          "name": "Monarch Peak Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2500
+        }
+      ]
+    },
+    {
+      "worldNumber": 25,
+      "name": "Desert Canyon Trail",
+      "subtitle": "WORLD 25 \u2022 DESERT CANYON TRAIL",
+      "mapBackground": "bg_map_world_25",
+      "gameBackground": "bg_game_world_25",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 241,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 242,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 243,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 244,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 245,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 246,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 247,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 248,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 249,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 250,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Cactus Bloom Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1300
+        },
+        {
+          "giftIndex": 2,
+          "name": "Sunstone Temple Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2600
+        }
+      ]
+    },
+    {
+      "worldNumber": 26,
+      "name": "Starlight Meadow",
+      "subtitle": "WORLD 26 \u2022 STARLIGHT MEADOW",
+      "mapBackground": "bg_map_world_26",
+      "gameBackground": "bg_game_world_26",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 251,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 252,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 253,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 254,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 255,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 256,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 257,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 258,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 259,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 260,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Stardust Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1350
+        },
+        {
+          "giftIndex": 2,
+          "name": "Constellation Peak Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2700
+        }
+      ]
+    },
+    {
+      "worldNumber": 27,
+      "name": "Dewdrop Clover Meadow",
+      "subtitle": "WORLD 27 \u2022 DEWDROP CLOVER MEADOW",
+      "mapBackground": "bg_map_world_27",
+      "gameBackground": "bg_game_world_27",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 261,
+          "x": 0.5032,
+          "y": 0.7122
+        },
+        {
+          "level": 262,
+          "x": 0.6334,
+          "y": 0.6017
+        },
+        {
+          "level": 263,
+          "x": 0.6768,
+          "y": 0.5458
+        },
+        {
+          "level": 264,
+          "x": 0.6326,
+          "y": 0.476
+        },
+        {
+          "level": 265,
+          "x": 0.5206,
+          "y": 0.4375
+        },
+        {
+          "level": 266,
+          "x": 0.4125,
+          "y": 0.4208
+        },
+        {
+          "level": 267,
+          "x": 0.4688,
+          "y": 0.2798
+        },
+        {
+          "level": 268,
+          "x": 0.5701,
+          "y": 0.2544
+        },
+        {
+          "level": 269,
+          "x": 0.5831,
+          "y": 0.2057
+        },
+        {
+          "level": 270,
+          "x": 0.5063,
+          "y": 0.1789
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Dewdrop Chest",
+          "x": 0.337,
+          "y": 0.3547,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 1400
+        },
+        {
+          "giftIndex": 2,
+          "name": "Golden Clover Chest",
+          "x": 0.5583,
+          "y": 0.1331,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 2800
+        }
+      ]
+    },
+    {
+      "worldNumber": 28,
+      "name": "Toadstool Village",
+      "subtitle": "WORLD 28 \u2022 TOADSTOOL VILLAGE",
+      "mapBackground": "bg_map_world_28",
+      "gameBackground": "bg_game_world_28",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 271,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 272,
+          "x": 0.43,
+          "y": 0.7
+        },
+        {
+          "level": 273,
+          "x": 0.47,
+          "y": 0.62
+        },
+        {
+          "level": 274,
+          "x": 0.58,
+          "y": 0.54
+        },
+        {
+          "level": 275,
+          "x": 0.64,
+          "y": 0.46
+        },
+        {
+          "level": 276,
+          "x": 0.52,
+          "y": 0.39
+        },
+        {
+          "level": 277,
+          "x": 0.41,
+          "y": 0.32
+        },
+        {
+          "level": 278,
+          "x": 0.46,
+          "y": 0.25
+        },
+        {
+          "level": 279,
+          "x": 0.54,
+          "y": 0.2
+        },
+        {
+          "level": 280,
+          "x": 0.5,
+          "y": 0.16
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Mushroom Viaduct Chest",
+          "x": 0.36,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 120
+        },
+        {
+          "giftIndex": 2,
+          "name": "Toadstool Spire Chest",
+          "x": 0.62,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 250
+        }
+      ]
+    },
+    {
+      "worldNumber": 29,
+      "name": "Daisy Cloud Garden",
+      "subtitle": "WORLD 29 \u2022 DAISY CLOUD GARDEN",
+      "mapBackground": "bg_map_world_29",
+      "gameBackground": "bg_game_world_29",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 281,
+          "x": 0.5,
+          "y": 0.77
+        },
+        {
+          "level": 282,
+          "x": 0.59,
+          "y": 0.7
+        },
+        {
+          "level": 283,
+          "x": 0.66,
+          "y": 0.62
+        },
+        {
+          "level": 284,
+          "x": 0.64,
+          "y": 0.52
+        },
+        {
+          "level": 285,
+          "x": 0.54,
+          "y": 0.45
+        },
+        {
+          "level": 286,
+          "x": 0.42,
+          "y": 0.4
+        },
+        {
+          "level": 287,
+          "x": 0.35,
+          "y": 0.32
+        },
+        {
+          "level": 288,
+          "x": 0.42,
+          "y": 0.25
+        },
+        {
+          "level": 289,
+          "x": 0.5,
+          "y": 0.2
+        },
+        {
+          "level": 290,
+          "x": 0.54,
+          "y": 0.16
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Cloud Petal Chest",
+          "x": 0.3,
+          "y": 0.35,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 120
+        },
+        {
+          "giftIndex": 2,
+          "name": "Celestial Arch Chest",
+          "x": 0.62,
+          "y": 0.16,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 250
+        }
+      ]
+    },
+    {
+      "worldNumber": 30,
+      "name": "Sunny Brook Glade",
+      "subtitle": "WORLD 30 \u2022 SUNNY BROOK GLADE",
+      "mapBackground": "bg_map_world_30",
+      "gameBackground": "bg_game_world_30",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 291,
+          "x": 0.5,
+          "y": 0.77
+        },
+        {
+          "level": 292,
+          "x": 0.48,
+          "y": 0.68
+        },
+        {
+          "level": 293,
+          "x": 0.56,
+          "y": 0.6
+        },
+        {
+          "level": 294,
+          "x": 0.62,
+          "y": 0.52
+        },
+        {
+          "level": 295,
+          "x": 0.53,
+          "y": 0.44
+        },
+        {
+          "level": 296,
+          "x": 0.42,
+          "y": 0.38
+        },
+        {
+          "level": 297,
+          "x": 0.45,
+          "y": 0.3
+        },
+        {
+          "level": 298,
+          "x": 0.54,
+          "y": 0.25
+        },
+        {
+          "level": 299,
+          "x": 0.6,
+          "y": 0.2
+        },
+        {
+          "level": 300,
+          "x": 0.52,
+          "y": 0.16
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Brook Stone Chest",
+          "x": 0.35,
+          "y": 0.38,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 130
+        },
+        {
+          "giftIndex": 2,
+          "name": "Waterfall Shrine Chest",
+          "x": 0.65,
+          "y": 0.21,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 260
+        }
+      ]
+    },
+    {
+      "worldNumber": 31,
+      "name": "Wisteria Skybridge",
+      "subtitle": "WORLD 31 \u2022 WISTERIA SKYBRIDGE",
+      "mapBackground": "bg_map_world_31",
+      "gameBackground": "bg_game_world_31",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 301,
+          "x": 0.5,
+          "y": 0.77
+        },
+        {
+          "level": 302,
+          "x": 0.58,
+          "y": 0.7
+        },
+        {
+          "level": 303,
+          "x": 0.64,
+          "y": 0.61
+        },
+        {
+          "level": 304,
+          "x": 0.57,
+          "y": 0.52
+        },
+        {
+          "level": 305,
+          "x": 0.45,
+          "y": 0.45
+        },
+        {
+          "level": 306,
+          "x": 0.4,
+          "y": 0.37
+        },
+        {
+          "level": 307,
+          "x": 0.48,
+          "y": 0.3
+        },
+        {
+          "level": 308,
+          "x": 0.56,
+          "y": 0.24
+        },
+        {
+          "level": 309,
+          "x": 0.54,
+          "y": 0.19
+        },
+        {
+          "level": 310,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Wisteria Canopy Chest",
+          "x": 0.32,
+          "y": 0.37,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 130
+        },
+        {
+          "giftIndex": 2,
+          "name": "Plank Pavilion Chest",
+          "x": 0.64,
+          "y": 0.19,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 260
+        }
+      ]
+    },
+    {
+      "worldNumber": 32,
+      "name": "Teacup Garden",
+      "subtitle": "WORLD 32 \u2022 TEACUP GARDEN",
+      "mapBackground": "bg_map_world_32",
+      "gameBackground": "bg_game_world_32",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 311,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 312,
+          "x": 0.48,
+          "y": 0.68
+        },
+        {
+          "level": 313,
+          "x": 0.56,
+          "y": 0.6
+        },
+        {
+          "level": 314,
+          "x": 0.64,
+          "y": 0.51
+        },
+        {
+          "level": 315,
+          "x": 0.55,
+          "y": 0.43
+        },
+        {
+          "level": 316,
+          "x": 0.44,
+          "y": 0.37
+        },
+        {
+          "level": 317,
+          "x": 0.4,
+          "y": 0.3
+        },
+        {
+          "level": 318,
+          "x": 0.48,
+          "y": 0.24
+        },
+        {
+          "level": 319,
+          "x": 0.56,
+          "y": 0.19
+        },
+        {
+          "level": 320,
+          "x": 0.52,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Tea Spout Chest",
+          "x": 0.34,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 140
+        },
+        {
+          "giftIndex": 2,
+          "name": "Floating Teapot Chest",
+          "x": 0.63,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 270
+        }
+      ]
+    },
+    {
+      "worldNumber": 33,
+      "name": "Lucky Clover Spire",
+      "subtitle": "WORLD 33 \u2022 LUCKY CLOVER SPIRE",
+      "mapBackground": "bg_map_world_33",
+      "gameBackground": "bg_game_world_33",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 321,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 322,
+          "x": 0.6,
+          "y": 0.7
+        },
+        {
+          "level": 323,
+          "x": 0.66,
+          "y": 0.61
+        },
+        {
+          "level": 324,
+          "x": 0.58,
+          "y": 0.52
+        },
+        {
+          "level": 325,
+          "x": 0.46,
+          "y": 0.45
+        },
+        {
+          "level": 326,
+          "x": 0.38,
+          "y": 0.37
+        },
+        {
+          "level": 327,
+          "x": 0.44,
+          "y": 0.3
+        },
+        {
+          "level": 328,
+          "x": 0.52,
+          "y": 0.24
+        },
+        {
+          "level": 329,
+          "x": 0.55,
+          "y": 0.19
+        },
+        {
+          "level": 330,
+          "x": 0.51,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Emerald Leaf Chest",
+          "x": 0.3,
+          "y": 0.38,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 140
+        },
+        {
+          "giftIndex": 2,
+          "name": "Four-Leaf Crown Chest",
+          "x": 0.64,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 270
+        }
+      ]
+    },
+    {
+      "worldNumber": 34,
+      "name": "Starry Midnight Ascent",
+      "subtitle": "WORLD 34 \u2022 STARRY MIDNIGHT ASCENT",
+      "mapBackground": "bg_map_world_34",
+      "gameBackground": "bg_game_world_34",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 331,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 332,
+          "x": 0.58,
+          "y": 0.69
+        },
+        {
+          "level": 333,
+          "x": 0.63,
+          "y": 0.59
+        },
+        {
+          "level": 334,
+          "x": 0.54,
+          "y": 0.5
+        },
+        {
+          "level": 335,
+          "x": 0.42,
+          "y": 0.43
+        },
+        {
+          "level": 336,
+          "x": 0.36,
+          "y": 0.35
+        },
+        {
+          "level": 337,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 338,
+          "x": 0.52,
+          "y": 0.23
+        },
+        {
+          "level": 339,
+          "x": 0.55,
+          "y": 0.18
+        },
+        {
+          "level": 340,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Constellation Chest",
+          "x": 0.3,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 150
+        },
+        {
+          "giftIndex": 2,
+          "name": "Starlight Gateway Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 280
+        }
+      ]
+    },
+    {
+      "worldNumber": 35,
+      "name": "Sunset Mushroom Cliffs",
+      "subtitle": "WORLD 35 \u2022 SUNSET MUSHROOM CLIFFS",
+      "mapBackground": "bg_map_world_35",
+      "gameBackground": "bg_game_world_35",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 341,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 342,
+          "x": 0.58,
+          "y": 0.69
+        },
+        {
+          "level": 343,
+          "x": 0.64,
+          "y": 0.59
+        },
+        {
+          "level": 344,
+          "x": 0.55,
+          "y": 0.5
+        },
+        {
+          "level": 345,
+          "x": 0.43,
+          "y": 0.43
+        },
+        {
+          "level": 346,
+          "x": 0.36,
+          "y": 0.35
+        },
+        {
+          "level": 347,
+          "x": 0.43,
+          "y": 0.28
+        },
+        {
+          "level": 348,
+          "x": 0.51,
+          "y": 0.23
+        },
+        {
+          "level": 349,
+          "x": 0.54,
+          "y": 0.18
+        },
+        {
+          "level": 350,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Twilight Cap Chest",
+          "x": 0.3,
+          "y": 0.37,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 150
+        },
+        {
+          "giftIndex": 2,
+          "name": "Amber Ridge Chest",
+          "x": 0.63,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 280
+        }
+      ]
+    },
+    {
+      "worldNumber": 36,
+      "name": "Amethyst Crystal Cavern",
+      "subtitle": "WORLD 36 \u2022 AMETHYST CRYSTAL CAVERN",
+      "mapBackground": "bg_map_world_36",
+      "gameBackground": "bg_game_world_36",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 351,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 352,
+          "x": 0.42,
+          "y": 0.69
+        },
+        {
+          "level": 353,
+          "x": 0.44,
+          "y": 0.59
+        },
+        {
+          "level": 354,
+          "x": 0.54,
+          "y": 0.5
+        },
+        {
+          "level": 355,
+          "x": 0.62,
+          "y": 0.43
+        },
+        {
+          "level": 356,
+          "x": 0.55,
+          "y": 0.35
+        },
+        {
+          "level": 357,
+          "x": 0.45,
+          "y": 0.28
+        },
+        {
+          "level": 358,
+          "x": 0.48,
+          "y": 0.23
+        },
+        {
+          "level": 359,
+          "x": 0.54,
+          "y": 0.18
+        },
+        {
+          "level": 360,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Purple Geode Chest",
+          "x": 0.68,
+          "y": 0.42,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 160
+        },
+        {
+          "giftIndex": 2,
+          "name": "Amethyst Scepter Chest",
+          "x": 0.38,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 300
+        }
+      ]
+    },
+    {
+      "worldNumber": 37,
+      "name": "Sapphire Ice Cascade",
+      "subtitle": "WORLD 37 \u2022 SAPPHIRE ICE CASCADE",
+      "mapBackground": "bg_map_world_37",
+      "gameBackground": "bg_game_world_37",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 361,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 362,
+          "x": 0.6,
+          "y": 0.69
+        },
+        {
+          "level": 363,
+          "x": 0.65,
+          "y": 0.59
+        },
+        {
+          "level": 364,
+          "x": 0.56,
+          "y": 0.5
+        },
+        {
+          "level": 365,
+          "x": 0.45,
+          "y": 0.43
+        },
+        {
+          "level": 366,
+          "x": 0.38,
+          "y": 0.35
+        },
+        {
+          "level": 367,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 368,
+          "x": 0.52,
+          "y": 0.23
+        },
+        {
+          "level": 369,
+          "x": 0.56,
+          "y": 0.18
+        },
+        {
+          "level": 370,
+          "x": 0.51,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Glacial Shard Chest",
+          "x": 0.31,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 160
+        },
+        {
+          "giftIndex": 2,
+          "name": "Ice Palace Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 300
+        }
+      ]
+    },
+    {
+      "worldNumber": 38,
+      "name": "Emerald Mine Railway",
+      "subtitle": "WORLD 38 \u2022 EMERALD MINE RAILWAY",
+      "mapBackground": "bg_map_world_38",
+      "gameBackground": "bg_game_world_38",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 371,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 372,
+          "x": 0.61,
+          "y": 0.7
+        },
+        {
+          "level": 373,
+          "x": 0.66,
+          "y": 0.59
+        },
+        {
+          "level": 374,
+          "x": 0.54,
+          "y": 0.51
+        },
+        {
+          "level": 375,
+          "x": 0.4,
+          "y": 0.44
+        },
+        {
+          "level": 376,
+          "x": 0.35,
+          "y": 0.36
+        },
+        {
+          "level": 377,
+          "x": 0.44,
+          "y": 0.29
+        },
+        {
+          "level": 378,
+          "x": 0.54,
+          "y": 0.24
+        },
+        {
+          "level": 379,
+          "x": 0.56,
+          "y": 0.19
+        },
+        {
+          "level": 380,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Minecart Ore Chest",
+          "x": 0.3,
+          "y": 0.37,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 170
+        },
+        {
+          "giftIndex": 2,
+          "name": "Emerald Vein Chest",
+          "x": 0.64,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 320
+        }
+      ]
+    },
+    {
+      "worldNumber": 39,
+      "name": "Golden Autumn Realm",
+      "subtitle": "WORLD 39 \u2022 GOLDEN AUTUMN REALM",
+      "mapBackground": "bg_map_world_39",
+      "gameBackground": "bg_game_world_39",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 381,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 382,
+          "x": 0.6,
+          "y": 0.69
+        },
+        {
+          "level": 383,
+          "x": 0.65,
+          "y": 0.59
+        },
+        {
+          "level": 384,
+          "x": 0.55,
+          "y": 0.5
+        },
+        {
+          "level": 385,
+          "x": 0.43,
+          "y": 0.43
+        },
+        {
+          "level": 386,
+          "x": 0.37,
+          "y": 0.35
+        },
+        {
+          "level": 387,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 388,
+          "x": 0.52,
+          "y": 0.23
+        },
+        {
+          "level": 389,
+          "x": 0.55,
+          "y": 0.18
+        },
+        {
+          "level": 390,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Sunburst Leaf Chest",
+          "x": 0.3,
+          "y": 0.37,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 170
+        },
+        {
+          "giftIndex": 2,
+          "name": "Golden Canopy Chest",
+          "x": 0.64,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 320
+        }
+      ]
+    },
+    {
+      "worldNumber": 40,
+      "name": "Prismatic Crystal Cavern",
+      "subtitle": "WORLD 40 \u2022 PRISMATIC CRYSTAL CAVERN",
+      "mapBackground": "bg_map_world_40",
+      "gameBackground": "bg_game_world_40",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 391,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 392,
+          "x": 0.42,
+          "y": 0.69
+        },
+        {
+          "level": 393,
+          "x": 0.45,
+          "y": 0.59
+        },
+        {
+          "level": 394,
+          "x": 0.56,
+          "y": 0.51
+        },
+        {
+          "level": 395,
+          "x": 0.63,
+          "y": 0.43
+        },
+        {
+          "level": 396,
+          "x": 0.54,
+          "y": 0.35
+        },
+        {
+          "level": 397,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 398,
+          "x": 0.47,
+          "y": 0.23
+        },
+        {
+          "level": 399,
+          "x": 0.53,
+          "y": 0.18
+        },
+        {
+          "level": 400,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Rainbow Geode Chest",
+          "x": 0.68,
+          "y": 0.42,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 180
+        },
+        {
+          "giftIndex": 2,
+          "name": "Prismatic Core Chest",
+          "x": 0.38,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 340
+        }
+      ]
+    },
+    {
+      "worldNumber": 41,
+      "name": "Cloud Castle Causeway",
+      "subtitle": "WORLD 41 \u2022 CLOUD CASTLE CAUSEWAY",
+      "mapBackground": "bg_map_world_41",
+      "gameBackground": "bg_game_world_41",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 401,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 402,
+          "x": 0.6,
+          "y": 0.69
+        },
+        {
+          "level": 403,
+          "x": 0.65,
+          "y": 0.59
+        },
+        {
+          "level": 404,
+          "x": 0.55,
+          "y": 0.5
+        },
+        {
+          "level": 405,
+          "x": 0.43,
+          "y": 0.43
+        },
+        {
+          "level": 406,
+          "x": 0.37,
+          "y": 0.35
+        },
+        {
+          "level": 407,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 408,
+          "x": 0.52,
+          "y": 0.23
+        },
+        {
+          "level": 409,
+          "x": 0.55,
+          "y": 0.18
+        },
+        {
+          "level": 410,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Marble Step Chest",
+          "x": 0.3,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 180
+        },
+        {
+          "giftIndex": 2,
+          "name": "Cloud Citadel Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 340
+        }
+      ]
+    },
+    {
+      "worldNumber": 42,
+      "name": "Sunken Atlantis Ruins",
+      "subtitle": "WORLD 42 \u2022 SUNKEN ATLANTIS RUINS",
+      "mapBackground": "bg_map_world_42",
+      "gameBackground": "bg_game_world_42",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 411,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 412,
+          "x": 0.6,
+          "y": 0.69
+        },
+        {
+          "level": 413,
+          "x": 0.65,
+          "y": 0.59
+        },
+        {
+          "level": 414,
+          "x": 0.55,
+          "y": 0.5
+        },
+        {
+          "level": 415,
+          "x": 0.43,
+          "y": 0.43
+        },
+        {
+          "level": 416,
+          "x": 0.37,
+          "y": 0.35
+        },
+        {
+          "level": 417,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 418,
+          "x": 0.52,
+          "y": 0.23
+        },
+        {
+          "level": 419,
+          "x": 0.55,
+          "y": 0.18
+        },
+        {
+          "level": 420,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Aqueduct Relic Chest",
+          "x": 0.3,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 190
+        },
+        {
+          "giftIndex": 2,
+          "name": "Poseidon Altar Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 360
+        }
+      ]
+    },
+    {
+      "worldNumber": 43,
+      "name": "Coral Reef Stairway",
+      "subtitle": "WORLD 43 \u2022 CORAL REEF STAIRWAY",
+      "mapBackground": "bg_map_world_43",
+      "gameBackground": "bg_game_world_43",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 421,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 422,
+          "x": 0.6,
+          "y": 0.69
+        },
+        {
+          "level": 423,
+          "x": 0.65,
+          "y": 0.59
+        },
+        {
+          "level": 424,
+          "x": 0.55,
+          "y": 0.5
+        },
+        {
+          "level": 425,
+          "x": 0.44,
+          "y": 0.43
+        },
+        {
+          "level": 426,
+          "x": 0.38,
+          "y": 0.35
+        },
+        {
+          "level": 427,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 428,
+          "x": 0.52,
+          "y": 0.23
+        },
+        {
+          "level": 429,
+          "x": 0.55,
+          "y": 0.18
+        },
+        {
+          "level": 430,
+          "x": 0.51,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Anemone Pearl Chest",
+          "x": 0.31,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 190
+        },
+        {
+          "giftIndex": 2,
+          "name": "Triton Trench Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 360
+        }
+      ]
+    },
+    {
+      "worldNumber": 44,
+      "name": "Bioluminescent Abyss",
+      "subtitle": "WORLD 44 \u2022 BIOLUMINESCENT ABYSS",
+      "mapBackground": "bg_map_world_44",
+      "gameBackground": "bg_game_world_44",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 431,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 432,
+          "x": 0.43,
+          "y": 0.69
+        },
+        {
+          "level": 433,
+          "x": 0.47,
+          "y": 0.59
+        },
+        {
+          "level": 434,
+          "x": 0.57,
+          "y": 0.51
+        },
+        {
+          "level": 435,
+          "x": 0.64,
+          "y": 0.43
+        },
+        {
+          "level": 436,
+          "x": 0.54,
+          "y": 0.35
+        },
+        {
+          "level": 437,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 438,
+          "x": 0.48,
+          "y": 0.23
+        },
+        {
+          "level": 439,
+          "x": 0.54,
+          "y": 0.18
+        },
+        {
+          "level": 440,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Jellyfish Glow Chest",
+          "x": 0.68,
+          "y": 0.42,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 200
+        },
+        {
+          "giftIndex": 2,
+          "name": "Abyssal Trench Chest",
+          "x": 0.38,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 380
+        }
+      ]
+    },
+    {
+      "worldNumber": 45,
+      "name": "Pirate Shipwreck Bay",
+      "subtitle": "WORLD 45 \u2022 PIRATE SHIPWRECK BAY",
+      "mapBackground": "bg_map_world_45",
+      "gameBackground": "bg_game_world_45",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 441,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 442,
+          "x": 0.58,
+          "y": 0.69
+        },
+        {
+          "level": 443,
+          "x": 0.63,
+          "y": 0.59
+        },
+        {
+          "level": 444,
+          "x": 0.54,
+          "y": 0.51
+        },
+        {
+          "level": 445,
+          "x": 0.43,
+          "y": 0.43
+        },
+        {
+          "level": 446,
+          "x": 0.38,
+          "y": 0.35
+        },
+        {
+          "level": 447,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 448,
+          "x": 0.52,
+          "y": 0.23
+        },
+        {
+          "level": 449,
+          "x": 0.56,
+          "y": 0.18
+        },
+        {
+          "level": 450,
+          "x": 0.51,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Plank Deck Chest",
+          "x": 0.31,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 200
+        },
+        {
+          "giftIndex": 2,
+          "name": "Captain Cabin Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 380
+        }
+      ]
+    },
+    {
+      "worldNumber": 46,
+      "name": "Pearlescent Shell Lagoon",
+      "subtitle": "WORLD 46 \u2022 PEARLESCENT SHELL LAGOON",
+      "mapBackground": "bg_map_world_46",
+      "gameBackground": "bg_game_world_46",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 451,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 452,
+          "x": 0.6,
+          "y": 0.69
+        },
+        {
+          "level": 453,
+          "x": 0.65,
+          "y": 0.59
+        },
+        {
+          "level": 454,
+          "x": 0.55,
+          "y": 0.5
+        },
+        {
+          "level": 455,
+          "x": 0.43,
+          "y": 0.43
+        },
+        {
+          "level": 456,
+          "x": 0.36,
+          "y": 0.35
+        },
+        {
+          "level": 457,
+          "x": 0.43,
+          "y": 0.28
+        },
+        {
+          "level": 458,
+          "x": 0.51,
+          "y": 0.23
+        },
+        {
+          "level": 459,
+          "x": 0.54,
+          "y": 0.18
+        },
+        {
+          "level": 460,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Clam Pearl Chest",
+          "x": 0.3,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 210
+        },
+        {
+          "giftIndex": 2,
+          "name": "Siren Shoal Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 400
+        }
+      ]
+    },
+    {
+      "worldNumber": 47,
+      "name": "Cosmic Nebula Stairway",
+      "subtitle": "WORLD 47 \u2022 COSMIC NEBULA STAIRWAY",
+      "mapBackground": "bg_map_world_47",
+      "gameBackground": "bg_game_world_47",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 461,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 462,
+          "x": 0.58,
+          "y": 0.69
+        },
+        {
+          "level": 463,
+          "x": 0.64,
+          "y": 0.59
+        },
+        {
+          "level": 464,
+          "x": 0.54,
+          "y": 0.5
+        },
+        {
+          "level": 465,
+          "x": 0.42,
+          "y": 0.43
+        },
+        {
+          "level": 466,
+          "x": 0.37,
+          "y": 0.35
+        },
+        {
+          "level": 467,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 468,
+          "x": 0.53,
+          "y": 0.23
+        },
+        {
+          "level": 469,
+          "x": 0.55,
+          "y": 0.18
+        },
+        {
+          "level": 470,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Galaxy Core Chest",
+          "x": 0.3,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 210
+        },
+        {
+          "giftIndex": 2,
+          "name": "Supernova Spire Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 400
+        }
+      ]
+    },
+    {
+      "worldNumber": 48,
+      "name": "Candyland Kingdom",
+      "subtitle": "WORLD 48 \u2022 CANDYLAND KINGDOM",
+      "mapBackground": "bg_map_world_48",
+      "gameBackground": "bg_game_world_48",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 471,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 472,
+          "x": 0.6,
+          "y": 0.69
+        },
+        {
+          "level": 473,
+          "x": 0.65,
+          "y": 0.59
+        },
+        {
+          "level": 474,
+          "x": 0.55,
+          "y": 0.5
+        },
+        {
+          "level": 475,
+          "x": 0.43,
+          "y": 0.43
+        },
+        {
+          "level": 476,
+          "x": 0.37,
+          "y": 0.35
+        },
+        {
+          "level": 477,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 478,
+          "x": 0.52,
+          "y": 0.23
+        },
+        {
+          "level": 479,
+          "x": 0.55,
+          "y": 0.18
+        },
+        {
+          "level": 480,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Candy Cane Chest",
+          "x": 0.3,
+          "y": 0.36,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 220
+        },
+        {
+          "giftIndex": 2,
+          "name": "Gingerbread Spire Chest",
+          "x": 0.64,
+          "y": 0.17,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 420
+        }
+      ]
+    },
+    {
+      "worldNumber": 49,
+      "name": "Spooky Hollow",
+      "subtitle": "WORLD 49 \u2022 SPOOKY HOLLOW",
+      "mapBackground": "bg_map_world_49",
+      "gameBackground": "bg_game_world_49",
+      "levelsCount": 10,
+      "levels": [
+        {
+          "level": 481,
+          "x": 0.5,
+          "y": 0.78
+        },
+        {
+          "level": 482,
+          "x": 0.42,
+          "y": 0.69
+        },
+        {
+          "level": 483,
+          "x": 0.45,
+          "y": 0.59
+        },
+        {
+          "level": 484,
+          "x": 0.56,
+          "y": 0.51
+        },
+        {
+          "level": 485,
+          "x": 0.63,
+          "y": 0.43
+        },
+        {
+          "level": 486,
+          "x": 0.54,
+          "y": 0.35
+        },
+        {
+          "level": 487,
+          "x": 0.44,
+          "y": 0.28
+        },
+        {
+          "level": 488,
+          "x": 0.47,
+          "y": 0.23
+        },
+        {
+          "level": 489,
+          "x": 0.53,
+          "y": 0.18
+        },
+        {
+          "level": 490,
+          "x": 0.5,
+          "y": 0.15
+        }
+      ],
+      "gifts": [
+        {
+          "giftIndex": 1,
+          "name": "Pumpkin Lantern Chest",
+          "x": 0.68,
+          "y": 0.42,
+          "requiredLevelOffset": 6,
+          "rewardCoins": 250
+        },
+        {
+          "giftIndex": 2,
+          "name": "Haunted Spire Chest",
+          "x": 0.38,
+          "y": 0.18,
+          "requiredLevelOffset": 9,
+          "rewardCoins": 500
+        }
+      ]
+    }
+  ]
+}
