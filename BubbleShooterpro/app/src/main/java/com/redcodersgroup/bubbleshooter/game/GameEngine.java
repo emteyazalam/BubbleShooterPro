@@ -80,11 +80,16 @@ public class GameEngine {
     private Bubble nextBubble;
     private BubbleProjectile activeProjectile;
     private int shotsRemaining = 25;
+    private int initialShots = 25;
     private boolean isEndlessMode = false;
     private int endlessWaveCount = 1;
     private int endlessHighScore = 0;
     private List<BubbleColor> endlessColorsPool = new ArrayList<>();
     private final java.util.LinkedList<List<Bubble>> pregeneratedRowQueue = new java.util.LinkedList<>();
+
+    private int getEffectiveStars() {
+        return isEndlessMode ? scoreManager.getStarsEarned() : scoreManager.calculateLiveStars(shotsRemaining, initialShots);
+    }
 
     private final List<Bubble> poppingBubbles = new ArrayList<>();
     private final List<Bubble> fallingBubbles = new ArrayList<>();
@@ -203,6 +208,7 @@ public class GameEngine {
     public void loadLevel(Level level) {
         this.isEndlessMode = false;
         this.currentLevel = level;
+        this.initialShots = level.getMaxShots();
         this.shotsRemaining = level.getMaxShots();
         this.scoreManager.reset();
         this.scoreManager.setStarThresholds(level.getStarThresholds());
@@ -270,7 +276,7 @@ public class GameEngine {
         this.nextBubble.setAlpha(1.0f);
 
         if (listener != null) {
-            listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+            listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
             listener.onShotsUpdated(shotsRemaining);
         }
 
@@ -280,48 +286,38 @@ public class GameEngine {
     public void loadEndlessMode(int personalBestHighScore, List<BubbleColor> colorsPool) {
         this.isEndlessMode = true;
         this.currentLevel = null;
+        this.initialShots = 0;
         this.endlessWaveCount = 1;
         this.endlessHighScore = personalBestHighScore;
         this.shotsRemaining = 999999;
-        this.endlessColorsPool = (colorsPool != null && !colorsPool.isEmpty())
-                ? new ArrayList<>(colorsPool)
-                : BubbleColor.getPlayableColors();
-
         this.scoreManager.reset();
-        if (personalBestHighScore > 0) {
-            int t1 = Math.max(500, (int) (personalBestHighScore * 0.35f));
-            int t2 = Math.max(1000, (int) (personalBestHighScore * 0.70f));
-            int t3 = Math.max(1500, personalBestHighScore);
-            this.scoreManager.setStarThresholds(new int[]{t1, t2, t3});
-        } else {
-            this.scoreManager.setStarThresholds(new int[]{1000, 2500, 5000});
-        }
-
+        this.scoreManager.setStarThresholds(new int[]{5000, 15000, 30000});
         this.comboManager.reset();
         this.poppingBubbles.clear();
         this.fallingBubbles.clear();
         this.floatingTexts.clear();
         this.confettiSystem.clear();
+        this.pregeneratedRowQueue.clear();
+        this.grid.clear();
         this.state = GameState.READY;
         this.isLauncherReloading = false;
 
-        // Structured playable initial board using pattern generator
-        List<BubbleColor> activeColors = EndlessPatternGenerator.getActiveColors(endlessWaveCount, endlessColorsPool);
-        EndlessPatternGenerator.populateInitialBoard(this.grid, 5, activeColors, random);
+        this.endlessColorsPool = (colorsPool != null && !colorsPool.isEmpty())
+                ? new ArrayList<>(colorsPool)
+                : EndlessPatternGenerator.getActiveColors(1, null);
 
-        // Pre-generate the next 3 rows so they are immediately buffered for smooth streaming
-        this.pregeneratedRowQueue.clear();
-        int nextParity = grid.getRowParity() ^ 1;
-        List<List<Bubble>> initialUpcoming = EndlessPatternGenerator.generateMultiRowChunk(
-                endlessWaveCount + 1,
-                nextParity,
-                3,
-                activeColors,
-                random
-        );
-        this.pregeneratedRowQueue.addAll(initialUpcoming);
+        // Pre-fill buffer queue with 3 multi-row pattern chunks
+        for (int i = 0; i < 3; i++) {
+            int nextParity = (grid.getRowParity() ^ (i % 2)) & 1;
+            List<BubbleColor> activeColors = EndlessPatternGenerator.getActiveColors(1, endlessColorsPool);
+            pregeneratedRowQueue.add(EndlessPatternGenerator.generateRow(1, grid.getCols(nextParity), nextParity, activeColors, random));
+        }
 
-        // Initialize launcher bubbles with smart frontier and danger-aware colors
+        // Populate initial board with 4 rows of patterned bubbles
+        List<BubbleColor> initialActiveColors = EndlessPatternGenerator.getActiveColors(1, endlessColorsPool);
+        EndlessPatternGenerator.populateInitialBoard(grid, 4, initialActiveColors, random);
+
+        // Initialize launcher bubbles
         BubbleColor firstColor = pickSmartLauncherColor(null);
         this.currentBubble = new Bubble(firstColor, BubbleType.NORMAL, null);
         this.currentBubble.setX(launcherX);
@@ -339,7 +335,7 @@ public class GameEngine {
         this.nextBubble.setAlpha(1.0f);
 
         if (listener != null) {
-            listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+            listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
             listener.onShotsUpdated(endlessWaveCount);
         }
 
@@ -1009,13 +1005,13 @@ public class GameEngine {
             grid.shiftDownAndInsertRow(newRow);
 
             if (listener != null) {
-                listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+                listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
                 listener.onShotsUpdated(endlessWaveCount);
             }
         } else {
             shotsRemaining--;
             if (listener != null) {
-                listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+                listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
                 listener.onShotsUpdated(shotsRemaining);
             }
         }
@@ -1135,13 +1131,13 @@ public class GameEngine {
             grid.shiftDownAndInsertRow(newRow);
 
             if (listener != null) {
-                listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+                listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
                 listener.onShotsUpdated(endlessWaveCount);
             }
         } else {
             shotsRemaining--;
             if (listener != null) {
-                listener.onScoreUpdated(scoreManager.getScore(), scoreManager.getStarsEarned(), scoreManager.getStarProgress());
+                listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
                 listener.onShotsUpdated(shotsRemaining);
             }
         }
@@ -1221,7 +1217,9 @@ public class GameEngine {
             confettiSystem.spawnCelebrationBurst(boardRight, boardBottom, 70);
             int victoryBonus = scoreManager.addVictoryBonus(shotsRemaining);
             int finalScore = scoreManager.getScore();
-            int starsEarned = Math.max(1, scoreManager.getStarsEarned());
+            int starsEarned = isEndlessMode
+                    ? Math.max(1, scoreManager.getStarsEarned())
+                    : scoreManager.calculateStars(shotsRemaining, initialShots);
             if (listener != null) {
                 listener.onScoreUpdated(finalScore, starsEarned, scoreManager.getStarProgress());
                 listener.onGameWon(finalScore, starsEarned);

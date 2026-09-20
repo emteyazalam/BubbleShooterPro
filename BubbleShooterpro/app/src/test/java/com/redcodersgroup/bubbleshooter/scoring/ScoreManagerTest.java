@@ -59,4 +59,21 @@ public class ScoreManagerTest {
         scoreManager.setScore(3500);
         assertEquals(3, scoreManager.getStarsEarned());
     }
+
+    @Test
+    public void testEfficiencyBasedStarsCalculation() {
+        scoreManager.setStarThresholds(new int[]{1000, 2500, 4500});
+
+        // 1. High score but very few shots left (e.g. 2 shots out of 30, 6.7%) -> 1 Star
+        scoreManager.setScore(5000);
+        assertEquals(1, scoreManager.calculateStars(2, 30));
+
+        // 2. Good score with decent shots left (e.g. 7 shots out of 30, 23.3%) -> 2 Stars
+        scoreManager.setScore(3000);
+        assertEquals(2, scoreManager.calculateStars(7, 30));
+
+        // 3. High score with high shots left (e.g. 15 shots out of 30, 50%) -> 3 Stars
+        scoreManager.setScore(4800);
+        assertEquals(3, scoreManager.calculateStars(15, 30));
+    }
 }
