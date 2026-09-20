@@ -39,10 +39,14 @@ public class GameEngine {
         void onScoreUpdated(int score, int stars, float starProgress);
         void onShotsUpdated(int shotsRemaining);
         void onGameWon(int score, int stars);
+        default void onGameWon(int score, int stars, String objectiveSummary) {
+            onGameWon(score, stars);
+        }
         void onGameLost(int score);
         default void onGameLost(int score, String reason) {
             onGameLost(score);
         }
+        default void onObjectiveUpdated(String badgeText, boolean isCompleted, String summaryText) {}
     }
 
     private final Context context;
@@ -89,6 +93,41 @@ public class GameEngine {
 
     private int getEffectiveStars() {
         return isEndlessMode ? scoreManager.getStarsEarned() : scoreManager.calculateLiveStars(shotsRemaining, initialShots);
+    }
+
+    public String getObjectiveBadgeText() {
+        if (isEndlessMode) {
+            return "⚡ SURVIVE • WAVE " + endlessWaveCount;
+        }
+        if (currentLevel != null && currentLevel.getObjective() != null) {
+            LevelObjective obj = currentLevel.getObjective();
+            return obj.getBadgeText(scoreManager.getScore(), grid.getBubbleCount());
+        }
+        return "🎯 CLEAR ALL: " + grid.getBubbleCount() + " LEFT";
+    }
+
+    public boolean isObjectiveCompleted() {
+        if (isEndlessMode) return false;
+        if (currentLevel != null && currentLevel.getObjective() != null) {
+            return currentLevel.getObjective().isMet(board, scoreManager);
+        }
+        return grid.getBubbleCount() == 0;
+    }
+
+    public String getObjectiveCompletedSummary() {
+        if (isEndlessMode) {
+            return "Survived " + endlessWaveCount + " waves!";
+        }
+        if (currentLevel != null && currentLevel.getObjective() != null) {
+            return currentLevel.getObjective().getCompletedSummaryText();
+        }
+        return "All bubbles cleared!";
+    }
+
+    public void notifyObjectiveUpdated() {
+        if (listener != null) {
+            listener.onObjectiveUpdated(getObjectiveBadgeText(), isObjectiveCompleted(), getObjectiveCompletedSummary());
+        }
     }
 
     private final List<Bubble> poppingBubbles = new ArrayList<>();
@@ -281,6 +320,13 @@ public class GameEngine {
         if (listener != null) {
             listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
             listener.onShotsUpdated(shotsRemaining);
+            notifyObjectiveUpdated();
+        }
+
+        // Display brief floating introductory objective announcement on board
+        if (currentLevel != null && currentLevel.getObjective() != null) {
+            String initialDesc = currentLevel.getObjective().getInitialDescription();
+            floatingTexts.add(new FloatingText("🎯 " + initialDesc, (boardLeft + boardRight) * 0.5f, boardTop + bubbleRadius * 3.5f, Color.parseColor("#FFF176"), 44f, 2.4f));
         }
 
         updateTrajectory();
@@ -340,6 +386,7 @@ public class GameEngine {
         if (listener != null) {
             listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
             listener.onShotsUpdated(endlessWaveCount);
+            notifyObjectiveUpdated();
         }
 
         updateTrajectory();
@@ -1024,6 +1071,7 @@ public class GameEngine {
             }
         }
 
+        notifyObjectiveUpdated();
         activeProjectile = null;
     }
 
@@ -1155,6 +1203,7 @@ public class GameEngine {
             }
         }
 
+        notifyObjectiveUpdated();
         activeProjectile = null;
         fireballPoppedPositions.clear();
     }
@@ -1235,7 +1284,7 @@ public class GameEngine {
                     : scoreManager.calculateStars(shotsRemaining, initialShots);
             if (listener != null) {
                 listener.onScoreUpdated(finalScore, starsEarned, scoreManager.getStarProgress());
-                listener.onGameWon(finalScore, starsEarned);
+                listener.onGameWon(finalScore, starsEarned, getObjectiveCompletedSummary());
             }
             return;
         }

@@ -23,6 +23,7 @@ import com.redcodersgroup.bubbleshooter.databinding.ActivityLevelSelectBinding;
 import com.redcodersgroup.bubbleshooter.databinding.DialogLevelPreviewBinding;
 import com.redcodersgroup.bubbleshooter.databinding.ItemBiomeCardBinding;
 import com.redcodersgroup.bubbleshooter.databinding.ItemLevelGridBinding;
+import com.redcodersgroup.bubbleshooter.level.Level;
 import com.redcodersgroup.bubbleshooter.level.LevelManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +181,12 @@ public class LevelSelectActivity extends BaseActivity {
         previewBinding.ivPreviewStar2.setImageResource(stars >= 2 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
         previewBinding.ivPreviewStar3.setImageResource(stars >= 3 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
 
-        previewBinding.tvPreviewObjective.setText("Clear all bubbles with limited shots!");
+        Level levelData = levelManager.getLevel(level);
+        if (levelData != null && levelData.getObjective() != null) {
+            previewBinding.tvPreviewObjective.setText(levelData.getObjective().getInitialDescription());
+        } else {
+            previewBinding.tvPreviewObjective.setText("Clear all bubbles with limited shots!");
+        }
 
         previewBinding.btnToggleBoosterRainbow.setOnClickListener(v -> {
             soundManager.playClick();

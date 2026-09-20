@@ -171,6 +171,10 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         BubbleGameView.BiomeTheme theme = binding.bubbleGameView.getCurrentBiome();
         binding.tvLevelTitle.setText("LVL " + currentLevelNumber + " • " + (theme != null ? theme.title : ""));
         Level level = levelManager.getLevel(currentLevelNumber);
+        if (level != null && level.getObjective() != null) {
+            binding.tvObjectiveBadge.setText(level.getObjective().getBadgeText(0, level.getRows().size() * 8));
+            binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective);
+        }
         currentStarsCount = 0;
         resetStarProgressNodes(level != null ? level.getStarThresholds() : new int[]{1000, 2000, 3000});
         gameEngine.loadLevel(level);
@@ -182,6 +186,8 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         binding.tvLevelTitle.setText("⚡ ENDLESS SURVIVAL");
         binding.tvShotsLabel.setText("WAVE");
         binding.tvShotsCount.setText("1");
+        binding.tvObjectiveBadge.setText("⚡ SURVIVE • WAVE 1");
+        binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective);
         currentStarsCount = 0;
 
         int personalBest = prefs.getEndlessHighScore();
@@ -359,6 +365,27 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
     }
 
     @Override
+    public void onObjectiveUpdated(String badgeText, boolean isCompleted, String summaryText) {
+        runOnUiThread(() -> {
+            if (isFinishing() || isDestroyed()) return;
+            binding.tvObjectiveBadge.setText(badgeText);
+            if (isCompleted) {
+                binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective_completed);
+                binding.layoutObjectiveBadge.animate().cancel();
+                binding.layoutObjectiveBadge.setScaleX(1.18f);
+                binding.layoutObjectiveBadge.setScaleY(1.18f);
+                binding.layoutObjectiveBadge.animate()
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(250)
+                        .start();
+            } else {
+                binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective);
+            }
+        });
+    }
+
+    @Override
     public void onShotsUpdated(int shotsRemainingOrWave) {
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
@@ -381,6 +408,11 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
 
     @Override
     public void onGameWon(int score, int stars) {
+        onGameWon(score, stars, "✓ Level Completed!");
+    }
+
+    @Override
+    public void onGameWon(int score, int stars, String objectiveSummary) {
         runOnUiThread(() -> {
             if (isFinishing() || isDestroyed()) return;
             isGameOverOrWon = true;
@@ -391,11 +423,12 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
                 activePauseDialog = null;
             }
 
+            int effectiveStars = Math.max(1, Math.min(3, stars));
             int previousHigh = prefs.getHighScoreForLevel(currentLevelNumber);
             int newHigh = Math.max(previousHigh, score);
-            repository.completeLevel(currentLevelNumber, stars, score);
+            repository.completeLevel(currentLevelNumber, effectiveStars, score);
 
-            activeVictoryDialog = new VictoryDialog(this, score, newHigh, stars, new VictoryDialog.VictoryDialogListener() {
+            activeVictoryDialog = new VictoryDialog(this, score, newHigh, effectiveStars, objectiveSummary, new VictoryDialog.VictoryDialogListener() {
                 @Override
                 public void onNextLevelClicked() {
                     activeVictoryDialog = null;

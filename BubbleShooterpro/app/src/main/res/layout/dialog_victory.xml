@@ -19,6 +19,16 @@
         android:shadowDy="3"
         android:shadowRadius="6" />
 
+    <TextView
+        android:id="@+id/tvWinObjectiveSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="✓ All bubbles cleared!"
+        android:textColor="#E0F7FA"
+        android:textSize="13.5sp"
+        android:textStyle="bold" />
+
     <!-- 3 Big Victory Stars -->
     <LinearLayout
         android:layout_width="wrap_content"

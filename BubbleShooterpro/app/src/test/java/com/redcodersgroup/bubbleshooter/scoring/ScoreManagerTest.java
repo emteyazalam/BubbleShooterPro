@@ -64,16 +64,20 @@ public class ScoreManagerTest {
     public void testEfficiencyBasedStarsCalculation() {
         scoreManager.setStarThresholds(new int[]{1000, 2500, 4500});
 
-        // 1. High score but very few shots left (e.g. 2 shots out of 30, 6.7%) -> 1 Star
-        scoreManager.setScore(5000);
+        // 1. Basic score (under 2-star threshold) -> 1 Star
+        scoreManager.setScore(1500);
         assertEquals(1, scoreManager.calculateStars(2, 30));
 
-        // 2. Good score with decent shots left (e.g. 7 shots out of 30, 23.3%) -> 2 Stars
+        // 2. Good score (reaches 2-star threshold) -> 2 Stars
         scoreManager.setScore(3000);
         assertEquals(2, scoreManager.calculateStars(7, 30));
 
-        // 3. High score with high shots left (e.g. 15 shots out of 30, 50%) -> 3 Stars
+        // 3. High score (reaches 3-star threshold) -> 3 Stars
         scoreManager.setScore(4800);
         assertEquals(3, scoreManager.calculateStars(15, 30));
+
+        // 4. Score under threshold 1 still awards 1 star upon victory
+        scoreManager.setScore(800);
+        assertEquals(1, scoreManager.calculateStars(1, 30));
     }
 }

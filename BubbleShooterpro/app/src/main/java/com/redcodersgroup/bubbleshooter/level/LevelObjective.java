@@ -87,4 +87,49 @@ public class LevelObjective {
                 return "Complete the puzzle!";
         }
     }
+
+    public String getInitialDescription() {
+        switch (type) {
+            case CLEAR_ALL:
+                return "Clear all bubbles with limited shots!";
+            case DROP_COUNT:
+                return "Drop " + targetValue + " bubbles to win!";
+            case SCORE_TARGET:
+                return "Score " + String.format("%,d", targetValue) + " points to win!";
+            case POP_COLOR:
+                return "Pop " + targetValue + " " + targetColor.name() + " bubbles to win!";
+            default:
+                return "Complete the puzzle!";
+        }
+    }
+
+    public String getBadgeText(int currentScore, int remainingBubbles) {
+        switch (type) {
+            case CLEAR_ALL:
+                return "🎯 CLEAR ALL: " + remainingBubbles + " LEFT";
+            case DROP_COUNT:
+                return "🎯 DROP: " + currentProgress + "/" + targetValue;
+            case POP_COLOR:
+                return "🎯 POP " + targetColor.name() + ": " + currentProgress + "/" + targetValue;
+            case SCORE_TARGET:
+                return "🎯 GOAL: " + String.format("%,d", currentScore) + "/" + String.format("%,d", targetValue);
+            default:
+                return "🎯 PUZZLE: " + remainingBubbles + " LEFT";
+        }
+    }
+
+    public String getCompletedSummaryText() {
+        switch (type) {
+            case CLEAR_ALL:
+                return "All bubbles cleared!";
+            case DROP_COUNT:
+                return "Dropped " + targetValue + " bubbles!";
+            case SCORE_TARGET:
+                return "Target score of " + String.format("%,d", targetValue) + " reached!";
+            case POP_COLOR:
+                return "Popped " + targetValue + " " + targetColor.name() + " bubbles!";
+            default:
+                return "Level objective complete!";
+        }
+    }
 }

@@ -150,6 +150,31 @@
                         android:src="@drawable/ic_star_empty" />
                 </FrameLayout>
             </FrameLayout>
+
+            <!-- Target Objective Info Badge -->
+            <LinearLayout
+                android:id="@+id/layoutObjectiveBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg_badge_objective"
+                android:layout_marginTop="2dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp">
+
+                <TextView
+                    android:id="@+id/tvObjectiveBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎯 TARGET: DROP 15 BUBBLES (0/15)"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.03" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Shots Remaining Badge -->
