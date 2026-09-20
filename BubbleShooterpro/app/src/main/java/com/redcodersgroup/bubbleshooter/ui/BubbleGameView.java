@@ -10,6 +10,8 @@ import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.Shader;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +21,8 @@ import com.redcodersgroup.bubbleshooter.game.GameEngine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class BubbleGameView extends View {
 
@@ -119,6 +123,10 @@ public class BubbleGameView extends View {
     private boolean isViewPaused = false;
     private final List<AmbientParticle> particles = new ArrayList<>();
     private final Random random = new Random();
+    // Async background loading — prevents UI-thread bitmap decode blocking shot bursts
+    private final ExecutorService bgLoadExecutor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private int lastLoadedEndlessWorld = -1; // tracks world number so we skip redundant loads
 
     public BubbleGameView(Context context) {
         super(context);
@@ -170,33 +178,29 @@ public class BubbleGameView extends View {
     /**
      * Sets the aesthetic biome and authentic campaign world background for Endless Mode.
      * Transitions dynamically through the game's 49 worlds every 5 waves.
+     *
+     * Guard: if the world number hasn't changed (same 5-wave bracket), skip the expensive reload
+     * entirely so shot bursts render without any delay.
+     * The background bitmap is decoded on a background thread and applied on the UI thread once ready.
      */
     public void setEndlessBiome(int wave) {
         int worldNumber = ((Math.max(1, wave) - 1) / 5) % 49 + 1;
+        if (worldNumber == lastLoadedEndlessWorld) return; // same biome — nothing to do
+        lastLoadedEndlessWorld = worldNumber;
+
         int simulatedLevel = (worldNumber - 1) * 10 + 1;
         this.currentLevel = simulatedLevel;
         this.currentBiome = BiomeTheme.forLevel(simulatedLevel);
-        loadWorldBackground(simulatedLevel);
         updateBackgroundGradient();
         initParticles();
-        invalidate();
+        invalidate(); // immediately apply gradient/particles, background arrives shortly after
+
+        loadWorldBackgroundAsync(simulatedLevel);
     }
 
+    /** Synchronous load used by campaign mode (called before game starts, no race condition). */
     private void loadWorldBackground(int levelNumber) {
-        int resId = 0;
-        try {
-            com.redcodersgroup.bubbleshooter.data.WorldConfigManager.WorldModel world = 
-                    com.redcodersgroup.bubbleshooter.data.WorldConfigManager.getInstance(getContext()).getWorldForLevel(levelNumber);
-            if (world != null && world.gameBackground != null) {
-                resId = getResources().getIdentifier(world.gameBackground, "drawable", getContext().getPackageName());
-            }
-        } catch (Exception ignored) {}
-
-        if (resId == 0) {
-            int worldNumber = ((levelNumber - 1) / 10) + 1;
-            resId = getResources().getIdentifier("bg_game_world_" + worldNumber, "drawable", getContext().getPackageName());
-        }
-
+        int resId = resolveBackgroundResId(levelNumber);
         if (resId != 0) {
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
@@ -209,6 +213,47 @@ public class BubbleGameView extends View {
         } else {
             backgroundBitmap = null;
         }
+    }
+
+    /** Async load used by Endless Mode — decodes off the UI thread, applies on main thread. */
+    private void loadWorldBackgroundAsync(int levelNumber) {
+        final int resId = resolveBackgroundResId(levelNumber);
+        if (resId == 0) {
+            backgroundBitmap = null;
+            return;
+        }
+        // Keep a local reference to resources/context before going off-thread
+        final android.content.res.Resources res = getResources();
+        bgLoadExecutor.execute(() -> {
+            Bitmap loaded = null;
+            try {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                loaded = BitmapFactory.decodeResource(res, resId, options);
+            } catch (Throwable ignored) {}
+            final Bitmap result = loaded;
+            mainHandler.post(() -> {
+                backgroundBitmap = result;
+                updateBgRects();
+                invalidate();
+            });
+        });
+    }
+
+    private int resolveBackgroundResId(int levelNumber) {
+        int resId = 0;
+        try {
+            com.redcodersgroup.bubbleshooter.data.WorldConfigManager.WorldModel world =
+                    com.redcodersgroup.bubbleshooter.data.WorldConfigManager.getInstance(getContext()).getWorldForLevel(levelNumber);
+            if (world != null && world.gameBackground != null) {
+                resId = getResources().getIdentifier(world.gameBackground, "drawable", getContext().getPackageName());
+            }
+        } catch (Exception ignored) {}
+        if (resId == 0) {
+            int worldNumber = ((levelNumber - 1) / 10) + 1;
+            resId = getResources().getIdentifier("bg_game_world_" + worldNumber, "drawable", getContext().getPackageName());
+        }
+        return resId;
     }
 
     private void updateBgRects() {
