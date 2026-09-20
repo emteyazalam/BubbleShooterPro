@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_dark">
 
-    <!-- Interactive Custom Canvas Ambient Background (60 FPS Floating Bubbles, Stars, Confetti) -->
+    <!-- Interactive Custom Canvas Ambient Background (Floating Bubbles, Stars, Confetti) -->
     <com.redcodersgroup.bubbleshooter.ui.HomeBackgroundView
         android:id="@+id/homeBackgroundView"
         android:layout_width="match_parent"
@@ -19,137 +18,39 @@
         android:orientation="vertical"
         android:clipToPadding="false"
         android:clipChildren="false"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:paddingTop="36dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="24dp">
 
-        <!-- 1. Top Profile & Currencies Header -->
+        <!-- Top Bar: Settings Button on Top Right -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <!-- Player Profile Avatar Card -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_card_profile"
-                android:paddingStart="4dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp">
-
-                <ImageView
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:src="@drawable/ic_avatar_default" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="6dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="POP MASTER"
-                        android:textColor="#FFFFFF"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvPlayerRank"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Level 1 Popper"
-                        android:textColor="@color/accent_yellow"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
             <Space
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
-            <!-- Currency Badges: Stars & Coins -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <!-- Star Count Badge -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/bg_card_profile"
-                    android:paddingStart="7dp"
-                    android:paddingEnd="9dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_star_filled" />
-
-                    <TextView
-                        android:id="@+id/tvMainStars"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="0/90"
-                        android:textColor="#FFFFFF"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Coin Purse Badge -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/bg_card_profile"
-                    android:paddingStart="7dp"
-                    android:paddingEnd="9dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_coin" />
-
-                    <TextView
-                        android:id="@+id/tvCoinCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="500"
-                        android:textColor="#FFD700"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnMainSettings"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_settings_yellow"
+                android:contentDescription="Settings" />
         </LinearLayout>
 
         <Space
             android:layout_width="1dp"
             android:layout_height="0dp"
-            android:layout_weight="0.6" />
+            android:layout_weight="0.8" />
 
-        <!-- 2. Hero Title Banner & Animated Floating Logo -->
+        <!-- Hero Title Banner & Animated Floating Logo -->
         <LinearLayout
             android:id="@+id/titleContainer"
             android:layout_width="match_parent"
@@ -157,7 +58,7 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <!-- Decorative Crown & Power Orb Accents -->
+            <!-- Decorative Accents -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -166,20 +67,20 @@
                 android:layout_marginBottom="4dp">
 
                 <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/rainbow_bubble" />
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_star_filled" />
 
                 <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/bomb_bubble" />
             </LinearLayout>
 
@@ -190,7 +91,7 @@
                 android:text="BUBBLE\nSHOOTER"
                 android:textAlignment="center"
                 android:textColor="@color/accent_yellow"
-                android:textSize="34sp"
+                android:textSize="38sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.04"
                 android:shadowColor="#D0000000"
@@ -204,18 +105,18 @@
                 android:layout_height="wrap_content"
                 android:text="✦ PRO EDITION ✦"
                 android:textColor="@color/accent_pink"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.25"
-                android:layout_marginTop="1dp" />
+                android:layout_marginTop="2dp" />
         </LinearLayout>
 
         <Space
             android:layout_width="1dp"
             android:layout_height="0dp"
-            android:layout_weight="0.8" />
+            android:layout_weight="1.2" />
 
-        <!-- 3. Dual Game Modes Showcase (Adventure & Endless) -->
+        <!-- Dual Game Modes Showcase (Adventure & Endless) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -228,10 +129,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/bg_card_adventure"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -242,10 +143,10 @@
                     android:background="@drawable/bg_badge_saga"
                     android:text="⭐ SAGA"
                     android:textColor="#FDE047"
-                    android:textSize="9sp"
+                    android:textSize="9.5sp"
                     android:textStyle="bold"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_marginBottom="4dp" />
@@ -268,37 +169,37 @@
                             android:layout_height="wrap_content"
                             android:text="ADVENTURE"
                             android:textColor="#FFFFFF"
-                            android:textSize="15sp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvModeLevelStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Level 1 • 30 Epic Levels"
+                            android:text="Level 1 • 30 Levels"
                             android:textColor="#94A3B8"
-                            android:textSize="10sp"
-                            android:layout_marginTop="1dp" />
+                            android:textSize="11sp"
+                            android:layout_marginTop="2dp" />
                     </LinearLayout>
 
                     <Button
                         android:id="@+id/btnMainPlay"
-                        android:layout_width="88dp"
-                        android:layout_height="42dp"
+                        android:layout_width="94dp"
+                        android:layout_height="46dp"
                         android:background="@drawable/btn_pill_blank_green"
                         android:text="▶ PLAY"
                         android:textColor="#FFFFFF"
-                        android:textSize="14sp"
+                        android:textSize="14.5sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- Footer -->
+                <!-- Footer: Map Link -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:paddingTop="4dp">
 
                     <TextView
@@ -306,30 +207,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_map_link_btn"
-                        android:text="🗺️ World Map"
+                        android:text="🗺️ Select Level / Map"
                         android:textColor="#FDE047"
-                        android:textSize="10sp"
+                        android:textSize="11sp"
                         android:textStyle="bold"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
+                        android:paddingStart="9dp"
+                        android:paddingEnd="9dp"
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
                         android:clickable="true"
                         android:focusable="true" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/tvAdventureStarsPill"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="⭐ 0/90 Stars"
-                        android:textColor="#FDE047"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -339,12 +226,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/bg_card_endless"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -355,10 +242,10 @@
                     android:background="@drawable/bg_badge_endless"
                     android:text="⚡ INFINITE"
                     android:textColor="#F0ABFC"
-                    android:textSize="9sp"
+                    android:textSize="9.5sp"
                     android:textStyle="bold"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:layout_marginBottom="4dp" />
@@ -372,8 +259,8 @@
 
                     <!-- Infinity Box Icon -->
                     <LinearLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
                         android:background="@drawable/bg_infinity_box"
                         android:gravity="center">
 
@@ -382,7 +269,7 @@
                             android:layout_height="wrap_content"
                             android:text="∞"
                             android:textColor="#FFFFFF"
-                            android:textSize="22sp"
+                            android:textSize="24sp"
                             android:textStyle="bold"
                             android:includeFontPadding="false"
                             android:layout_marginTop="-2dp" />
@@ -392,37 +279,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="10dp"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="ENDLESS"
-                                android:textColor="#FFFFFF"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_badge_chip_new"
-                                android:text="NEW"
-                                android:textColor="#FFFFFF"
-                                android:textSize="8sp"
-                                android:textStyle="bold"
-                                android:paddingStart="4dp"
-                                android:paddingEnd="4dp"
-                                android:paddingTop="1dp"
-                                android:paddingBottom="1dp"
-                                android:layout_marginStart="6dp" />
-                        </LinearLayout>
+                            android:text="ENDLESS"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvEndlessHighScore"
@@ -430,19 +296,19 @@
                             android:layout_height="wrap_content"
                             android:text="🏆 Best: 0 pts • Survival"
                             android:textColor="#67E8F9"
-                            android:textSize="10sp"
+                            android:textSize="11sp"
                             android:textStyle="bold"
-                            android:layout_marginTop="1dp" />
+                            android:layout_marginTop="2dp" />
                     </LinearLayout>
 
                     <Button
                         android:id="@+id/btnMainEndless"
-                        android:layout_width="88dp"
-                        android:layout_height="42dp"
+                        android:layout_width="94dp"
+                        android:layout_height="46dp"
                         android:background="@drawable/btn_pill_purple"
                         android:text="⚡ PLAY"
                         android:textColor="#FFFFFF"
-                        android:textSize="14sp"
+                        android:textSize="14.5sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -451,127 +317,7 @@
         <Space
             android:layout_width="1dp"
             android:layout_height="0dp"
-            android:layout_weight="0.8" />
-
-        <!-- 4. Interactive Daily Star Chest Card (Compact) -->
-        <LinearLayout
-            android:id="@+id/layoutStarChest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@drawable/bg_card_profile"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <ImageView
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:src="@drawable/ic_chest" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="DAILY STAR CHEST"
-                        android:textColor="#FFFFFF"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/tvChestProgressNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0/10 ⭐"
-                        android:textColor="#FDE047"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Mini Progress Bar -->
-                <ProgressBar
-                    android:id="@+id/pbChest"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="6dp"
-                    android:layout_marginTop="3dp"
-                    android:max="10"
-                    android:progress="0"
-                    android:progressTint="@color/accent_yellow"
-                    android:progressBackgroundTint="#30FFFFFF" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <Space
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <!-- 5. Bottom Controls Dock: Sound, Leaderboard, Gift, Settings -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/btnMainSound"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_sound_green"
-                android:contentDescription="Toggle Sound" />
-
-            <ImageButton
-                android:id="@+id/btnMainTrophy"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="14dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_trophy_blue"
-                android:contentDescription="Leaderboard and Ranks" />
-
-            <ImageButton
-                android:id="@+id/btnMainGift"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="14dp"
-                android:background="@drawable/btn_orb_blank_red"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_gift"
-                android:contentDescription="Daily Gift" />
-
-            <ImageButton
-                android:id="@+id/btnMainHaptic"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="14dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_vibration_yellow"
-                android:contentDescription="Toggle Vibration" />
-        </LinearLayout>
+            android:layout_weight="1.0" />
 
     </LinearLayout>
 
