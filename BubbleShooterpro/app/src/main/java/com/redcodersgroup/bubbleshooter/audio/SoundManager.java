@@ -6,6 +6,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import com.redcodersgroup.bubbleshooter.R;
 import com.redcodersgroup.bubbleshooter.data.PreferencesManager;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,6 +20,7 @@ public class SoundManager {
     private Vibrator vibrator;
 
     private int soundShoot = -1;
+    private int soundPop = -1;
     private int soundBounce = -1;
     private int soundBomb = -1;
     private int soundWin = -1;
@@ -46,19 +48,28 @@ public class SoundManager {
                 .build();
 
         soundPool = new SoundPool.Builder()
-                .setMaxStreams(8)
+                .setMaxStreams(10)
                 .setAudioAttributes(audioAttributes)
                 .build();
 
+        try {
+            soundShoot = soundPool.load(context, R.raw.bubble_shot, 1);
+            soundPop = soundPool.load(context, R.raw.bubble_pop, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         new Thread(() -> {
             try {
-                soundShoot = loadSyntheticSound("snd_shoot.wav", SoundEffectGenerator.generateShoot());
+                if (soundShoot <= 0) {
+                    soundShoot = loadSyntheticSound("snd_shoot.wav", SoundEffectGenerator.generateShoot());
+                }
                 soundBounce = loadSyntheticSound("snd_bounce.wav", SoundEffectGenerator.generateBounce());
                 soundBomb = loadSyntheticSound("snd_bomb.wav", SoundEffectGenerator.generateBomb());
                 soundWin = loadSyntheticSound("snd_win.wav", SoundEffectGenerator.generateWin());
                 soundClick = loadSyntheticSound("snd_click.wav", SoundEffectGenerator.generateClick());
 
-                // Musical ascending pitch pops for combos (C, D, E, G, A, C)
+                // Musical ascending pitch pops for combos (C, D, E, G, A, C) fallback
                 float[] pitches = {1.0f, 1.12f, 1.25f, 1.5f, 1.68f, 2.0f};
                 for (int i = 0; i < pitches.length; i++) {
                     soundPops[i] = loadSyntheticSound("snd_pop_" + i + ".wav", SoundEffectGenerator.generatePop(pitches[i]));
@@ -82,7 +93,7 @@ public class SoundManager {
 
     public void playShoot() {
         if (!prefs.isSoundEnabled()) return;
-        playSound(soundShoot, 0.85f);
+        playSound(soundShoot, 0.9f);
         vibrate(12);
     }
 
@@ -94,8 +105,14 @@ public class SoundManager {
 
     public void playPop(int comboIndex) {
         if (!prefs.isSoundEnabled()) return;
-        int idx = Math.min(soundPops.length - 1, Math.max(0, comboIndex));
-        playSound(soundPops[idx], 1.0f);
+        if (soundPop > 0) {
+            // Ascending pitch modulation for combos
+            float rate = 1.0f + Math.min(0.5f, Math.max(0, comboIndex) * 0.08f);
+            playSound(soundPop, 1.0f, rate);
+        } else {
+            int idx = Math.min(soundPops.length - 1, Math.max(0, comboIndex));
+            playSound(soundPops[idx], 1.0f, 1.0f);
+        }
         vibrate(20);
     }
 
@@ -118,8 +135,12 @@ public class SoundManager {
     }
 
     private void playSound(int soundId, float volume) {
+        playSound(soundId, volume, 1.0f);
+    }
+
+    private void playSound(int soundId, float volume, float rate) {
         if (soundPool != null && soundId > 0) {
-            soundPool.play(soundId, volume, volume, 1, 0, 1.0f);
+            soundPool.play(soundId, volume, volume, 1, 0, rate);
         }
     }
 
