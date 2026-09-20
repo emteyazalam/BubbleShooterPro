@@ -17,12 +17,12 @@
     8024
   ],
   "rows": [
-    "B..C.C..B",
-    "B..CC..B",
-    "BGGCCCGGB",
-    "GGXCCXGG",
-    ".GYYCYYG.",
-    "..YGGY.."
+    "T..C.T..B",
+    "B..CT..B",
+    "BGGTCCGGT",
+    "GGXCCXGT",
+    ".TYYCYYG.",
+    "..YGGT.."
   ],
   "level": 158
 }

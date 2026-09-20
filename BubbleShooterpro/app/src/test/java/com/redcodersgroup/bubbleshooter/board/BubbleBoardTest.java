@@ -100,4 +100,52 @@ public class BubbleBoardTest {
         assertEquals(1, b0.getGridPosition().row);
         assertEquals(0, b0.getGridPosition().col);
     }
+
+    @Test
+    public void testTransparentBubbleBurstByAnyColor() {
+        // Transparent bubble at (0, 1)
+        grid.setBubble(0, 1, new Bubble(BubbleColor.TRANSPARENT, BubbleType.TRANSPARENT, new GridPosition(0, 1)));
+        // Non-matching Green bubble at (0, 0)
+        grid.setBubble(0, 0, new Bubble(BubbleColor.GREEN, new GridPosition(0, 0)));
+
+        // Snap a BLUE bubble at (1, 0) which neighbors (0, 1)
+        grid.setBubble(1, 0, new Bubble(BubbleColor.BLUE, new GridPosition(1, 0)));
+
+        List<GridPosition> matches = board.findMatches(new GridPosition(1, 0));
+        assertEquals(1, matches.size());
+        assertTrue(matches.contains(new GridPosition(0, 1)));
+    }
+
+    @Test
+    public void testConnectedTransparentBubblesChainBurst() {
+        // Two connected transparent bubbles at (0, 1) and (0, 2)
+        grid.setBubble(0, 1, new Bubble(BubbleColor.TRANSPARENT, BubbleType.TRANSPARENT, new GridPosition(0, 1)));
+        grid.setBubble(0, 2, new Bubble(BubbleColor.TRANSPARENT, BubbleType.TRANSPARENT, new GridPosition(0, 2)));
+
+        // Snap a RED bubble at (1, 0) touching (0, 1)
+        grid.setBubble(1, 0, new Bubble(BubbleColor.RED, new GridPosition(1, 0)));
+
+        List<GridPosition> matches = board.findMatches(new GridPosition(1, 0));
+        assertEquals(2, matches.size());
+        assertTrue(matches.contains(new GridPosition(0, 1)));
+        assertTrue(matches.contains(new GridPosition(0, 2)));
+    }
+
+    @Test
+    public void testTransparentBurstAlongWithMatchThree() {
+        // Two RED bubbles at (0, 0) and (0, 1) + Transparent bubble at (0, 2)
+        grid.setBubble(0, 0, new Bubble(BubbleColor.RED, new GridPosition(0, 0)));
+        grid.setBubble(0, 1, new Bubble(BubbleColor.RED, new GridPosition(0, 1)));
+        grid.setBubble(0, 2, new Bubble(BubbleColor.TRANSPARENT, BubbleType.TRANSPARENT, new GridPosition(0, 2)));
+
+        // Snap third RED bubble at (1, 1) touching both (0, 1) and (0, 2)
+        grid.setBubble(1, 1, new Bubble(BubbleColor.RED, new GridPosition(1, 1)));
+
+        List<GridPosition> matches = board.findMatches(new GridPosition(1, 1));
+        assertEquals(4, matches.size());
+        assertTrue(matches.contains(new GridPosition(0, 0)));
+        assertTrue(matches.contains(new GridPosition(0, 1)));
+        assertTrue(matches.contains(new GridPosition(1, 1)));
+        assertTrue(matches.contains(new GridPosition(0, 2)));
+    }
 }

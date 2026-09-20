@@ -17,12 +17,12 @@
     7786
   ],
   "rows": [
-    "BBCCCCCBB",
+    "TBCCCCCBB",
     "BXCCCXBB",
-    "GGGYYYYGG",
-    "GXYYYXGG",
-    "PPPPPPPPP",
-    "PBBCCBBP"
+    "GGGYYYYGT",
+    "GXTYYXGG",
+    "PPPPPPTPP",
+    "TBBCCTBP"
   ],
   "level": 152
 }

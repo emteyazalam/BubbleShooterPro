@@ -247,6 +247,9 @@ public class GameEngine {
                 } else if (ch == 'S' || ch == 's') {
                     bType = BubbleType.STONE;
                     bColor = BubbleColor.STONE;
+                } else if (ch == 'T' || ch == 't') {
+                    bType = BubbleType.TRANSPARENT;
+                    bColor = BubbleColor.TRANSPARENT;
                 } else {
                     bColor = BubbleColor.fromChar(ch);
                 }
@@ -941,9 +944,14 @@ public class GameEngine {
                     if (popped != null) {
                         popped.startPop();
                         poppingBubbles.add(popped);
-                        int particleColor = (popped.getColor() == BubbleColor.BOMB || popped.getType() == BubbleType.BOMB)
-                                ? Color.parseColor("#FF6D00")
-                                : popped.getColor().primaryColor;
+                        int particleColor;
+                        if (popped.getColor() == BubbleColor.BOMB || popped.getType() == BubbleType.BOMB) {
+                            particleColor = Color.parseColor("#FF6D00");
+                        } else if (popped.getColor() == BubbleColor.TRANSPARENT || popped.getType() == BubbleType.TRANSPARENT) {
+                            particleColor = Color.parseColor("#E0F7FA");
+                        } else {
+                            particleColor = popped.getColor().primaryColor;
+                        }
                         confettiSystem.spawnPopParticles(popped.getX(), popped.getY(), particleColor, hadBomb ? 20 : 12);
                     }
                 }
@@ -1065,11 +1073,16 @@ public class GameEngine {
                 if (popped != null) {
                     popped.startPop();
                     poppingBubbles.add(popped);
-                    int pColor = (popped.getColor() == BubbleColor.BOMB || popped.getType() == BubbleType.BOMB)
-                            ? Color.parseColor("#FF6D00")
-                            : ((popped.getColor() == BubbleColor.LIGHTNING || popped.getType() == BubbleType.LIGHTNING)
-                            ? Color.parseColor("#FFEB3B")
-                            : Color.parseColor("#FF5722"));
+                    int pColor;
+                    if (popped.getColor() == BubbleColor.BOMB || popped.getType() == BubbleType.BOMB) {
+                        pColor = Color.parseColor("#FF6D00");
+                    } else if (popped.getColor() == BubbleColor.LIGHTNING || popped.getType() == BubbleType.LIGHTNING) {
+                        pColor = Color.parseColor("#FFEB3B");
+                    } else if (popped.getColor() == BubbleColor.TRANSPARENT || popped.getType() == BubbleType.TRANSPARENT) {
+                        pColor = Color.parseColor("#E0F7FA");
+                    } else {
+                        pColor = Color.parseColor("#FF5722");
+                    }
                     confettiSystem.spawnPopParticles(popped.getX(), popped.getY(), pColor, 16);
                     poppedAny = true;
                 }

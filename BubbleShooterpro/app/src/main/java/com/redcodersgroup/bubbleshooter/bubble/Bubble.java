@@ -33,6 +33,10 @@ public class Bubble {
     private static Bitmap stoneBitmapCache;
     private static int cachedStoneBitmapRadius = 0;
 
+    private static Drawable transparentDrawable;
+    private static Bitmap transparentBitmapCache;
+    private static int cachedTransparentBitmapRadius = 0;
+
     public static void initResources(Context context) {
         if (context != null) {
             try {
@@ -49,6 +53,9 @@ public class Bubble {
             } catch (Exception ignored) {}
             try {
                 stoneDrawable = AppCompatResources.getDrawable(context.getApplicationContext(), R.drawable.stone_bubble);
+            } catch (Exception ignored) {}
+            try {
+                transparentDrawable = AppCompatResources.getDrawable(context.getApplicationContext(), R.drawable.transparent_bubble);
             } catch (Exception ignored) {}
         }
     }
@@ -276,6 +283,8 @@ public class Bubble {
             drawFireball(canvas, paint);
         } else if (type == BubbleType.STONE) {
             drawStone(canvas, paint);
+        } else if (type == BubbleType.TRANSPARENT || color == BubbleColor.TRANSPARENT) {
+            drawTransparent(canvas, paint);
         } else {
             drawGlossyBubble(canvas, paint, color);
         }
@@ -580,5 +589,74 @@ public class Bubble {
         paint.setShader(stoneGrad);
         canvas.drawCircle(0, 0, radius, paint);
         paint.setShader(null);
+    }
+
+    private void drawTransparent(Canvas canvas, Paint paint) {
+        if (transparentDrawable != null) {
+            int size = (int) (radius * 2);
+            if (size > 0) {
+                if (transparentBitmapCache == null || cachedTransparentBitmapRadius != size) {
+                    cachedTransparentBitmapRadius = size;
+                    try {
+                        transparentBitmapCache = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+                        Canvas bmpCanvas = new Canvas(transparentBitmapCache);
+                        transparentDrawable.setBounds(0, 0, size, size);
+                        transparentDrawable.draw(bmpCanvas);
+                    } catch (Exception e) {
+                        transparentBitmapCache = null;
+                    }
+                }
+
+                if (transparentBitmapCache != null && !transparentBitmapCache.isRecycled()) {
+                    paint.setAlpha((int) (255 * alpha));
+                    canvas.drawBitmap(transparentBitmapCache, -radius, -radius, paint);
+                    return;
+                }
+            }
+
+            int r = (int) radius;
+            transparentDrawable.setBounds(-r, -r, r, r);
+            transparentDrawable.setAlpha((int) (255 * alpha));
+            transparentDrawable.draw(canvas);
+            return;
+        }
+
+        // Fallback crystal clear glass bubble rendering
+        // 1. Subtle translucent glow
+        paint.setShader(null);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.argb((int) (25 * alpha), 224, 247, 250));
+        canvas.drawCircle(0, 0, radius, paint);
+
+        // 2. Translucent glass body gradient
+        RadialGradient glassGrad = new RadialGradient(
+                -radius * 0.25f, -radius * 0.25f, radius * 1.25f,
+                new int[]{Color.argb(40, 255, 255, 255), Color.argb(60, 178, 235, 242), Color.argb(110, 77, 208, 225)},
+                new float[]{0.0f, 0.6f, 1.0f},
+                Shader.TileMode.CLAMP
+        );
+        paint.setShader(glassGrad);
+        canvas.drawCircle(0, 0, radius, paint);
+        paint.setShader(null);
+
+        // 3. Shimmering glass outer rim
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(radius * 0.08f);
+        paint.setColor(Color.argb((int) (180 * alpha), 255, 255, 255));
+        canvas.drawCircle(0, 0, radius * 0.96f, paint);
+        paint.setStyle(Paint.Style.FILL);
+
+        // 4. Glossy specular highlight
+        paint.setColor(Color.WHITE);
+        paint.setAlpha((int) (220 * alpha));
+        canvas.save();
+        canvas.translate(-radius * 0.35f, -radius * 0.35f);
+        canvas.rotate(-40f);
+        canvas.drawOval(-radius * 0.28f, -radius * 0.14f, radius * 0.28f, radius * 0.14f, paint);
+        canvas.restore();
+
+        // 5. Pinpoint star sparkle
+        paint.setAlpha((int) (250 * alpha));
+        canvas.drawCircle(-radius * 0.22f, -radius * 0.52f, radius * 0.07f, paint);
     }
 }

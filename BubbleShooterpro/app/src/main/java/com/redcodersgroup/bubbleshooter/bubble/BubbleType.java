@@ -6,5 +6,6 @@ public enum BubbleType {
     BOMB,
     LIGHTNING,
     FIREBALL,
-    STONE
+    STONE,
+    TRANSPARENT
 }

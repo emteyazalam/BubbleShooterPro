@@ -17,12 +17,12 @@
     9895
   ],
   "rows": [
-    "C..B..P..",
+    "T..B..P..",
     "CCBBPPCC",
-    "CBBPPPBBC",
-    "BBCPPCBB",
-    "PP*YYY*PP",
-    ".YYYYYY."
+    "CBBPPPBBT",
+    "BBCPPCBT",
+    "PT*YYY*PP",
+    ".YYYYTY."
   ],
   "level": 237
 }

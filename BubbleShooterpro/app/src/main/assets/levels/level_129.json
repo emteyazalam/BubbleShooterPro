@@ -17,12 +17,12 @@
     7252
   ],
   "rows": [
-    "CCMMMMMCC",
-    "CCMMMMCC",
-    "CC.....CC",
-    "YY....YY",
-    "YYC...CYY",
-    "GG....GG",
+    "TCMMMMMCC",
+    "CCMMTMCC",
+    "CC.....CT",
+    "YY....YT",
+    "YTC...TYY",
+    "TG....GG",
     "GGMMMMMGG"
   ],
   "level": 129

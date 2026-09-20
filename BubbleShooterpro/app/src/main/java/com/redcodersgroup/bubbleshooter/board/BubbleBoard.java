@@ -102,33 +102,50 @@ public class BubbleBoard {
             return matchedPositions;
         }
 
-        // 4. Stone Bubbles cannot be popped by normal shots or rainbow
+        // 4. Stone Bubbles cannot be popped by normal shots or rainbow (but adjacent transparent burst)
+        Set<GridPosition> directTransparent = new HashSet<>();
+        for (GridPosition n : getNeighbors(startPos)) {
+            Bubble nb = grid.getBubble(n);
+            if (nb != null && !nb.isPopping() && !nb.isFalling()) {
+                if (nb.getType() == BubbleType.TRANSPARENT || nb.getColor() == BubbleColor.TRANSPARENT) {
+                    directTransparent.add(n);
+                }
+            }
+        }
+        if (startBubble.getType() == BubbleType.TRANSPARENT || startBubble.getColor() == BubbleColor.TRANSPARENT) {
+            directTransparent.add(startPos);
+        }
+        Set<GridPosition> transparentToBurst = getTransparentBurstPositions(directTransparent);
+
         if (startBubble.getType() == BubbleType.STONE || startBubble.getColor() == BubbleColor.STONE) {
-            return matchedPositions;
+            return new ArrayList<>(transparentToBurst);
         }
 
-        // 5. Rainbow Bubble: matches any valid neighbor color it touches (cannot match stone)
+        // 5. Rainbow Bubble: matches any valid neighbor color it touches (cannot match stone or transparent)
         BubbleColor targetColor = startBubble.getColor();
         if (startBubble.getType() == BubbleType.RAINBOW || targetColor == BubbleColor.RAINBOW) {
-            // Find most prevalent neighbor color (excluding specials and stone)
+            // Find most prevalent neighbor color (excluding specials, stone, transparent)
             for (GridPosition n : getNeighbors(startPos)) {
                 Bubble nb = grid.getBubble(n);
                 if (nb != null && nb.getColor() != BubbleColor.RAINBOW && nb.getColor() != BubbleColor.NONE
                         && nb.getColor() != BubbleColor.BOMB && nb.getColor() != BubbleColor.LIGHTNING
                         && nb.getColor() != BubbleColor.FIREBALL && nb.getColor() != BubbleColor.STONE
-                        && nb.getType() != BubbleType.STONE) {
+                        && nb.getColor() != BubbleColor.TRANSPARENT
+                        && nb.getType() != BubbleType.STONE && nb.getType() != BubbleType.TRANSPARENT) {
                     targetColor = nb.getColor();
                     break;
                 }
             }
         }
 
-        // 6. Normal BFS match 3 or more (Stone is immune to normal matching)
+        // 6. Normal BFS match 3 or more (Stone and Transparent handled separately)
         Set<GridPosition> visited = new HashSet<>();
         Queue<GridPosition> queue = new ArrayDeque<>();
 
-        visited.add(startPos);
-        queue.add(startPos);
+        if (startBubble.getType() != BubbleType.TRANSPARENT && startBubble.getColor() != BubbleColor.TRANSPARENT) {
+            visited.add(startPos);
+            queue.add(startPos);
+        }
 
         while (!queue.isEmpty()) {
             GridPosition current = queue.poll();
@@ -139,8 +156,9 @@ public class BubbleBoard {
 
                 Bubble nb = grid.getBubble(neighbor);
                 if (nb != null && !nb.isPopping() && !nb.isFalling()) {
-                    // Stone cannot be matched by normal colors or rainbow
-                    if (nb.getType() == BubbleType.STONE || nb.getColor() == BubbleColor.STONE) {
+                    // Stone and Transparent cannot be matched by normal colors
+                    if (nb.getType() == BubbleType.STONE || nb.getColor() == BubbleColor.STONE
+                            || nb.getType() == BubbleType.TRANSPARENT || nb.getColor() == BubbleColor.TRANSPARENT) {
                         continue;
                     }
 
@@ -158,10 +176,12 @@ public class BubbleBoard {
 
         // A valid match requires 3 or more bubbles
         if (matchedPositions.size() >= 3) {
-            // Check if any matched bubble is adjacent to a Bomb, Lightning, or Fireball on the grid
+            // Check if any matched bubble is adjacent to a Bomb, Lightning, Fireball, or Transparent bubble
             Set<GridPosition> adjacentBombs = new HashSet<>();
             Set<GridPosition> adjacentLightning = new HashSet<>();
             Set<GridPosition> adjacentFireballs = new HashSet<>();
+            Set<GridPosition> adjacentTransparent = new HashSet<>(directTransparent);
+
             for (GridPosition mp : matchedPositions) {
                 for (GridPosition n : getNeighbors(mp)) {
                     Bubble nb = grid.getBubble(n);
@@ -172,11 +192,16 @@ public class BubbleBoard {
                             adjacentLightning.add(n);
                         } else if (nb.getType() == BubbleType.FIREBALL || nb.getColor() == BubbleColor.FIREBALL) {
                             adjacentFireballs.add(n);
+                        } else if (nb.getType() == BubbleType.TRANSPARENT || nb.getColor() == BubbleColor.TRANSPARENT) {
+                            adjacentTransparent.add(n);
                         }
                     }
                 }
             }
+
             Set<GridPosition> total = new HashSet<>(matchedPositions);
+            total.addAll(getTransparentBurstPositions(adjacentTransparent));
+
             if (!adjacentBombs.isEmpty()) {
                 total.addAll(getBombExplosionPositions(adjacentBombs));
             }
@@ -190,7 +215,38 @@ public class BubbleBoard {
         }
 
         matchedPositions.clear();
+        if (!transparentToBurst.isEmpty()) {
+            matchedPositions.addAll(transparentToBurst);
+        }
         return matchedPositions;
+    }
+
+    /**
+     * Recursively/iteratively finds all contiguous Transparent bubbles connected to the seed positions.
+     */
+    public Set<GridPosition> getTransparentBurstPositions(Set<GridPosition> initialTransparent) {
+        Set<GridPosition> burstPositions = new HashSet<>();
+        if (initialTransparent == null || initialTransparent.isEmpty()) return burstPositions;
+
+        Queue<GridPosition> queue = new ArrayDeque<>(initialTransparent);
+        Set<GridPosition> visited = new HashSet<>(initialTransparent);
+
+        while (!queue.isEmpty()) {
+            GridPosition pos = queue.poll();
+            burstPositions.add(pos);
+
+            for (GridPosition neighbor : getNeighbors(pos)) {
+                if (visited.contains(neighbor)) continue;
+                Bubble nb = grid.getBubble(neighbor);
+                if (nb != null && !nb.isPopping() && !nb.isFalling()) {
+                    if (nb.getType() == BubbleType.TRANSPARENT || nb.getColor() == BubbleColor.TRANSPARENT) {
+                        visited.add(neighbor);
+                        queue.add(neighbor);
+                    }
+                }
+            }
+        }
+        return burstPositions;
     }
 
     /**

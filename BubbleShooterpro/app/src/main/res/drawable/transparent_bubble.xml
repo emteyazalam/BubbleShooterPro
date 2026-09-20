@@ -1,0 +1,82 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+  <!-- Subtle Translucent Outer Shadow -->
+  <path
+      android:pathData="M64,68m-58,0a58,58 0,1 1,116 0a58,58 0,1 1,-116 0"
+      android:fillColor="#18000000"/>
+
+  <!-- Glass Translucent Sphere Body -->
+  <path
+      android:pathData="M64,64m-60,0a60,60 0,1 1,120 0a60,60 0,1 1,-120 0">
+    <aapt:attr name="android:fillColor">
+      <gradient
+          android:centerX="48"
+          android:centerY="42"
+          android:gradientRadius="80"
+          android:type="radial">
+        <item android:offset="0" android:color="#20FFFFFF"/>
+        <item android:offset="0.45" android:color="#35B2EBF2"/>
+        <item android:offset="0.8" android:color="#5080DEEA"/>
+        <item android:offset="1.0" android:color="#754DD0E1"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+
+  <!-- Inner Soft Prism Iridescence Ring -->
+  <path
+      android:pathData="M64,64m-52,0a52,52 0,1 1,104 0a52,52 0,1 1,-104 0"
+      android:strokeWidth="4"
+      android:strokeAlpha="0.4">
+    <aapt:attr name="android:strokeColor">
+      <gradient
+          android:startX="20"
+          android:startY="20"
+          android:endX="108"
+          android:endY="108"
+          android:type="linear">
+        <item android:offset="0" android:color="#80E0F7FA"/>
+        <item android:offset="0.35" android:color="#60B388FF"/>
+        <item android:offset="0.7" android:color="#6080D8FF"/>
+        <item android:offset="1.0" android:color="#80A7FFEB"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+
+  <!-- Bottom-Right Internal Crescent Rim Glow -->
+  <path
+      android:pathData="M38,98 C50,114 78,114 96,98 C86,108 60,108 48,96 Z"
+      android:fillColor="#70FFFFFF"/>
+
+  <!-- Crisp Outer Glass Border -->
+  <path
+      android:pathData="M64,64m-59,0a59,59 0,1 1,118 0a59,59 0,1 1,-118 0"
+      android:strokeWidth="2.5"
+      android:strokeColor="#A0FFFFFF"
+      android:strokeAlpha="0.7"/>
+
+  <!-- Top-Left Large Specular Highlight Oval -->
+  <path
+      android:pathData="M34,26 C44,16 62,18 68,30 C64,22 48,22 38,32 Z"
+      android:fillColor="#E5FFFFFF"/>
+
+  <!-- Secondary Specular Oval -->
+  <path
+      android:pathData="M30,42 C33,36 40,36 43,42 C41,38 34,38 31,44 Z"
+      android:fillColor="#A0FFFFFF"/>
+
+  <!-- Pinpoint Sparkle Center-Left -->
+  <path
+      android:pathData="M48,34m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0"
+      android:fillColor="#FFFFFFFF"/>
+
+  <!-- Delicate Center Sparkle Cross -->
+  <path
+      android:pathData="M84,40 L86,45 L91,47 L86,49 L84,54 L82,49 L77,47 L82,45 Z"
+      android:fillColor="#90FFFFFF"/>
+
+</vector>

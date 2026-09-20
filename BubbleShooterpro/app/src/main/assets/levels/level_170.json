@@ -18,12 +18,12 @@
   ],
   "rows": [
     ".BB.B.BB.",
-    "BBBBBBBB",
+    "BBBBTBBB",
     "CBBYBYBBC",
-    "CCBBBBCC",
-    ".GCXBXCG.",
+    "CCTBBBCT",
+    ".TCXBXCG.",
     "..GGGG..",
-    "...YYY..."
+    "...YTY..."
   ],
   "level": 170
 }

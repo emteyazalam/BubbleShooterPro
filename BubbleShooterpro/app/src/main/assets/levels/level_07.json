@@ -1,5 +1,5 @@
 {
-  "shots": 17,
+  "shots": 14,
   "colors": [
     "RED",
     "BLUE",
@@ -15,12 +15,12 @@
     4621
   ],
   "rows": [
-    "BRBRBRBRB",
-    "BRBRRBRB",
-    "RBRBRBRBR",
-    "BRBYYBRB",
-    "RBRBRBRBR",
-    "BRBRRBRB"
+    "RRR...BBB",
+    "RR.TTT.BB",
+    "GGGTTTGGG",
+    "GG...GG",
+    "RRRRRRR",
+    "RRRRRR"
   ],
   "level": 7
 }

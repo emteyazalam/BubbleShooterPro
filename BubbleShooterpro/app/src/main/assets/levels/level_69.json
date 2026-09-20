@@ -16,13 +16,13 @@
     5888
   ],
   "rows": [
-    "PPCCCCCPP",
-    "PPCCCCPP",
-    "PP.....PP",
-    "YY....YY",
+    "PPCCCTCPP",
+    "PPCCTCPP",
+    "PP.....PT",
+    "YY....YT",
     "YYX...XYY",
-    "RR....RR",
-    "RRCCCCCRR"
+    "TR....RR",
+    "RRCCTCCRR"
   ],
   "level": 69
 }

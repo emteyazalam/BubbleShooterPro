@@ -113,15 +113,19 @@ public class EndlessPatternGenerator {
             }
         }
 
-        // Occasional tactical booster spawn (Bomb or Rainbow)
-        if (random.nextInt(100) < 6 || (waveCount > 0 && waveCount % 8 == 0 && random.nextBoolean())) {
+        // Occasional tactical booster/special spawn (Bomb, Rainbow, or Transparent)
+        if (random.nextInt(100) < 9 || (waveCount > 0 && waveCount % 6 == 0 && random.nextBoolean())) {
             int boosterCol = (cols > 2) ? (1 + random.nextInt(cols - 2)) : 0;
-            if (random.nextBoolean()) {
+            int roll = random.nextInt(3);
+            if (roll == 0) {
                 rowTypes[boosterCol] = BubbleType.BOMB;
                 rowColors[boosterCol] = BubbleColor.BOMB;
-            } else {
+            } else if (roll == 1) {
                 rowTypes[boosterCol] = BubbleType.RAINBOW;
                 rowColors[boosterCol] = BubbleColor.RAINBOW;
+            } else {
+                rowTypes[boosterCol] = BubbleType.TRANSPARENT;
+                rowColors[boosterCol] = BubbleColor.TRANSPARENT;
             }
         }
 
