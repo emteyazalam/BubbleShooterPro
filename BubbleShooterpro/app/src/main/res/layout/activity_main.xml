@@ -264,31 +264,28 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- World Title Pill with Prev / Next Arrows (Placed Below Center, Symmetrical Pill) -->
+    <!-- World Title Plaque (Positioned cleanly beneath Top HUD) -->
     <LinearLayout
         android:id="@+id/layoutWorldSwitcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="108dp"
-        android:background="@drawable/bg_world_switcher_bottom"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="@dimen/dp_98"
+        android:background="@drawable/bg_world_header_banner"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/dp_12"
-        android:paddingEnd="@dimen/dp_12"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_14"
+        android:paddingEnd="@dimen/dp_16"
         android:paddingTop="@dimen/dp_6"
-        android:paddingBottom="@dimen/dp_6"
-        android:elevation="@dimen/dp_10">
+        android:paddingBottom="@dimen/dp_8"
+        android:elevation="@dimen/dp_8">
 
-        <TextView
-            android:id="@+id/btnPrevWorld"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/dp_4"
-            android:paddingEnd="@dimen/dp_8"
-            android:text="▲"
-            android:textColor="#FDE047"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:src="@drawable/ic_world_globe"
+            android:contentDescription="@null" />
 
         <TextView
             android:id="@+id/tvCurrentWorldTitle"
@@ -298,22 +295,11 @@
             android:textColor="#FFFFFF"
             android:textSize="@dimen/sp_12"
             android:textStyle="bold"
-            android:letterSpacing="0.04"
+            android:letterSpacing="0.05"
             android:shadowColor="#80000000"
             android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="2" />
-
-        <TextView
-            android:id="@+id/btnNextWorld"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/dp_8"
-            android:paddingEnd="@dimen/dp_4"
-            android:text="▼"
-            android:textColor="#FDE047"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:shadowDy="2"
+            android:shadowRadius="3" />
     </LinearLayout>
 
     <!-- Puffy Rounded-Triangle Play Button (Matching Example Home Image) -->

@@ -146,35 +146,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // ▲ arrow = go to PREVIOUS world (lower world number = higher pager position in reversed order)
-        binding.btnPrevWorld.setOnClickListener(v -> {
-            int currentItem = binding.viewPagerWorldMaps.getCurrentItem();
-            int currentWorldIndex = worldMapAdapter.toWorldIndex(currentItem);
-            if (currentWorldIndex > 0) {
-                soundManager.playClick();
-                binding.viewPagerWorldMaps.setCurrentItem(worldMapAdapter.toPagerPosition(currentWorldIndex - 1), true);
-            }
-        });
-
-        // ▼ arrow = go to NEXT world (higher world number = lower pager position in reversed order)
-        binding.btnNextWorld.setOnClickListener(v -> {
-            int currentItem = binding.viewPagerWorldMaps.getCurrentItem();
-            int currentWorldIndex = worldMapAdapter.toWorldIndex(currentItem);
-            if (currentWorldIndex < worldConfigManager.getTotalWorlds() - 1) {
-                soundManager.playClick();
-                binding.viewPagerWorldMaps.setCurrentItem(worldMapAdapter.toPagerPosition(currentWorldIndex + 1), true);
-            }
-        });
-
-        // Initial switcher update
+        // Initial world title update
         updateWorldSwitcherUI(0);
     }
 
     private void updateWorldSwitcherUI(int worldIndex) {
         WorldModel world = worldConfigManager.getWorldByIndex(worldIndex);
-        binding.tvCurrentWorldTitle.setText(world.subtitle);
-        binding.btnPrevWorld.setVisibility(worldIndex > 0 ? View.VISIBLE : View.INVISIBLE);
-        binding.btnNextWorld.setVisibility(worldIndex < worldConfigManager.getTotalWorlds() - 1 ? View.VISIBLE : View.INVISIBLE);
+        if (world != null && binding.tvCurrentWorldTitle != null) {
+            binding.tvCurrentWorldTitle.setText(world.subtitle);
+        }
     }
 
     @Override
