@@ -689,7 +689,6 @@ public class GameEngine {
                 isAimCancelled = false;
                 if (isFireballBlocked) {
                     soundManager.playBounce();
-                    floatingTexts.add(new FloatingText("🚫 MAX 1 BOUNCE ALLOWED!", launcherX, launcherY - bubbleRadius * 1.5f, Color.parseColor("#EF4444"), 42f, 1.4f));
                     isFireballBlocked = false;
                 }
                 if (trajectoryPoints != null) {
@@ -741,7 +740,7 @@ public class GameEngine {
         TrajectoryCalculator.TrajectoryResult result = TrajectoryCalculator.calculateTrajectory(
                 launcherX, launcherY, aimAngleRad,
                 boardLeft, boardRight, boardTop,
-                grid, bubbleRadius, isFireball, maxBounces
+                grid, bubbleRadius, false, maxBounces
         );
 
         this.trajectoryPoints = result.points;
