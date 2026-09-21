@@ -180,6 +180,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         binding.tvLevelTitle.setText("LVL " + currentLevelNumber + " • " + (theme != null ? theme.title : ""));
         Level level = levelManager.getLevel(currentLevelNumber);
         if (level != null && level.getObjective() != null) {
+            level.getObjective().resetProgress();
             binding.tvObjectiveBadge.setText(level.getObjective().getBadgeText(0, level.getRows().size() * 8));
             binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective);
         }

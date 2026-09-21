@@ -273,6 +273,9 @@ public class GameEngine {
         this.grid.clear();
         this.state = GameState.READY;
         this.isLauncherReloading = false;
+        if (level.getObjective() != null) {
+            level.getObjective().resetProgress();
+        }
 
         // Populate grid from level row strings
         List<String> rows = level.getRows();

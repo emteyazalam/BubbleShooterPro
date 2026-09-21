@@ -59,6 +59,10 @@ public class LevelObjective {
         this.currentProgress += amount;
     }
 
+    public void resetProgress() {
+        this.currentProgress = 0;
+    }
+
     public boolean isMet(BubbleBoard board, ScoreManager scoreManager) {
         switch (type) {
             case CLEAR_ALL:
