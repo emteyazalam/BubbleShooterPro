@@ -177,23 +177,20 @@ public class BubbleGameView extends View {
 
     /**
      * Sets the aesthetic biome and authentic campaign world background for Endless Mode.
-     * Transitions dynamically through the game's 49 worlds every 5 waves.
-     *
-     * Guard: if the world number hasn't changed (same 5-wave bracket), skip the expensive reload
-     * entirely so shot bursts render without any delay.
-     * The background bitmap is decoded on a background thread and applied on the UI thread once ready.
+     * Fixed to World 23 (Pinecone Peak / bg_game_world_23) so the background does not change during endless gameplay.
      */
     public void setEndlessBiome(int wave) {
-        int worldNumber = ((Math.max(1, wave) - 1) / 5) % 49 + 1;
-        if (worldNumber == lastLoadedEndlessWorld) return; // same biome — nothing to do
-        lastLoadedEndlessWorld = worldNumber;
+        // Fixed to World 23 (Pinecone Peak)
+        int fixedWorldNumber = 23;
+        if (fixedWorldNumber == lastLoadedEndlessWorld) return; // already loaded — keep static
+        lastLoadedEndlessWorld = fixedWorldNumber;
 
-        int simulatedLevel = (worldNumber - 1) * 10 + 1;
+        int simulatedLevel = (fixedWorldNumber - 1) * 10 + 1; // Level 221
         this.currentLevel = simulatedLevel;
         this.currentBiome = BiomeTheme.forLevel(simulatedLevel);
         updateBackgroundGradient();
         initParticles();
-        invalidate(); // immediately apply gradient/particles, background arrives shortly after
+        invalidate();
 
         loadWorldBackgroundAsync(simulatedLevel);
     }
