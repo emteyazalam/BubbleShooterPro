@@ -39,15 +39,17 @@ public class WorldConfigManager {
         public final float x;
         public final float y;
         public final int requiredLevelOffset;
+        public final int rewardDiamonds;
         public final int rewardCoins;
 
-        public GiftConfig(int giftIndex, String name, float x, float y, int requiredLevelOffset, int rewardCoins) {
+        public GiftConfig(int giftIndex, String name, float x, float y, int requiredLevelOffset, int rewardDiamonds) {
             this.giftIndex = giftIndex;
             this.name = name;
             this.x = x;
             this.y = y;
             this.requiredLevelOffset = requiredLevelOffset;
-            this.rewardCoins = rewardCoins;
+            this.rewardDiamonds = rewardDiamonds;
+            this.rewardCoins = rewardDiamonds;
         }
     }
 
@@ -217,8 +219,8 @@ public class WorldConfigManager {
                         float gx = (float) gObj.optDouble("x", 0.5);
                         float gy = (float) gObj.optDouble("y", 0.5);
                         int reqOffset = gObj.optInt("requiredLevelOffset", g == 0 ? 6 : 9);
-                        int coins = gObj.optInt("rewardCoins", 100 * (g + 1));
-                        gifts.add(new GiftConfig(giftIndex, gName, gx, gy, reqOffset, coins));
+                        int diamonds = gObj.optInt("rewardDiamonds", gObj.optInt("rewardCoins", 50 * (g + 1)));
+                        gifts.add(new GiftConfig(giftIndex, gName, gx, gy, reqOffset, diamonds));
                     }
                 }
 

@@ -18,6 +18,9 @@ public class PreferencesManager {
     private static final String KEY_ENDLESS_HIGH_SCORE = "key_endless_high_score";
     private static final String KEY_PLAYER_NAME = "key_player_name";
     private static final String KEY_PLAYER_AVATAR = "key_player_avatar";
+    private static final String KEY_DIAMONDS = "key_player_diamonds";
+    private static final String KEY_LIVES = "key_player_lives";
+    private static final String KEY_FREE_DIAMONDS_CLAIM_DATE = "key_free_diamonds_claim_date";
 
     private final SharedPreferences prefs;
 
@@ -150,6 +153,74 @@ public class PreferencesManager {
         if (avatarId != null && !avatarId.trim().isEmpty()) {
             prefs.edit().putString(KEY_PLAYER_AVATAR, avatarId.trim()).apply();
         }
+    }
+
+    public int getDiamonds() {
+        if (!prefs.contains(KEY_DIAMONDS)) {
+            int initial = Math.max(100, getHighestUnlockedLevel() * 25);
+            prefs.edit().putInt(KEY_DIAMONDS, initial).apply();
+            return initial;
+        }
+        return prefs.getInt(KEY_DIAMONDS, 100);
+    }
+
+    public void setDiamonds(int count) {
+        prefs.edit().putInt(KEY_DIAMONDS, Math.max(0, count)).apply();
+    }
+
+    public void addDiamonds(int count) {
+        if (count > 0) {
+            setDiamonds(getDiamonds() + count);
+        }
+    }
+
+    public boolean spendDiamonds(int cost) {
+        if (cost <= 0) return true;
+        int current = getDiamonds();
+        if (current >= cost) {
+            setDiamonds(current - cost);
+            return true;
+        }
+        return false;
+    }
+
+    public int getLives() {
+        return prefs.getInt(KEY_LIVES, 5);
+    }
+
+    public void setLives(int lives) {
+        prefs.edit().putInt(KEY_LIVES, Math.max(0, Math.min(5, lives))).apply();
+    }
+
+    public void refillLives() {
+        setLives(5);
+    }
+
+    public void addBombBoosters(int count) {
+        setBombBoosters(getBombBoosters() + count);
+    }
+
+    public void addRainbowBoosters(int count) {
+        setRainbowBoosters(getRainbowBoosters() + count);
+    }
+
+    public void addLightningBoosters(int count) {
+        setLightningBoosters(getLightningBoosters() + count);
+    }
+
+    public void addFireballBoosters(int count) {
+        setFireballBoosters(getFireballBoosters() + count);
+    }
+
+    public boolean canClaimDailyFreeDiamonds() {
+        long lastClaim = prefs.getLong(KEY_FREE_DIAMONDS_CLAIM_DATE, 0);
+        long now = System.currentTimeMillis();
+        // Allow once every 24 hours (or if never claimed)
+        return (now - lastClaim) >= (24L * 60 * 60 * 1000);
+    }
+
+    public void markDailyFreeDiamondsClaimed() {
+        prefs.edit().putLong(KEY_FREE_DIAMONDS_CLAIM_DATE, System.currentTimeMillis()).apply();
     }
 
     public void resetProgress() {

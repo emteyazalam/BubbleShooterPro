@@ -30,7 +30,7 @@ public class WorldMapPagerAdapter extends RecyclerView.Adapter<WorldMapPagerAdap
 
     public interface OnWorldInteractionListener {
         void onLevelSelected(int levelNumber);
-        void onWorldGiftClaimed(int worldNumber, int giftIndex, int bonusCoins);
+        void onWorldGiftClaimed(int worldNumber, int giftIndex, int bonusDiamonds);
     }
 
     private final Context context;
@@ -291,9 +291,9 @@ public class WorldMapPagerAdapter extends RecyclerView.Adapter<WorldMapPagerAdap
                     } else {
                         prefs.setClaimedWorldGift(world.worldNumber, giftIndex, true);
                         ivGift.setAlpha(0.55f);
-                        int bonusCoins = gift.rewardCoins;
+                        int bonusDiamonds = gift.rewardDiamonds;
                         if (listener != null) {
-                            listener.onWorldGiftClaimed(world.worldNumber, giftIndex, bonusCoins);
+                            listener.onWorldGiftClaimed(world.worldNumber, giftIndex, bonusDiamonds);
                         }
                     }
                 });

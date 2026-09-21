@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Shadow -->
+    <ellipse cx="24" cy="44" rx="15" ry="3" fill="#30000000" />
+
+    <!-- Gift Box Base (Emerald Green) -->
+    <path
+        android:fillColor="#059669"
+        android:pathData="M11,23 L37,23 L35,42 L13,42 Z" />
+    <path
+        android:fillColor="#047857"
+        android:pathData="M24,23 L37,23 L35,42 L24,42 Z" />
+
+    <!-- Ribbon Vertical -->
+    <rect x="22" y="23" width="4" height="19" fill="#FBBF24" />
+
+    <!-- Lid -->
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M9,18 L39,18 L39,24 L9,24 Z" />
+    <path
+        android:fillColor="#059669"
+        android:pathData="M24,18 L39,18 L39,24 L24,24 Z" />
+    <rect x="22" y="18" width="4" height="6" fill="#FBBF24" />
+
+    <!-- Bow -->
+    <circle cx="21" cy="15" r="3.5" fill="#F59E0B" />
+    <circle cx="27" cy="15" r="3.5" fill="#F59E0B" />
+    <circle cx="24" cy="17" r="2.5" fill="#FBBF24" />
+
+    <!-- Diamond Floating Above Gift Box -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M24,4 L20,8 L24,13 L28,8 Z" />
+    <path
+        android:fillColor="#E0F2FE"
+        android:pathData="M24,4 L22,8 L24,9.5 L26,8 Z" />
+
+    <!-- Sparkle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,1 L24.5,3 L26.5,3.5 L24.5,4 L24,6 L23.5,4 L21.5,3.5 L23.5,3 Z" />
+
+</vector>

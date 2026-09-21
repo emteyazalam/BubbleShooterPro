@@ -49,9 +49,9 @@
                 android:contentDescription="Profile" />
         </FrameLayout>
 
-        <!-- Coins Counter Pill -->
+        <!-- Diamonds Counter Pill -->
         <LinearLayout
-            android:id="@+id/layoutCoinsCounter"
+            android:id="@+id/layoutDiamondsCounter"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_36"
             android:layout_marginStart="@dimen/dp_8"
@@ -65,17 +65,17 @@
             <ImageView
                 android:layout_width="@dimen/dp_26"
                 android:layout_height="@dimen/dp_26"
-                android:src="@drawable/ic_hud_coin"
-                android:contentDescription="Coins" />
+                android:src="@drawable/ic_hud_diamond"
+                android:contentDescription="Diamonds" />
 
             <TextView
-                android:id="@+id/tvHomeCoins"
+                android:id="@+id/tvHomeDiamonds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_6"
                 android:layout_marginEnd="@dimen/dp_6"
-                android:text="250"
-                android:textColor="#92400E"
+                android:text="100"
+                android:textColor="#0369A1"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:src="@drawable/ic_hud_plus"
-                android:contentDescription="Add Coins" />
+                android:contentDescription="Open Diamond Shop" />
         </LinearLayout>
 
         <!-- Lives / Hearts Counter Pill -->

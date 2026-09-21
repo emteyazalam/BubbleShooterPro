@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Drop Shadow -->
+    <ellipse cx="24" cy="44" rx="16" ry="3.5" fill="#30000000" />
+
+    <!-- Pouch Body Base (Rich Purple/Indigo Velvet) -->
+    <path
+        android:fillColor="#4338CA"
+        android:pathData="M16,19 C10,21 8,27 9,35 C10,41 16,43 24,43 C32,43 38,41 39,35 C40,27 38,21 32,19 Z" />
+
+    <!-- Pouch Highlight / Sheen -->
+    <path
+        android:fillColor="#6366F1"
+        android:pathData="M18,20 C13,22 11,27 12,34 C17,37 23,37 27,33 C23,28 19,23 18,20 Z" />
+
+    <!-- Pouch Gold Tie Cord -->
+    <path
+        android:fillColor="#F59E0B"
+        android:strokeColor="#D97706"
+        android:strokeWidth="1"
+        android:pathData="M15,18 C19,20 29,20 33,18 L33,16 C29,18 19,18 15,16 Z" />
+
+    <!-- Cord Knots and Tassels -->
+    <circle cx="21" cy="21" r="2.5" fill="#FBBF24" />
+    <path
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="2"
+        android:pathData="M21,22 L19,27 M21,22 L23,27" />
+
+    <!-- Top Ruffled Opening -->
+    <path
+        android:fillColor="#4F46E5"
+        android:pathData="M15,16 C14,12 17,10 20,13 C22,10 26,10 28,13 C31,10 34,12 33,16 Z" />
+
+    <!-- Sparkling Diamonds Gushing from Pouch Top -->
+    <!-- Diamond 1 (Center Top) -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M24,7 L20,11 L24,16 L28,11 Z" />
+    <path
+        android:fillColor="#BAE6FD"
+        android:pathData="M24,7 L22,11 L24,13 L26,11 Z" />
+
+    <!-- Diamond 2 (Left) -->
+    <path
+        android:fillColor="#0EA5E9"
+        android:pathData="M17,11 L14,14 L17,18 L20,14 Z" />
+    <path
+        android:fillColor="#E0F2FE"
+        android:pathData="M17,11 L15,14 L17,15 L19,14 Z" />
+
+    <!-- Diamond 3 (Right) -->
+    <path
+        android:fillColor="#0284C7"
+        android:pathData="M31,11 L28,14 L31,18 L34,14 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M31,11 L29.5,14 L31,15 L32.5,14 Z" />
+
+    <!-- Sparkle Star -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,6 L28.8,8 L31,9 L28.8,10 L28,12 L27.2,10 L25,9 L27.2,8 Z" />
+
+</vector>

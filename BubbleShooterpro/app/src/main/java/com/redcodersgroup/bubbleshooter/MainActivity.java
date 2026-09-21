@@ -27,6 +27,7 @@ import com.redcodersgroup.bubbleshooter.profile.AvatarManager;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.ProfileDialog;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.SettingsDialog;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.StarChestDialog;
+import com.redcodersgroup.bubbleshooter.ui.dialogs.StoreDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private SettingsDialog settingsDialog;
     private ProfileDialog profileDialog;
     private StarChestDialog starChestDialog;
+    private StoreDialog storeDialog;
     private Dialog activePreviewDialog;
 
     @Override
@@ -110,15 +112,19 @@ public class MainActivity extends AppCompatActivity {
             showLevelPreviewDialog(currentLevel);
         });
 
-        // 6. Coins & Lives Clickables
-        binding.layoutCoinsCounter.setOnClickListener(v -> {
+        // 6. Diamonds & Lives Clickables
+        binding.layoutDiamondsCounter.setOnClickListener(v -> {
             soundManager.playClick();
-            Toast.makeText(this, "★ Coins Balance: " + (prefs.getHighestUnlockedLevel() * 50) + " Coins", Toast.LENGTH_SHORT).show();
+            showStoreDialog();
         });
 
         binding.layoutLivesCounter.setOnClickListener(v -> {
             soundManager.playClick();
-            Toast.makeText(this, "❤️ Lives: FULL (5/5)", Toast.LENGTH_SHORT).show();
+            if (prefs.getLives() >= 5) {
+                Toast.makeText(this, "❤️ Lives: FULL (5/5)", Toast.LENGTH_SHORT).show();
+            } else {
+                showStoreDialog();
+            }
         });
 
         // 7. World Map ViewPager2 setup
@@ -129,11 +135,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onWorldGiftClaimed(int worldNumber, int giftIndex, int bonusCoins) {
+            public void onWorldGiftClaimed(int worldNumber, int giftIndex, int bonusDiamonds) {
                 soundManager.playWin();
-                Toast.makeText(MainActivity.this, "🎁 Mystery Gift Unlocked! +" + bonusCoins + " Coins!", Toast.LENGTH_LONG).show();
-                int currentLevel = prefs.getHighestUnlockedLevel();
-                binding.tvHomeCoins.setText(String.valueOf(currentLevel * 50 + bonusCoins));
+                prefs.addDiamonds(bonusDiamonds);
+                Toast.makeText(MainActivity.this, "🎁 Mystery Gift Unlocked! +" + bonusDiamonds + " Diamonds!", Toast.LENGTH_LONG).show();
+                updateDiamondsUI();
             }
         });
         binding.viewPagerWorldMaps.setAdapter(worldMapAdapter);
@@ -154,6 +160,33 @@ public class MainActivity extends AppCompatActivity {
         // Initial world title update
         updateWorldSwitcherUI(0);
         updateProfileUI();
+        updateDiamondsUI();
+        updateLivesUI();
+    }
+
+    private void showStoreDialog() {
+        if (isFinishing() || isDestroyed()) return;
+        if (storeDialog != null && storeDialog.isShowing()) {
+            storeDialog.dismiss();
+        }
+        storeDialog = new StoreDialog(this, () -> {
+            updateDiamondsUI();
+            updateLivesUI();
+        });
+        storeDialog.show();
+    }
+
+    private void updateDiamondsUI() {
+        if (binding != null && binding.tvHomeDiamonds != null) {
+            binding.tvHomeDiamonds.setText(String.format(java.util.Locale.getDefault(), "%,d", prefs.getDiamonds()));
+        }
+    }
+
+    private void updateLivesUI() {
+        if (binding != null && binding.tvHomeLives != null) {
+            int lives = prefs.getLives();
+            binding.tvHomeLives.setText(lives >= 5 ? "5 FULL" : lives + "/5");
+        }
     }
 
     private void updateProfileUI() {
@@ -174,12 +207,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateProfileUI();
+        updateDiamondsUI();
+        updateLivesUI();
         int currentLevel = prefs.getHighestUnlockedLevel();
         int totalStars = repository.getTotalStarsEarned(levelManager.getTotalLevels());
 
         binding.tvFloatingLevelNumber.setText(String.valueOf(currentLevel));
         binding.tvStarChestProgress.setText((totalStars % 20) + "/20");
-        binding.tvHomeCoins.setText(String.valueOf(currentLevel * 50));
 
         int targetWorldIndex = worldConfigManager.getWorldIndexForLevel(currentLevel);
         int pagerPos = worldMapAdapter.toPagerPosition(targetWorldIndex);
@@ -205,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
         if (settingsDialog != null && settingsDialog.isShowing()) settingsDialog.dismiss();
         if (profileDialog != null && profileDialog.isShowing()) profileDialog.dismiss();
         if (starChestDialog != null && starChestDialog.isShowing()) starChestDialog.dismiss();
+        if (storeDialog != null && storeDialog.isShowing()) storeDialog.dismiss();
         if (activePreviewDialog != null && activePreviewDialog.isShowing()) activePreviewDialog.dismiss();
     }
 
