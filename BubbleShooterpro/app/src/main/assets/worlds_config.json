@@ -67,7 +67,7 @@
           "name": "Viaduct Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 100
         },
         {
@@ -75,7 +75,7 @@
           "name": "Castle Gate Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 200
         }
       ]
@@ -145,7 +145,7 @@
           "name": "Lantern Bridge Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 150
         },
         {
@@ -153,7 +153,7 @@
           "name": "Moonlit Peak Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 300
         }
       ]
@@ -223,7 +223,7 @@
           "name": "Torii Gate Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 200
         },
         {
@@ -231,7 +231,7 @@
           "name": "Cherry Summit Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 400
         }
       ]
@@ -301,7 +301,7 @@
           "name": "Windmill Path Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 250
         },
         {
@@ -309,7 +309,7 @@
           "name": "Misty Peak Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 500
         }
       ]
@@ -379,7 +379,7 @@
           "name": "Honeybee Hive Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 300
         },
         {
@@ -387,7 +387,7 @@
           "name": "Golden Castle Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 600
         }
       ]
@@ -457,7 +457,7 @@
           "name": "Lily Pad Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 350
         },
         {
@@ -465,7 +465,7 @@
           "name": "Crystal Lagoon Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 700
         }
       ]
@@ -535,7 +535,7 @@
           "name": "Lucky Clover Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 400
         },
         {
@@ -543,7 +543,7 @@
           "name": "Rainbow Arch Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 800
         }
       ]
@@ -613,7 +613,7 @@
           "name": "Maple Bridge Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 450
         },
         {
@@ -621,7 +621,7 @@
           "name": "Harvest Peak Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 900
         }
       ]
@@ -691,7 +691,7 @@
           "name": "Glowing Spore Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 500
         },
         {
@@ -699,7 +699,7 @@
           "name": "Crystal Mushroom Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1000
         }
       ]
@@ -769,7 +769,7 @@
           "name": "Pagoda Bridge Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 550
         },
         {
@@ -777,7 +777,7 @@
           "name": "Temple Summit Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1100
         }
       ]
@@ -847,7 +847,7 @@
           "name": "Orchid Bower Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 600
         },
         {
@@ -855,7 +855,7 @@
           "name": "Crystal Bloom Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1200
         }
       ]
@@ -925,7 +925,7 @@
           "name": "Weeping Willow Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 650
         },
         {
@@ -933,7 +933,7 @@
           "name": "Firefly Glade Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1300
         }
       ]
@@ -1003,7 +1003,7 @@
           "name": "Ancient Bonsai Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 700
         },
         {
@@ -1011,7 +1011,7 @@
           "name": "Cloud Mountain Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1400
         }
       ]
@@ -1081,7 +1081,7 @@
           "name": "Honeycomb Way Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 750
         },
         {
@@ -1089,7 +1089,7 @@
           "name": "Hive Queen Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1500
         }
       ]
@@ -1159,7 +1159,7 @@
           "name": "River Crossing Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 800
         },
         {
@@ -1167,7 +1167,7 @@
           "name": "Canyon Temple Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1600
         }
       ]
@@ -1237,7 +1237,7 @@
           "name": "Floating Seed Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 850
         },
         {
@@ -1245,7 +1245,7 @@
           "name": "Cloud Palace Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1700
         }
       ]
@@ -1315,7 +1315,7 @@
           "name": "Lagoon Breeze Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 900
         },
         {
@@ -1323,7 +1323,7 @@
           "name": "Sunken Reef Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1800
         }
       ]
@@ -1393,7 +1393,7 @@
           "name": "Golden Apple Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 950
         },
         {
@@ -1401,7 +1401,7 @@
           "name": "Orchard Crown Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 1900
         }
       ]
@@ -1471,7 +1471,7 @@
           "name": "Stepping Stone Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1000
         },
         {
@@ -1479,7 +1479,7 @@
           "name": "Fairy Bell Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2000
         }
       ]
@@ -1549,7 +1549,7 @@
           "name": "Marble Arch Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1050
         },
         {
@@ -1557,7 +1557,7 @@
           "name": "Royal Spire Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2100
         }
       ]
@@ -1627,7 +1627,7 @@
           "name": "Brick Walkway Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1100
         },
         {
@@ -1635,7 +1635,7 @@
           "name": "Windmill Terrace Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2200
         }
       ]
@@ -1705,7 +1705,7 @@
           "name": "Night Vine Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1150
         },
         {
@@ -1713,7 +1713,7 @@
           "name": "Bioluminescent Peak Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2300
         }
       ]
@@ -1783,7 +1783,7 @@
           "name": "Frostpine Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1200
         },
         {
@@ -1791,7 +1791,7 @@
           "name": "Ice Castle Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2400
         }
       ]
@@ -1861,7 +1861,7 @@
           "name": "Chrysalis Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1250
         },
         {
@@ -1869,7 +1869,7 @@
           "name": "Monarch Peak Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2500
         }
       ]
@@ -1939,7 +1939,7 @@
           "name": "Cactus Bloom Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1300
         },
         {
@@ -1947,7 +1947,7 @@
           "name": "Sunstone Temple Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2600
         }
       ]
@@ -2017,7 +2017,7 @@
           "name": "Stardust Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1350
         },
         {
@@ -2025,7 +2025,7 @@
           "name": "Constellation Peak Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2700
         }
       ]
@@ -2095,7 +2095,7 @@
           "name": "Dewdrop Chest",
           "x": 0.337,
           "y": 0.3547,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 1400
         },
         {
@@ -2103,7 +2103,7 @@
           "name": "Golden Clover Chest",
           "x": 0.5583,
           "y": 0.1331,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 2800
         }
       ]
@@ -2173,7 +2173,7 @@
           "name": "Mushroom Viaduct Chest",
           "x": 0.407,
           "y": 0.426,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 120
         },
         {
@@ -2181,7 +2181,7 @@
           "name": "Toadstool Spire Chest",
           "x": 0.544,
           "y": 0.135,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 250
         }
       ]
@@ -2251,7 +2251,7 @@
           "name": "Cloud Petal Chest",
           "x": 0.3,
           "y": 0.35,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 120
         },
         {
@@ -2259,7 +2259,7 @@
           "name": "Celestial Arch Chest",
           "x": 0.62,
           "y": 0.16,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 250
         }
       ]
@@ -2329,7 +2329,7 @@
           "name": "Brook Stone Chest",
           "x": 0.35,
           "y": 0.38,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 130
         },
         {
@@ -2337,7 +2337,7 @@
           "name": "Waterfall Shrine Chest",
           "x": 0.65,
           "y": 0.21,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 260
         }
       ]
@@ -2407,7 +2407,7 @@
           "name": "Wisteria Canopy Chest",
           "x": 0.32,
           "y": 0.37,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 130
         },
         {
@@ -2415,7 +2415,7 @@
           "name": "Plank Pavilion Chest",
           "x": 0.64,
           "y": 0.19,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 260
         }
       ]
@@ -2485,7 +2485,7 @@
           "name": "Tea Spout Chest",
           "x": 0.34,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 140
         },
         {
@@ -2493,7 +2493,7 @@
           "name": "Floating Teapot Chest",
           "x": 0.63,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 270
         }
       ]
@@ -2563,7 +2563,7 @@
           "name": "Emerald Leaf Chest",
           "x": 0.3,
           "y": 0.38,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 140
         },
         {
@@ -2571,7 +2571,7 @@
           "name": "Four-Leaf Crown Chest",
           "x": 0.64,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 270
         }
       ]
@@ -2641,7 +2641,7 @@
           "name": "Constellation Chest",
           "x": 0.3,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 150
         },
         {
@@ -2649,7 +2649,7 @@
           "name": "Starlight Gateway Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 280
         }
       ]
@@ -2719,7 +2719,7 @@
           "name": "Twilight Cap Chest",
           "x": 0.3,
           "y": 0.37,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 150
         },
         {
@@ -2727,7 +2727,7 @@
           "name": "Amber Ridge Chest",
           "x": 0.63,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 280
         }
       ]
@@ -2797,7 +2797,7 @@
           "name": "Purple Geode Chest",
           "x": 0.68,
           "y": 0.42,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 160
         },
         {
@@ -2805,7 +2805,7 @@
           "name": "Amethyst Scepter Chest",
           "x": 0.38,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 300
         }
       ]
@@ -2875,7 +2875,7 @@
           "name": "Glacial Shard Chest",
           "x": 0.31,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 160
         },
         {
@@ -2883,7 +2883,7 @@
           "name": "Ice Palace Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 300
         }
       ]
@@ -2953,7 +2953,7 @@
           "name": "Minecart Ore Chest",
           "x": 0.3,
           "y": 0.37,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 170
         },
         {
@@ -2961,7 +2961,7 @@
           "name": "Emerald Vein Chest",
           "x": 0.64,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 320
         }
       ]
@@ -3031,7 +3031,7 @@
           "name": "Sunburst Leaf Chest",
           "x": 0.3,
           "y": 0.37,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 170
         },
         {
@@ -3039,7 +3039,7 @@
           "name": "Golden Canopy Chest",
           "x": 0.64,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 320
         }
       ]
@@ -3109,7 +3109,7 @@
           "name": "Rainbow Geode Chest",
           "x": 0.68,
           "y": 0.42,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 180
         },
         {
@@ -3117,7 +3117,7 @@
           "name": "Prismatic Core Chest",
           "x": 0.38,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 340
         }
       ]
@@ -3187,7 +3187,7 @@
           "name": "Marble Step Chest",
           "x": 0.3,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 180
         },
         {
@@ -3195,7 +3195,7 @@
           "name": "Cloud Citadel Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 340
         }
       ]
@@ -3265,7 +3265,7 @@
           "name": "Aqueduct Relic Chest",
           "x": 0.3,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 190
         },
         {
@@ -3273,7 +3273,7 @@
           "name": "Poseidon Altar Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 360
         }
       ]
@@ -3343,7 +3343,7 @@
           "name": "Anemone Pearl Chest",
           "x": 0.31,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 190
         },
         {
@@ -3351,7 +3351,7 @@
           "name": "Triton Trench Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 360
         }
       ]
@@ -3421,7 +3421,7 @@
           "name": "Jellyfish Glow Chest",
           "x": 0.68,
           "y": 0.42,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 200
         },
         {
@@ -3429,7 +3429,7 @@
           "name": "Abyssal Trench Chest",
           "x": 0.38,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 380
         }
       ]
@@ -3499,7 +3499,7 @@
           "name": "Plank Deck Chest",
           "x": 0.31,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 200
         },
         {
@@ -3507,7 +3507,7 @@
           "name": "Captain Cabin Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 380
         }
       ]
@@ -3577,7 +3577,7 @@
           "name": "Clam Pearl Chest",
           "x": 0.3,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 210
         },
         {
@@ -3585,7 +3585,7 @@
           "name": "Siren Shoal Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 400
         }
       ]
@@ -3655,7 +3655,7 @@
           "name": "Galaxy Core Chest",
           "x": 0.3,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 210
         },
         {
@@ -3663,7 +3663,7 @@
           "name": "Supernova Spire Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 400
         }
       ]
@@ -3733,7 +3733,7 @@
           "name": "Candy Cane Chest",
           "x": 0.3,
           "y": 0.36,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 220
         },
         {
@@ -3741,7 +3741,7 @@
           "name": "Gingerbread Spire Chest",
           "x": 0.64,
           "y": 0.17,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 420
         }
       ]
@@ -3811,7 +3811,7 @@
           "name": "Pumpkin Lantern Chest",
           "x": 0.68,
           "y": 0.42,
-          "requiredLevelOffset": 6,
+          "requiredLevelOffset": 5,
           "rewardCoins": 250
         },
         {
@@ -3819,7 +3819,7 @@
           "name": "Haunted Spire Chest",
           "x": 0.38,
           "y": 0.18,
-          "requiredLevelOffset": 9,
+          "requiredLevelOffset": 10,
           "rewardCoins": 500
         }
       ]

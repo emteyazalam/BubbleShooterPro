@@ -218,7 +218,7 @@ public class WorldConfigManager {
                         String gName = gObj.optString("name", "Gift " + giftIndex);
                         float gx = (float) gObj.optDouble("x", 0.5);
                         float gy = (float) gObj.optDouble("y", 0.5);
-                        int reqOffset = gObj.optInt("requiredLevelOffset", g == 0 ? 6 : 9);
+                        int reqOffset = gObj.optInt("requiredLevelOffset", g == 0 ? 5 : 10);
                         int diamonds = gObj.optInt("rewardDiamonds", gObj.optInt("rewardCoins", 50 * (g + 1)));
                         gifts.add(new GiftConfig(giftIndex, gName, gx, gy, reqOffset, diamonds));
                     }
@@ -273,8 +273,8 @@ public class WorldConfigManager {
         }
 
         List<GiftConfig> gifts = new ArrayList<>();
-        gifts.add(new GiftConfig(1, "Viaduct Chest", DEFAULT_MAP_GIFTS[0][0], DEFAULT_MAP_GIFTS[0][1], 6, 100));
-        gifts.add(new GiftConfig(2, "Castle Gate Chest", DEFAULT_MAP_GIFTS[1][0], DEFAULT_MAP_GIFTS[1][1], 9, 200));
+        gifts.add(new GiftConfig(1, "Viaduct Chest", DEFAULT_MAP_GIFTS[0][0], DEFAULT_MAP_GIFTS[0][1], 5, 100));
+        gifts.add(new GiftConfig(2, "Castle Gate Chest", DEFAULT_MAP_GIFTS[1][0], DEFAULT_MAP_GIFTS[1][1], 10, 200));
 
         return new WorldModel(worldNumber, name, subtitle, mapBg, gameBg, 10, startLevel, coords, gifts);
     }
