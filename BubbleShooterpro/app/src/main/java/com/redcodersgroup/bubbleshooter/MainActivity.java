@@ -23,6 +23,7 @@ import com.redcodersgroup.bubbleshooter.level.Level;
 import com.redcodersgroup.bubbleshooter.level.LevelManager;
 import com.redcodersgroup.bubbleshooter.ui.GameActivity;
 import com.redcodersgroup.bubbleshooter.ui.adapter.WorldMapPagerAdapter;
+import com.redcodersgroup.bubbleshooter.profile.AvatarManager;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.ProfileDialog;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.SettingsDialog;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.StarChestDialog;
@@ -74,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
             if (profileDialog != null && profileDialog.isShowing()) {
                 profileDialog.dismiss();
             }
-            profileDialog = new ProfileDialog(this, "Player", name -> {
+            profileDialog = new ProfileDialog(this, (name, avatarId) -> {
+                updateProfileUI();
                 Toast.makeText(MainActivity.this, "Profile updated: " + name, Toast.LENGTH_SHORT).show();
             });
             profileDialog.show();
@@ -148,6 +150,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Initial world title update
         updateWorldSwitcherUI(0);
+        updateProfileUI();
+    }
+
+    private void updateProfileUI() {
+        if (binding != null && binding.ivHomeAvatar != null) {
+            String avatarId = prefs.getPlayerAvatar();
+            binding.ivHomeAvatar.setImageResource(AvatarManager.getAvatarDrawable(avatarId));
+        }
     }
 
     private void updateWorldSwitcherUI(int worldIndex) {
@@ -160,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        updateProfileUI();
         int currentLevel = prefs.getHighestUnlockedLevel();
         int totalStars = repository.getTotalStarsEarned(levelManager.getTotalLevels());
 

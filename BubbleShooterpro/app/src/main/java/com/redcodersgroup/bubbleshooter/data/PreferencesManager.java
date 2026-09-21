@@ -16,6 +16,8 @@ public class PreferencesManager {
     private static final String KEY_BOOSTER_LIGHTNING = "key_booster_lightning";
     private static final String KEY_BOOSTER_FIREBALL = "key_booster_fireball";
     private static final String KEY_ENDLESS_HIGH_SCORE = "key_endless_high_score";
+    private static final String KEY_PLAYER_NAME = "key_player_name";
+    private static final String KEY_PLAYER_AVATAR = "key_player_avatar";
 
     private final SharedPreferences prefs;
 
@@ -128,6 +130,26 @@ public class PreferencesManager {
 
     public void setClaimedWorldGift(int world, int giftIndex, boolean claimed) {
         prefs.edit().putBoolean("world_gift_" + world + "_" + giftIndex, claimed).apply();
+    }
+
+    public String getPlayerName() {
+        return prefs.getString(KEY_PLAYER_NAME, "Player");
+    }
+
+    public void setPlayerName(String name) {
+        if (name != null && !name.trim().isEmpty()) {
+            prefs.edit().putString(KEY_PLAYER_NAME, name.trim()).apply();
+        }
+    }
+
+    public String getPlayerAvatar() {
+        return prefs.getString(KEY_PLAYER_AVATAR, "avatar_hero");
+    }
+
+    public void setPlayerAvatar(String avatarId) {
+        if (avatarId != null && !avatarId.trim().isEmpty()) {
+            prefs.edit().putString(KEY_PLAYER_AVATAR, avatarId.trim()).apply();
+        }
     }
 
     public void resetProgress() {

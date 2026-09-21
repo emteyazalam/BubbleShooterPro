@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="@dimen/dp_4"
+    android:clipChildren="false">
+
+    <!-- Container Frame -->
+    <FrameLayout
+        android:id="@+id/layoutAvatarItemContainer"
+        android:layout_width="@dimen/dp_56"
+        android:layout_height="@dimen/dp_56"
+        android:clickable="true"
+        android:focusable="true"
+        android:clipChildren="false">
+
+        <!-- Selection Highlight Ring (Gold) -->
+        <View
+            android:id="@+id/viewSelectionRing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_avatar_selection_ring"
+            android:visibility="gone" />
+
+        <!-- Base Unselected Background -->
+        <View
+            android:id="@+id/viewUnselectedBase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_avatar_item_unselected"
+            android:visibility="visible" />
+
+        <!-- Avatar Image -->
+        <ImageView
+            android:id="@+id/ivAvatarIcon"
+            android:layout_width="@dimen/dp_44"
+            android:layout_height="@dimen/dp_44"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_avatar_hero"
+            android:contentDescription="Avatar" />
+
+        <!-- Corner Selected Checkmark Badge -->
+        <ImageView
+            android:id="@+id/ivCheckmarkBadge"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginBottom="-2dp"
+            android:src="@drawable/ic_checkmark_badge"
+            android:visibility="gone"
+            android:contentDescription="Selected" />
+
+    </FrameLayout>
+</FrameLayout>

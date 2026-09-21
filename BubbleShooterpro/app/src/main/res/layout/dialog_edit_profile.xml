@@ -92,98 +92,24 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Category Tabs -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_38"
-            android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/dp_12">
-
-            <TextView
-                android:id="@+id/tabAvatar"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/btn_pill_blank_yellow"
-                android:gravity="center"
-                android:text="Avatar"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/sp_14"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tabFrame"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/dp_8"
-                android:background="@drawable/bg_dialog_inset_panel"
-                android:gravity="center"
-                android:text="Frame"
-                android:textColor="#92400E"
-                android:textSize="@dimen/sp_14"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Avatar Selection Grid -->
-        <LinearLayout
+        <!-- Section Header: Choose Avatar -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="@dimen/dp_18">
+            android:text="Choose Avatar:"
+            android:textColor="#92400E"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dp_6" />
 
-            <FrameLayout
-                android:id="@+id/btnAvatarOption1"
-                android:layout_width="@dimen/dp_56"
-                android:layout_height="@dimen/dp_56"
-                android:background="@drawable/bg_avatar_frame">
-                <ImageView
-                    android:layout_width="@dimen/dp_40"
-                    android:layout_height="@dimen/dp_40"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_avatar_pin" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/btnAvatarOption2"
-                android:layout_width="@dimen/dp_56"
-                android:layout_height="@dimen/dp_56"
-                android:layout_marginStart="@dimen/dp_10"
-                android:background="@drawable/bg_dialog_inset_panel">
-                <ImageView
-                    android:layout_width="@dimen/dp_36"
-                    android:layout_height="@dimen/dp_36"
-                    android:layout_gravity="center"
-                    android:src="@drawable/rainbow_bubble" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/btnAvatarOption3"
-                android:layout_width="@dimen/dp_56"
-                android:layout_height="@dimen/dp_56"
-                android:layout_marginStart="@dimen/dp_10"
-                android:background="@drawable/bg_dialog_inset_panel">
-                <ImageView
-                    android:layout_width="@dimen/dp_36"
-                    android:layout_height="@dimen/dp_36"
-                    android:layout_gravity="center"
-                    android:src="@drawable/fireball_bubble" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/btnAvatarOption4"
-                android:layout_width="@dimen/dp_56"
-                android:layout_height="@dimen/dp_56"
-                android:layout_marginStart="@dimen/dp_10"
-                android:background="@drawable/bg_dialog_inset_panel">
-                <ImageView
-                    android:layout_width="@dimen/dp_36"
-                    android:layout_height="@dimen/dp_36"
-                    android:layout_gravity="center"
-                    android:src="@drawable/lightning_bubble" />
-            </FrameLayout>
-        </LinearLayout>
+        <!-- Avatar Selection Grid (8 Predefined Avatars) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAvatarChoices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:layout_marginBottom="@dimen/dp_16" />
 
         <!-- Big Glossy Green Confirm Button -->
         <Button
