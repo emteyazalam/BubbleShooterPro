@@ -98,7 +98,6 @@ public class SplashActivity extends BaseActivity {
             progressAnim.addListener(new android.animation.AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(android.animation.Animator animation) {
-                    soundManager.playWin();
                     binding.getRoot().postDelayed(() -> {
                         if (!isNavigated) {
                             isNavigated = true;
