@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/dp_12"
+    android:paddingEnd="@dimen/dp_12"
+    android:paddingTop="@dimen/dp_12"
+    android:paddingBottom="@dimen/dp_12">
+
+    <!-- Main Card Body -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_dialog_frame"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_20">
+
+        <!-- Header Row: Title, Diamond Pill, Close -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/tvHeartStoreTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="HEART SHOP"
+                android:textColor="#1E293B"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold"
+                android:shadowColor="#40FFFFFF"
+                android:shadowDx="0"
+                android:shadowDy="2"
+                android:shadowRadius="1" />
+
+            <!-- Diamonds Counter Pill -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_36"
+                android:background="@drawable/bg_hud_pill"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_6"
+                android:paddingEnd="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:src="@drawable/ic_hud_diamond"
+                    android:contentDescription="Diamonds" />
+
+                <TextView
+                    android:id="@+id/tvHeartStoreDiamonds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:text="100"
+                    android:textColor="#0369A1"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Close Button -->
+            <ImageButton
+                android:id="@+id/btnCloseHeartStore"
+                android:layout_width="@dimen/dp_38"
+                android:layout_height="@dimen/dp_38"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_close_red"
+                android:contentDescription="Close" />
+        </LinearLayout>
+
+        <!-- Current Lives Status Banner -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_dialog_inset_panel"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_12">
+
+            <!-- 5 Heart Slots Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivHeartSlot1"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:src="@drawable/ic_heart_slot_full"
+                    android:contentDescription="Life 1" />
+
+                <ImageView
+                    android:id="@+id/ivHeartSlot2"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:src="@drawable/ic_heart_slot_full"
+                    android:contentDescription="Life 2" />
+
+                <ImageView
+                    android:id="@+id/ivHeartSlot3"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:src="@drawable/ic_heart_slot_full"
+                    android:contentDescription="Life 3" />
+
+                <ImageView
+                    android:id="@+id/ivHeartSlot4"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:src="@drawable/ic_heart_slot_full"
+                    android:contentDescription="Life 4" />
+
+                <ImageView
+                    android:id="@+id/ivHeartSlot5"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:src="@drawable/ic_heart_slot_full"
+                    android:contentDescription="Life 5" />
+            </LinearLayout>
+
+            <!-- Status & Timer Text -->
+            <TextView
+                android:id="@+id/tvHeartStatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
+                android:text="Lives: 5 / 5 FULL"
+                android:textColor="#991B1B"
+                android:textSize="@dimen/sp_13"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Scrollable Offer List -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_360"
+            android:scrollbars="none"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- SECTION: REWARDED ADS (FREE) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎬 REWARDED ADS (FREE)"
+                    android:textColor="#4338CA"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    android:layout_marginBottom="@dimen/dp_8" />
+
+                <!-- 1. Watch Ad for +1 Life -->
+                <FrameLayout
+                    android:id="@+id/cardWatchAdForLife"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_store_item_card"
+                    android:padding="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_store_badge_emerald"
+                        android:paddingStart="@dimen/dp_6"
+                        android:paddingEnd="@dimen/dp_6"
+                        android:paddingTop="@dimen/dp_2"
+                        android:paddingBottom="@dimen/dp_2"
+                        android:text="FREE AD"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/sp_9"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/dp_6">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_44"
+                            android:layout_height="@dimen/dp_44"
+                            android:src="@drawable/ic_ad_video"
+                            android:contentDescription="Watch Ad" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/dp_10">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Watch Ad (+1 Heart)"
+                                android:textColor="#1E293B"
+                                android:textSize="@dimen/sp_13"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Quick video to restore 1 life"
+                                android:textColor="#64748B"
+                                android:textSize="@dimen/sp_11" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/btnWatchAdForLife"
+                            android:layout_width="@dimen/dp_100"
+                            android:layout_height="@dimen/dp_34"
+                            android:background="@drawable/bg_store_btn_purple"
+                            android:gravity="center"
+                            android:text="WATCH AD 🎬"
+                            android:textColor="#FFFFFF"
+                            android:textSize="@dimen/sp_11"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- 2. Watch Ad for 15 Mins Infinite Lives -->
+                <FrameLayout
+                    android:id="@+id/cardWatchAdForInfinite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_store_item_card_featured"
+                    android:padding="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_16">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_store_badge_emerald"
+                        android:paddingStart="@dimen/dp_6"
+                        android:paddingEnd="@dimen/dp_6"
+                        android:paddingTop="@dimen/dp_2"
+                        android:paddingBottom="@dimen/dp_2"
+                        android:text="BONUS"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/sp_9"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/dp_6">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_44"
+                            android:layout_height="@dimen/dp_44"
+                            android:src="@drawable/ic_heart_unlimited"
+                            android:contentDescription="Infinite Lives Ad" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/dp_10">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="15 Min Infinite Lives"
+                                android:textColor="#92400E"
+                                android:textSize="@dimen/sp_13"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Play freely with 0 lives lost!"
+                                android:textColor="#64748B"
+                                android:textSize="@dimen/sp_11" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/btnWatchAdForInfinite"
+                            android:layout_width="@dimen/dp_100"
+                            android:layout_height="@dimen/dp_34"
+                            android:background="@drawable/bg_store_btn_purple"
+                            android:gravity="center"
+                            android:text="WATCH AD 🎬"
+                            android:textColor="#FFFFFF"
+                            android:textSize="@dimen/sp_11"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- SECTION: DIAMOND OFFERS -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💎 BUY WITH DIAMONDS"
+                    android:textColor="#0284C7"
+                    android:textSize="@dimen/sp_12"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    android:layout_marginBottom="@dimen/dp_8" />
+
+                <!-- 3. Buy Single Heart (5 💎) -->
+                <LinearLayout
+                    android:id="@+id/cardBuyOneHeart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_store_item_card"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        android:src="@drawable/ic_hud_heart"
+                        android:contentDescription="Single Heart" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/dp_10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Single Heart (+1 ❤️)"
+                            android:textColor="#1E293B"
+                            android:textSize="@dimen/sp_13"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quick top-up for 1 more round"
+                            android:textColor="#64748B"
+                            android:textSize="@dimen/sp_11" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btnBuyOneHeart"
+                        android:layout_width="@dimen/dp_76"
+                        android:layout_height="@dimen/dp_34"
+                        android:background="@drawable/bg_store_btn_rose"
+                        android:gravity="center"
+                        android:text="5 💎"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/sp_12"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- 4. Full Refill (20 💎) -->
+                <FrameLayout
+                    android:id="@+id/cardBuyFullRefill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_store_item_card"
+                    android:padding="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_store_badge_red"
+                        android:paddingStart="@dimen/dp_6"
+                        android:paddingEnd="@dimen/dp_6"
+                        android:paddingTop="@dimen/dp_2"
+                        android:paddingBottom="@dimen/dp_2"
+                        android:text="POPULAR"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/sp_9"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/dp_6">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_40"
+                            android:layout_height="@dimen/dp_40"
+                            android:src="@drawable/ic_heart_slot_full"
+                            android:contentDescription="Full Refill" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/dp_10">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Full Lives Refill (5/5 ❤️)"
+                                android:textColor="#1E293B"
+                                android:textSize="@dimen/sp_13"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Instantly fill all 5 hearts"
+                                android:textColor="#64748B"
+                                android:textSize="@dimen/sp_11" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/btnBuyFullRefill"
+                            android:layout_width="@dimen/dp_76"
+                            android:layout_height="@dimen/dp_34"
+                            android:background="@drawable/bg_store_btn_rose"
+                            android:gravity="center"
+                            android:text="20 💎"
+                            android:textColor="#FFFFFF"
+                            android:textSize="@dimen/sp_12"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- 5. 30 Mins Infinite Lives (40 💎) -->
+                <FrameLayout
+                    android:id="@+id/cardBuyInfiniteLives"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_store_item_card_featured"
+                    android:padding="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_store_badge_red"
+                        android:paddingStart="@dimen/dp_6"
+                        android:paddingEnd="@dimen/dp_6"
+                        android:paddingTop="@dimen/dp_2"
+                        android:paddingBottom="@dimen/dp_2"
+                        android:text="BEST VALUE"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/sp_9"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/dp_6">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_40"
+                            android:layout_height="@dimen/dp_40"
+                            android:src="@drawable/ic_heart_unlimited"
+                            android:contentDescription="30 Min Infinite" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/dp_10">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Infinite Lives (30 Mins)"
+                                android:textColor="#92400E"
+                                android:textSize="@dimen/sp_13"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Never lose a life on retry or exit"
+                                android:textColor="#64748B"
+                                android:textSize="@dimen/sp_11" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/btnBuyInfiniteLives"
+                            android:layout_width="@dimen/dp_76"
+                            android:layout_height="@dimen/dp_34"
+                            android:background="@drawable/bg_store_btn_amber"
+                            android:gravity="center"
+                            android:text="40 💎"
+                            android:textColor="#FFFFFF"
+                            android:textSize="@dimen/sp_12"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</FrameLayout>

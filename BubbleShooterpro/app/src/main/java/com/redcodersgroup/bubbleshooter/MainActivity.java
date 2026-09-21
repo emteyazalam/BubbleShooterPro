@@ -28,6 +28,7 @@ import com.redcodersgroup.bubbleshooter.ui.dialogs.ProfileDialog;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.SettingsDialog;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.StarChestDialog;
 import com.redcodersgroup.bubbleshooter.ui.dialogs.StoreDialog;
+import com.redcodersgroup.bubbleshooter.ui.dialogs.HeartStoreDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ProfileDialog profileDialog;
     private StarChestDialog starChestDialog;
     private StoreDialog storeDialog;
+    private HeartStoreDialog heartStoreDialog;
     private Dialog activePreviewDialog;
 
     @Override
@@ -120,11 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.layoutLivesCounter.setOnClickListener(v -> {
             soundManager.playClick();
-            if (prefs.getLives() >= 5) {
-                Toast.makeText(this, "❤️ Lives: FULL (5/5)", Toast.LENGTH_SHORT).show();
-            } else {
-                showStoreDialog();
-            }
+            showHeartStoreDialog();
         });
 
         // 7. World Map ViewPager2 setup
@@ -176,6 +174,18 @@ public class MainActivity extends AppCompatActivity {
         storeDialog.show();
     }
 
+    private void showHeartStoreDialog() {
+        if (isFinishing() || isDestroyed()) return;
+        if (heartStoreDialog != null && heartStoreDialog.isShowing()) {
+            heartStoreDialog.dismiss();
+        }
+        heartStoreDialog = new HeartStoreDialog(this, () -> {
+            updateDiamondsUI();
+            updateLivesUI();
+        });
+        heartStoreDialog.show();
+    }
+
     private void updateDiamondsUI() {
         if (binding != null && binding.tvHomeDiamonds != null) {
             binding.tvHomeDiamonds.setText(String.format(java.util.Locale.getDefault(), "%,d", prefs.getDiamonds()));
@@ -184,8 +194,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateLivesUI() {
         if (binding != null && binding.tvHomeLives != null) {
-            int lives = prefs.getLives();
-            binding.tvHomeLives.setText(lives >= 5 ? "5 FULL" : lives + "/5");
+            if (prefs.isInfiniteLivesActive()) {
+                long mins = (prefs.getInfiniteLivesRemainingSeconds() + 59) / 60;
+                binding.tvHomeLives.setText("∞ " + mins + "m");
+            } else {
+                int lives = prefs.getLives();
+                binding.tvHomeLives.setText(lives >= 5 ? "5 FULL" : lives + "/5");
+            }
         }
     }
 
@@ -240,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
         if (profileDialog != null && profileDialog.isShowing()) profileDialog.dismiss();
         if (starChestDialog != null && starChestDialog.isShowing()) starChestDialog.dismiss();
         if (storeDialog != null && storeDialog.isShowing()) storeDialog.dismiss();
+        if (heartStoreDialog != null && heartStoreDialog.isShowing()) heartStoreDialog.dismiss();
         if (activePreviewDialog != null && activePreviewDialog.isShowing()) activePreviewDialog.dismiss();
     }
 
@@ -293,6 +309,11 @@ public class MainActivity extends AppCompatActivity {
 
         previewBinding.btnStartLevel.setOnClickListener(v -> {
             soundManager.playClick();
+            if (prefs.getLives() <= 0 && !prefs.isInfiniteLivesActive()) {
+                Toast.makeText(this, "💔 Out of lives! Get more hearts in the Heart Shop.", Toast.LENGTH_SHORT).show();
+                showHeartStoreDialog();
+                return;
+            }
             dialog.dismiss();
             activePreviewDialog = null;
             startActivity(GameActivity.createIntent(MainActivity.this, level));

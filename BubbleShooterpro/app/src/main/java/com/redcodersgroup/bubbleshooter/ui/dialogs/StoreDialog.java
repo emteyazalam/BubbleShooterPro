@@ -175,22 +175,13 @@ public class StoreDialog extends Dialog {
     }
 
     private void handleLivesRefill() {
-        if (prefs.getLives() >= 5) {
-            soundManager.playClick();
-            Toast.makeText(getContext(), "❤️ Lives are already FULL (5/5)!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        int cost = 25;
-        if (prefs.spendDiamonds(cost)) {
-            soundManager.playWin();
-            prefs.refillLives();
-            Toast.makeText(getContext(), "❤️ Lives completely refilled to 5/5!", Toast.LENGTH_SHORT).show();
-            updateStoreUI();
-        } else {
-            soundManager.playClick();
-            Toast.makeText(getContext(), "❌ Not enough diamonds! Choose a diamond pack above.", Toast.LENGTH_SHORT).show();
-        }
+        dismiss();
+        HeartStoreDialog heartDialog = new HeartStoreDialog(getContext(), () -> {
+            if (listener != null) {
+                listener.onStoreClosed();
+            }
+        });
+        heartDialog.show();
     }
 
     private void updateStoreUI() {

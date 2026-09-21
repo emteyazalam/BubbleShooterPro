@@ -20,6 +20,8 @@ public class PreferencesManager {
     private static final String KEY_PLAYER_AVATAR = "key_player_avatar";
     private static final String KEY_DIAMONDS = "key_player_diamonds";
     private static final String KEY_LIVES = "key_player_lives";
+    private static final String KEY_INFINITE_LIVES_UNTIL = "key_infinite_lives_until";
+    private static final String KEY_LAST_LIFE_LOST_TIMESTAMP = "key_last_life_lost_timestamp";
     private static final String KEY_FREE_DIAMONDS_CLAIM_DATE = "key_free_diamonds_claim_date";
 
     private final SharedPreferences prefs;
@@ -184,16 +186,88 @@ public class PreferencesManager {
         return false;
     }
 
+    public boolean isInfiniteLivesActive() {
+        return System.currentTimeMillis() < getInfiniteLivesUntil();
+    }
+
+    public long getInfiniteLivesUntil() {
+        return prefs.getLong(KEY_INFINITE_LIVES_UNTIL, 0);
+    }
+
+    public void addInfiniteLivesMinutes(int minutes) {
+        long currentUntil = Math.max(System.currentTimeMillis(), getInfiniteLivesUntil());
+        long newUntil = currentUntil + (minutes * 60L * 1000L);
+        prefs.edit().putLong(KEY_INFINITE_LIVES_UNTIL, newUntil).apply();
+    }
+
+    public long getInfiniteLivesRemainingSeconds() {
+        long rem = (getInfiniteLivesUntil() - System.currentTimeMillis()) / 1000L;
+        return Math.max(0, rem);
+    }
+
     public int getLives() {
-        return prefs.getInt(KEY_LIVES, 5);
+        if (isInfiniteLivesActive()) {
+            return 5;
+        }
+        int lives = prefs.getInt(KEY_LIVES, 5);
+        if (lives >= 5) {
+            return 5;
+        }
+        long lastLost = prefs.getLong(KEY_LAST_LIFE_LOST_TIMESTAMP, 0);
+        if (lastLost > 0) {
+            long elapsed = System.currentTimeMillis() - lastLost;
+            long REGEN_INTERVAL_MS = 20L * 60 * 1000;
+            int recovered = (int) (elapsed / REGEN_INTERVAL_MS);
+            if (recovered > 0) {
+                int newLives = Math.min(5, lives + recovered);
+                long remainder = elapsed % REGEN_INTERVAL_MS;
+                prefs.edit()
+                        .putInt(KEY_LIVES, newLives)
+                        .putLong(KEY_LAST_LIFE_LOST_TIMESTAMP, newLives >= 5 ? 0 : System.currentTimeMillis() - remainder)
+                        .apply();
+                return newLives;
+            }
+        }
+        return lives;
     }
 
     public void setLives(int lives) {
-        prefs.edit().putInt(KEY_LIVES, Math.max(0, Math.min(5, lives))).apply();
+        int capped = Math.max(0, Math.min(5, lives));
+        if (capped == 5) {
+            prefs.edit().putInt(KEY_LIVES, 5).putLong(KEY_LAST_LIFE_LOST_TIMESTAMP, 0).apply();
+        } else {
+            if (!prefs.contains(KEY_LAST_LIFE_LOST_TIMESTAMP) || prefs.getLong(KEY_LAST_LIFE_LOST_TIMESTAMP, 0) == 0) {
+                prefs.edit().putInt(KEY_LIVES, capped).putLong(KEY_LAST_LIFE_LOST_TIMESTAMP, System.currentTimeMillis()).apply();
+            } else {
+                prefs.edit().putInt(KEY_LIVES, capped).apply();
+            }
+        }
+    }
+
+    public void addLives(int count) {
+        setLives(getLives() + count);
     }
 
     public void refillLives() {
         setLives(5);
+    }
+
+    public void deductLife() {
+        if (isInfiniteLivesActive()) return;
+        int current = getLives();
+        if (current > 0) {
+            setLives(current - 1);
+        }
+    }
+
+    public long getSecondsUntilNextLife() {
+        if (getLives() >= 5 || isInfiniteLivesActive()) return 0;
+        long lastLost = prefs.getLong(KEY_LAST_LIFE_LOST_TIMESTAMP, 0);
+        if (lastLost == 0) return 0;
+        long REGEN_INTERVAL_MS = 20L * 60 * 1000;
+        long elapsed = System.currentTimeMillis() - lastLost;
+        long remMs = REGEN_INTERVAL_MS - (elapsed % REGEN_INTERVAL_MS);
+        return Math.max(0, remMs / 1000);
     }
 
     public void addBombBoosters(int count) {
