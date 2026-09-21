@@ -317,19 +317,6 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             }
 
             @Override
-            public void onLevelsClicked() {
-                activePauseDialog = null;
-                if (isEndlessMode) {
-                    finish();
-                } else {
-                    Intent intent = LevelSelectActivity.createIntent(GameActivity.this);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-
-            @Override
             public void onHomeClicked() {
                 activePauseDialog = null;
                 Intent intent = new Intent(GameActivity.this, MainActivity.class);

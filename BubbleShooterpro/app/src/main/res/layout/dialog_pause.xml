@@ -51,29 +51,18 @@
                 android:id="@+id/btnHome"
                 android:layout_width="@dimen/dp_56"
                 android:layout_height="@dimen/dp_56"
-                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginStart="@dimen/dp_16"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_home_yellow"
                 android:contentDescription="@string/home" />
-
-            <!-- Levels / Map Orb -->
-            <ImageButton
-                android:id="@+id/btnLevels"
-                android:layout_width="@dimen/dp_56"
-                android:layout_height="@dimen/dp_56"
-                android:layout_marginStart="@dimen/dp_12"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_grid_yellow"
-                android:contentDescription="@string/levels" />
 
             <!-- Settings Orb -->
             <ImageButton
                 android:id="@+id/btnSettings"
                 android:layout_width="@dimen/dp_56"
                 android:layout_height="@dimen/dp_56"
-                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginStart="@dimen/dp_16"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_settings_yellow"

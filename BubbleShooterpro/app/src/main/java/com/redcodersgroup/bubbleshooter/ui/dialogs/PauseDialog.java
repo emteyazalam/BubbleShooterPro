@@ -15,7 +15,6 @@ public class PauseDialog extends Dialog {
     public interface PauseDialogListener {
         void onResumeClicked();
         void onRestartClicked();
-        void onLevelsClicked();
         void onHomeClicked();
     }
 
@@ -51,12 +50,6 @@ public class PauseDialog extends Dialog {
             );
         }
 
-        if (isEndlessMode) {
-            binding.btnLevels.setVisibility(android.view.View.GONE);
-        } else {
-            binding.btnLevels.setVisibility(android.view.View.VISIBLE);
-        }
-
         binding.btnClosePause.setOnClickListener(v -> {
             soundManager.playClick();
             dismiss();
@@ -73,12 +66,6 @@ public class PauseDialog extends Dialog {
             soundManager.playClick();
             dismiss();
             if (listener != null) listener.onHomeClicked();
-        });
-
-        binding.btnLevels.setOnClickListener(v -> {
-            soundManager.playClick();
-            dismiss();
-            if (listener != null) listener.onLevelsClicked();
         });
 
         binding.btnSettings.setOnClickListener(v -> {
