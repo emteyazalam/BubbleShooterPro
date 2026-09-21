@@ -89,11 +89,7 @@ public class HeartStoreDialog extends Dialog {
         binding.cardWatchAdForLife.setOnClickListener(v -> handleWatchAdForLife());
         binding.btnWatchAdForLife.setOnClickListener(v -> handleWatchAdForLife());
 
-        // 2. Watch Ad for +2 Hearts (REWARDED AD bonus)
-        binding.cardWatchAdForBonus.setOnClickListener(v -> handleWatchAdForBonus());
-        binding.btnWatchAdForBonus.setOnClickListener(v -> handleWatchAdForBonus());
-
-        // 3. Buy Single Heart (5 Diamonds)
+        // 2. Buy Single Heart (5 Diamonds)
         binding.cardBuyOneHeart.setOnClickListener(v -> handleBuyOneHeart());
         binding.btnBuyOneHeart.setOnClickListener(v -> handleBuyOneHeart());
 
@@ -116,19 +112,6 @@ public class HeartStoreDialog extends Dialog {
         soundManager.playWin();
         prefs.addLives(1);
         Toast.makeText(getContext(), "🎬 Video reward granted! +1 Heart added!", Toast.LENGTH_SHORT).show();
-        updateLivesUI();
-    }
-
-    private void handleWatchAdForBonus() {
-        if (prefs.getLives() >= 5) {
-            soundManager.playClick();
-            Toast.makeText(getContext(), "❤️ Lives are already FULL (5/5)!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        soundManager.playWin();
-        prefs.addLives(2);
-        Toast.makeText(getContext(), "🎬 Video reward granted! +2 Hearts added!", Toast.LENGTH_SHORT).show();
         updateLivesUI();
     }
 
