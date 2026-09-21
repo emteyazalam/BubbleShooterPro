@@ -194,13 +194,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateLivesUI() {
         if (binding != null && binding.tvHomeLives != null) {
-            if (prefs.isInfiniteLivesActive()) {
-                long mins = (prefs.getInfiniteLivesRemainingSeconds() + 59) / 60;
-                binding.tvHomeLives.setText("∞ " + mins + "m");
-            } else {
-                int lives = prefs.getLives();
-                binding.tvHomeLives.setText(lives >= 5 ? "5 FULL" : lives + "/5");
-            }
+            int lives = prefs.getLives();
+            binding.tvHomeLives.setText(lives >= 5 ? "5 FULL" : lives + "/5");
         }
     }
 
@@ -309,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
         previewBinding.btnStartLevel.setOnClickListener(v -> {
             soundManager.playClick();
-            if (prefs.getLives() <= 0 && !prefs.isInfiniteLivesActive()) {
+            if (prefs.getLives() <= 0) {
                 Toast.makeText(this, "💔 Out of lives! Get more hearts in the Heart Shop.", Toast.LENGTH_SHORT).show();
                 showHeartStoreDialog();
                 return;

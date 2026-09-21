@@ -1,14 +1,16 @@
 {
   "level": 1,
-  "shots": 16,
+  "shots": 15,
   "colors": [
     "RED",
+    "GREEN",
     "BLUE",
-    "YELLOW"
+    "YELLOW",
+    "PURPLE"
   ],
   "objective": {
     "type": "CLEAR_ALL",
-    "target": 0
+    "target": 5000
   },
   "starThresholds": [
     1250,
@@ -16,11 +18,11 @@
     4450
   ],
   "rows": [
-    "RRBBYBBRR",
-    "RBYRRYBR",
-    "BYRRRRRYB",
-    "BRRRRRRB",
-    ".YRRRRRY.",
-    ".YBYYBY."
+    "BBBBBBBBB",
+    "YYYYYYYY",
+    "GGGGGGGGG",
+    "RRRRRRRR",
+    "PPPPPPPPP",
+    "CCCCCCCC"
   ]
 }

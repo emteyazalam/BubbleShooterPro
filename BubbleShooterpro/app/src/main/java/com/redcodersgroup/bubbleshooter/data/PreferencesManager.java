@@ -20,7 +20,6 @@ public class PreferencesManager {
     private static final String KEY_PLAYER_AVATAR = "key_player_avatar";
     private static final String KEY_DIAMONDS = "key_player_diamonds";
     private static final String KEY_LIVES = "key_player_lives";
-    private static final String KEY_INFINITE_LIVES_UNTIL = "key_infinite_lives_until";
     private static final String KEY_LAST_LIFE_LOST_TIMESTAMP = "key_last_life_lost_timestamp";
     private static final String KEY_FREE_DIAMONDS_CLAIM_DATE = "key_free_diamonds_claim_date";
 
@@ -186,29 +185,7 @@ public class PreferencesManager {
         return false;
     }
 
-    public boolean isInfiniteLivesActive() {
-        return System.currentTimeMillis() < getInfiniteLivesUntil();
-    }
-
-    public long getInfiniteLivesUntil() {
-        return prefs.getLong(KEY_INFINITE_LIVES_UNTIL, 0);
-    }
-
-    public void addInfiniteLivesMinutes(int minutes) {
-        long currentUntil = Math.max(System.currentTimeMillis(), getInfiniteLivesUntil());
-        long newUntil = currentUntil + (minutes * 60L * 1000L);
-        prefs.edit().putLong(KEY_INFINITE_LIVES_UNTIL, newUntil).apply();
-    }
-
-    public long getInfiniteLivesRemainingSeconds() {
-        long rem = (getInfiniteLivesUntil() - System.currentTimeMillis()) / 1000L;
-        return Math.max(0, rem);
-    }
-
     public int getLives() {
-        if (isInfiniteLivesActive()) {
-            return 5;
-        }
         int lives = prefs.getInt(KEY_LIVES, 5);
         if (lives >= 5) {
             return 5;
@@ -253,7 +230,6 @@ public class PreferencesManager {
     }
 
     public void deductLife() {
-        if (isInfiniteLivesActive()) return;
         int current = getLives();
         if (current > 0) {
             setLives(current - 1);
@@ -261,7 +237,7 @@ public class PreferencesManager {
     }
 
     public long getSecondsUntilNextLife() {
-        if (getLives() >= 5 || isInfiniteLivesActive()) return 0;
+        if (getLives() >= 5) return 0;
         long lastLost = prefs.getLong(KEY_LAST_LIFE_LOST_TIMESTAMP, 0);
         if (lastLost == 0) return 0;
         long REGEN_INTERVAL_MS = 20L * 60 * 1000;
