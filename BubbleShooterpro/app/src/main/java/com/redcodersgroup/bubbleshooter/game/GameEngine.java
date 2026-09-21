@@ -326,13 +326,17 @@ public class GameEngine {
         this.currentBubble.setScale(1.0f);
         this.currentBubble.setAlpha(1.0f);
 
-        BubbleColor secondColor = pickSmartLauncherColor(firstColor);
-        this.nextBubble = new Bubble(secondColor, BubbleType.NORMAL, null);
-        this.nextBubble.setX(previewX);
-        this.nextBubble.setY(previewY);
-        this.nextBubble.setRadius(bubbleRadius * 0.75f);
-        this.nextBubble.setScale(1.0f);
-        this.nextBubble.setAlpha(1.0f);
+        if (isEndlessMode || shotsRemaining > 1) {
+            BubbleColor secondColor = pickSmartLauncherColor(firstColor);
+            this.nextBubble = new Bubble(secondColor, BubbleType.NORMAL, null);
+            this.nextBubble.setX(previewX);
+            this.nextBubble.setY(previewY);
+            this.nextBubble.setRadius(bubbleRadius * 0.75f);
+            this.nextBubble.setScale(1.0f);
+            this.nextBubble.setAlpha(1.0f);
+        } else {
+            this.nextBubble = null;
+        }
 
         if (listener != null) {
             listener.onScoreUpdated(scoreManager.getScore(), getEffectiveStars(), scoreManager.getStarProgress());
@@ -635,21 +639,25 @@ public class GameEngine {
         if (state != GameState.READY && state != GameState.AIMING) return;
 
         // Check if user tapped preview bubble, launcher base, or the swap icon area to swap
-        float midX = (launcherX + previewX) / 2f;
-        float midY = (launcherY + previewY) / 2f;
-        float distToMid = (float) Math.hypot(touchX - midX, touchY - midY);
-        float distToPreview = (float) Math.hypot(touchX - previewX, touchY - previewY);
-        if (distToPreview <= bubbleRadius * 1.6f || distToMid <= bubbleRadius * 1.5f) {
-            swapBubbles();
-            return;
+        if (nextBubble != null) {
+            float midX = (launcherX + previewX) / 2f;
+            float midY = (launcherY + previewY) / 2f;
+            float distToMid = (float) Math.hypot(touchX - midX, touchY - midY);
+            float distToPreview = (float) Math.hypot(touchX - previewX, touchY - previewY);
+            if (distToPreview <= bubbleRadius * 1.6f || distToMid <= bubbleRadius * 1.5f) {
+                swapBubbles();
+                return;
+            }
+
+            // Check if user tapped launcher
+            float distToLauncher = (float) Math.hypot(touchX - launcherX, touchY - launcherY);
+            if (distToLauncher <= bubbleRadius * 1.2f) {
+                swapBubbles();
+                return;
+            }
         }
 
-        // Check if user tapped launcher
-        float distToLauncher = (float) Math.hypot(touchX - launcherX, touchY - launcherY);
-        if (distToLauncher <= bubbleRadius * 1.2f) {
-            swapBubbles();
-            return;
-        }
+        if (currentBubble == null) return;
 
         // Imaginary cancel threshold line: slightly above the launcher
         float cancelThreshold = launcherY - (bubbleRadius * 0.4f);
@@ -729,18 +737,24 @@ public class GameEngine {
         // Finish any active swap or booster animation immediately
         if (isSwapping) {
             isSwapping = false;
-            currentBubble.setX(launcherX);
-            currentBubble.setY(launcherY);
-            currentBubble.setScale(1.0f);
-            nextBubble.setX(previewX);
-            nextBubble.setY(previewY);
-            nextBubble.setScale(1.0f);
+            if (currentBubble != null) {
+                currentBubble.setX(launcherX);
+                currentBubble.setY(launcherY);
+                currentBubble.setScale(1.0f);
+            }
+            if (nextBubble != null) {
+                nextBubble.setX(previewX);
+                nextBubble.setY(previewY);
+                nextBubble.setScale(1.0f);
+            }
         }
         if (isBoosterEquipping) {
             isBoosterEquipping = false;
-            currentBubble.setX(launcherX);
-            currentBubble.setY(launcherY);
-            currentBubble.setScale(1.0f);
+            if (currentBubble != null) {
+                currentBubble.setX(launcherX);
+                currentBubble.setY(launcherY);
+                currentBubble.setScale(1.0f);
+            }
         }
 
         state = GameState.SHOOTING;
@@ -753,26 +767,39 @@ public class GameEngine {
         soundManager.playShoot();
 
         // 1. Promote queued bubble into currentBubble, starting at preview position
-        currentBubble.setColor(nextBubble.getColor());
-        currentBubble.setType(nextBubble.getType());
-        currentBubble.setRadius(bubbleRadius);
-        currentBubble.setX(previewX);
-        currentBubble.setY(previewY);
-        currentBubble.setScale(0.75f);
-        currentBubble.setAlpha(1.0f);
+        if (nextBubble != null) {
+            currentBubble.setColor(nextBubble.getColor());
+            currentBubble.setType(nextBubble.getType());
+            currentBubble.setRadius(bubbleRadius);
+            currentBubble.setX(previewX);
+            currentBubble.setY(previewY);
+            currentBubble.setScale(0.75f);
+            currentBubble.setAlpha(1.0f);
 
-        // 2. Pick a new smart nextBubble and prepare it to pop into the preview position
-        nextBubble.setColor(pickSmartLauncherColor(currentBubble.getColor()));
-        nextBubble.setType(BubbleType.NORMAL);
-        nextBubble.setRadius(bubbleRadius * 0.75f);
-        nextBubble.setX(previewX);
-        nextBubble.setY(previewY);
-        nextBubble.setScale(0.0f);
-        nextBubble.setAlpha(0.0f);
+            // Reserve check: (shotsRemaining - 2) > 0 because this shot (1) is in flight,
+            // currentBubble holds 1, leaving (shotsRemaining - 2) in reserve for nextBubble refill
+            if (isEndlessMode || (shotsRemaining - 2) > 0) {
+                // 2. Pick a new smart nextBubble and prepare it to pop into the preview position
+                nextBubble.setColor(pickSmartLauncherColor(currentBubble.getColor()));
+                nextBubble.setType(BubbleType.NORMAL);
+                nextBubble.setRadius(bubbleRadius * 0.75f);
+                nextBubble.setX(previewX);
+                nextBubble.setY(previewY);
+                nextBubble.setScale(0.0f);
+                nextBubble.setAlpha(0.0f);
+            } else {
+                // Refiller ball is now empty
+                nextBubble = null;
+            }
 
-        // 3. Trigger jump & pop reload animation
-        isLauncherReloading = true;
-        reloadTimer = 0f;
+            // 3. Trigger jump & pop reload animation
+            isLauncherReloading = true;
+            reloadTimer = 0f;
+        } else {
+            // Final shot was fired — launcher is now empty
+            currentBubble = null;
+            isLauncherReloading = false;
+        }
     }
 
     public void update(float dt) {
@@ -1265,6 +1292,7 @@ public class GameEngine {
         }
     }
 
+
     private boolean isBubbleVisibleOnBoard(Bubble b) {
         if (b == null) return false;
         float y = b.getY();
@@ -1373,6 +1401,8 @@ public class GameEngine {
         // Check lose condition 2: Out of shots
         if (shotsRemaining <= 0) {
             state = GameState.LOSE;
+            currentBubble = null;
+            nextBubble = null;
             if (listener != null) {
                 listener.onGameLost(scoreManager.getScore(), "Out of shots! Don't give up!");
             }
@@ -1524,34 +1554,37 @@ public class GameEngine {
         canvas.drawCircle(launcherX, launcherY, bubbleRadius * 1.3f, paint);
         paint.setStyle(Paint.Style.FILL);
 
-        // Preview Bubble Pedestal
-        paint.setColor(Color.parseColor("#616161"));
+        // Preview Bubble Pedestal (metallic rim + recessed tray)
+        paint.setColor(Color.parseColor("#424242"));
         canvas.drawCircle(previewX, previewY, bubbleRadius * 0.95f, paint);
+        paint.setColor(Color.parseColor("#263238"));
+        canvas.drawCircle(previewX, previewY, bubbleRadius * 0.82f, paint);
 
         // Preview Bubble & Current Bubble (drawn with natural depth during swap)
         if (nextBubble != null) {
             nextBubble.draw(canvas, paint);
-            drawNextBubbleShotsBadge(canvas, paint);
         }
         if (currentBubble != null) {
             currentBubble.draw(canvas, paint);
         }
 
-        // Swap Icon Indicator (pure clean curved rotation arrows without enclosing disc)
-        float midX = (launcherX + previewX) / 2f;
-        float midY = (launcherY + previewY) / 2f;
-        drawSwapIcon(canvas, paint, midX, midY, bubbleRadius * 0.65f);
+        // Shots badge - repositioned to bottom-right corner of preview station
+        drawNextBubbleShotsBadge(canvas, paint);
+
+        // Swap Icon Indicator (only shown when there is a refiller ball to swap with)
+        if (currentBubble != null && nextBubble != null) {
+            float midX = (launcherX + previewX) / 2f;
+            float midY = (launcherY + previewY) / 2f;
+            drawSwapIcon(canvas, paint, midX, midY, bubbleRadius * 0.65f);
+        }
     }
 
     private void drawNextBubbleShotsBadge(Canvas canvas, Paint paint) {
-        if (nextBubble == null) return;
-        float nbX = nextBubble.getX();
-        float nbY = nextBubble.getY();
-        float scale = nextBubble.getScaleX();
-        float alpha = nextBubble.getAlpha();
-        if (scale < 0.1f || alpha < 0.05f) return;
+        // Anchored at bottom-right corner of preview pedestal / bubble so bubble face is fully visible
+        float badgeX = previewX + bubbleRadius * 0.44f;
+        float badgeY = previewY + bubbleRadius * 0.44f;
+        float badgeRadius = bubbleRadius * 0.38f;
 
-        float badgeRadius = bubbleRadius * 0.44f * scale;
         boolean isLowShots = !isEndlessMode && shotsRemaining <= 5;
         String countStr = isEndlessMode ? "∞" : String.valueOf(Math.max(0, shotsRemaining));
 
@@ -1559,28 +1592,28 @@ public class GameEngine {
         if (isLowShots) {
             float pulse = (float) (Math.sin(System.currentTimeMillis() * 0.008) * 0.5 + 0.5);
             paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeWidth(bubbleRadius * 0.08f * scale);
-            paint.setColor(Color.argb((int) ((100 + 100 * pulse) * alpha), 255, 23, 68));
-            canvas.drawCircle(nbX, nbY, badgeRadius + (bubbleRadius * 0.10f * pulse * scale), paint);
+            paint.setStrokeWidth(bubbleRadius * 0.07f);
+            paint.setColor(Color.argb((int) (100 + 100 * pulse), 255, 23, 68));
+            canvas.drawCircle(badgeX, badgeY, badgeRadius + (bubbleRadius * 0.09f * pulse), paint);
 
             paint.setStyle(Paint.Style.FILL);
-            paint.setColor(Color.argb((int) (225 * alpha), 211, 47, 47));
-            canvas.drawCircle(nbX, nbY, badgeRadius, paint);
+            paint.setColor(Color.parseColor("#D32F2F"));
+            canvas.drawCircle(badgeX, badgeY, badgeRadius, paint);
         } else {
             paint.setStyle(Paint.Style.FILL);
-            paint.setColor(Color.argb((int) (190 * alpha), 15, 23, 42));
-            canvas.drawCircle(nbX, nbY, badgeRadius, paint);
+            paint.setColor(Color.parseColor("#0F172A"));
+            canvas.drawCircle(badgeX, badgeY, badgeRadius, paint);
         }
 
         // 2. Crisp ring border
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(Math.max(2.0f, bubbleRadius * 0.06f * scale));
+        paint.setStrokeWidth(Math.max(2.0f, bubbleRadius * 0.06f));
         if (isLowShots) {
-            paint.setColor(Color.argb((int) (240 * alpha), 255, 205, 210));
+            paint.setColor(Color.parseColor("#FFCDD2"));
         } else {
-            paint.setColor(Color.argb((int) (230 * alpha), 255, 255, 255));
+            paint.setColor(Color.WHITE);
         }
-        canvas.drawCircle(nbX, nbY, badgeRadius, paint);
+        canvas.drawCircle(badgeX, badgeY, badgeRadius, paint);
 
         // 3. Centered count text
         paint.setStyle(Paint.Style.FILL);
@@ -1597,15 +1630,15 @@ public class GameEngine {
         }
         paint.setTextSize(fontSize);
 
-        float textY = nbY - ((paint.descent() + paint.ascent()) / 2f);
+        float textY = badgeY - ((paint.descent() + paint.ascent()) / 2f);
 
         // Drop shadow for ultra high readability
-        paint.setColor(Color.argb((int) (180 * alpha), 0, 0, 0));
-        canvas.drawText(countStr, nbX, textY + (1.5f * scale), paint);
+        paint.setColor(Color.parseColor("#B0000000"));
+        canvas.drawText(countStr, badgeX, textY + 1.5f, paint);
 
         // Text foreground
-        paint.setColor(Color.argb((int) (255 * alpha), 255, 255, 255));
-        canvas.drawText(countStr, nbX, textY, paint);
+        paint.setColor(Color.WHITE);
+        canvas.drawText(countStr, badgeX, textY, paint);
 
         // Reset Paint attributes
         paint.setTextAlign(Paint.Align.LEFT);
