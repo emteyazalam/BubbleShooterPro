@@ -180,19 +180,17 @@ public class BubbleGameView extends View {
      * Fixed to World 23 (Pinecone Peak / bg_game_world_23) so the background does not change during endless gameplay.
      */
     public void setEndlessBiome(int wave) {
-        // Fixed to World 23 (Pinecone Peak)
         int fixedWorldNumber = 23;
-        if (fixedWorldNumber == lastLoadedEndlessWorld) return; // already loaded — keep static
+        if (fixedWorldNumber == lastLoadedEndlessWorld && backgroundBitmap != null) return;
         lastLoadedEndlessWorld = fixedWorldNumber;
 
         int simulatedLevel = (fixedWorldNumber - 1) * 10 + 1; // Level 221
         this.currentLevel = simulatedLevel;
         this.currentBiome = BiomeTheme.forLevel(simulatedLevel);
+        loadWorldBackground(simulatedLevel); // load immediately so frame 1 draws bg23 directly
         updateBackgroundGradient();
         initParticles();
         invalidate();
-
-        loadWorldBackgroundAsync(simulatedLevel);
     }
 
     /** Synchronous load used by campaign mode (called before game starts, no race condition). */
