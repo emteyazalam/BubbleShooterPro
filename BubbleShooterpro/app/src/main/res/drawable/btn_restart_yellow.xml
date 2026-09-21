@@ -1,38 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="56dp"
     android:height="56dp"
     android:viewportWidth="56"
     android:viewportHeight="56">
 
-    <!-- 3D Base Shadow -->
+    <!-- 1. Deep 3D Drop Shadow Base -->
     <path
-        android:pathData="M28,6 A22,22 0 1,0 28,50 A22,22 0 1,0 28,6 Z"
+        android:pathData="M28,8 A22,22 0 1,0 28,52 A22,22 0 1,0 28,8 Z"
+        android:fillColor="#451A03" />
+
+    <!-- 2. Outer Golden Bevel Rim -->
+    <path
+        android:pathData="M28,5 A22,22 0 1,0 28,49 A22,22 0 1,0 28,5 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="28"
+                android:startY="5"
+                android:endX="28"
+                android:endY="49"
+                android:type="linear">
+                <item android:offset="0" android:color="#FFFDE047" />
+                <item android:offset="0.5" android:color="#FFF59E0B" />
+                <item android:offset="1" android:color="#FFB45309" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 3. Inner Dark Crease -->
+    <path
+        android:pathData="M28,6 A20,20 0 1,0 28,46 A20,20 0 1,0 28,6 Z"
         android:fillColor="#78350F" />
 
-    <!-- Main Glossy Yellow Circle -->
+    <!-- 4. Main 3D Spherical Face with Radial Light Source -->
     <path
-        android:pathData="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z"
-        android:fillColor="#EAB308" />
+        android:pathData="M28,6.5 A19,19 0 1,0 28,44.5 A19,19 0 1,0 28,6.5 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="28"
+                android:centerY="20"
+                android:gradientRadius="22"
+                android:type="radial">
+                <item android:offset="0" android:color="#FFFEF08A" />
+                <item android:offset="0.4" android:color="#FFFBBF24" />
+                <item android:offset="0.8" android:color="#FFF59E0B" />
+                <item android:offset="1" android:color="#FFD97706" />
+            </gradient>
+        </aapt:attr>
+    </path>
 
-    <!-- Outer Highlight Ring -->
+    <!-- 5. Top Specular Highlight Arc -->
     <path
-        android:pathData="M28,4 A22,22 0 1,0 28,48 A22,22 0 1,0 28,4 Z"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="1.5" />
-
-    <!-- Top Specular Highlight Arc -->
-    <path
-        android:pathData="M14,14 C18,7 38,7 42,14 C36,19 20,19 14,14 Z"
+        android:pathData="M16,14 C19,8.5 37,8.5 40,14 C35,18.5 21,18.5 16,14 Z"
         android:fillColor="#80FFFFFF" />
 
-    <!-- Restart Icon Shadow -->
+    <!-- 6. Top Specular Glint Dot -->
     <path
-        android:pathData="M37,29 A10,10 0 1,1 28,19 L28,15 L21,22 L28,29 L28,24 A6,6 0 1,0 33,29 Z"
-        android:fillColor="#78350F" />
+        android:pathData="M28,9.5 A1.8,1.8 0 1,0 28,13.1 A1.8,1.8 0 1,0 28,9.5 Z"
+        android:fillColor="#A0FFFFFF" />
 
-    <!-- Restart Icon Foreground -->
+    <!-- 7. Bottom Rim Bounce Light Sheen -->
     <path
-        android:pathData="M37,28 A10,10 0 1,1 28,18 L28,14 L21,21 L28,28 L28,23 A6,6 0 1,0 33,28 Z"
+        android:pathData="M20,40.5 C24,42.8 32,42.8 36,40.5 C33,41.8 23,41.8 20,40.5 Z"
+        android:fillColor="#45FEF08A" />
+
+    <!-- 8. Replay Arrow Shadow -->
+    <group android:translateY="1.8">
+        <path
+            android:pathData="M17,22 L25.5,14.5 C26.1,14.1 26.8,14.5 26.8,15.2 L26.8,18.3 C34,18.5 39.5,23 39.5,29 C39.5,34.8 34,39 28,39 C23.5,39 19.5,36.3 17.8,32.5 C17.4,31.7 17.8,30.7 18.6,30.3 C19.4,29.9 20.4,30.3 20.8,31.1 C22,34 24.8,35.5 28,35.5 C32.5,35.5 36,32.3 36,28.3 C36,24.3 32.2,21.7 26.8,21.7 L26.8,24.8 C26.8,25.5 26.1,25.9 25.5,25.5 L17,22 Z"
+            android:fillColor="#78350F" />
+    </group>
+
+    <!-- 9. Replay Arrow Foreground (Brilliant White) -->
+    <path
+        android:pathData="M17,22 L25.5,14.5 C26.1,14.1 26.8,14.5 26.8,15.2 L26.8,18.3 C34,18.5 39.5,23 39.5,29 C39.5,34.8 34,39 28,39 C23.5,39 19.5,36.3 17.8,32.5 C17.4,31.7 17.8,30.7 18.6,30.3 C19.4,29.9 20.4,30.3 20.8,31.1 C22,34 24.8,35.5 28,35.5 C32.5,35.5 36,32.3 36,28.3 C36,24.3 32.2,21.7 26.8,21.7 L26.8,24.8 C26.8,25.5 26.1,25.9 25.5,25.5 L17,22 Z"
         android:fillColor="#FFFFFF" />
 </vector>

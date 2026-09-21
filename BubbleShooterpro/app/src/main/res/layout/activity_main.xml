@@ -269,23 +269,18 @@
         android:id="@+id/layoutWorldSwitcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginTop="@dimen/dp_98"
         android:background="@drawable/bg_world_header_banner"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/dp_14"
+        android:paddingStart="@dimen/dp_16"
         android:paddingEnd="@dimen/dp_16"
         android:paddingTop="@dimen/dp_6"
         android:paddingBottom="@dimen/dp_8"
-        android:elevation="@dimen/dp_8">
-
-        <ImageView
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_16"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:src="@drawable/ic_world_globe"
-            android:contentDescription="@null" />
+        android:elevation="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_25"
+        android:layout_marginBottom="@dimen/dp_35">
 
         <TextView
             android:id="@+id/tvCurrentWorldTitle"
