@@ -151,6 +151,7 @@ public class GameEngine {
     private float resolveTimer = 0f;
     private boolean isSuperAimActive = false;
     private boolean isAimCancelled = false;
+    private boolean isFireballBlocked = false;
 
     // Launcher reload jump & pop-in animation
     private boolean isLauncherReloading = false;
@@ -682,10 +683,15 @@ public class GameEngine {
     public void onTouchUp(float touchX, float touchY) {
         if (state == GameState.AIMING) {
             float cancelThreshold = launcherY - (bubbleRadius * 0.4f);
-            if (isAimCancelled || touchY >= cancelThreshold) {
+            if (isAimCancelled || touchY >= cancelThreshold || isFireballBlocked) {
                 // Canceled shot: reset to READY, clear trajectory, do NOT launch projectile
                 state = GameState.READY;
                 isAimCancelled = false;
+                if (isFireballBlocked) {
+                    soundManager.playBounce();
+                    floatingTexts.add(new FloatingText("🚫 MAX 1 BOUNCE ALLOWED!", launcherX, launcherY - bubbleRadius * 1.5f, Color.parseColor("#EF4444"), 42f, 1.4f));
+                    isFireballBlocked = false;
+                }
                 if (trajectoryPoints != null) {
                     trajectoryPoints.clear();
                 }
@@ -719,11 +725,27 @@ public class GameEngine {
     private final Set<GridPosition> fireballPoppedPositions = new HashSet<>();
 
     private void updateTrajectory() {
-        this.trajectoryPoints = TrajectoryCalculator.calculateTrajectory(
+        if (currentBubble == null) {
+            if (trajectoryPoints != null) {
+                trajectoryPoints.clear();
+            }
+            isFireballBlocked = false;
+            return;
+        }
+
+        boolean isFireball = (currentBubble.getType() == BubbleType.FIREBALL
+                || currentBubble.getColor() == BubbleColor.FIREBALL);
+
+        int maxBounces = isFireball ? 1 : TrajectoryCalculator.MAX_BOUNCES;
+
+        TrajectoryCalculator.TrajectoryResult result = TrajectoryCalculator.calculateTrajectory(
                 launcherX, launcherY, aimAngleRad,
                 boardLeft, boardRight, boardTop,
-                grid, bubbleRadius, false
+                grid, bubbleRadius, isFireball, maxBounces
         );
+
+        this.trajectoryPoints = result.points;
+        this.isFireballBlocked = isFireball && result.bounceLimitExceeded;
     }
 
     private void shoot() {
@@ -973,21 +995,33 @@ public class GameEngine {
             float currX = activeProjectile.getX();
             float currY = activeProjectile.getY();
 
-            boolean bounced = WallBounceCalculator.checkAndHandleWallBounce(activeProjectile, boardLeft, boardRight);
-            if (bounced) {
-                soundManager.playBounce();
-            }
-
             boolean isFireball = (activeProjectile.getType() == BubbleType.FIREBALL
                     || activeProjectile.getColor() == BubbleColor.FIREBALL);
 
-            if (isFireball) {
-                // Fireball penetrates along its trajectory line, incinerating visible bubbles in its path
-                handleFireballPiercing(prevX, prevY, currX, currY);
-
-                // Check ceiling strike
-                if (currY - activeProjectile.getRadius() <= boardTop) {
+            int maxBounces = isFireball ? 1 : 2;
+            boolean bounced = WallBounceCalculator.checkAndHandleWallBounce(activeProjectile, boardLeft, boardRight, maxBounces);
+            if (bounced) {
+                soundManager.playBounce();
+            } else if (isFireball && activeProjectile.getBounceCount() >= 1) {
+                float r = activeProjectile.getRadius();
+                float minX = boardLeft + r;
+                float maxX = boardRight - r;
+                boolean hitLeft = (activeProjectile.getX() <= minX && activeProjectile.getVx() < 0);
+                boolean hitRight = (activeProjectile.getX() >= maxX && activeProjectile.getVx() > 0);
+                if (hitLeft || hitRight) {
                     finishFireballFlight();
+                }
+            }
+
+            if (isFireball) {
+                if (state != GameState.RESOLVING) {
+                    // Fireball penetrates along its trajectory line, incinerating visible bubbles in its path
+                    handleFireballPiercing(prevX, prevY, currX, currY);
+
+                    // Check ceiling strike
+                    if (currY - activeProjectile.getRadius() <= boardTop) {
+                        finishFireballFlight();
+                    }
                 }
             } else {
                 CollisionDetector.CollisionResult collision =
@@ -1205,7 +1239,8 @@ public class GameEngine {
         resolveTimer = 0.28f;
 
         if (activeProjectile != null) {
-            confettiSystem.spawnCelebrationBurst(activeProjectile.getX(), boardTop + bubbleRadius, 30);
+            float burstY = Math.max(boardTop + bubbleRadius, activeProjectile.getY());
+            confettiSystem.spawnCelebrationBurst(activeProjectile.getX(), burstY, 30);
         }
         soundManager.playBomb();
 
@@ -1414,6 +1449,11 @@ public class GameEngine {
             int laserColor = (currentBubble != null) ? currentBubble.getColor().primaryColor : Color.parseColor("#4FC3F7");
             int glowColor = (currentBubble != null) ? currentBubble.getColor().lightColor : Color.WHITE;
 
+            if (isFireballBlocked) {
+                laserColor = Color.parseColor("#EF4444");
+                glowColor = Color.parseColor("#FF5252");
+            }
+
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeCap(Paint.Cap.ROUND);
             paint.setStrokeJoin(Paint.Join.ROUND);
@@ -1437,6 +1477,12 @@ public class GameEngine {
             canvas.drawPath(laserPath, paint);
 
             paint.setStyle(Paint.Style.FILL);
+
+            // If fireball trajectory is blocked by exceeding 1 bounce, draw red X on the head
+            if (isFireballBlocked && !trajectoryPoints.isEmpty()) {
+                PointF headPt = trajectoryPoints.get(trajectoryPoints.size() - 1);
+                drawBlockedHeadX(canvas, paint, headPt.x, headPt.y);
+            }
         }
 
         // 2. Draw Board Bubbles
@@ -1524,6 +1570,31 @@ public class GameEngine {
             canvas.drawLine(boardLeft, deadlineY, boardRight, deadlineY, paint);
             paint.setPathEffect(null);
         }
+
+        paint.setStyle(Paint.Style.FILL);
+    }
+
+    private void drawBlockedHeadX(Canvas canvas, Paint paint, float hx, float hy) {
+        // Dark crimson circular backer
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.parseColor("#450A0A"));
+        paint.setAlpha(220);
+        float radius = bubbleRadius * 0.55f;
+        canvas.drawCircle(hx, hy, radius, paint);
+
+        // Warning red border
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.parseColor("#EF4444"));
+        paint.setStrokeWidth(bubbleRadius * 0.08f);
+        canvas.drawCircle(hx, hy, radius, paint);
+
+        // Bold Red 'X' cross
+        paint.setColor(Color.parseColor("#FF1744"));
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth(bubbleRadius * 0.18f);
+        float arm = bubbleRadius * 0.28f;
+        canvas.drawLine(hx - arm, hy - arm, hx + arm, hy + arm, paint);
+        canvas.drawLine(hx - arm, hy + arm, hx + arm, hy - arm, paint);
 
         paint.setStyle(Paint.Style.FILL);
     }

@@ -12,17 +12,34 @@ public class TrajectoryCalculator {
     public static final int MAX_STEPS = 120;
     public static final int MAX_BOUNCES = 2;
 
+    public static class TrajectoryResult {
+        public final List<PointF> points;
+        public final boolean bounceLimitExceeded;
+
+        public TrajectoryResult(List<PointF> points, boolean bounceLimitExceeded) {
+            this.points = points;
+            this.bounceLimitExceeded = bounceLimitExceeded;
+        }
+    }
+
     public static List<PointF> calculateTrajectory(
             float startX, float startY, float angleRad,
             float leftBound, float rightBound, float topBound,
             BubbleGrid grid, float bubbleRadius) {
-        return calculateTrajectory(startX, startY, angleRad, leftBound, rightBound, topBound, grid, bubbleRadius, false);
+        return calculateTrajectory(startX, startY, angleRad, leftBound, rightBound, topBound, grid, bubbleRadius, false, MAX_BOUNCES).points;
     }
 
     public static List<PointF> calculateTrajectory(
             float startX, float startY, float angleRad,
             float leftBound, float rightBound, float topBound,
             BubbleGrid grid, float bubbleRadius, boolean isPiercing) {
+        return calculateTrajectory(startX, startY, angleRad, leftBound, rightBound, topBound, grid, bubbleRadius, isPiercing, isPiercing ? 1 : MAX_BOUNCES).points;
+    }
+
+    public static TrajectoryResult calculateTrajectory(
+            float startX, float startY, float angleRad,
+            float leftBound, float rightBound, float topBound,
+            BubbleGrid grid, float bubbleRadius, boolean isPiercing, int maxBounces) {
 
         List<PointF> points = new ArrayList<>();
         float minX = leftBound + bubbleRadius;
@@ -36,11 +53,12 @@ public class TrajectoryCalculator {
 
         // Normalize direction
         float len = (float) Math.hypot(dx, dy);
-        if (len == 0) return points;
+        if (len == 0) return new TrajectoryResult(points, false);
         dx /= len;
         dy /= len;
 
         int bounces = 0;
+        boolean bounceLimitExceeded = false;
         float collisionDistSq = (bubbleRadius * 2f * 0.92f) * (bubbleRadius * 2f * 0.92f);
 
         for (int i = 0; i < MAX_STEPS; i++) {
@@ -50,23 +68,28 @@ public class TrajectoryCalculator {
             // 1. Wall bounce checks
             if (rx <= minX && dx < 0) {
                 rx = minX;
+                if (bounces >= maxBounces) {
+                    bounceLimitExceeded = true;
+                    points.add(new PointF(rx, ry));
+                    break;
+                }
                 dx = -dx;
                 bounces++;
-                if (bounces > MAX_BOUNCES) break;
             } else if (rx >= maxX && dx > 0) {
                 rx = maxX;
+                if (bounces >= maxBounces) {
+                    bounceLimitExceeded = true;
+                    points.add(new PointF(rx, ry));
+                    break;
+                }
                 dx = -dx;
                 bounces++;
-                if (bounces > MAX_BOUNCES) break;
             }
 
             // 2. Ceiling hit
             if (ry <= minY) {
                 ry = minY;
-                PointF pt = new PointF();
-                pt.x = rx;
-                pt.y = ry;
-                points.add(pt);
+                points.add(new PointF(rx, ry));
                 break;
             }
 
@@ -84,16 +107,13 @@ public class TrajectoryCalculator {
                 }
             }
 
-            PointF pt = new PointF();
-            pt.x = rx;
-            pt.y = ry;
-            points.add(pt);
+            points.add(new PointF(rx, ry));
 
             if (collided) {
                 break;
             }
         }
 
-        return points;
+        return new TrajectoryResult(points, bounceLimitExceeded);
     }
 }

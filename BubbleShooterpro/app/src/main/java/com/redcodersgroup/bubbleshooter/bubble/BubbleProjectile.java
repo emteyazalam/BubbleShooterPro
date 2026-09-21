@@ -13,6 +13,7 @@ public class BubbleProjectile {
     private BubbleColor color;
     private BubbleType type;
     private boolean active = false;
+    private int bounceCount = 0;
     private final Bubble renderBubble;
 
     public BubbleProjectile(BubbleColor color, BubbleType type, float radius) {
@@ -31,6 +32,7 @@ public class BubbleProjectile {
         this.vx = (dirX / length) * speed;
         this.vy = (dirY / length) * speed;
         this.active = true;
+        this.bounceCount = 0;
 
         this.renderBubble.setColor(color);
         this.renderBubble.setType(type);
@@ -119,5 +121,17 @@ public class BubbleProjectile {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public int getBounceCount() {
+        return bounceCount;
+    }
+
+    public void setBounceCount(int bounceCount) {
+        this.bounceCount = bounceCount;
+    }
+
+    public void incrementBounceCount() {
+        this.bounceCount++;
     }
 }
