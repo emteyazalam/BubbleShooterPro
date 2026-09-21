@@ -80,6 +80,52 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- No-Hearts Warning Banner (shown only when lives == 0) -->
+        <LinearLayout
+            android:id="@+id/layoutNoHeartsWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/bg_dialog_inset_panel"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💔"
+                android:textSize="@dimen/sp_20"
+                android:layout_marginEnd="@dimen/dp_8" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Hearts Left!"
+                    android:textColor="#BE123C"
+                    android:textSize="@dimen/sp_13"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvNoHeartsDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Get more hearts to keep playing"
+                    android:textColor="#64748B"
+                    android:textSize="@dimen/sp_11" />
+            </LinearLayout>
+        </LinearLayout>
+
         <!-- Action Buttons Row -->
         <LinearLayout
             android:layout_width="match_parent"

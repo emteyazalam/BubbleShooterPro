@@ -592,12 +592,22 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
                 if (score > personalBest) {
                     prefs.setEndlessHighScore(score);
                 }
+            } else {
+                // Deduct one heart for losing a level (not in endless mode)
+                prefs.deductLife();
             }
 
-            activeGameOverDialog = new GameOverDialog(this, score, reason, personalBest, isEndlessMode, new GameOverDialog.GameOverDialogListener() {
+            final int livesAfterLoss = prefs.getLives();
+
+            activeGameOverDialog = new GameOverDialog(this, score, reason, personalBest, isEndlessMode, livesAfterLoss, new GameOverDialog.GameOverDialogListener() {
                 @Override
                 public void onRetryClicked() {
                     activeGameOverDialog = null;
+                    if (!isEndlessMode && livesAfterLoss <= 0) {
+                        // No hearts left — open Heart Store instead
+                        showNoHeartsDialog();
+                        return;
+                    }
                     if (isEndlessMode) {
                         loadEndlessMode();
                     } else {
@@ -614,6 +624,20 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             });
             activeGameOverDialog.show();
         });
+    }
+
+    private void showNoHeartsDialog() {
+        if (isFinishing() || isDestroyed()) return;
+        new com.redcodersgroup.bubbleshooter.ui.dialogs.HeartStoreDialog(this, () -> {
+            // After store is dismissed, re-check lives
+            if (prefs.getLives() > 0) {
+                loadCurrentLevel();
+                enableImmersiveStickyMode();
+            } else {
+                // Still no hearts — go home
+                finish();
+            }
+        }).show();
     }
 
     @Override

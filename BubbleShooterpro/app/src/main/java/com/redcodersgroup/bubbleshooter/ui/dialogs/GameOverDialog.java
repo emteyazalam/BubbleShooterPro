@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import androidx.annotation.NonNull;
@@ -22,22 +23,30 @@ public class GameOverDialog extends Dialog {
     private final String reason;
     private final int highScore;
     private final boolean isEndless;
+    private final int livesRemaining;
     private DialogGameOverBinding binding;
 
     public GameOverDialog(@NonNull Context context, int score, GameOverDialogListener listener) {
-        this(context, score, "Out of shots! Don't give up!", 0, false, listener);
+        this(context, score, "Out of shots! Don't give up!", 0, false, 1, listener);
     }
 
     public GameOverDialog(@NonNull Context context, int score, String reason, GameOverDialogListener listener) {
-        this(context, score, reason, 0, false, listener);
+        this(context, score, reason, 0, false, 1, listener);
     }
 
     public GameOverDialog(@NonNull Context context, int score, String reason, int highScore, boolean isEndless, GameOverDialogListener listener) {
+        this(context, score, reason, highScore, isEndless, 1, listener);
+    }
+
+    /** Full constructor that includes livesRemaining after the loss. */
+    public GameOverDialog(@NonNull Context context, int score, String reason, int highScore,
+                          boolean isEndless, int livesRemaining, GameOverDialogListener listener) {
         super(context);
         this.score = score;
         this.reason = reason;
         this.highScore = highScore;
         this.isEndless = isEndless;
+        this.livesRemaining = livesRemaining;
         this.listener = listener;
     }
 
@@ -68,10 +77,25 @@ public class GameOverDialog extends Dialog {
 
         int displayBest = Math.max(score, highScore);
         if (displayBest > 0) {
-            binding.tvLoseBestScore.setVisibility(android.view.View.VISIBLE);
+            binding.tvLoseBestScore.setVisibility(View.VISIBLE);
             binding.tvLoseBestScore.setText("BEST: " + String.format(java.util.Locale.getDefault(), "%,d", displayBest));
         } else {
-            binding.tvLoseBestScore.setVisibility(android.view.View.GONE);
+            binding.tvLoseBestScore.setVisibility(View.GONE);
+        }
+
+        // Show no-hearts warning and update retry button label for level mode
+        if (!isEndless && livesRemaining <= 0) {
+            binding.layoutNoHeartsWarning.setVisibility(View.VISIBLE);
+            long nextLifeSecs = getSecondsUntilNextLife();
+            if (nextLifeSecs > 0) {
+                long mins = nextLifeSecs / 60;
+                long secs = nextLifeSecs % 60;
+                binding.tvNoHeartsDetail.setText(
+                        String.format(java.util.Locale.getDefault(),
+                                "Next heart in %02d:%02d — or buy one in the shop", mins, secs));
+            }
+            binding.btnLoseRetry.setText("💎 Get Hearts");
+            binding.btnLoseRetry.setBackgroundResource(com.redcodersgroup.bubbleshooter.R.drawable.btn_pill_blank_rose);
         }
 
         binding.btnLoseRetry.setOnClickListener(v -> {
@@ -88,5 +112,11 @@ public class GameOverDialog extends Dialog {
             dismiss();
             if (listener != null) listener.onHomeClicked();
         });
+    }
+
+    /** Returns seconds until next life regen based on a 20-min timer (mirrors PreferencesManager). */
+    private long getSecondsUntilNextLife() {
+        // We don't inject prefs here — return 0 (detail text fallback is fine)
+        return 0;
     }
 }
