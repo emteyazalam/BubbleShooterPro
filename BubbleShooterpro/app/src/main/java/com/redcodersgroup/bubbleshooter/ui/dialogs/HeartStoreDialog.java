@@ -25,8 +25,8 @@ public class HeartStoreDialog extends Dialog {
     }
 
     public static final int COST_ONE_HEART = 5;
+    public static final int COST_TRIPLE_HEARTS = 12;
     public static final int COST_FULL_REFILL = 20;
-    public static final int COST_INFINITE_30_MIN = 40;
 
     private final PreferencesManager prefs;
     private final SoundManager soundManager;
@@ -89,21 +89,21 @@ public class HeartStoreDialog extends Dialog {
         binding.cardWatchAdForLife.setOnClickListener(v -> handleWatchAdForLife());
         binding.btnWatchAdForLife.setOnClickListener(v -> handleWatchAdForLife());
 
-        // 2. Watch Ad for 15 Min Infinite Lives (REWARDED AD)
-        binding.cardWatchAdForInfinite.setOnClickListener(v -> handleWatchAdForInfinite());
-        binding.btnWatchAdForInfinite.setOnClickListener(v -> handleWatchAdForInfinite());
+        // 2. Watch Ad for +2 Hearts (REWARDED AD bonus)
+        binding.cardWatchAdForBonus.setOnClickListener(v -> handleWatchAdForBonus());
+        binding.btnWatchAdForBonus.setOnClickListener(v -> handleWatchAdForBonus());
 
         // 3. Buy Single Heart (5 Diamonds)
         binding.cardBuyOneHeart.setOnClickListener(v -> handleBuyOneHeart());
         binding.btnBuyOneHeart.setOnClickListener(v -> handleBuyOneHeart());
 
-        // 4. Buy Full Refill (20 Diamonds)
+        // 4. Buy Triple Hearts (12 Diamonds)
+        binding.cardBuyTripleHearts.setOnClickListener(v -> handleBuyTripleHearts());
+        binding.btnBuyTripleHearts.setOnClickListener(v -> handleBuyTripleHearts());
+
+        // 5. Buy Full Refill (20 Diamonds)
         binding.cardBuyFullRefill.setOnClickListener(v -> handleBuyFullRefill());
         binding.btnBuyFullRefill.setOnClickListener(v -> handleBuyFullRefill());
-
-        // 5. Buy 30 Mins Infinite Lives (40 Diamonds)
-        binding.cardBuyInfiniteLives.setOnClickListener(v -> handleBuyInfiniteLives());
-        binding.btnBuyInfiniteLives.setOnClickListener(v -> handleBuyInfiniteLives());
     }
 
     private void handleWatchAdForLife() {
@@ -119,10 +119,16 @@ public class HeartStoreDialog extends Dialog {
         updateLivesUI();
     }
 
-    private void handleWatchAdForInfinite() {
+    private void handleWatchAdForBonus() {
+        if (prefs.getLives() >= 5) {
+            soundManager.playClick();
+            Toast.makeText(getContext(), "❤️ Lives are already FULL (5/5)!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         soundManager.playWin();
-        prefs.addInfiniteLivesMinutes(15);
-        Toast.makeText(getContext(), "🎬 Video reward granted! 15 Mins Unlimited Lives active!", Toast.LENGTH_LONG).show();
+        prefs.addLives(2);
+        Toast.makeText(getContext(), "🎬 Video reward granted! +2 Hearts added!", Toast.LENGTH_SHORT).show();
         updateLivesUI();
     }
 
@@ -162,11 +168,17 @@ public class HeartStoreDialog extends Dialog {
         }
     }
 
-    private void handleBuyInfiniteLives() {
-        if (prefs.spendDiamonds(COST_INFINITE_30_MIN)) {
+    private void handleBuyTripleHearts() {
+        if (prefs.getLives() >= 5) {
+            soundManager.playClick();
+            Toast.makeText(getContext(), "❤️ Lives are already FULL (5/5)!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (prefs.spendDiamonds(COST_TRIPLE_HEARTS)) {
             soundManager.playWin();
-            prefs.addInfiniteLivesMinutes(30);
-            Toast.makeText(getContext(), "⏳ 30 Mins Infinite Lives activated! Play without limits!", Toast.LENGTH_LONG).show();
+            prefs.addLives(3);
+            Toast.makeText(getContext(), "❤️ +3 Hearts added!", Toast.LENGTH_SHORT).show();
             updateLivesUI();
         } else {
             soundManager.playClick();
@@ -179,7 +191,6 @@ public class HeartStoreDialog extends Dialog {
 
         binding.tvHeartStoreDiamonds.setText(String.format(java.util.Locale.getDefault(), "%,d", prefs.getDiamonds()));
 
-        boolean isInfinite = prefs.isInfiniteLivesActive();
         int lives = prefs.getLives();
 
         ImageView[] slots = new ImageView[]{
@@ -191,20 +202,10 @@ public class HeartStoreDialog extends Dialog {
         };
 
         for (int i = 0; i < slots.length; i++) {
-            if (isInfinite) {
-                slots[i].setImageResource(R.drawable.ic_heart_slot_full);
-            } else {
-                slots[i].setImageResource(i < lives ? R.drawable.ic_heart_slot_full : R.drawable.ic_heart_slot_empty);
-            }
+            slots[i].setImageResource(i < lives ? R.drawable.ic_heart_slot_full : R.drawable.ic_heart_slot_empty);
         }
 
-        if (isInfinite) {
-            long remSec = prefs.getInfiniteLivesRemainingSeconds();
-            long mins = remSec / 60;
-            long secs = remSec % 60;
-            binding.tvHeartStatusText.setText(String.format(java.util.Locale.getDefault(), "∞ UNLIMITED LIVES: %02d:%02d left", mins, secs));
-            binding.tvHeartStatusText.setTextColor(Color.parseColor("#D97706"));
-        } else if (lives >= 5) {
+        if (lives >= 5) {
             binding.tvHeartStatusText.setText("Lives: FULL (5/5 Hearts)");
             binding.tvHeartStatusText.setTextColor(Color.parseColor("#15803D"));
         } else {

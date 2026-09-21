@@ -9,17 +9,24 @@ public class HeartStoreTest {
     @Test
     public void testHeartStorePricing() {
         assertEquals(5, HeartStoreDialog.COST_ONE_HEART);
+        assertEquals(12, HeartStoreDialog.COST_TRIPLE_HEARTS);
         assertEquals(20, HeartStoreDialog.COST_FULL_REFILL);
-        assertEquals(40, HeartStoreDialog.COST_INFINITE_30_MIN);
     }
 
     @Test
     public void testAffordability() {
         assertTrue(StoreManager.canAfford(10, HeartStoreDialog.COST_ONE_HEART));
+        assertTrue(StoreManager.canAfford(12, HeartStoreDialog.COST_TRIPLE_HEARTS));
+        assertFalse(StoreManager.canAfford(11, HeartStoreDialog.COST_TRIPLE_HEARTS));
         assertTrue(StoreManager.canAfford(20, HeartStoreDialog.COST_FULL_REFILL));
         assertFalse(StoreManager.canAfford(19, HeartStoreDialog.COST_FULL_REFILL));
-        assertTrue(StoreManager.canAfford(45, HeartStoreDialog.COST_INFINITE_30_MIN));
-        assertFalse(StoreManager.canAfford(39, HeartStoreDialog.COST_INFINITE_30_MIN));
+    }
+
+    @Test
+    public void testTripleHeartsDiscount() {
+        // 3 single hearts would cost 3 * 5 = 15 diamonds. Triple pack costs 12 diamonds (20% discount).
+        int separateCost = 3 * HeartStoreDialog.COST_ONE_HEART;
+        assertTrue(HeartStoreDialog.COST_TRIPLE_HEARTS < separateCost);
     }
 
     @Test
