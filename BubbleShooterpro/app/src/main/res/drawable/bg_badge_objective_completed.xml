@@ -1,17 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <corners android:radius="12dp" />
-    <gradient
-        android:startColor="#8000C853"
-        android:endColor="#8000E676"
-        android:angle="0" />
-    <stroke
-        android:width="1.5dp"
-        android:color="#FFB9F6CA" />
-    <padding
-        android:left="9dp"
-        android:top="2dp"
-        android:right="9dp"
-        android:bottom="2dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 3D Bottom Drop Shadow -->
+    <item
+        android:top="3dp"
+        android:bottom="0dp"
+        android:left="1dp"
+        android:right="1dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#50000000" />
+        </shape>
+    </item>
+
+    <!-- Celebration Emerald Plaque Body with Bright Gold Rim -->
+    <item
+        android:top="0dp"
+        android:bottom="3dp"
+        android:left="0dp"
+        android:right="0dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#22C55E"
+                android:centerColor="#16A34A"
+                android:endColor="#15803D" />
+            <stroke
+                android:width="2dp"
+                android:color="#FEF08A" />
+        </shape>
+    </item>
+
+    <!-- Top Specular Gloss Sheen -->
+    <item
+        android:top="1.5dp"
+        android:bottom="14dp"
+        android:left="6dp"
+        android:right="6dp">
+        <shape android:shape="rectangle">
+            <corners
+                android:topLeftRadius="14dp"
+                android:topRightRadius="14dp"
+                android:bottomLeftRadius="4dp"
+                android:bottomRightRadius="4dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#60FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

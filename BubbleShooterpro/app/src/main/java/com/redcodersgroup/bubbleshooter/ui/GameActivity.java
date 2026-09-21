@@ -189,6 +189,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         Level level = levelManager.getLevel(currentLevelNumber);
         if (level != null && level.getObjective() != null) {
             level.getObjective().resetProgress();
+            binding.ivObjectiveIcon.setImageResource(R.drawable.ic_target_bullseye);
             binding.tvObjectiveBadge.setText(level.getObjective().getBadgeText(0, level.getRows().size() * 8));
             binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective);
         }
@@ -214,11 +215,12 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
         binding.tvShotsLabel.setText("WAVE");
         binding.tvShotsCount.setText("1");
 
+        binding.ivObjectiveIcon.setImageResource(R.drawable.ic_lightning);
         int personalBest = prefs.getEndlessHighScore();
         if (personalBest > 0) {
-            binding.tvObjectiveBadge.setText("⚡ BEST: " + String.format(java.util.Locale.getDefault(), "%,d", personalBest) + " • WAVE 1");
+            binding.tvObjectiveBadge.setText("BEST: " + String.format(java.util.Locale.getDefault(), "%,d", personalBest) + " • WAVE 1");
         } else {
-            binding.tvObjectiveBadge.setText("⚡ SURVIVE • WAVE 1");
+            binding.tvObjectiveBadge.setText("SURVIVE • WAVE 1");
         }
         binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective);
         currentStarsCount = 0;
@@ -436,6 +438,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
             if (isFinishing() || isDestroyed()) return;
             binding.tvObjectiveBadge.setText(badgeText);
             if (isCompleted) {
+                binding.ivObjectiveIcon.setImageResource(R.drawable.ic_star_filled);
                 binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective_completed);
                 binding.layoutObjectiveBadge.animate().cancel();
                 binding.layoutObjectiveBadge.setScaleX(1.18f);
@@ -446,6 +449,7 @@ public class GameActivity extends BaseActivity implements GameEngine.GameEventLi
                         .setDuration(250)
                         .start();
             } else {
+                binding.ivObjectiveIcon.setImageResource(isEndlessMode ? R.drawable.ic_lightning : R.drawable.ic_target_bullseye);
                 binding.layoutObjectiveBadge.setBackgroundResource(R.drawable.bg_badge_objective);
             }
         });

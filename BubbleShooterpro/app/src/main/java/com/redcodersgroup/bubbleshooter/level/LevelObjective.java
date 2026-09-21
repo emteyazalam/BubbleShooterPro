@@ -81,15 +81,15 @@ public class LevelObjective {
     public String getBadgeText(int currentScore, int remainingBubbles) {
         switch (type) {
             case CLEAR_ALL:
-                return "🎯 CLEAR ALL: " + remainingBubbles + " LEFT";
+                return "CLEAR ALL: " + remainingBubbles + " LEFT";
             case DROP_COUNT:
-                return "🎯 DROP: " + currentProgress + "/" + targetValue;
+                return "DROP: " + currentProgress + "/" + targetValue;
             case POP_COLOR:
-                return "🎯 POP " + targetColor.name() + ": " + currentProgress + "/" + targetValue;
+                return "POP " + targetColor.name() + ": " + currentProgress + "/" + targetValue;
             case SCORE_TARGET:
-                return "🎯 GOAL: " + String.format("%,d", currentScore) + "/" + String.format("%,d", targetValue);
+                return "GOAL: " + String.format("%,d", currentScore) + "/" + String.format("%,d", targetValue);
             default:
-                return "🎯 PUZZLE: " + remainingBubbles + " LEFT";
+                return "PUZZLE: " + remainingBubbles + " LEFT";
         }
     }
 

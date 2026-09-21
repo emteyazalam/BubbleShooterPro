@@ -151,31 +151,49 @@
                 </FrameLayout>
             </FrameLayout>
 
-            <!-- Target Objective Info Badge -->
+            <!-- Target Objective Info Plaque / Cartridge -->
             <LinearLayout
                 android:id="@+id/layoutObjectiveBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:background="@drawable/bg_badge_objective"
-                android:layout_marginTop="@dimen/dp_2"
-                android:paddingStart="@dimen/dp_8"
-                android:paddingEnd="@dimen/dp_8"
-                android:paddingTop="@dimen/dp_2"
-                android:paddingBottom="@dimen/dp_2">
+                android:layout_marginTop="@dimen/dp_4"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingBottom="@dimen/dp_6">
+
+                <ImageView
+                    android:id="@+id/ivObjectiveIcon"
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:src="@drawable/ic_target_bullseye"
+                    android:contentDescription="Target" />
 
                 <TextView
                     android:id="@+id/tvObjectiveBadge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🎯 TARGET: DROP 15 BUBBLES (0/15)"
+                    android:text="TARGET: DROP 15 BUBBLES (0/15)"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/sp_10"
+                    android:textSize="@dimen/sp_11"
                     android:textStyle="bold"
-                    android:letterSpacing="0.03" />
+                    android:letterSpacing="0.04"
+                    android:shadowColor="#B0000000"
+                    android:shadowDx="1"
+                    android:shadowDy="2"
+                    android:shadowRadius="3" />
             </LinearLayout>
         </LinearLayout>
+
+        <!-- Symmetrical Right Spacer to balance btnPause (46dp) and keep Center HUD perfectly centered -->
+        <View
+            android:layout_width="@dimen/dp_46"
+            android:layout_height="@dimen/dp_46"
+            android:visibility="invisible" />
 
         <!-- Shots Remaining Badge (Hidden from top HUD as redesigned counter is on nextBubble) -->
         <LinearLayout
@@ -224,6 +242,49 @@
         android:paddingEnd="@dimen/dp_12"
         android:paddingTop="@dimen/dp_6"
         android:paddingBottom="@dimen/dp_25">
+        <!-- Fireball Booster -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <FrameLayout
+                android:id="@+id/layoutBoosterFireball"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <ImageButton
+                    android:id="@+id/btnBoosterFireball"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:background="@drawable/bg_circle_transparent"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/dp_2"
+                    android:src="@drawable/fireball_bubble"
+                    android:contentDescription="Fireball Booster" />
+
+                <!-- Bubble badge for count -->
+                <TextView
+                    android:id="@+id/tvCountFireball"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:minWidth="@dimen/dp_18"
+                    android:minHeight="@dimen/dp_18"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_4"
+                    android:background="@drawable/bg_booster_badge"
+                    android:text="∞"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/sp_10"
+                    android:textStyle="bold"
+                    android:elevation="@dimen/dp_6" />
+            </FrameLayout>
+        </LinearLayout>
 
         <!-- Rainbow Booster -->
         <LinearLayout
@@ -269,49 +330,7 @@
             </FrameLayout>
         </LinearLayout>
 
-        <!-- Fireball Booster -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
 
-            <FrameLayout
-                android:id="@+id/layoutBoosterFireball"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false">
-
-                <ImageButton
-                    android:id="@+id/btnBoosterFireball"
-                    android:layout_width="@dimen/dp_50"
-                    android:layout_height="@dimen/dp_50"
-                    android:background="@drawable/bg_circle_transparent"
-                    android:scaleType="fitCenter"
-                    android:padding="@dimen/dp_2"
-                    android:src="@drawable/fireball_bubble"
-                    android:contentDescription="Fireball Booster" />
-
-                <!-- Bubble badge for count -->
-                <TextView
-                    android:id="@+id/tvCountFireball"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:minWidth="@dimen/dp_18"
-                    android:minHeight="@dimen/dp_18"
-                    android:gravity="center"
-                    android:paddingStart="@dimen/dp_4"
-                    android:paddingEnd="@dimen/dp_4"
-                    android:background="@drawable/bg_booster_badge"
-                    android:text="∞"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/sp_10"
-                    android:textStyle="bold"
-                    android:elevation="@dimen/dp_6" />
-            </FrameLayout>
-        </LinearLayout>
 
         <!-- Lightning Booster -->
         <LinearLayout
