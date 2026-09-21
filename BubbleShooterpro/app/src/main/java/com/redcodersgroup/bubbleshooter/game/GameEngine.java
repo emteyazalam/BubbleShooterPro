@@ -1119,7 +1119,6 @@ public class GameEngine {
 
         if (isEndlessMode) {
             endlessWaveCount++;
-            checkEndlessWaveMilestone();
             List<Bubble> newRow = generateEndlessRow();
             grid.shiftDownAndInsertRow(newRow);
 
@@ -1254,7 +1253,6 @@ public class GameEngine {
         // 4. Wave / Shot progression
         if (isEndlessMode) {
             endlessWaveCount++;
-            checkEndlessWaveMilestone();
             List<Bubble> newRow = generateEndlessRow();
             grid.shiftDownAndInsertRow(newRow);
 
@@ -1284,13 +1282,6 @@ public class GameEngine {
         }
     }
 
-    private void checkEndlessWaveMilestone() {
-        if (isEndlessMode && endlessWaveCount % 5 == 1 && endlessWaveCount > 1) {
-            soundManager.playPop(5);
-            floatingTexts.add(new FloatingText("🌊 WAVE " + endlessWaveCount + " REACHED!", (boardLeft + boardRight) * 0.5f, boardTop + bubbleRadius * 3.5f, Color.parseColor("#80D8FF"), 46f, 2.2f));
-            confettiSystem.spawnCelebrationBurst(boardRight, boardBottom, 25);
-        }
-    }
 
 
     private boolean isBubbleVisibleOnBoard(Bubble b) {
