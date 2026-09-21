@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
             }
             profileDialog = new ProfileDialog(this, (name, avatarId) -> {
                 updateProfileUI();
+                if (worldMapAdapter != null) {
+                    worldMapAdapter.notifyDataSetChanged();
+                }
                 Toast.makeText(MainActivity.this, "Profile updated: " + name, Toast.LENGTH_SHORT).show();
             });
             profileDialog.show();

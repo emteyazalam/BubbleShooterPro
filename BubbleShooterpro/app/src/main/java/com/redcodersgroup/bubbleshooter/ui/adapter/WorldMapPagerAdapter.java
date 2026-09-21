@@ -24,6 +24,7 @@ import com.redcodersgroup.bubbleshooter.data.WorldConfigManager.WorldModel;
 import com.redcodersgroup.bubbleshooter.databinding.ItemSagaLevelRowBinding;
 import com.redcodersgroup.bubbleshooter.databinding.ItemWorldMapPageBinding;
 import com.redcodersgroup.bubbleshooter.audio.SoundManager;
+import com.redcodersgroup.bubbleshooter.profile.AvatarManager;
 
 public class WorldMapPagerAdapter extends RecyclerView.Adapter<WorldMapPagerAdapter.WorldViewHolder> {
 
@@ -153,15 +154,30 @@ public class WorldMapPagerAdapter extends RecyclerView.Adapter<WorldMapPagerAdap
                 nodeBinding.tvNodeLevelNumber.setText(String.valueOf(level));
 
                 // Scale avatar pin and milestone stars proportionally (smaller upward)
-                int avatarSize = Math.round((26f + normY * 22f) * density); // 26dp at top, 48dp at bottom
-                ViewGroup.LayoutParams avatarLp = nodeBinding.ivPlayerAvatarPin.getLayoutParams();
+                int avatarWidth = Math.round((26f + normY * 22f) * density); // 26dp at top, 48dp at bottom
+                int avatarHeight = Math.round(avatarWidth * 1.21f); // 38x46 pin aspect ratio
+                ViewGroup.LayoutParams avatarLp = nodeBinding.layoutPlayerAvatarPin.getLayoutParams();
                 if (avatarLp instanceof FrameLayout.LayoutParams) {
                     FrameLayout.LayoutParams flp = (FrameLayout.LayoutParams) avatarLp;
-                    flp.width = avatarSize;
-                    flp.height = avatarSize;
-                    flp.topMargin = -Math.round(avatarSize * 0.92f);
-                    nodeBinding.ivPlayerAvatarPin.setLayoutParams(flp);
+                    flp.width = avatarWidth;
+                    flp.height = avatarHeight;
+                    flp.topMargin = -Math.round(avatarHeight * 0.90f);
+                    nodeBinding.layoutPlayerAvatarPin.setLayoutParams(flp);
                 }
+
+                int iconSize = Math.round(avatarWidth * 0.78f);
+                ViewGroup.LayoutParams iconLp = nodeBinding.ivPlayerAvatarPin.getLayoutParams();
+                if (iconLp instanceof FrameLayout.LayoutParams) {
+                    FrameLayout.LayoutParams iflp = (FrameLayout.LayoutParams) iconLp;
+                    iflp.width = iconSize;
+                    iflp.height = iconSize;
+                    iflp.topMargin = Math.round(avatarWidth * 0.05f);
+                    nodeBinding.ivPlayerAvatarPin.setLayoutParams(iflp);
+                }
+
+                // Show player's current selected avatar inside the pin
+                String currentAvatar = prefs.getPlayerAvatar();
+                nodeBinding.ivPlayerAvatarPin.setImageResource(AvatarManager.getAvatarDrawable(currentAvatar));
 
                 ViewGroup.LayoutParams starsLp = nodeBinding.layoutNodeStars.getLayoutParams();
                 if (starsLp instanceof FrameLayout.LayoutParams) {
@@ -178,13 +194,22 @@ public class WorldMapPagerAdapter extends RecyclerView.Adapter<WorldMapPagerAdap
                 if (isCurrent) {
                     nodeBinding.layoutNodeOrb.setBackgroundResource(R.drawable.btn_level_active);
                     nodeBinding.tvNodeLevelNumber.setTextColor(Color.WHITE);
-                    nodeBinding.ivPlayerAvatarPin.setVisibility(View.VISIBLE);
+                    nodeBinding.layoutPlayerAvatarPin.setVisibility(View.VISIBLE);
                     nodeBinding.layoutNodeStars.setVisibility(View.GONE);
+
+                    // Ensure current active node & avatar pin are drawn ON TOP of all other level buttons
+                    float elev = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24f, context.getResources().getDisplayMetrics());
+                    nodeBinding.getRoot().setElevation(elev);
+                    nodeBinding.getRoot().setTranslationZ(elev);
+                    nodeBinding.layoutPlayerAvatarPin.setElevation(elev + 8f);
+                    nodeBinding.layoutPlayerAvatarPin.setTranslationZ(elev + 8f);
                 } else if (isCompleted) {
                     nodeBinding.layoutNodeOrb.setBackgroundResource(R.drawable.btn_level_completed);
                     nodeBinding.tvNodeLevelNumber.setTextColor(Color.WHITE);
-                    nodeBinding.ivPlayerAvatarPin.setVisibility(View.GONE);
+                    nodeBinding.layoutPlayerAvatarPin.setVisibility(View.GONE);
                     nodeBinding.layoutNodeStars.setVisibility(View.VISIBLE);
+                    nodeBinding.getRoot().setElevation(0f);
+                    nodeBinding.getRoot().setTranslationZ(0f);
 
                     nodeBinding.ivNodeStar1.setImageResource(stars >= 1 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
                     nodeBinding.ivNodeStar2.setImageResource(stars >= 2 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
@@ -192,8 +217,10 @@ public class WorldMapPagerAdapter extends RecyclerView.Adapter<WorldMapPagerAdap
                 } else {
                     nodeBinding.layoutNodeOrb.setBackgroundResource(R.drawable.btn_level_locked);
                     nodeBinding.tvNodeLevelNumber.setTextColor(Color.WHITE);
-                    nodeBinding.ivPlayerAvatarPin.setVisibility(View.GONE);
+                    nodeBinding.layoutPlayerAvatarPin.setVisibility(View.GONE);
                     nodeBinding.layoutNodeStars.setVisibility(View.GONE);
+                    nodeBinding.getRoot().setElevation(0f);
+                    nodeBinding.getRoot().setTranslationZ(0f);
                 }
 
                 nodeBinding.getRoot().setOnClickListener(v -> {
@@ -209,6 +236,15 @@ public class WorldMapPagerAdapter extends RecyclerView.Adapter<WorldMapPagerAdap
                 nodeLp.leftMargin = posX;
                 nodeLp.topMargin = posY;
                 binding.layoutNodesOverlay.addView(nodeBinding.getRoot(), nodeLp);
+            }
+
+            // Ensure current active level node with the avatar pin is brought to the front of layoutNodesOverlay
+            for (int n = 0; n < binding.layoutNodesOverlay.getChildCount(); n++) {
+                View child = binding.layoutNodesOverlay.getChildAt(n);
+                if (child.getElevation() > 0) {
+                    child.bringToFront();
+                    break;
+                }
             }
 
             // Add Path Gift Chests with perspective scaling

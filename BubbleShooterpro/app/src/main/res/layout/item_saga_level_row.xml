@@ -68,14 +68,34 @@
     </LinearLayout>
 
     <!-- Top Marker: Player Avatar Pin (Floats right above orb on active level) -->
-    <ImageView
-        android:id="@+id/ivPlayerAvatarPin"
+    <FrameLayout
+        android:id="@+id/layoutPlayerAvatarPin"
         android:layout_width="@dimen/dp_38"
-        android:layout_height="@dimen/dp_38"
+        android:layout_height="@dimen/dp_46"
         android:layout_gravity="top|center_horizontal"
-        android:layout_marginTop="-30dp"
-        android:src="@drawable/ic_avatar_pin"
-        android:visibility="gone"
-        android:contentDescription="Player Location" />
+        android:layout_marginTop="-36dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:visibility="gone">
+
+        <!-- Golden Pin Base Frame with Bottom Pointer -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_map_pin_frame"
+            android:scaleType="fitXY"
+            android:contentDescription="@null" />
+
+        <!-- Player Avatar Image -->
+        <ImageView
+            android:id="@+id/ivPlayerAvatarPin"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="@dimen/dp_2"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_avatar_hero"
+            android:contentDescription="Player Avatar" />
+    </FrameLayout>
 
 </FrameLayout>
