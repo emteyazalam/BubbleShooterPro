@@ -77,35 +77,6 @@ public class LevelObjective {
         }
     }
 
-    public String getDescription() {
-        switch (type) {
-            case CLEAR_ALL:
-                return "Clear all bubbles!";
-            case DROP_COUNT:
-                return "Drop " + targetValue + " bubbles (" + currentProgress + "/" + targetValue + ")";
-            case SCORE_TARGET:
-                return "Score " + targetValue + " points!";
-            case POP_COLOR:
-                return "Pop " + targetValue + " " + targetColor.name() + " bubbles (" + currentProgress + "/" + targetValue + ")";
-            default:
-                return "Complete the puzzle!";
-        }
-    }
-
-    public String getInitialDescription() {
-        switch (type) {
-            case CLEAR_ALL:
-                return "Clear all bubbles with limited shots!";
-            case DROP_COUNT:
-                return "Drop " + targetValue + " bubbles to win!";
-            case SCORE_TARGET:
-                return "Score " + String.format("%,d", targetValue) + " points to win!";
-            case POP_COLOR:
-                return "Pop " + targetValue + " " + targetColor.name() + " bubbles to win!";
-            default:
-                return "Complete the puzzle!";
-        }
-    }
 
     public String getBadgeText(int currentScore, int remainingBubbles) {
         switch (type) {

@@ -243,12 +243,7 @@ public class MainActivity extends AppCompatActivity {
         previewBinding.ivPreviewStar2.setImageResource(stars >= 2 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
         previewBinding.ivPreviewStar3.setImageResource(stars >= 3 ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
 
-        Level levelData = levelManager.getLevel(level);
-        if (levelData != null && levelData.getObjective() != null) {
-            previewBinding.tvPreviewObjective.setText(levelData.getObjective().getInitialDescription());
-        } else {
-            previewBinding.tvPreviewObjective.setText("Clear all bubbles with limited shots!");
-        }
+
 
         previewBinding.btnToggleBoosterRainbow.setOnClickListener(v -> {
             soundManager.playClick();

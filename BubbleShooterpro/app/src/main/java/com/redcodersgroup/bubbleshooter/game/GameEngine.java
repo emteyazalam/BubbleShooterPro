@@ -344,11 +344,6 @@ public class GameEngine {
             notifyObjectiveUpdated();
         }
 
-        // Display brief floating introductory objective announcement on board
-        if (currentLevel != null && currentLevel.getObjective() != null) {
-            String initialDesc = currentLevel.getObjective().getInitialDescription();
-            floatingTexts.add(new FloatingText("🎯 " + initialDesc, (boardLeft + boardRight) * 0.5f, boardTop + bubbleRadius * 3.5f, Color.parseColor("#FFF176"), 44f, 2.4f));
-        }
 
         updateTrajectory();
     }
